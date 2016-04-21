@@ -19,6 +19,10 @@ Download instructions: [Groovy-lang.org](http://groovy-lang.org/download.html). 
 Download the community edition: [IntelliJ](https://www.jetbrains.com/idea/#chooseYourEdition).  Before you can 
 open or create a project, follow these instructions [Set up IntelliJ](http://stackoverflow.com/questions/31215452/intellij-idea-importing-gradle-project-getting-java-home-not-defined-yet).
 
+### Drivers
+
+Chrome drivers are here [Chromedriver](http://chromedriver.storage.googleapis.com/index.html?path=2.14/)
+
 # Open this project
 
 Clone this project and open it in IntelliJ
