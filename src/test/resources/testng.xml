@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<!--suppress ALL -->
+<suite name="OMICIA" parallel="classes" thread-count='2' preserve-order="true">
+
+    <listeners>
+        <listener class-name="Utilities.Class.BaseSpec" />
+        <!--  <listener class-name="org.uncommons.reportng.HTMLReporter" />
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+        <listener class-name="org.testng.reporters.EmailableReporter2" />-->
+    </listeners>
+
+    <test name="POC Demo">
+        <classes>
+            <class name="Specs.OMICIA.OmiciaPOC" />
+        </classes>
+    </test>
+</suite>
