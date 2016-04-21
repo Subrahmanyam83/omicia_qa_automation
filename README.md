@@ -20,9 +20,14 @@ Download the community edition: [IntelliJ](https://www.jetbrains.com/idea/#choos
 open or create a project, follow these instructions [Set up IntelliJ](http://stackoverflow.com/questions/31215452/intellij-idea-importing-gradle-project-getting-java-home-not-defined-yet).
 
 ### Drivers
-
+#### Chrome
 Chrome drivers are here [Chromedriver](http://chromedriver.storage.googleapis.com/index.html?path=2.14/)
+#### Safari
+Safari drivers are here [SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver).
+There are known issues that prevent tests of upload scenarios.
 
-# Open this project
+# Open this project in IntelliJ
 
 Clone this project and open it in IntelliJ
+
+# Run Tests
