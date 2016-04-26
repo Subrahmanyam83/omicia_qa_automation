@@ -11,12 +11,13 @@ import org.openqa.selenium.support.events.WebDriverEventListener;
  * Created by in02183 on 2/8/2016.
  */
 public class WebDriverListener implements WebDriverEventListener {
+
     /**
      * Called before {@link WebDriver#get get(String url)} respectively
      * {@link WebDriver.Navigation#to navigate().to(String url)}.
      *
-     * @param url
-     * @param driver
+     * @param url    URL
+     * @param driver WebDriver
      */
     @Override
     public void beforeNavigateTo(String url, WebDriver driver) {
@@ -28,8 +29,8 @@ public class WebDriverListener implements WebDriverEventListener {
      * {@link WebDriver.Navigation#to navigate().to(String url)}. Not called, if an
      * exception is thrown.
      *
-     * @param url
-     * @param driver
+     * @param url    URL
+     * @param driver WebDriver
      */
     @Override
     public void afterNavigateTo(String url, WebDriver driver) {
@@ -39,7 +40,7 @@ public class WebDriverListener implements WebDriverEventListener {
     /**
      * Called before {@link WebDriver.Navigation#back navigate().back()}.
      *
-     * @param driver
+     * @param driver WebDriver
      */
     @Override
     public void beforeNavigateBack(WebDriver driver) {
@@ -50,7 +51,7 @@ public class WebDriverListener implements WebDriverEventListener {
      * Called after {@link WebDriver.Navigation navigate().back()}. Not called, if an
      * exception is thrown.
      *
-     * @param driver
+     * @param driver WebDriver
      */
     @Override
     public void afterNavigateBack(WebDriver driver) {
@@ -60,7 +61,7 @@ public class WebDriverListener implements WebDriverEventListener {
     /**
      * Called before {@link WebDriver.Navigation#forward navigate().forward()}.
      *
-     * @param driver
+     * @param driver WebDriver
      */
     @Override
     public void beforeNavigateForward(WebDriver driver) {
@@ -71,10 +72,31 @@ public class WebDriverListener implements WebDriverEventListener {
      * Called after {@link WebDriver.Navigation#forward navigate().forward()}. Not called,
      * if an exception is thrown.
      *
-     * @param driver
+     * @param driver WebDriver
      */
     @Override
     public void afterNavigateForward(WebDriver driver) {
+
+    }
+
+    /**
+     * Called before {@link WebDriver.Navigation#refresh navigate().refresh()}.
+     *
+     * @param driver WebDriver
+     */
+    @Override
+    public void beforeNavigateRefresh(WebDriver driver) {
+
+    }
+
+    /**
+     * Called after {@link WebDriver.Navigation#refresh navigate().refresh()}. Not called,
+     * if an exception is thrown.
+     *
+     * @param driver WebDriver
+     */
+    @Override
+    public void afterNavigateRefresh(WebDriver driver) {
 
     }
 
@@ -83,18 +105,13 @@ public class WebDriverListener implements WebDriverEventListener {
      * {@link WebDriver#findElements WebDriver.findElements(...)}, or {@link WebElement#findElement
      * WebElement.findElement(...)}, or {@link WebElement#findElement WebElement.findElements(...)}.
      *
-     * @param by
+     * @param by      locator being used
      * @param element will be <code>null</code>, if a find method of <code>WebDriver</code> is called.
-     * @param driver
+     * @param driver  WebDriver
      */
     @Override
     public void beforeFindBy(By by, WebElement element, WebDriver driver) {
-        WebElement webElement = driver.findElement(by);
 
-        /*Highlight the Element on which the Find.By action is taking place*/
-        if (driver instanceof JavascriptExecutor) {
-            ((JavascriptExecutor)driver).executeScript("arguments[0].style.border='4px solid yellow'", webElement);
-        }
     }
 
     /**
@@ -102,9 +119,9 @@ public class WebDriverListener implements WebDriverEventListener {
      * {@link WebDriver#findElements WebDriver.findElements(...)}, or {@link WebElement#findElement
      * WebElement.findElement(...)}, or {@link WebElement#findElement WebElement.findElements(...)}.
      *
-     * @param by
+     * @param by      locator being used
      * @param element will be <code>null</code>, if a find method of <code>WebDriver</code> is called.
-     * @param driver
+     * @param driver  WebDriver
      */
     @Override
     public void afterFindBy(By by, WebElement element, WebDriver driver) {
@@ -114,8 +131,8 @@ public class WebDriverListener implements WebDriverEventListener {
     /**
      * Called before {@link WebElement#click WebElement.click()}.
      *
-     * @param element
-     * @param driver
+     * @param element the WebElement being used for the action
+     * @param driver  WebDriver
      */
     @Override
     public void beforeClickOn(WebElement element, WebDriver driver) {
@@ -126,23 +143,20 @@ public class WebDriverListener implements WebDriverEventListener {
      * Called after {@link WebElement#click WebElement.click()}. Not called, if an exception is
      * thrown.
      *
-     * @param element
-     * @param driver
+     * @param element the WebElement being used for the action
+     * @param driver  WebDriver
      */
     @Override
     public void afterClickOn(WebElement element, WebDriver driver) {
-   /*Highlight the Element on which the Find.By action is taking place*/
-        if (driver instanceof JavascriptExecutor) {
-            ((JavascriptExecutor)driver).executeScript("arguments[0].style.border='4px solid yellow'", element);
-        }
+
     }
 
     /**
      * Called before {@link WebElement#clear WebElement.clear()}, {@link WebElement#sendKeys
      * WebElement.sendKeys(...)}.
      *
-     * @param element
-     * @param driver
+     * @param element the WebElement being used for the action
+     * @param driver  WebDriver
      */
     @Override
     public void beforeChangeValueOf(WebElement element, WebDriver driver) {
@@ -153,8 +167,8 @@ public class WebDriverListener implements WebDriverEventListener {
      * Called after {@link WebElement#clear WebElement.clear()}, {@link WebElement#sendKeys
      * WebElement.sendKeys(...)}}. Not called, if an exception is thrown.
      *
-     * @param element
-     * @param driver
+     * @param element the WebElement being used for the action
+     * @param driver  WebDriver
      */
     @Override
     public void afterChangeValueOf(WebElement element, WebDriver driver) {
@@ -164,8 +178,8 @@ public class WebDriverListener implements WebDriverEventListener {
     /**
      * Called before {@link RemoteWebDriver#executeScript(String, Object[]) }
      *
-     * @param script
-     * @param driver
+     * @param script the script to be executed
+     * @param driver WebDriver
      */
     @Override
     public void beforeScript(String script, WebDriver driver) {
@@ -173,10 +187,11 @@ public class WebDriverListener implements WebDriverEventListener {
     }
 
     /**
-     * Called after {@link RemoteWebDriver#executeScript(String, Object[]) }. Not called if an exception is thrown
+     * Called after {@link RemoteWebDriver#executeScript(String, Object[]) }.
+     * Not called if an exception is thrown
      *
-     * @param script
-     * @param driver
+     * @param script the script that was executed
+     * @param driver WebDriver
      */
     @Override
     public void afterScript(String script, WebDriver driver) {
@@ -186,8 +201,8 @@ public class WebDriverListener implements WebDriverEventListener {
     /**
      * Called whenever an exception would be thrown.
      *
-     * @param throwable
-     * @param driver
+     * @param throwable the exception that will be thrown
+     * @param driver    WebDriver
      */
     @Override
     public void onException(Throwable throwable, WebDriver driver) {

@@ -26,7 +26,7 @@ class BasePage extends Page implements Constants{
 
     public void acceptAlert(String alertName){
         driver.switchTo().alert().accept();
-        getEreportTest().log(PASS,"ALERT ACCEPT: "+ alertName);
+        getEreportTest().log(PASS,"Accept on Alert: "+ alertName+" was successful");
     }
 
     public void waitForElement(SimplePageContent navigator, String elementName){
@@ -35,27 +35,28 @@ class BasePage extends Page implements Constants{
 
     public void type(Navigator navigator, String value,String elementName){
         waitForElement(navigator,elementName)
+        click(navigator,"Text Field: "+elementName)
         navigator << value;
-        getEreportTest().log(PASS,"TYPE: "+elementName);
+        getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }
 
     public void click(Navigator navigator,String elementName){
         waitForElement(navigator,elementName)
         navigator.click()
-        getEreportTest().log(PASS,"CLICK: "+elementName);
+        getEreportTest().log(PASS,"Clicked on: "+elementName);
     }
 
     public void sendKeys(Navigator navigator,String value, String elementName){
         waitForElement(navigator,elementName)
         navigator.firstElement().sendKeys(value);
-        getEreportTest().log(PASS,"SENDKEYS: "+elementName);
+        getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }
 
     public boolean waitTillElementIsNotPresent(Navigator navigator,String elementName) throws Throwable{
         try{
             for(int i=0;i<30;i++) {
                 if (!(navigator.isDisplayed())) {
-                    getEreportTest().log(PASS,"ELEMENT NOT PRESENT: "+elementName);
+                    getEreportTest().log(PASS,"Wait on the Element Not Present successful on the element: "+elementName);
                     return true;
                 } else {
                     Thread.sleep(1000L);
@@ -65,5 +66,12 @@ class BasePage extends Page implements Constants{
         catch (Exception e){
         }
         return false;
+    }
+
+    public void scrollToCenter(Navigator navigator)
+    {
+            int center = driver.manage().window().getSize().getHeight()/2
+            int locatorHeight = navigator.firstElement().getLocation().getY() - center
+            js.exec("window.scrollTo(0,$locatorHeight);")
     }
 }

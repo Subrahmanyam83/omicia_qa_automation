@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/groovy" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="groovy-2.4.5" level="application" />
+    <orderEntry type="library" name="Gradle: org.codehaus.geb:geb-testng:0.7.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.relevantcodes:extentreports:2.40.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-api:2.45.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-remote-driver:2.45.0" level="project" />
+    <orderEntry type="library" name="Gradle: log4j:log4j:1.2.17" level="project" />
+    <orderEntry type="library" name="Gradle: org.gebish:geb-core:0.12.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-support:2.53.0" level="project" />
+  </component>
+</module>
