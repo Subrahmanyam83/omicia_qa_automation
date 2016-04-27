@@ -32,7 +32,7 @@ class TearDownProcessSpec extends BaseSpec{
             for (String projectName in projectNames) {
                 clickProjectInProjectsHomePage(projectName);
                 at ProjectsPage
-                deleteProject();
+                deleteProjects();
                 at ProjectsHomePage
             }
         }
