@@ -4,20 +4,14 @@ import Utilities.Data.ExcelReader
 import Utilities.Reports.Extent.ExtentReportFactory
 import com.relevantcodes.extentreports.ExtentTest
 import com.relevantcodes.extentreports.LogStatus
-import geb.navigator.Navigator
 import geb.testng.GebTest
 import org.apache.log4j.Logger
-import org.openqa.selenium.remote.CapabilityType
-import org.openqa.selenium.remote.DesiredCapabilities
-import org.openqa.selenium.remote.LocalFileDetector
-import org.openqa.selenium.remote.RemoteWebDriver
 import org.testng.ITestContext
 import org.testng.ITestListener
 import org.testng.ITestResult
 import org.testng.annotations.*
 
 import java.lang.reflect.Method
-import java.util.concurrent.TimeUnit
 
 /**
  * Created by in02183 on 2/3/2016.
@@ -25,7 +19,9 @@ import java.util.concurrent.TimeUnit
 class BaseSpec extends GebTest implements ITestListener,Constants{
     public log;
     String rootDir = new File(".").getCanonicalPath() /*Absolute Path*/
-    public static ExcelReader xlsrdr = new ExcelReader(System.getProperty("user.dir") + "\\src\\main\\resources\\TestData.xls","TestData");
+    public String sep = File.separator;
+
+    public ExcelReader xlsrdr = new ExcelReader(System.getProperty("user.dir") + "/src/main/resources/TestData.xls".replace("/", sep), "TestData");
     public static Map sysInfo = new HashMap();
     ExtentTest etest;
     public static ThreadLocal extentTest = new ThreadLocal<ExtentTest>();
@@ -44,7 +40,7 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
         convertPropertiesToSystemProperties();
     }
 
-    /*Run before every Class or Spec*/
+    /*Runs before every Class or Spec*/
     @BeforeClass
     def beforeClass(){
         log = Logger.getLogger(this.class);
@@ -78,9 +74,7 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     @AfterSuite
     def afterSuite(){
         ExtentReportFactory.closeReport();
-        String command = "cmd /c "+rootDir+"/src/main/groovy/Utilities/Reports/Allure/bin/generate-allure-report.bat".replace('/', File.separator);
-        Runtime.getRuntime().exec(command);
-        //changeExtentReportHtml();
+        changeExtentReportHtml();
     }
 
     def changeExtentReportHtml(){
