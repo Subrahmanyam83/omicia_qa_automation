@@ -13,7 +13,7 @@
 
     <test name="POC Demo">
         <classes>
-            <class name="Specs.OMICIA.OmiciaPOC" />
+            <class name="Specs.POC.OmiciaPOCSpec"/>
         </classes>
     </test>
 </suite>

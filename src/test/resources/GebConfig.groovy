@@ -48,7 +48,8 @@ driver = {
     return browserDriver*/
 
     /************* Use This for Safari******************/
-    /*System.setProperty("webdriver.safari.noinstall", "true");
+  /*  System.setProperty("webdriver.safari.noinstall", "true");
+    System.setProperty("geb.env","safari")
     capabilities = DesiredCapabilities.safari();
     capabilities.setPlatform(Platform.WINDOWS);
     browserDriver = (parallel.equalsIgnoreCase("no")) ? new SafariDriver(capabilities) : new RemoteWebDriver(new URL(gridUrl), capabilities);
@@ -70,6 +71,9 @@ waiting {
         }
         mediumwait {
             timeout = 45
+        }
+        shortwait{
+            timeout = 10
         }
         averagewait {
             timeout = 15
@@ -147,7 +151,7 @@ environments {
             capabilities.setPlatform(Platform.WINDOWS);
 
             browserDriver = (parallel.equalsIgnoreCase("no")) ? new SafariDriver(capabilities) : new RemoteWebDriver(new URL(gridUrl), capabilities);
-            Thread.sleep(5000);
+            Thread.sleep(10000);
             return browserDriver
         }
     }

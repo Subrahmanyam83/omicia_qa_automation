@@ -1,0 +1,101 @@
+##fileformat=VCFv4.1
+##fileDate=20120126
+##source=/illumina/development/casava/CASAVA-1.8_BF01187/libexec/CASAVA-1.9.0a1_110909/makeConsensusVcf.pl --ref=/illumina/scratch/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/Chromosomes/chr10 --snps=/illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/Parsed_25-01-12/chr10/snps.txt --indels=/illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/Parsed_25-01-12/chr10/indels.txt --sites=/illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/Parsed_25-01-12/chr10/0000/sites.txt.gz --sites=/illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/Parsed_25-01-12/chr10/0001/sites.txt.gz --sites=/illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/Parsed_25-01-12/chr10/0002/sites.txt.gz --indels=/illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/Parsed_25-01-12/chr10/0000/indels.removed.txt --indels=/illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/Parsed_25-01-12/chr10/0001/indels.removed.txt --indels=/illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/Parsed_25-01-12/chr10/0002/indels.removed.txt
+##sitesMaxDepth_chr10=121.296617413957
+##indelsMaxDepth_chr10=123.655927166378
+##INFO=<ID=VARTYPE_SNV,Number=0,Type=Flag,Description="“Locus desribes a single nucleotide variant”">
+##INFO=<ID=VARTYPE_INS,Number=0,Type=Flag,Description="“Locus describes at least one simple insertion allele”">
+##INFO=<ID=VARTYPE_DEL,Number=0,Type=Flag,Description="“Local describes at least one simple deletion allele”">
+##INFO=<ID=VARTYPE_COMPLEX,Number=0,Type=Flag,Description="“Locus desribes at least one complex indel allele expressed as an insertion/deletion combination">
+##INFO=<ID=VARTYPE_BREAKEND,Number=0,Type=Flag,Description="“Locus desribes at least one open breakend allele">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="“Type of structural variant”">
+##INFO=<ID=CIGAR,Number=A,Type=String,Description="CIGAR alignment for each alternate allele at loci containing indels other than breakends.">
+##INFO=<ID=RU,Number=A,Type=String,Description="Smallest repeating sequence unit extended or contracted in the indel allele relative to the reference. RUs are not reported if longer than 20 bases or if both REFREP and IDREP are less than 2.">
+##INFO=<ID=REFREP,Number=A,Type=String,Description="Number of times RU is repeated in reference.">
+##INFO=<ID=IDREP,Number=A,Type=String,Description="Number of times RU is repeated in indel allele.">
+##FILTER=<ID=QGT20,Description="Locus genotype quality is less than 20 or not computable.">
+##FILTER=<ID=FILT30,Description="More than 30% of bases at a site are filtered out.">
+##FILTER=<ID=SitesMaxDepth,Description="Site occurs at a filtered depth greater than 'sitesMaxDepth'.">
+##FILTER=<ID=IndelsMaxDepth,Description="Indel occurs at a depth greater than 'indelsMaxDepth'.">
+##FILTER=<ID=REPEAT8,Description="Indel occurs in a homopolymer or dinucleotide track with a reference repeat greater than 8.">
+##FILTER=<ID=IndelConflict,Description="Conflicting indel/breakend evidence in region.">
+##FILTER=<ID=SiteConflict,Description="Site conflicts with indel/breakend evidence in region.">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=DPU,Number=1,Type=Integer,Description="Basecalls used to genotype site after filtration">
+##FORMAT=<ID=DPF,Number=1,Type=Integer,Description="Basecalls filtered from input prior to site genotyping">
+##FORMAT=<ID=AU,Number=4,Type=Integer,Description="Used A,C,G,T basecalls greater than Q20">
+##FORMAT=<ID=DPI,Number=1,Type=Integer,Description="Basecall depth associated with indel, taken from the preceeding site.">
+##INFO=<ID=FID,Number=1,Type=String,Description="Ensembl Feature ID">
+##INFO=<ID=FT,Number=1,Type=String,Description="Feature Type">
+##INFO=<ID=ANNO,Number=1,Type=String,Description="Biological Location">
+##INFO=<ID=cDNApos,Number=1,Type=Integer,Description="cDNA position">
+##INFO=<ID=CDSpos,Number=1,Type=Integer,Description="CDS position">
+##INFO=<ID=AA,Number=1,Type=String,Description="AA change">
+##INFO=<ID=HGNC,Number=1,Type=String,Description="HGNC">
+##INFO=<ID=SIFT,Number=1,Type=String,Description="SIFT">
+##INFO=<ID=PolyPhen,Number=1,Type=String,Description="PolyPhen">
+##INFO=<ID=Condel,Number=1,Type=String,Description="Condel">
+##INFO=<ID=Matrix,Number=1,Type=String,Description="Matrix">
+##INFO=<ID=HIGH_INF_POS,Number=1,Type=String,Description="High Informative Position">
+##source_20120026.1=/illumina/development/vcftools/vcftools_0.1.6/bin/vcf-annotate -a /illumina/builds/thunderbolt/500ng_H1_CT8244.casava18/genome/VEP/chr10.30059.vep.clean.gz -d key=INFO,ID=FID,Number=1,Type=String,Description=Ensembl Feature ID -d key=INFO,ID=FT,Number=1,Type=String,Description=Feature Type -d key=INFO,ID=ANNO,Number=1,Type=String,Description=Biological Location -d key=INFO,ID=cDNApos,Number=1,Type=Integer,Description=cDNA position -d key=INFO,ID=CDSpos,Number=1,Type=Integer,Description=CDS position -d key=INFO,ID=AA,Number=1,Type=String,Description=AA change -d key=INFO,ID=HGNC,Number=1,Type=String,Description=HGNC -d key=INFO,ID=SIFT,Number=1,Type=String,Description=SIFT -d key=INFO,ID=PolyPhen,Number=1,Type=String,Description=PolyPhen -d key=INFO,ID=Condel,Number=1,Type=String,Description=Condel -d key=INFO,ID=Matrix,Number=1,Type=String,Description=Matrix -d key=INFO,ID=HIGH_INF_POS,Number=1,Type=String,Description=High Informative Position -c CHROM,FROM,TO,INFO/FID,INFO/FT,INFO/ANNO,INFO/CDSpos,INFO/AA,INFO/HGNC,INFO/SIFT,INFO/PolyPhen,INFO/Condel,INFO/Matrix,INFO/HIGH_INF_POS
+##INFO=<ID=GMAF,Number=.,Type=Float,Description="Global Minor Allele Frequency [0, 0.5]; global population is 1000GenomesProject phase 1 genotype data from 629 individuals, released in the 08-04-2010 dataset">
+##INFO=<ID=SCS,Number=1,Type=Integer,Description="SNP Clinical Significance, 0 - unknown, 1 - untested, 2 - non-pathogenic, 3 - probable-non-pathogenic, 4 - probable-pathogenic, 5 - pathogenic, 6 - drug-response, 7 - histocompatibility, 255 - other">
+##source_20120026.2=/illumina/development/vcftools/vcftools_0.1.6/bin/vcf-annotate -a /illumina/scratch/rosetta/annotations/dbSNP/dbsnp_v135.dat.gz -d key=INFO,ID=GMAF,Number=.,Type=Float,Description=Global Minor Allele Frequency [0, 0.5]; global population is 1000GenomesProject phase 1 genotype data from 629 individuals, released in the 08-04-2010 dataset -d key=INFO,ID=SCS,Number=1,Type=Integer,Description=SNP Clinical Significance, 0 - unknown, 1 - untested, 2 - non-pathogenic, 3 - probable-non-pathogenic, 4 - probable-pathogenic, 5 - pathogenic, 6 - drug-response, 7 - histocompatibility, 255 - other -c CHROM,FROM,TO,ID,INFO/GMAF,INFO/SCS
+##INFO=<ID=ASW-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=ASW-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=CHB-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=CHB-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=CHD-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=CHD-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=GIH-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=GIH-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=LWK-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=LWK-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=MEX-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=MEX-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=MKK-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=MKK-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=TSI-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=TSI-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=CEU-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=CEU-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=HCB-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=HCB-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=JPT-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=JPT-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##INFO=<ID=YRI-AF,Number=.,Type=Float,Description="population specific allele frequency">
+##INFO=<ID=YRI-NS,Number=1,Type=Integer,Description="Number of Samples With Data">
+##source_20120026.3=/illumina/development/vcftools/vcftools_0.1.6/bin/vcf-annotate -a /illumina/scratch/rosetta/annotations/dbSNP/kgpop_v135.dat.gz -d key=INFO,ID=ASW-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=ASW-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=CHB-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=CHB-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=CHD-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=CHD-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=GIH-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=GIH-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=LWK-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=LWK-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=MEX-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=MEX-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=MKK-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=MKK-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=TSI-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=TSI-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=CEU-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=CEU-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=HCB-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=HCB-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=JPT-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=JPT-NS,Number=1,Type=Integer,Description=Number of Samples With Data -d key=INFO,ID=YRI-AF,Number=.,Type=Float,Description=population specific allele frequency -d key=INFO,ID=YRI-NS,Number=1,Type=Integer,Description=Number of Samples With Data -c CHROM,FROM,TO,INFO/ASW-AF,INFO/ASW-NS,INFO/CHB-AF,INFO/CHB-NS,INFO/CHD-AF,INFO/CHD-NS,INFO/GIH-AF,INFO/GIH-NS,INFO/LWK-AF,INFO/LWK-NS,INFO/MEX-AF,INFO/MEX-NS,INFO/MKK-AF,INFO/MKK-NS,INFO/TSI-AF,INFO/TSI-NS,INFO/CEU-AF,INFO/CEU-NS,INFO/HCB-AF,INFO/HCB-NS,INFO/JPT-AF,INFO/JPT-NS,INFO/YRI-AF,INFO/YRI-NS
+##INFO=<ID=hgmd_gene,Number=1,Type=String,Description="Gene with variant in HGMD">
+##source_20120026.4=/illumina/development/vcftools/vcftools_0.1.6/bin/vcf-annotate -a /illumina/scratch/rosetta/annotations/HGMD/hgmd_geneID_list.coords.dat.gz -d key=INFO,ID=hgmd_gene,Number=1,Type=String,Description=Gene with variant in HGMD -c CHROM,FROM,TO,INFO/hgmd_gene
+##INFO=<ID=hgmd_id,Number=1,Type=String,Description="HGMD Variant ID">
+##INFO=<ID=hgmd_disease,Number=1,Type=String,Description="HGMD Disease">
+##INFO=<ID=hgmd_geno,Number=1,Type=String,Description="HGMD ref/var">
+##source_20120026.5=/illumina/development/vcftools/vcftools_0.1.6/bin/vcf-annotate -a /illumina/scratch/rosetta/annotations/HGMD/hgmd_variants.dat.gz -d key=INFO,ID=hgmd_id,Number=1,Type=String,Description=HGMD Variant ID -d key=INFO,ID=hgmd_disease,Number=1,Type=String,Description=HGMD Disease -d key=INFO,ID=hgmd_geno,Number=1,Type=String,Description=HGMD ref/var -c CHROM,FROM,TO,INFO/hgmd_id,INFO/hgmd_disease,INFO/hgmd_geno
+##INFO=<ID=gwas_sig,Number=1,Type=String,Description="GWAS significance exponent">
+##INFO=<ID=gwas_rr,Number=1,Type=String,Description="GWAS relative risk">
+##INFO=<ID=gwas_raf,Number=1,Type=String,Description="GWAS risk allele frequency">
+##INFO=<ID=gwas_id,Number=1,Type=String,Description="GWAS associated variant ID">
+##INFO=<ID=gwas_allele,Number=1,Type=String,Description="GWAS associated allele">
+##INFO=<ID=gwas_association,Number=1,Type=String,Description="GWAS description">
+##source_20120026.6=/illumina/development/vcftools/vcftools_0.1.6/bin/vcf-annotate -a /illumina/scratch/rosetta/annotations/GWAS/gwas.dat.gz -d key=INFO,ID=gwas_sig,Number=1,Type=String,Description=GWAS significance exponent -d key=INFO,ID=gwas_rr,Number=1,Type=String,Description=GWAS relative risk -d key=INFO,ID=gwas_raf,Number=1,Type=String,Description=GWAS risk allele frequency -d key=INFO,ID=gwas_id,Number=1,Type=String,Description=GWAS associated variant ID -d key=INFO,ID=gwas_allele,Number=1,Type=String,Description=GWAS associated allele -d key=INFO,ID=gwas_association,Number=1,Type=String,Description=GWAS description -c CHROM,FROM,TO,INFO/gwas_sig,INFO/gwas_rr,INFO/gwas_raf,INFO/gwas_id,INFO/gwas_allele,INFO/gwas_association
+##INFO=<ID=phastCons,Number=0,Type=Flag,Description="overlaps a phastCons element">
+##source_20120026.7=/illumina/development/vcftools/vcftools_0.1.6/bin/vcf-annotate -a /illumina/scratch/rosetta/annotations/CONS/phastCons_placental_elements.dat.gz -d key=INFO,ID=phastCons,Number=0,Type=Flag,Description=overlaps a phastCons element -c CHROM,FROM,TO,INFO/phastCons
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SAMPLE
+chr1	852964	rs4970461	T	G	82	PASS	VARTYPE_SNV;ANNO=5KB_downstream_variant;FT=Transcript;FID=ENST00000398216;GMAF=0.2488;phastCons	GT:GQ:DPU:DPF:AU	0/1:82:37:8:0,0,13,24
+chr19	45407788	rs7259620	G	A	472	PASS	VARTYPE_SNV;ANNO=2KB_upstream_variant;FT=Transcript;FID=ENST00000252486;HGNC=APOE;GMAF=0.4062	GT:GQ:DPU:DPF:AU	1/1:99:34:1:34,0,0,0
+chr19	45408836	rs405509	T	G	511	PASS	VARTYPE_SNV;ANNO=regulatory_region_variant;FT=RegulatoryFeature;FID=ENSR00000347288;GMAF=0.4921;MKK-NS=143;CHD-AF=0.341;CHD-NS=85;CEU-AF=0.487;JPT-AF=0.256;LWK-NS=90;TSI-AF=0.517;YRI-NS=113;ASW-NS=49;MEX-AF=0.520;TSI-NS=88;HCB-AF=0.337;JPT-NS=86;YRI-AF=0.792;HCB-NS=43;CHB-AF=0.280;CEU-NS=112;LWK-AF=0.694;ASW-AF=0.704;CHB-NS=41;GIH-NS=88;MKK-AF=0.692;GIH-AF=0.443;MEX-NS=50	GT:GQ:DPU:DPF:AU	1/1:114:39:1:0,0,39,0
+chr19	45409167	rs440446	C	G	512	PASS	VARTYPE_SNV;ANNO=regulatory_region_variant;FT=RegulatoryFeature;FID=ENSR00000347288;GMAF=0.3800;hgmd_gene=APOE	GT:GQ:DPU:DPF:AU	1/1:113:40:1:0,0,40,0
+chr19	45410444	rs769450	G	A	82	PASS	VARTYPE_SNV;ANNO=intron_variant;FT=Transcript;FID=ENST00000252486;HGNC=APOE;GMAF=0.3339;MKK-NS=143;CHD-AF=0.253;CHD-NS=85;CEU-AF=0.375;JPT-AF=0.198;LWK-NS=90;TSI-AF=0.438;YRI-NS=113;ASW-NS=49;MEX-AF=0.360;TSI-NS=88;HCB-AF=0.209;JPT-NS=86;YRI-AF=0.420;HCB-NS=43;CHB-AF=0.183;CEU-NS=112;LWK-AF=0.183;ASW-AF=0.398;CHB-NS=41;GIH-NS=88;MKK-AF=0.248;GIH-AF=0.364;MEX-NS=50;hgmd_gene=APOE	GT:GQ:DPU:DPF:AU	0/1:82:26:1:8,0,18,0
+chr19	45413224	rs148331764	TG	T	421	REPEAT8	VARTYPE_DEL;CIGAR=1M1D;RU=G;REFREP=11;IDREP=10	GT:GQ:DPI	1/1:60:31
+chr19	45414451	rs439401	T	C	538	PASS	VARTYPE_SNV;ANNO=regulatory_region_variant;FT=RegulatoryFeature;FID=ENSR00001404621;GMAF=0.3903;MKK-NS=139;CHD-AF=0.453;CHD-NS=85;CEU-AF=0.622;JPT-AF=0.337;LWK-NS=90;TSI-AF=0.557;YRI-NS=113;ASW-NS=49;MEX-AF=0.570;TSI-NS=87;HCB-AF=0.442;JPT-NS=86;YRI-AF=0.889;HCB-NS=43;CHB-AF=0.427;CEU-NS=111;LWK-AF=0.828;ASW-AF=0.847;CHB-NS=41;GIH-NS=88;MKK-AF=0.662;GIH-AF=0.426;MEX-NS=50	GT:GQ:DPU:DPF:AU	1/1:118:41:1:0,41,0,0
+chr19	45414866	rs35244845	AT	A	259	REPEAT8	VARTYPE_DEL;CIGAR=1M1D;RU=T;REFREP=15;IDREP=14	GT:GQ:DPI	1/1:62:43
+chr19	45414887	rs114889030	A	G	42	PASS	VARTYPE_SNV;ANNO=regulatory_region_variant;FT=RegulatoryFeature;FID=ENSR00001404621;GMAF=0.0167	GT:GQ:DPU:DPF:AU	0/1:42:30:8:22,0,8,0
+chr19	45416291	rs59325138	C	T	107	PASS	VARTYPE_SNV;ANNO=regulatory_region_variant;FT=RegulatoryFeature;FID=ENSR00000347290;GMAF=0.3045	GT:GQ:DPU:DPF:AU	0/1:107:29:0:0,18,0,11
+chr19	45416478	rs584007	A	G	414	PASS	VARTYPE_SNV;ANNO=regulatory_region_variant;FT=RegulatoryFeature;FID=ENSR00000347290;GMAF=0.3871;MKK-NS=141;CHD-AF=0.447;CHD-NS=85;CEU-AF=0.625;JPT-AF=0.349;LWK-NS=90;TSI-AF=0.568;YRI-NS=113;ASW-NS=49;MEX-AF=0.570;TSI-NS=88;HCB-AF=0.442;JPT-NS=86;YRI-AF=0.889;HCB-NS=43;CHB-AF=0.439;CEU-NS=112;LWK-AF=0.833;ASW-AF=0.847;CHB-NS=41;GIH-NS=88;MKK-AF=0.684;GIH-AF=0.426;MEX-NS=50	GT:GQ:DPU:DPF:AU	1/1:89:32:0:0,0,32,0
+chr1	3638674	rs1801174	C	T	60	PASS	VARTYPE_SNV;ANNO=regulatory_region_variant;FT=RegulatoryFeature;FID=ENSR00000668652;GMAF=0.2448;phastCons	GT:GQ:DPU:DPF:AU	0/1:60:28:6:0,18,1,9
+chr1	1650845	rs1059831	G	A	109	PASS	VARTYPE_SNV;Condel=deleterious(0.905);ANNO=non_synonymous_codon;FT=Transcript;FID=ENST00000404249;AA=R93W;PolyPhen=probably_damaging(1);CDSpos=C277T;HGNC=CDK11A;SIFT=deleterious(0.01);phastCons	GT:GQ:DPU:DPF:AU	0/1:109:66:1:20,0,46,0
+chr1	94512602	rs58331765	C	T	221	PASS	VARTYPE_SNV;Condel=deleterious(0.838);ANNO=non_synonymous_codon;FT=Transcript;FID=ENST00000370225;AA=V931M;PolyPhen=possibly_damaging(0.95);CDSpos=G2791A;HGNC=ABCA4;SIFT=deleterious(0);SCS=4;GMAF=0.0201;hgmd_gene=ABCA4;hgmd_geno=C/T;hgmd_id=CM970004;hgmd_disease=Stargardtdisease;phastCons	GT:GQ:DPU:DPF:AU	0/1:179:39:0:0,16,0,23
+chr7	148810512	rs72573446	C	CTG	871	PASS	VARTYPE_INS;CIGAR=1M2I;ANNO=intron_variant;FT=Transcript;FID=ENST00000378061;HGNC=ZNF425	GT:GQ:DPI	0/1:790:33
+1	5935162	rs1287637	A	T	2869.90	PASS	AC=6;AF=0.750;AN=8;BaseQRankSum=-0.571;ClippingRankSum=1.266;DB;DP=137;FS=3.706;MLEAC=6;MLEAF=0.750;MQ=60.00;MQ0=0;MQRankSum=-0.593;QD=20.95;ReadPosRankSum=-0.174	GT:AD:DP:GQ:PL	1/1:0,21:21:63:737,63,0

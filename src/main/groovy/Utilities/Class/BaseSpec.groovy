@@ -4,6 +4,7 @@ import Utilities.Data.ExcelReader
 import Utilities.Reports.Extent.ExtentReportFactory
 import com.relevantcodes.extentreports.ExtentTest
 import com.relevantcodes.extentreports.LogStatus
+import geb.navigator.Navigator
 import geb.testng.GebTest
 import org.apache.log4j.Logger
 import org.openqa.selenium.remote.CapabilityType
@@ -47,6 +48,9 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     @BeforeClass
     def beforeClass(){
         log = Logger.getLogger(this.class);
+        if(System.getProperty("geb.env").equals("safari")){
+            driver.manage().deleteAllCookies()
+        }
     }
 
     /*Runs before every Method or Test*/
@@ -206,8 +210,6 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
      */
     @Override
     void onFinish(ITestContext context) {
-
     }
-
 }
 
