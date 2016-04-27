@@ -30,7 +30,7 @@ class ProjectsPage extends BasePage{
 
     }
 
-    def deleteProject(){
+    def deleteProjects() {
         deleteAllGenomesInProject()
         clickActionsMenuAndClickOption("Delete Project");
         click(projects.deleteProjectButton,"Delete Projects Button");

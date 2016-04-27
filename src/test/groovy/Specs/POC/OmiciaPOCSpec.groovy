@@ -6,6 +6,7 @@ import Pages.Login.OmiciaHomePage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Upload_Genomes.UploadGenomePage
+import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
 import org.testng.Assert
 import org.testng.annotations.Test
@@ -15,6 +16,8 @@ import org.testng.annotations.Test
  */
 
 class OmiciaPOCSpec extends BaseSpec{
+
+    SmokeTestData smokeData = new SmokeTestData();
 
     @Test(groups= "omicia_poc")
     public void testGenomeCount() {
@@ -28,34 +31,19 @@ class OmiciaPOCSpec extends BaseSpec{
         openTab(UPLOAD_GENOMES)
 
         at UploadGenomePage
-        fillUploadGenomeForm(NewProjectName,true,true);
+        fillUploadGenomeForm(NewProjectName, true, true, smokeData.SHORT_FILE);
         waitForTheVCFFileToUpload();
 
         at HeaderPage
-        header.homePageHeaderOmiciaText.click()
-
-        at OmiciaHomePage
-        openTab(PROJECTS)
-        driver.get(driver.currentUrl)
+        clickOnMenuAndSelectOption(PROJECTS)
 
         at ProjectsHomePage
-        int actualGeneCount = getGenomeBasedOnProjectName(NewProjectName)
+        refreshTillCountMatches(NewProjectName, ONE)
         clickProjectInProjectsHomePage(NewProjectName);
 
         at ProjectsPage
         int expectedGeneCount = getNumberOfGenomes();
-        Assert.assertEquals(actualGeneCount,expectedGeneCount);
-
-        at HeaderPage
-        clickOnMenuAndSelectOption("Projects")
-
-        at ProjectsHomePage
-        clickProjectInProjectsHomePage(NewProjectName);
-
-        at ProjectsPage
-        deleteProject();
-
-        at ProjectsHomePage
+        Assert.assertEquals(ONE, expectedGeneCount);
     }
 
     @Test(groups= "omicia_poc")
@@ -69,7 +57,7 @@ class OmiciaPOCSpec extends BaseSpec{
         openUploadGenomes();
 
         at UploadGenomePage
-        fillUploadGenomeForm(NewProjectName,false,false);
+        fillUploadGenomeForm(NewProjectName, false, false, NONE);
         waitFor {uploadGenome.vcfFileNotUploadedError}
     }
 }
