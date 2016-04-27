@@ -1,11 +1,11 @@
-package Specs.OMICIA
+package Specs.POC
 
 import Pages.Login.HeaderPage
-import Pages.Login.OmiciaHomePage
 import Pages.Login.LoginPage
+import Pages.Login.OmiciaHomePage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
-import Pages.UploadGenomes.UploadGenomePage
+import Pages.Upload_Genomes.UploadGenomePage
 import Utilities.Class.BaseSpec
 import org.testng.Assert
 import org.testng.annotations.Test

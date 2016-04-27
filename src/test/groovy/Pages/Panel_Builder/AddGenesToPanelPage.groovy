@@ -1,6 +1,6 @@
 package Pages.Panel_Builder
 
-import Modules.PanelBuilder.AddGenesToPanelModule
+import Modules.Panel_Builder.AddGenesToPanelModule
 import Utilities.Class.BasePage
 
 /**
@@ -34,18 +34,23 @@ class AddGenesToPanelPage extends BasePage{
         }
     }
 
+    def addGenesByGivingSymbols(String value) {
+        waitFor { addGenesToPanel.geneSymbolsAddTextField }
+        type(addGenesToPanel.geneSymbolsAddTextField, value, "Add Genes By Symbol Text Field")
+    }
+
     def clickOnButton(String button){
 
         if(button.equals("Add Genes")){
-            scrollToCenter(addGenesToPanel.addGene(button))
-            click(addGenesToPanel.addGene(button),button)
+            waitFor { addGenesToPanel.addGene.displayed }
+            click(addGenesToPanel.addGene, "Add Genes Button")
         }
         else if(button.equals("Back")){
-            scrollToCenter(addGenesToPanel.backButton)
+            waitFor { addGenesToPanel.backButton.displayed }
             click(addGenesToPanel.backButton,"Back Button on Add Genes to panel Page")
         }
         else if(button.equals("Run Phevor")){
-            scrollToCenter(addGenesToPanel.runPhevorButton)
+            waitFor { addGenesToPanel.runPhevorButton.displayed }
             click(addGenesToPanel.runPhevorButton,"Run Phevor Button")
             waitTillElementIsNotPresent(addGenesToPanel.runningPhevorProgressBar,"Running Phevor Prpgress Bar")
         }

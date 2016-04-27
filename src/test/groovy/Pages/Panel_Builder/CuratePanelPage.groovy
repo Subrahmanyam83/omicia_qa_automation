@@ -1,6 +1,6 @@
 package Pages.Panel_Builder
 
-import Modules.PanelBuilder.CuratePanelModule
+import Modules.Panel_Builder.CuratePanelModule
 import Utilities.Class.BasePage
 
 /**

@@ -20,9 +20,11 @@ public interface Constants {
     /*General*/
     String CLICK = "click";
     String GET_TEXT = "get_text";
+    String NONE = ""
     int ZERO = 0;
     int ONE = 1;
     int TWO = 2;
+    int THREE = 3;
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -72,11 +74,33 @@ public interface Constants {
     String BY_GENE_SET = "sets"
     String FROM_OTHER_PANELS = "panels"
     String FROM_HPO_TERMS_AND_PHEVOR ="phevor"
-    String FROM_CHROMOSME_REGIONS = "regions"
+    String FROM_CHROMOSOME_REGIONS = "regions"
     String RUN_PHEVOR_TEXT_VALUE = "Ataxia"
     String ADD_GENE = "Add Genes"
     String RUN_PHEVOR = "Run Phevor"
     String BACK = "Back"
+
+    /*Filtering Protocol*/
+    public List CONSEQUENCE_LIST = ["Stop Gained or Lost", "Missense", "Frameshift Indel", "In-frame Indel", "Splice Site", "Splice Region", "Start Lost or Retained", "Structural Variant"]
+    public List EVIDENCE_LIST = ["No calls", "In intronic regions", "In intergenic regions", "In non-coding regions"]
+
+    /*Clinical Reports*/
+    public String PANEL = "Panel"
+    public String PANEL_TRIO = "Panel Trio"
+    public String SOLO = "Solo"
+    public String DUO = "Duo"
+    public String TRIO = "Trio"
+    public String QUAD = "Quad"
+
+    public String EDIT_PATIENT_INFORMATION = "Edit Patient Information"
+    public String INTERPRET_VARIANTS = "Interpret Variants"
+    public String REPORT_HISTORY = "Report History"
+    public String EXPORT_VARIANTS_TO_BE_CONFIRMED = "Export Variants To Be Confirmed "
+    public String ASSIGN = "Assign"
+    public String DELETE_REPORT = "Delete Report"
+
+    public String MISSENSE = "missense"
+    public String SAMD11 = "SAMD11"
 
 
 }

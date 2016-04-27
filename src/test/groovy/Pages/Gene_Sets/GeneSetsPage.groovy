@@ -1,6 +1,6 @@
 package Pages.Gene_Sets
 
-import Modules.GeneSets.GeneSetsModule
+import Modules.Gene_Sets.GeneSetsModule
 import Utilities.Class.BasePage
 
 /**
@@ -17,7 +17,7 @@ class GeneSetsPage extends BasePage{
     }
 
     def clickOnSetType(String setType){
-        click(geneSets.geneSetTypes(setType))
+        click(geneSets.geneSetTypes(setType), "Click on the Set Type: " + setType)
     }
 
     def createNewGeneSet(String name, String description, String geneType){
@@ -32,7 +32,7 @@ class GeneSetsPage extends BasePage{
 
     def performActionBasedOnGeneSetName(String setType,String geneSetName, String action){
         click(geneSets.geneSetTypes(setType),"Header Gene Type: "+setType)
-        click(geneSets.actionButtonBasedOneneSet(geneSetName),"Actions Button of Test Gene Set")
+        click(geneSets.actionButtonBasedOnGeneSet(geneSetName), "Actions Button of Test Gene Set")
         click(geneSets.performActionOnActionButton(action),"some action on Action Button of Test Gene Set ")
     }
 
@@ -43,5 +43,16 @@ class GeneSetsPage extends BasePage{
         waitFor("fast") {geneSets.addGenesSaveButton}
         click(geneSets.addGenesSaveButton, "Add Gene Save Changes Button")
         waitTillElementIsNotPresent(geneSets.addGeneModalDialog, "Add Gene Modal Dialog");
+    }
+
+    def deleteSets(String setType) {
+        clickOnSetType(setType)
+        while (!geneSets.numberOfGeneSets.equals(ZERO)) {
+            click(geneSets.actionButton, "Actions Menu in Gene Sets Page")
+            click(geneSets.deleteSetsUnderActionDropDpwn, "Delete Button Under Actions Menu")
+            click(geneSets.deleteGeneSetButtonOnDialog, "Delete Button on Dialog Window")
+            click(geneSets.closeButtonOnDialogWindow, "Close Button of the Dialog Window")
+            Thread.sleep(500)
+        }
     }
 }

@@ -25,7 +25,7 @@ class ProjectsPage extends BasePage{
             clickActionsMenuAndClickOption("Delete Genomes")
             waitFor {projects.deleteGenomesButton}
             click(projects.deleteGenomesButton,"Delete Genomes Button")
-            waitFor {projects.genomesDeletedConfirmationText}
+            waitFor { projects.genomesDeletedConfirmationText.displayed }
         }
 
     }

@@ -1,4 +1,4 @@
-package Modules.GeneSets
+package Modules.Gene_Sets
 
 import geb.Module
 
@@ -23,7 +23,7 @@ class GeneSetsModule extends Module{
         newGeneSetModalDialog       {$('.modal-scrollable')}
 
         /*Action Button*/
-        actionButtonBasedOneneSet   {String geneName-> $("#blacklist_tbody tr td a",text:geneName).parent().parent().find(".action-button")}
+        actionButtonBasedOnGeneSet { String geneName -> $("tr td a", text: geneName).parent().parent().find(".action-button") }
         performActionOnActionButton {String action-> $(".btn-group.pull-right.open ."+action)}
 
         /*Add Gene Modal*/
@@ -32,6 +32,13 @@ class GeneSetsModule extends Module{
         addGenesCancelButton        {$(".btn.cancel-button",text:"Cancel")}
         addGenesSaveButton          {$(".btn.btn-primary.close-button",text:"Save Changes")}
         addGeneModalDialog          {$(".modal.modal-overflow.in")}
+
+        actionButton { $('.btn.btn-mini.dropdown-toggle.action-button') }
+        deleteSetsUnderActionDropDpwn { $(".btn-group.pull-right.open .dropdown-menu .delete-bioset") }
+        deleteGeneSetButtonOnDialog { $('.btn.btn-primary.close-button', text: "Delete Gene Set") }
+        closeButtonOnDialogWindow { $('.btn.btn-primary.close-button', text: "Close") }
+
+        numberOfGeneSets { $(".tab-pane.active #myset_tbody tr td a.action-button").parent().parent().size() }
 
 
     }

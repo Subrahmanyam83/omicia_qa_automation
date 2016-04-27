@@ -1,4 +1,4 @@
-package Modules.PanelBuilder
+package Modules.Panel_Builder
 
 import geb.Module
 

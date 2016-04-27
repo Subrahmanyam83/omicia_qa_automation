@@ -1,8 +1,8 @@
-package Pages.UploadGenomes
+package Pages.Upload_Genomes
 
 import Modules.Login.HeaderModule
-import Modules.UploadGenome.UploadGenomeModule
 import Modules.Login.HomeModule
+import Modules.Upload_Genome.UploadGenomeModule
 import Utilities.Class.BasePage
 
 /**

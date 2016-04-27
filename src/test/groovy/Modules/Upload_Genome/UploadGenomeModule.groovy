@@ -1,4 +1,4 @@
-package Modules.UploadGenome
+package Modules.Upload_Genome
 
 import geb.Module
 
