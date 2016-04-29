@@ -5,6 +5,7 @@ import com.relevantcodes.extentreports.ExtentTest
 import geb.Page
 import geb.content.SimplePageContent
 import geb.navigator.Navigator
+import org.apache.http.client.fluent.Request
 
 /**
  * Created by in02183 on 2/3/2016.
@@ -68,10 +69,17 @@ class BasePage extends Page implements Constants{
         return false;
     }
 
-    public void scrollToCenter(Navigator navigator)
-    {
+    public void scrollToCenter(Navigator navigator) {
             int center = driver.manage().window().getSize().getHeight()/2
             int locatorHeight = navigator.firstElement().getLocation().getY() - center
             js.exec("window.scrollTo(0,$locatorHeight);")
+    }
+
+    public int getResponseCode(String url) {
+        try {
+            return Request.Get(url).execute().returnResponse().getStatusLine().getStatusCode();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

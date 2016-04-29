@@ -3,6 +3,7 @@ package Pages.Projects
 import Modules.Login.HeaderModule
 import Modules.Projects.ProjectsHomeModule
 import Utilities.Class.BasePage
+import org.testng.Assert
 
 /**
  * Created by in02183 on 4/5/2016.
@@ -31,8 +32,13 @@ class ProjectsHomePage extends BasePage{
     }
 
     def refreshTillCountMatches(String NewProjectName,int count){
+        int index = 0;
         while(getGenomeBasedOnProjectName(NewProjectName)!=(count)){
             driver.get(driver.currentUrl);
+            index++;
+            if (index.equals(50)) {
+                Assert.fail("Refreshing Page is not making the Gene Count increase")
+            }
         }
     }
 

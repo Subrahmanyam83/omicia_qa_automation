@@ -2,6 +2,7 @@ package Pages.Projects
 
 import Modules.Projects.ProjectsModule
 import Utilities.Class.BasePage
+import org.testng.Assert
 
 /**
  * Created by in02183 on 4/5/2016.
@@ -42,8 +43,13 @@ class ProjectsPage extends BasePage{
     }
 
     def clickOnColumnBasedOnGenomeLabel(String genomeLabel, String columnName){
+        int index = 0;
         while(!projects.selectCoumnBasedOnGeneLabel(genomeLabel,columnName)){
-            driver.get(driver.currentUrl)
+            driver.get(driver.currentUrl);
+            index++;
+            if (index.equals(50)) {
+                Assert.fail("Refreshing Page is not showing link on Projects Page")
+            }
         }
          click(projects.selectCoumnBasedOnGeneLabel(genomeLabel,columnName),columnName)
     }

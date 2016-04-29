@@ -75,7 +75,7 @@ public interface Constants {
     String FROM_OTHER_PANELS = "panels"
     String FROM_HPO_TERMS_AND_PHEVOR ="phevor"
     String FROM_CHROMOSOME_REGIONS = "regions"
-    String RUN_PHEVOR_TEXT_VALUE = "Ataxia"
+    String ATAXIA = "Ataxia"
     String ADD_GENE = "Add Genes"
     String RUN_PHEVOR = "Run Phevor"
     String BACK = "Back"
@@ -101,6 +101,23 @@ public interface Constants {
 
     public String MISSENSE = "missense"
     public String SAMD11 = "SAMD11"
+    public String PLEKHN1 = "PLEKHN1"
+
+    /*Interpret Variant*/
+    public String CLASSIFICATION_PATHOGENIC = "Pathogenic"
+    public String PRIMARY_FINDING = "Primary finding"
+    public String SECONDARY_FINDING = "Secondary finding"
+    public String REVIEWED = "Reviewed"
+    public String PRIMARY = "Primary"
+    public String SECONDARY = "Secondary"
+
+    public String EDIT_VARIANT = "Edit Variant"
+    public String VARIANT_EVIDENCE = "Variant Evidence"
+    public String UNCERTAIN_SIGNIFICANCE = "Uncertain Significance"
+    public String DUCTAL_BREAST_CARCINOMA = "Ductal breast carcinoma"
+
+    /*Show Hide Columns*/
+    public String TO_REPORT = "To Report"
 
 
 }

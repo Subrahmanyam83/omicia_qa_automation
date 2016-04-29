@@ -2,6 +2,7 @@ package Pages.Clinical_Reporter
 
 import Modules.Clinical_Reporter.ClinicalReporterModule
 import Utilities.Class.BasePage
+import org.testng.Assert
 
 /**
  * Created by E002183 on 4/26/2016.
@@ -25,16 +26,20 @@ class ClinicalReporterPage extends BasePage {
         type(clinicalReporter.patientIdTextField, patientId, "Patient ID Text Field")
 
         click(clinicalReporter.choosePanelDropDown, "Choose Panel Drop Down")
+        waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(panel).displayed }
         click(clinicalReporter.chooseDropDownValueBasedOntheValue(panel), "Choose Panel Drop Down Value: " + panel)
 
         click(clinicalReporter.chooseFilterDropDown, "Choose Filter Drop Down")
+        waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(filter) }
         click(clinicalReporter.chooseDropDownValueBasedOntheValue(filter), "Choose Filter Drop Down Value: " + filter)
 
         click(clinicalReporter.chooseProjectDropDown, "Choose Project Drop Down")
+        waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(project) }
         click(clinicalReporter.chooseDropDownValueBasedOntheValue(project), "Choose Project Drop Down Value: " + project);
 
         if (assayType != "") {
             click(clinicalReporter.chooseAssayTypeDropDown, "Choose Assay Type Drop Down")
+            waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(assayType) }
             click(clinicalReporter.chooseDropDownValueBasedOntheValue(assayType), "Choose Assay Type Drop Down Value: " + assayType)
         }
 
@@ -54,9 +59,14 @@ class ClinicalReporterPage extends BasePage {
     }
 
     def refreshTillStatusChangesToReadyForInterpretation(String patientId) {
+        int index = 0;
         while (!clinicalReporter.getStatusBasedonPatientId(patientId).equals("Ready for Interpretation")) {
             driver.get(driver.currentUrl)
             waitFor { clinicalReporter.reportTable.displayed }
+            index++;
+            if (index.equals(50)) {
+                Assert.fail("Refreshing Page is not making the Status Change to :'Ready for Interpretation for a Clinical report'")
+            }
         }
     }
 

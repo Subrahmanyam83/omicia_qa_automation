@@ -30,6 +30,7 @@ dependencies {
     compile "com.relevantcodes:extentreports:2.40.2" /*For Extent Reports*/
     compile "com.google.inject:guice:4.0" /*For TestNG Listeners*/
     compile "com.google.guava:guava:19.0"
+    compile "org.apache.httpcomponents:fluent-hc:4.5.2"
 }
 
 drivers.each { driver ->

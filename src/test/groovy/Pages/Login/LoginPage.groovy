@@ -8,23 +8,18 @@ import Utilities.Class.BasePage
  */
 class LoginPage extends BasePage{
 
-    static at = {$(".form_panel").isDisplayed()}
+    static at = { login.formPanel.isDisplayed() }
 
     static content = {
         login {module LoginModule}
     }
 
-    String userName = xlsrdr.getDataArrayBySheet("Credentials")[0][0]
-    String password = xlsrdr.getDataArrayBySheet("Credentials")[0][1]
+    String userName = xlsrdr.getDataArrayBySheet("Credentials")[1][0]
+    String password = xlsrdr.getDataArrayBySheet("Credentials")[1][1]
 
     def signIn(){
         type(login.usernameField,userName,"UserName Field");
         type(login.passwordField,password,"Password Field");
         click(login.signInButton,"Sign In Button");
     }
-
-    def signInOne(){
-        click(login.username,"UserName Wrong Field")
-    }
-
 }

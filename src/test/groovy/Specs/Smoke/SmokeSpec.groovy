@@ -1,7 +1,9 @@
 package Specs.Smoke
 
 import Pages.Clinical_Reporter.ClinicalReporterPage
+import Pages.Clinical_Reporter.InterpretVariantsHomePage
 import Pages.Clinical_Reporter.InterpretVariantsPage
+import Pages.Clinical_Reporter.ReviewReportPage
 import Pages.Filtering_Protocol.NewFilteringProtocolPage
 import Pages.Gene_Sets.GeneSetsPage
 import Pages.Login.HeaderPage
@@ -31,6 +33,7 @@ class SmokeSpec extends BaseSpec{
 
         to LoginPage
         signIn();
+
 
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);
@@ -108,9 +111,39 @@ class SmokeSpec extends BaseSpec{
         refreshTillStatusChangesToReadyForInterpretation(smokeData.PATIENT_ID)
         clickOnActionsAndValueBasedOnPatientId(smokeData.PATIENT_ID, INTERPRET_VARIANTS)
 
+        at InterpretVariantsHomePage
+        Assert.equals(getEffectBasedOnVariant(SAMD11).equals(MISSENSE))
+
+        /*Phase 2*/
+        clickOnInterpretVariantBasedOnVariant(SAMD11)
+
         at InterpretVariantsPage
-        Assert.equals(getEffectBasedOnGene(SAMD11).equals(MISSENSE))
+        editVariant(CLASSIFICATION_PATHOGENIC, PRIMARY_FINDING)
+        saveVariant()
+        closeInterpretVariantDialog()
+
+        at InterpretVariantsHomePage
+        showHideColumns(TO_REPORT)
+        Assert.equals(getClassBasedOnVariant(SAMD11).equals(CLASSIFICATION_PATHOGENIC))
+        Assert.equals(getStatusBasedOnVariant(SAMD11).equals(REVIEWED))
+        Assert.equals(getReportBasedOnVariant(SAMD11).equals(PRIMARY))
+        clickOnInterpretVariantBasedOnVariant(PLEKHN1)
+
+        at InterpretVariantsPage
+        editVariant(CLASSIFICATION_PATHOGENIC, SECONDARY_FINDING)
+        clickOnTab(VARIANT_EVIDENCE)
+        clickOnCopyToVariantInterpretationAndDescription()
+        Assert.equals(getCurrentVariantClassificationDropDownValue().equals(UNCERTAIN_SIGNIFICANCE))
+        Assert.equals(getCurrentConditionTextFieldValue().equals(DUCTAL_BREAST_CARCINOMA))
+        saveVariant()
+        closeInterpretVariantDialog()
+
+        at InterpretVariantsHomePage
+        clickReviewReport()
+
+        at ReviewReportPage
+        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
+        Assert.equals(getNumberOfSecondaryFindingReports().equals(ONE))
+        Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
-
-
 }
