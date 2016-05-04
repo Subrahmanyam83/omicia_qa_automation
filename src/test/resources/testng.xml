@@ -13,7 +13,11 @@
 
     <test name="POC Demo">
         <classes>
-            <class name="Specs.POC.OmiciaPOCSpec"/>
+            <class name="Specs.Smoke.SmokeSpec">
+                <methods>
+                    <include name="launchSoloRun"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

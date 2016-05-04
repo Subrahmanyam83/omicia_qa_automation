@@ -130,6 +130,11 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
         }
     }
 
+    def generateRandom() {
+        Random r = new Random(System.currentTimeMillis());
+        return ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
+    }
+
     /**
      * Invoked each time before a test will be invoked.
      * The <code>ITestResult</code> is only partially filled with the references to

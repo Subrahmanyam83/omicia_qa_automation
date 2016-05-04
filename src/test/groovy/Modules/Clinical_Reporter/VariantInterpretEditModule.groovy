@@ -5,7 +5,7 @@ import geb.Module
 /**
  * Created by E002183 on 4/27/2016.
  */
-class InterpretVariantsModule extends Module {
+class VariantInterpretEditModule extends Module {
 
     static content = {
 

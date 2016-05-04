@@ -36,8 +36,8 @@ class ProjectsHomePage extends BasePage{
         while(getGenomeBasedOnProjectName(NewProjectName)!=(count)){
             driver.get(driver.currentUrl);
             index++;
-            if (index.equals(50)) {
-                Assert.fail("Refreshing Page is not making the Gene Count increase")
+            if (index.equals(FIFTY)) {
+                Assert.fail("Pipeline is busy or Down: 'Refreshing Page is not making the Gene Count increase On Projects Home Page'")
             }
         }
     }

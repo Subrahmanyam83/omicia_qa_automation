@@ -1,16 +1,16 @@
 package Specs.Smoke.TestData
 
+import Utilities.Class.BaseSpec
+
 /**
  * Created by E002183 on 4/25/2016.
  */
-class SmokeTestData {
+class SmokeTestData extends BaseSpec {
 
     String random = "_" + generateRandom();
 
-    public String PROJECT_NAME = "Test-OMICIA-Project-" + random
-    public String SHORT_FILE = "/src/main/resources/VCFs/GID_validation_examples.vcf"
-    public String FOUR_EXOMES = "/src/main/resources/VCFs/EX024_hc_first1000.vcf.gz"
     public String GENE_LABEL = "Genome-Label-1 — External-ID-1"
+    public String EXOME_GENE_LABEL = "Genome-Label-1-EX024-1 — External-ID-1"
     public String GENE_NAME = "CDK11A"
     public String GENE_SET_NAME = "Test Gene Set Name" + random
     public String DESCRIPTION = "Test Gene Set Description" + random
@@ -33,8 +33,7 @@ class SmokeTestData {
     public String PATIENT_ID = "Test Patient ID 123" + random
     public String GENOME_NAME_TO_BE_SELECTED = "Genome-Label-1-EX024-1 — External-ID-1"
 
-    def generateRandom() {
-        Random r = new Random(System.currentTimeMillis());
-        return ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
-    }
+    public String VARIANT_CHANGE = "CAA → C c.742_743delAA p.Lys248AspfsTer24"
+    public String VARIANT_EFFECT = "frameshift"
+
 }

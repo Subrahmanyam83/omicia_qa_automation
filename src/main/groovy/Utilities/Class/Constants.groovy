@@ -7,6 +7,11 @@ import com.relevantcodes.extentreports.LogStatus
  */
 public interface Constants {
 
+    /*Upload Genomes*/
+    public String PROJECT__NAME = "Test-OMICIA-Project-"
+    public String SHORT_FILE = "/src/main/resources/VCFs/GID_validation_examples.vcf"
+    public String FOUR_EXOMES = "/src/main/resources/VCFs/EX024_hc_first1000.vcf.gz"
+
     /*Extent Reports*/
     LogStatus PASS = LogStatus.PASS;
     LogStatus FAIL = LogStatus.FAIL;
@@ -18,13 +23,20 @@ public interface Constants {
     LogStatus ERROR = LogStatus.ERROR;
 
     /*General*/
+    String TEST_NOTE = "Test Note"
     String CLICK = "click";
     String GET_TEXT = "get_text";
     String NONE = ""
+    String NONE_TEXT = "None"
     int ZERO = 0;
     int ONE = 1;
     int TWO = 2;
     int THREE = 3;
+    int FOUR = 4;
+    int FIFTY = 50;
+    int THIRTY = 30;
+    int THIRTY_NINE = 39
+    int SIXTY_THREE = 63;
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -73,7 +85,7 @@ public interface Constants {
     String BY_SYMBOL = "symbols"
     String BY_GENE_SET = "sets"
     String FROM_OTHER_PANELS = "panels"
-    String FROM_HPO_TERMS_AND_PHEVOR ="phevor"
+    String FROM_HPO_TERMS_AND_PHEVOR = "phevor"
     String FROM_CHROMOSOME_REGIONS = "regions"
     String ATAXIA = "Ataxia"
     String ADD_GENE = "Add Genes"
@@ -92,6 +104,21 @@ public interface Constants {
     public String TRIO = "Trio"
     public String QUAD = "Quad"
 
+    public List SOLO_LIST = ["Affected Person"].sort()
+    public List TRIO_LIST = ["Affected Child", "Unaffected Father", "Unaffected Mother"].sort()
+    public List QUAD_LIST = ["Unaffected Sibling", "Affected Child", "Unaffected Father", "Unaffected Mother"].sort()
+
+    public String AFFECTED_PERSON = "Affected Person"
+    public String AFFECTED_CHILD = "Affected Child"
+    public String UNAFFECTED_FATHER = "Unaffected Father"
+    public String UNAFFECTED_MOTHER = "Unaffected Mother"
+    public String UNAFFECTED_SIBLING = "Unaffected Sibling"
+
+    public GENE_OF_AFFECTED_PERSON = "Genome-Label-1-EX024-1 — External-ID-1 (Pipeline Version: 6.0.1)"
+    public GENE_OF_UNAFFECTED_FATHER = "Genome-Label-1-EX024-4 — External-ID-1 (Pipeline Version: 6.0.1)"
+    public GENE_OF_UNAFFECTED_MOTHER = "Genome-Label-1-EX024-3 — External-ID-1 (Pipeline Version: 6.0.1)"
+    public GENE_OF_UNAFFECTED_SIBLING = "Genome-Label-1-EX024-2 — External-ID-1 (Pipeline Version: 6.0.1)"
+
     public String EDIT_PATIENT_INFORMATION = "Edit Patient Information"
     public String INTERPRET_VARIANTS = "Interpret Variants"
     public String REPORT_HISTORY = "Report History"
@@ -102,8 +129,13 @@ public interface Constants {
     public String MISSENSE = "missense"
     public String SAMD11 = "SAMD11"
     public String PLEKHN1 = "PLEKHN1"
+    public String SCNN1D = "SCNN1D"
 
-    /*Interpret Variant*/
+    /*Variant Interpret Home Page*/
+    public List SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
+    public String RECESSIVE = "Recessive"
+
+    /*Variant Interpret Edit Page*/
     public String CLASSIFICATION_PATHOGENIC = "Pathogenic"
     public String PRIMARY_FINDING = "Primary finding"
     public String SECONDARY_FINDING = "Secondary finding"
@@ -115,6 +147,9 @@ public interface Constants {
     public String VARIANT_EVIDENCE = "Variant Evidence"
     public String UNCERTAIN_SIGNIFICANCE = "Uncertain Significance"
     public String DUCTAL_BREAST_CARCINOMA = "Ductal breast carcinoma"
+
+    /*Variant Selection*/
+    public List SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"

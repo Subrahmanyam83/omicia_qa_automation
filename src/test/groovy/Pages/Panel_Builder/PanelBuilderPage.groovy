@@ -13,6 +13,7 @@ class PanelBuilderPage extends BasePage{
     static at = {
         panelBuilder.newPanelButton.displayed
         panelBuilder.navPanelOfPanelBuilder.displayed
+        panelBuilder.panelTable
     }
 
     static content ={
@@ -37,6 +38,7 @@ class PanelBuilderPage extends BasePage{
     }
 
     def deleteAllPanels() {
+        Thread.sleep(3000L)
         while (!panelBuilder.numberOfPanelsOnWorkSpacePanel.equals(ZERO)) {
             click(panelBuilder.actionButton, "Action Button of Panel");
             click(panelBuilder.deletePanelUnderActionDropDpwn, "Delete Panel Aoption under Actions Drop Down")

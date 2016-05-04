@@ -11,6 +11,7 @@ class GeneSetsModule extends Module{
 
         /*Set Types*/
         geneSetTypes                {String geneType-> $("#bioset-tab a",text:contains(geneType))}
+        geneSetTable { $(".active .table.table-condensed tbody") }
 
         /*New Gene Set Creation*/
         newGeneSetButton            {$(".new-gene-set")}

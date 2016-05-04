@@ -16,7 +16,7 @@ import org.testng.annotations.Test
  */
 class TearDownProcessSpec extends BaseSpec{
 
-    @Test(description = "This will delete all the Test Projects created during Automation")
+    @Test(priority = 5, description = "This will delete all the Test Projects created during Automation")
     public void deleteAllProjects() {
 
         to LoginPage
@@ -38,7 +38,7 @@ class TearDownProcessSpec extends BaseSpec{
         }
     }
 
-    @Test(description = "This will Delete all the Test Gene Sets created during Automation")
+    @Test(priority = 3, description = "This will Delete all the Test Gene Sets created during Automation")
     public void deleteAllGeneSets() {
         to LoginPage
         signIn();
@@ -50,7 +50,7 @@ class TearDownProcessSpec extends BaseSpec{
         deleteSets(MY_SET);
     }
 
-    @Test(description = "This will delete all the Test Panels created during Automation")
+    @Test(priority = 2, description = "This will delete all the Test Panels created during Automation")
     public void deletePanels() {
         to LoginPage
         signIn();
@@ -62,7 +62,7 @@ class TearDownProcessSpec extends BaseSpec{
         deleteAllPanels()
     }
 
-    @Test(description = "Deleting All the Test Clinical Reports. Need to delete clinical Reports before deleting anything else", priority = 1)
+    @Test(priority = 1, description = "Deleting All the Test Clinical Reports. Need to delete clinical Reports before deleting anything else")
     public void deleteClinicalReports() {
         to LoginPage
         signIn();
@@ -74,7 +74,7 @@ class TearDownProcessSpec extends BaseSpec{
         deleteAllClinicalReports()
     }
 
-    @Test(description = "This will delete all the Test Filtering protocols created during Automation")
+    @Test(priority = 4, description = "This will delete all the Test Filtering protocols created during Automation")
     public void deleteFilteringProtocols() {
         to LoginPage
         signIn();

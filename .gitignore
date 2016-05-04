@@ -2,6 +2,9 @@
 .gradle
 build
 src/main/groovy/Drivers
-extent-reports.html
-logs.html
-logs.log
+.log
+.html
+.iml
+.css
+.js
+.png

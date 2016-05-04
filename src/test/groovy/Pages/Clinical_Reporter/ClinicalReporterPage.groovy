@@ -11,6 +11,8 @@ class ClinicalReporterPage extends BasePage {
 
     static at = {
         clinicalReporter.newReport.displayed
+        clinicalReporter.clinicalReportsTable
+        clinicalReporter.loadingReportsProgress.firstElement().getCssValue("display").equals("none")
     }
 
     static content = {
@@ -22,16 +24,20 @@ class ClinicalReporterPage extends BasePage {
         click(clinicalReporter.newReportDropDownValue(option), "New Clinical Report Drop Down Value: " + option)
     }
 
-    def createNewPanelReport(String patientId, String panel, String filter, String project, String assayType = "", boolean includeCosmicEvidence = false) {
+    def fillDetailsForNewReport(String patientId, String project, String panel = "", String filter = "", String assayType = "", boolean includeCosmicEvidence = false) {
         type(clinicalReporter.patientIdTextField, patientId, "Patient ID Text Field")
 
-        click(clinicalReporter.choosePanelDropDown, "Choose Panel Drop Down")
-        waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(panel).displayed }
-        click(clinicalReporter.chooseDropDownValueBasedOntheValue(panel), "Choose Panel Drop Down Value: " + panel)
+        if (panel != "") {
+            click(clinicalReporter.choosePanelDropDown, "Choose Panel Drop Down")
+            waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(panel).displayed }
+            click(clinicalReporter.chooseDropDownValueBasedOntheValue(panel), "Choose Panel Drop Down Value: " + panel)
+        }
 
-        click(clinicalReporter.chooseFilterDropDown, "Choose Filter Drop Down")
-        waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(filter) }
-        click(clinicalReporter.chooseDropDownValueBasedOntheValue(filter), "Choose Filter Drop Down Value: " + filter)
+        if (filter != "") {
+            click(clinicalReporter.chooseFilterDropDown, "Choose Filter Drop Down")
+            waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(filter) }
+            click(clinicalReporter.chooseDropDownValueBasedOntheValue(filter), "Choose Filter Drop Down Value: " + filter)
+        }
 
         click(clinicalReporter.chooseProjectDropDown, "Choose Project Drop Down")
         waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(project) }
@@ -48,11 +54,6 @@ class ClinicalReporterPage extends BasePage {
         }
     }
 
-    def selectGenomeFromGenomeList(String genomeName) {
-        waitFor { clinicalReporter.genomeFromGenomeList(genomeName).displayed }
-        click(clinicalReporter.genomeFromGenomeList(genomeName), "Genome: '" + genomeName + "' from the Genome List")
-    }
-
     def selectSaveNewPanelReport() {
         click(clinicalReporter.saveButton, "Clinical Report Save Button")
         waitFor { clinicalReporter.reportTable.displayed }
@@ -64,8 +65,11 @@ class ClinicalReporterPage extends BasePage {
             driver.get(driver.currentUrl)
             waitFor { clinicalReporter.reportTable.displayed }
             index++;
-            if (index.equals(50)) {
-                Assert.fail("Refreshing Page is not making the Status Change to :'Ready for Interpretation for a Clinical report'")
+            if (clinicalReporter.getStatusBasedonPatientId(patientId).equals("Failed")) {
+                Assert.fail("Clinical Report Failed for the Report ID: " + patientId)
+            }
+            if (index.equals(THIRTY)) {
+                Assert.fail("Pipeline is busy or Down: 'Status of the Clinical Report is not changing to :'Ready for Interpretation'")
             }
         }
     }
@@ -75,6 +79,14 @@ class ClinicalReporterPage extends BasePage {
         click(clinicalReporter.valueOnActionButon(action), "Action button Value: " + action)
     }
 
+    def getNamesOfMembers() {
+        List members = new LinkedList()
+        for (int i = 0; i < clinicalReporter.numberOfMembersInNewVAASTAnalysis.size(); i++) {
+            members.add(clinicalReporter.numberOfMembersInNewVAASTAnalysis[i].text())
+        }
+        return members.sort()
+    }
+
     def deleteAllClinicalReports() {
         while (!clinicalReporter.numberOfClinicalReports.equals(ZERO)) {
             click(clinicalReporter.actionsButton, "Actions Button on Clinical Report")
@@ -82,6 +94,69 @@ class ClinicalReporterPage extends BasePage {
             click(clinicalReporter.deleteReportButtonOnDialog, "Confirmation Delete Report Button on Dialog")
             waitTillElementIsNotPresent(clinicalReporter.deletingReportProgressBar, "Deleting Report Progress Bar")
             Thread.sleep(500)
+        }
+    }
+
+    /*This Method clicks on the VAAST Analysis Member Tab after selecting the Project Name and selects its Gene*/
+
+    def chooseGeneForEachMember(String type) {
+        switch (type) {
+
+            case PANEL:
+                waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON).displayed }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON), "Genome of the Affected Person");
+                break;
+
+            case SOLO:
+                click(clinicalReporter.tabBasedOnRelationship(AFFECTED_PERSON), "Tab Of Affected Person")
+                waitFor { clinicalReporter.modalPopup.displayed }
+                waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON) }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON), "Gene of the Affected Person")
+                click(clinicalReporter.femaleRadioButton, "Female Radio Button")
+                click(clinicalReporter.selectButton, "Select Button");
+                break;
+
+            case TRIO:
+                click(clinicalReporter.tabBasedOnRelationship(AFFECTED_CHILD), "Tab Of Affected Person")
+                waitFor { clinicalReporter.modalPopup.displayed }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON), "Gene of the Affected Person")
+                click(clinicalReporter.femaleRadioButton, "Female Radio Button")
+                click(clinicalReporter.selectButton, "Select Button")
+
+                click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_FATHER), "Tab Of Unaffected Father")
+                waitFor { clinicalReporter.modalPopup.displayed }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_FATHER), "Gene of the Unaffected Father")
+                click(clinicalReporter.selectButton, "Select Button")
+
+                click(clinicalReporter.tabBasedOnRelationship(AFFECTED_CHILD), "Tab Of Unaffected Mother")
+                waitFor { clinicalReporter.modalPopup.displayed }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON), "Gene of the Unaffected Mother")
+                click(clinicalReporter.selectButton, "Select Button");
+                break;
+
+            case QUAD:
+                click(clinicalReporter.tabBasedOnRelationship(AFFECTED_CHILD), "Tab Of Affected Person")
+                waitFor { clinicalReporter.modalPopup.displayed }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON), "Gene of the Affected Person")
+                click(clinicalReporter.femaleRadioButton, "Female Radio Button")
+                click(clinicalReporter.selectButton, "Select Button")
+
+                click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_FATHER), "Tab Of Unaffected Father")
+                waitFor { clinicalReporter.modalPopup.displayed }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_FATHER), "Gene of the Unaffected Father")
+                click(clinicalReporter.selectButton, "Select Button")
+
+                click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_MOTHER), "Tab Of Unaffected Mother")
+                waitFor { clinicalReporter.modalPopup.displayed }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_MOTHER), "Gene of the Unaffected Mother")
+                click(clinicalReporter.selectButton, "Select Button")
+
+                click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_SIBLING), "Tab Of Unaffected Sibling")
+                waitFor { clinicalReporter.modalPopup.displayed }
+                click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_SIBLING), "Gene of the Unaffected Sibling")
+                click(clinicalReporter.maleRadioButton, "Male Radio Button")
+                click(clinicalReporter.selectButton, "Select Button");
+                break;
         }
     }
 }

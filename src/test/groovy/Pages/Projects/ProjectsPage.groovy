@@ -47,8 +47,8 @@ class ProjectsPage extends BasePage{
         while(!projects.selectCoumnBasedOnGeneLabel(genomeLabel,columnName)){
             driver.get(driver.currentUrl);
             index++;
-            if (index.equals(50)) {
-                Assert.fail("Refreshing Page is not showing link on Projects Page")
+            if (index.equals(FIFTY)) {
+                Assert.fail("Pipeline is busy or Down: : 'Refreshing Page is not showing link on Projects Page'")
             }
         }
          click(projects.selectCoumnBasedOnGeneLabel(genomeLabel,columnName),columnName)

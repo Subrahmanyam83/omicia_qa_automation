@@ -1,19 +1,19 @@
 package Pages.Clinical_Reporter
 
-import Modules.Clinical_Reporter.InterpretVariantsModule
+import Modules.Clinical_Reporter.VariantInterpretEditModule
 import Utilities.Class.BasePage
 
 /**
  * Created by E002183 on 4/27/2016.
  */
-class InterpretVariantsPage extends BasePage {
+class VariantInterpretEditPage extends BasePage {
 
     static at = {
         interpretVariant.interpretVariantModalWindow.displayed
     }
 
     static content = {
-        interpretVariant { module InterpretVariantsModule }
+        interpretVariant { module VariantInterpretEditModule }
     }
 
     /*Header Methods*/

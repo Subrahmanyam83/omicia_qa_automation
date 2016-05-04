@@ -1,25 +1,47 @@
 package Pages.Clinical_Reporter
 
-import Modules.Clinical_Reporter.InterpretVariantsHomeModule
+import Modules.Clinical_Reporter.VariantInterpretationHomeModule
+import Modules.Clinical_Reporter.VariantSelectionModule
 import Utilities.Class.BasePage
 
 /**
  * Created by E002183 on 4/26/2016.
  */
-class InterpretVariantsHomePage extends BasePage {
+class VariantInterpretationHomePage extends BasePage {
 
     static at = {
         interpretVariantsHome.variantTable.displayed
     }
 
     static content = {
-        interpretVariantsHome { module InterpretVariantsHomeModule }
+        interpretVariantsHome { module VariantInterpretationHomeModule }
+        variantSelection { module VariantSelectionModule }
     }
 
-    /**/
+    def getColumnNamesForSoloRun() {
+        List<String> columnNames = new LinkedList<String>()
+        for (int i = 0; i < variantSelection.variantTableColumnText.size(); i++) {
+            if (variantSelection.variantTableColumnText[i].text() != "") {
+                columnNames.add(variantSelection.variantTableColumnText[i].text().replace("\n", " "))
+            }
+        }
+        return columnNames.sort()
+    }
+
+    /*This will get the number of Items on the Variants Page*/
+
+    def getNumberOfItems() {
+        return Integer.parseInt(variantSelection.numberOfItems.text().replace(" Items", ""))
+    }
+
+    def getChangeBasedOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getChangeBasedOnVariant(variantName, index).displayed }
+        return variantSelection.getChangeBasedOnVariant(variantName, index).text().replace("\n", " ")
+    }
+
     def getEffectBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.getEffectBasedOnVariant(variantName, index).displayed }
-        return interpretVariantsHome.getEffectBasedOnVariant(variantName, index).text().trim()
+        return interpretVariantsHome.getEffectBasedOnVariant(variantName, index).text().replaceAll("\n", " ")
     }
 
     def getClassBasedOnVariant(String variantName, int index = 0) {
@@ -37,8 +59,23 @@ class InterpretVariantsHomePage extends BasePage {
         return interpretVariantsHome.getReportSectionBasedOnVariant(variantName, index).text().trim()
     }
 
+    def getVAASTRankBasedOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getVAASTGeneRank(variantName, index).displayed }
+        return Integer.parseInt(variantSelection.getVAASTGeneRank(variantName, index).text().replace("\n", " "))
+    }
+
+    def getPhevorRankBasedOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getPhevorGeneRank(variantName, index).displayed }
+        return Integer.parseInt(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " "))
+    }
+
+    def getInheritanceMode(String variantName, int index = 0) {
+        waitFor { variantSelection.getInheritanceMode(variantName, index).displayed }
+        return variantSelection.getInheritanceMode(variantName, index).text().replace("\n", " ")
+    }
+
     def clickOnInterpretVariantBasedOnVariant(String variantName, int index = 0) {
-        waitFor { interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index) }
+        waitFor { interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index).displayed }
         click(interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index), "Interpret Variant of the Variant: '" + variantName + "'")
     }
 

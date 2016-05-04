@@ -10,6 +10,9 @@ class PanelBuilderModule extends Module{
     static content = {
         newPanelButton                                  {$("#page-content .btn.btn-success.new-panel.pull-right")}
         navPanelOfPanelBuilder                          {$("#app-container #page-content .nav.nav-tabs")}
+        panelTable { $(".active #panel-table #panel-builder-panels") }
+        numberOfPanelItems { $(".active .pull-left.total ") }
+        loadingPanelText { $("#loading", text: contains("Loading panels...")) }
 
         /*Panel Builder Home Page*/
         actionButton { $('.btn.btn-mini.dropdown-toggle.action-button') }

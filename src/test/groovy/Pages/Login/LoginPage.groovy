@@ -22,4 +22,8 @@ class LoginPage extends BasePage{
         type(login.passwordField,password,"Password Field");
         click(login.signInButton,"Sign In Button");
     }
+
+    def abc() {
+        waitFor { login.abc }
+    }
 }

@@ -10,6 +10,7 @@ class GeneSetsPage extends BasePage{
 
     static at = {
         geneSets.newGeneSetButton.isDisplayed()
+        geneSets.geneSetTable
     }
 
     static content = {

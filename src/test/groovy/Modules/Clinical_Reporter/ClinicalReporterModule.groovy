@@ -11,6 +11,9 @@ class ClinicalReporterModule extends Module {
 
         newReport { $(".btn.btn-success.dropdown-toggle.action-button") }
         newReportDropDownValue { String value -> $(".pull-right.dropdown-menu-skinny.dropdown-menu li a", text: value) }
+        clinicalReportsTable { $("#report-table #clinical-reporter-reports") }
+        modalPopup { $(".modal.modal-overflow.in") }
+        loadingReportsProgress { $("#loading") }
 
         /*New Panel Report*/
         patientIdTextField { $("#accession-id") }
@@ -18,7 +21,7 @@ class ClinicalReporterModule extends Module {
         chooseAssayTypeDropDown { $('#new-assay-type') }
         chooseFilterDropDown { $("#select-filter") }
         includeCosmicCheckBox { $("#include-cosmic") }
-        chooseProjectDropDown { $("#select-genome-project-header .btn.dropdown-toggle.btn-default") }
+        chooseProjectDropDown { $(".projects .btn.dropdown-toggle.btn-default") }
 
         chooseDropDownValueBasedOntheValue { String value -> $(".dropdown-menu.open li a span", text: contains(value)) }
         genomeFromGenomeList { String value -> $("#genome-list option", title: contains(value)) }
@@ -40,6 +43,14 @@ class ClinicalReporterModule extends Module {
         }
         deletingReportProgressBar { $(".modal-scrollable .loading-spinner") }
         numberOfClinicalReports { $(".paginator-row").size() }
+
+        /*New Solo Report*/
+        numberOfMembersInNewVAASTAnalysis { $("#select-genomes svg g g text") }
+        tabBasedOnRelationship { String relationship -> numberOfMembersInNewVAASTAnalysis.filter(text: contains(relationship)) }
+        geneBasedOnRelationship { String relationship -> $(".genome-option", text: relationship) }
+        maleRadioButton { $("input", type: "radio", value: "male") }
+        femaleRadioButton { $("input", type: "radio", value: "female") }
+        selectButton { $(".btn.btn-primary.close-button", text: "Select") }
 
 
     }

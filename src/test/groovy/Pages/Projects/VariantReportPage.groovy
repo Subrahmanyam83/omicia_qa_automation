@@ -28,8 +28,8 @@ class VariantReportPage extends BasePage{
         while(!variantReport.columnNameBasedOnGene(geneName,columnName).isDisplayed()){
             driver.get(driver.currentUrl);
             index++;
-            if (index.equals(50)) {
-                Assert.fail("Refreshing Page is not showing link on Projects Page")
+            if (index.equals(FIFTY)) {
+                Assert.fail("Pipeline is busy or Down: 'Refreshing Page is not showing link on Projects Page'")
             }
         }
         click(variantReport.columnNameBasedOnGene(geneName,columnName),columnName+" of the GENE: "+geneName)
