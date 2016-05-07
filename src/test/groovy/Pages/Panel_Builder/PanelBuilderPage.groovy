@@ -13,13 +13,23 @@ class PanelBuilderPage extends BasePage{
     static at = {
         panelBuilder.newPanelButton.displayed
         panelBuilder.navPanelOfPanelBuilder.displayed
+        panelBuilder.panelTable
     }
 
     static content ={
         panelBuilder {module PanelBuilderModule}
     }
 
+    def clickItemsPerPageNndChooseValue(String value = HUNDRED) {
+        scrollToCenter(panelBuilder.activePaginatorButton)
+        click(panelBuilder.activePaginatorButton, "Paginator Button")
+        waitFor { panelBuilder.paginatorDropDownValue(value) }
+        click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
+        scrollToCenter(panelBuilder.newPanelButton)
+    }
+
     def createNewPanel(String panel_name,String panel_description){
+        clickItemsPerPageNndChooseValue()
         waitFor { panelBuilder.newPanelButton.displayed }
         click(panelBuilder.newPanelButton,"New Panel Button");
         waitFor {panelBuilder.createPanelModal.displayed}
@@ -27,7 +37,7 @@ class PanelBuilderPage extends BasePage{
         type(panelBuilder.panelDescriptionField,panel_description,"Panel Description");
         click(panelBuilder.createPanelButton,"Create Panel Button")
         waitTillElementIsNotPresent(panelBuilder.createPanelModal,"Create Panel Modal")
-        waitFor { panelBuilder.panelRowBasedOnPanelName(panel_name).displayed }
+        waitFor { panelBuilder.panelRowBasedOnPanelName(panel_name) }
     }
 
     def clickOnActionsButtonBasedOnAndClickAction(String panelName, String action) {
@@ -37,6 +47,7 @@ class PanelBuilderPage extends BasePage{
     }
 
     def deleteAllPanels() {
+        Thread.sleep(3000L)
         while (!panelBuilder.numberOfPanelsOnWorkSpacePanel.equals(ZERO)) {
             click(panelBuilder.actionButton, "Action Button of Panel");
             click(panelBuilder.deletePanelUnderActionDropDpwn, "Delete Panel Aoption under Actions Drop Down")

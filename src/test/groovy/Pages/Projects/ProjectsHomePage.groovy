@@ -3,6 +3,7 @@ package Pages.Projects
 import Modules.Login.HeaderModule
 import Modules.Projects.ProjectsHomeModule
 import Utilities.Class.BasePage
+import org.testng.Assert
 
 /**
  * Created by in02183 on 4/5/2016.
@@ -24,15 +25,21 @@ class ProjectsHomePage extends BasePage{
         click(projectsHome.projectButton(projectName),"Project Button in Projects Page")
     }
 
-    def deleteProject(String projectName){
+    /*def deleteProject(String projectName){
         clickProjectInProjectsHomePage(projectName)
         at ProjectsPage
         clickActionsMenuAndClickOption("Delete Genomes")
-    }
+    }*/
 
     def refreshTillCountMatches(String NewProjectName,int count){
+        int index = 0;
         while(getGenomeBasedOnProjectName(NewProjectName)!=(count)){
             driver.get(driver.currentUrl);
+            index++;
+            Thread.sleep(500)
+            if (index.equals(FIFTY)) {
+                Assert.fail("Pipeline is busy or Down: 'Refreshing Page is not making the Gene Count increase On Projects Home Page'")
+            }
         }
     }
 

@@ -26,53 +26,34 @@ public class ExcelReader{
     private String sheetName;
 
     public ExcelReader(String path,String sheetName) {
-        //System.out.println("Im in Exc elcel readder class");
-        //System.out.println(path);
         this.path = path;
         try {
             fis = new FileInputStream(path);
             workbook = new HSSFWorkbook(fis);
             sheet = workbook.getSheetAt(0);
             this.sheetName = sheetName;
-            //	System.out.println(this.sheetName);
             fis.close();
-            //System.out.println("Im in Exc elcel readder class Ending");
-
         } catch (Exception e) {
-            //e.printStackTrace();
         }
 
     }
 
-
-
-    // returns the row count in a sheet
-
-    /**
-     *
-     * @param sheetName
-     * @return
-     */
-
-
-
+    /*Returns the row count in a sheet*/
     public int getRowCount(String sheetName) {
         System.out.println("Im in Exc elcel readder getrow count class");
-        int index = workbook.getSheetIndex(sheetName);// (arg0)getSheetIndex
+        int index = workbook.getSheetIndex(sheetName);
         if (index == -1)
             return 0;
         else {
             sheet = workbook.getSheetAt(index);
             int number = sheet.getLastRowNum() + 1;
-            //System.out.println("row number is "+number);
             return number;
         }
     }
+
     public String getData(String rowName,String colName) throws Throwable{
-        //	System.out.println("Im in Exc elcel readder get data class");
         int rowNum=-1;
         try{
-
             int index = workbook.getSheetIndex(sheetName);
             int rowNumber = -1;
             int colNumber = -1;
@@ -80,17 +61,12 @@ public class ExcelReader{
             if (index == -1)
                 return "";
             sheet = workbook.getSheetAt(index);
-
-
             for (int i = 2; i < sheet.getPhysicalNumberOfRows(); ) {
                 try
                 {
                     row = sheet.getRow(i);
-
-
                     if (row.getCell(0).toString().equalsIgnoreCase(rowName)) {
                         rowNumber = i;
-
                         break;
                     }
                     i=i+2;
@@ -133,26 +109,17 @@ public class ExcelReader{
                         .replaceFirst(".0", "");
 
                 if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                    // format in form of M/D/YY
                     double d = cell.getNumericCellValue();
-
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(HSSFDateUtil.getJavaDate(d));
-                    cellText = (String.valueOf(cal.get(Calendar.YEAR)))
-                            .substring(2);
-                    cellText = cal.get(Calendar.MONTH) + 1 + "/"
-                            + cal.get(Calendar.DAY_OF_MONTH) + "/" + cellText;
-
-                    // System.out.println(cellText);
-
+                    cellText = (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
+                    cellText = cal.get(Calendar.MONTH) + 1 + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cellText;
                 }
-
                 return cellText;
             } else if (cell.getCellType() == Cell.CELL_TYPE_BLANK)
                 return "";
             else
                 return String.valueOf(cell.getBooleanCellValue()).trim();
-
         }
         catch(Exception e){
             return "";
@@ -176,14 +143,12 @@ public class ExcelReader{
             columns=sheet.getRow(0).getLastCellNum();
             data=new String[rows-1][columns];
             for (int i = 1; i < rows; i++) {
-
                 for(int j=0;j<columns;j++)
                 {
                     try
                     {
                         row = sheet.getRow(i);
                         data[i-1][j]=row.getCell(j).toString();
-                        //    System.out.println(data[i-1][j]);
                     }
                     catch(NullPointerException e)
                     {
@@ -198,7 +163,5 @@ public class ExcelReader{
         {
             return null;
         }
-
-
     }
 }

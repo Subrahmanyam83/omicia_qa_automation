@@ -11,6 +11,7 @@ class FilteringProtocolHomePage extends BasePage {
 
     static at = {
         filteringprotocol.newFilteringProtocolButton.displayed
+        filteringProtocolHome.filteringWorkspaceProtocolTable
     }
 
     static content = {
@@ -19,10 +20,12 @@ class FilteringProtocolHomePage extends BasePage {
     }
 
     def deleteAllFilteringProtocols() {
-        while (filteringProtocolHome.deleteButtonOfTheFilteringProtocol.size() != ZERO) {
-            click(filteringProtocolHome.deleteButtonOfTheFilteringProtocol, "Filtering protocol Delete Button")
-            click(filteringProtocolHome.deleteButtonOnDialog, "Delete Confirmation on Dialog")
-            waitTillElementIsNotPresent((filteringProtocolHome.deleteModalDialog), "Delete Filtering protocol Dialog")
+        if (filteringProtocolHome.numberOfRows.size() > 0) {
+            while (!filteringProtocolHome.numberOfFilteringProtocols.equals(ZERO)) {
+                click(filteringProtocolHome.deleteButtonOfTheFilteringProtocol, "Filtering protocol Delete Button")
+                click(filteringProtocolHome.deleteButtonOnDialog, "Delete Confirmation on Dialog")
+                waitTillElementIsNotPresent((filteringProtocolHome.deleteModalDialog), "Delete Filtering protocol Dialog")
+            }
         }
     }
 }

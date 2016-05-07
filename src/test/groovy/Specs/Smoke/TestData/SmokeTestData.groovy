@@ -1,16 +1,16 @@
 package Specs.Smoke.TestData
 
+import Utilities.Class.BaseSpec
+
 /**
  * Created by E002183 on 4/25/2016.
  */
-class SmokeTestData {
+class SmokeTestData extends BaseSpec {
 
     String random = "_" + generateRandom();
 
-    public String PROJECT_NAME = "Test-OMICIA-Project-" + random
-    public String SHORT_FILE = "/src/main/resources/VCFs/GID_validation_examples.vcf"
-    public String FOUR_EXOMES = "/src/main/resources/VCFs/EX024_hc_first1000.vcf.gz"
     public String GENE_LABEL = "Genome-Label-1 — External-ID-1"
+    public String EXOME_GENE_LABEL = "Genome-Label-1-EX024-1 — External-ID-1"
     public String GENE_NAME = "CDK11A"
     public String GENE_SET_NAME = "Test Gene Set Name" + random
     public String DESCRIPTION = "Test Gene Set Description" + random
@@ -33,8 +33,17 @@ class SmokeTestData {
     public String PATIENT_ID = "Test Patient ID 123" + random
     public String GENOME_NAME_TO_BE_SELECTED = "Genome-Label-1-EX024-1 — External-ID-1"
 
-    def generateRandom() {
-        Random r = new Random(System.currentTimeMillis());
-        return ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
-    }
+    public String VARIANT_CHANGE_SOLO = "G → A c.869G>A p.Arg290His"
+    public String VARIANT_CHANGE_TRIO = "T → C c.746T>C p.Val249Ala"
+    public String VARIANT_CHANGE_QUAD = "T → C c.746T>C p.Val249Ala"
+    public String VARIANT_EFFECT = "missense"
+
+    /*Report Page*/
+    public String POSITION_DBSNP_VALUE = "chr1 1117779 rs553315851"
+    public String CHANGE_VALUE = "G → A c.869G>A p.Arg290His"
+    public String VVP_CADD_VALUE = "56 14"
+    public String VAAST_G_SCORE_VALUE_RECESSIVE = "14.32 5.90e-1"
+    public String VAAST_G_SCORE_VALUE_DOMINANT = "14.32 1.87e-1"
+
+
 }

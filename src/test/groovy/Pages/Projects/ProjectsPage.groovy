@@ -2,6 +2,7 @@ package Pages.Projects
 
 import Modules.Projects.ProjectsModule
 import Utilities.Class.BasePage
+import org.testng.Assert
 
 /**
  * Created by in02183 on 4/5/2016.
@@ -15,7 +16,7 @@ class ProjectsPage extends BasePage{
         projects {module ProjectsModule}
     }
 
-    def getNumberOfGenomes(){
+    def getNumberOfGenes() {
         return projects.getNumberOfGenes
     }
 
@@ -27,7 +28,6 @@ class ProjectsPage extends BasePage{
             click(projects.deleteGenomesButton,"Delete Genomes Button")
             waitFor { projects.genomesDeletedConfirmationText.displayed }
         }
-
     }
 
     def deleteProjects() {
@@ -42,9 +42,39 @@ class ProjectsPage extends BasePage{
     }
 
     def clickOnColumnBasedOnGenomeLabel(String genomeLabel, String columnName){
-        while(!projects.selectCoumnBasedOnGeneLabel(genomeLabel,columnName)){
-            driver.get(driver.currentUrl)
+        int index = 0;
+        while (!projects.selectColumnBasedOnGeneLabel(genomeLabel, columnName)) {
+            driver.get(driver.currentUrl);
+            index++;
+            Thread.sleep(500)
+            if (index.equals(FIFTY)) {
+                Assert.fail("Pipeline is busy or Down: : 'Refreshing Page is not showing link on Projects Page'")
+            }
         }
-         click(projects.selectCoumnBasedOnGeneLabel(genomeLabel,columnName),columnName)
+        click(projects.selectColumnBasedOnGeneLabel(genomeLabel, columnName), columnName)
+    }
+
+    def waitTillAllVariantReportsAreAvailable() {
+        int index = 0;
+        while (!projects.availableVariantReports.equals(projects.numberOfVariantReports)) {
+            driver.get(driver.currentUrl);
+            index++;
+            Thread.sleep(1000L)
+            if (index.equals(FIFTY)) {
+                Assert.fail("Pipeline is busy or Down: : 'Refreshing Projects Page is not making Variant Reports available'")
+            }
+        }
+    }
+
+    def launchAppAndChooseValue(String value) {
+        waitFor { projects.launchApp }
+        click(projects.launchApp, "Launch App Button")
+        waitFor { projects.dropDownMenuValue(value) }
+        click(projects.dropDownMenuValue(value), "Launch App Drop Down Value")
+    }
+
+    def clickOnReport(String reportType) {
+        waitFor { projects.variantReportType(reportType) }
+        click(projects.variantReportType(reportType), "Variant Report Type")
     }
 }

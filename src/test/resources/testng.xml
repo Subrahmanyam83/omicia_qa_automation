@@ -13,7 +13,20 @@
 
     <test name="POC Demo">
         <classes>
-            <class name="Specs.POC.OmiciaPOCSpec"/>
+            <class name="Specs.Smoke.SmokeSpec">
+                <methods>
+                    <include name="launchEndToEndPanelReport"/>
+                </methods>
+            </class>
         </classes>
     </test>
+
+
+    <!-- <test name="POC Demo">
+         <packages>
+             <package name="Specs.Smoke" />
+         </packages>
+
+     </test>-->
+
 </suite>
