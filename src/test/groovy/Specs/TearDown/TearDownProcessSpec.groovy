@@ -1,4 +1,4 @@
-package Specs.Smoke
+package Specs.TearDown
 
 import Pages.Clinical_Reporter.ClinicalReporterPage
 import Pages.Filtering_Protocol.FilteringProtocolHomePage

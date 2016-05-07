@@ -1,5 +1,6 @@
 package Specs.Smoke
 
+import Pages.App_Store.AnalysisHomePage
 import Pages.Clinical_Reporter.*
 import Pages.Filtering_Protocol.NewFilteringProtocolPage
 import Pages.Gene_Sets.GeneSetsPage
@@ -11,6 +12,7 @@ import Pages.Panel_Builder.CuratePanelPage
 import Pages.Panel_Builder.PanelBuilderPage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
+import Pages.Projects.ReportsHomePage
 import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
@@ -33,7 +35,7 @@ class SmokeSpec extends BaseSpec{
     }
 
     @Test(groups = "smoke", priority = 1)
-    public void BasicOpalFunctionality() {
+    public void launchEndToEndPanelReport() {
 
         to LoginPage
         signIn();
@@ -116,8 +118,6 @@ class SmokeSpec extends BaseSpec{
 
         at VariantInterpretationHomePage
         Assert.equals(getEffectBasedOnVariant(SAMD11).equals(MISSENSE))
-
-        /*Phase 2*/
         clickOnInterpretVariantBasedOnVariant(SAMD11)
 
         at VariantInterpretEditPage
@@ -151,7 +151,7 @@ class SmokeSpec extends BaseSpec{
     }
 
     @Test(groups = "smoke", priority = 2)
-    public void launchSoloRun() {
+    public void launchSoloReport() {
 
         to LoginPage
         signIn();
@@ -183,30 +183,33 @@ class SmokeSpec extends BaseSpec{
         clickOnActionsAndValueBasedOnPatientId(data.PATIENT_ID, INTERPRET_VARIANTS)
 
         at VariantSelectionPage
-        runPhevor(ATAXIA)
-        Assert.assertEquals(getDefaultColumnNamesForSoloVariantSelection(), SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), SIXTY_THREE)
-        Assert.assertEquals(getChangeBasedOnVariant(SCNN1D), data.VARIANT_CHANGE)
-        Assert.assertEquals(getEffectBasedOnVariant(SCNN1D), data.VARIANT_EFFECT)
-        Assert.assertEquals(getVAASTRankBasedOnVariant(SCNN1D), ONE)
-        Assert.assertEquals(getPhevorRankBasedOnVariant(SCNN1D), ONE)
+        runPhevor(ATAXIA)
+        Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        Assert.assertEquals(getNumberOfItems(), SIXTY_THREE)
+        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_SOLO)
+        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
+        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), TWO)
+        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
 
-        clickCheckBoxBasedOnVariant(SCNN1D)
-        Assert.assertEquals(verifyIfCheckBoxIsCheckedBasedOnVariant(SCNN1D), true)
+        page VariantSelectionPage
+        clickCheckBoxBasedOnVariant(TTLL10)
+        Assert.assertEquals(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10), true)
         clickAddSelectedVariants()
         clickVariantInterpretationButton()
 
         at VariantInterpretationHomePage
-        Assert.assertEquals(getColumnNamesForSoloRun(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
         Assert.assertEquals(getNumberOfItems(), ONE)
-        Assert.assertEquals(getChangeBasedOnVariant(SCNN1D), data.VARIANT_CHANGE)
-        Assert.assertEquals(getEffectBasedOnVariant(SCNN1D), data.VARIANT_EFFECT)
-        Assert.assertEquals(getClassBasedOnVariant(SCNN1D), NONE_TEXT)
-        Assert.assertEquals(getStatusBasedOnVariant(SCNN1D), NONE_TEXT)
-        Assert.assertEquals(getVAASTRankBasedOnVariant(SCNN1D), ONE)
-        Assert.assertEquals(getPhevorRankBasedOnVariant(SCNN1D), ONE)
-        Assert.assertEquals(getInheritanceMode(SCNN1D), RECESSIVE)
-        clickOnInterpretVariantBasedOnVariant(SCNN1D)
+        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_SOLO)
+        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
+        Assert.assertEquals(getClassBasedOnVariant(TTLL10), NONE_TEXT)
+        Assert.assertEquals(getStatusBasedOnVariant(TTLL10), NONE_TEXT)
+        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), TWO)
+        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
+        Assert.assertEquals(getInheritanceMode(TTLL10), RECESSIVE)
+        clickOnInterpretVariantBasedOnVariant(TTLL10)
 
         at VariantInterpretEditPage
         editVariant(CLASSIFICATION_PATHOGENIC, PRIMARY_FINDING)
@@ -219,5 +222,218 @@ class SmokeSpec extends BaseSpec{
         at ReviewReportPage
         Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
         Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
+    }
+
+    @Test(groups = "smoke", priority = 3)
+    public void launchTrioReport() {
+
+        to LoginPage
+        signIn();
+
+        at OmiciaHomePage
+        openTab(UPLOAD_GENOMES);
+
+        at UploadGenomePage
+        fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
+        waitForTheVCFFileToUpload();
+
+        at HeaderPage
+        clickOnMenuAndSelectOption(PROJECTS)
+
+        at ProjectsHomePage
+        refreshTillCountMatches(PROJECT_NAME, FOUR)
+
+        at HeaderPage
+        clickOnMenuAndSelectOption(CLINICAL_REPORTER)
+
+        at ClinicalReporterPage
+        clickOnNewReportAndSelectDropDownValue(TRIO)
+        fillDetailsForNewReport(data.PATIENT_ID, PROJECT_NAME)
+        Assert.equals(getNamesOfMembers().equals(TRIO_LIST))
+
+        chooseGeneForEachMember(TRIO)
+        selectSaveNewPanelReport()
+        refreshTillStatusChangesToReadyForInterpretation(data.PATIENT_ID)
+        clickOnActionsAndValueBasedOnPatientId(data.PATIENT_ID, INTERPRET_VARIANTS)
+
+        at VariantSelectionPage
+        page VariantInterpretationHomePage
+        Assert.assertEquals(getNumberOfItems(), FOUR)
+        runPhevor(ATAXIA)
+        Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        Assert.assertEquals(getNumberOfItems(), FOUR)
+        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
+        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
+        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), ONE)
+        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
+
+        page VariantSelectionPage
+        clickCheckBoxBasedOnVariant(TTLL10)
+        Assert.assertEquals(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10), true)
+        clickAddSelectedVariants()
+        clickVariantInterpretationButton()
+
+        at VariantInterpretationHomePage
+        Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        Assert.assertEquals(getNumberOfItems(), ONE)
+        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
+        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
+        Assert.assertEquals(getClassBasedOnVariant(TTLL10), NONE_TEXT)
+        Assert.assertEquals(getStatusBasedOnVariant(TTLL10), NONE_TEXT)
+        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), ONE)
+        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
+        Assert.assertEquals(getInheritanceMode(TTLL10), RECESSIVE)
+        clickOnInterpretVariantBasedOnVariant(TTLL10)
+
+        at VariantInterpretEditPage
+        editVariant(CLASSIFICATION_PATHOGENIC, PRIMARY_FINDING)
+        saveVariant()
+        closeInterpretVariantDialog()
+
+        at VariantInterpretationHomePage
+        clickReviewReport()
+
+        at ReviewReportPage
+        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
+        Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
+    }
+
+    @Test(groups = "smoke", priority = 4)
+    public void launchQuadReport() {
+
+        to LoginPage
+        signIn();
+
+        at OmiciaHomePage
+        openTab(UPLOAD_GENOMES);
+
+        at UploadGenomePage
+        fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
+        waitForTheVCFFileToUpload();
+
+        at HeaderPage
+        clickOnMenuAndSelectOption(PROJECTS)
+
+        at ProjectsHomePage
+        refreshTillCountMatches(PROJECT_NAME, FOUR)
+
+        at HeaderPage
+        clickOnMenuAndSelectOption(CLINICAL_REPORTER)
+
+        at ClinicalReporterPage
+        clickOnNewReportAndSelectDropDownValue(QUAD)
+        fillDetailsForNewReport(data.PATIENT_ID, PROJECT_NAME)
+        Assert.equals(getNamesOfMembers().equals(QUAD_LIST))
+
+        chooseGeneForEachMember(QUAD)
+        selectSaveNewPanelReport()
+        refreshTillStatusChangesToReadyForInterpretation(data.PATIENT_ID)
+        clickOnActionsAndValueBasedOnPatientId(data.PATIENT_ID, INTERPRET_VARIANTS)
+
+        at VariantSelectionPage
+        page VariantInterpretationHomePage
+        Assert.assertEquals(getNumberOfItems(), FOUR)
+        runPhevor(ATAXIA)
+        Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        Assert.assertEquals(getNumberOfItems(), FOUR)
+        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_QUAD)
+        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
+        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), ONE)
+        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
+
+        page VariantSelectionPage
+        clickCheckBoxBasedOnVariant(TTLL10)
+        Assert.assertEquals(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10), true)
+        clickAddSelectedVariants()
+        clickVariantInterpretationButton()
+
+        at VariantInterpretationHomePage
+        Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        Assert.assertEquals(getNumberOfItems(), ONE)
+        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_QUAD)
+        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
+        Assert.assertEquals(getClassBasedOnVariant(TTLL10), NONE_TEXT)
+        Assert.assertEquals(getStatusBasedOnVariant(TTLL10), NONE_TEXT)
+        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), ONE)
+        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
+        Assert.assertEquals(getInheritanceMode(TTLL10), RECESSIVE)
+        clickOnInterpretVariantBasedOnVariant(TTLL10)
+
+        at VariantInterpretEditPage
+        editVariant(CLASSIFICATION_PATHOGENIC, PRIMARY_FINDING)
+        saveVariant()
+        closeInterpretVariantDialog()
+
+        at VariantInterpretationHomePage
+        clickReviewReport()
+
+        at ReviewReportPage
+        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
+        Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
+    }
+
+    @Test(groups = "smoke", priority = 5)
+    public void launchVAASTSoloAnalysis() {
+
+        to LoginPage
+        signIn();
+
+        at OmiciaHomePage
+        openTab(UPLOAD_GENOMES);
+
+        at UploadGenomePage
+        fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
+        waitForTheVCFFileToUpload();
+
+        at HeaderPage
+        clickOnMenuAndSelectOption(PROJECTS)
+
+        at ProjectsHomePage
+        refreshTillCountMatches(PROJECT_NAME, FOUR)
+        clickProjectInProjectsHomePage(PROJECT_NAME);
+
+        at ProjectsPage
+        waitTillAllVariantReportsAreAvailable()
+        launchAppAndChooseValue(VAAST_SOLO_ANALYSIS)
+
+        at AnalysisHomePage
+        page ClinicalReporterPage
+        chooseGeneForEachMember(SOLO)
+        page AnalysisHomePage
+        clickOnRun()
+
+        at ProjectsPage
+        waitTillAllVariantReportsAreAvailable()
+        clickOnReport(VAAST_SOLO_REPORT)
+
+        at ReportsHomePage
+        waitForThePageToLaunch()
+        Assert.assertEquals(verifyReportHeading(), VAAST_SOLO_REPORT)
+        page VariantInterpretationHomePage
+        Assert.assertEquals(getNumberOfItems(), TWELVE)
+        Assert.assertEquals(getDefaultColumnNamesOnPage(), VAAST_SOLO_REPORT_COLUMN_LIST)
+        Assert.assertEquals(getPositionDBSNPBasedOnVariant(TTLL10, ONE), data.POSITION_DBSNP_VALUE)
+        Assert.assertEquals(getChangeBasedOnVariant(TTLL10, ONE), data.CHANGE_VALUE)
+        Assert.assertEquals(getEffectBasedOnVariant(TTLL10, ONE), MISSENSE)
+        Assert.assertEquals(getVAASTRankBasedOnVariant(TTLL10, ONE), TWO)
+        Assert.assertEquals(getVVPCADDBasecOnVariant(TTLL10, ONE), data.VVP_CADD_VALUE)
+        Assert.assertEquals(getVAASTVScoreBasedOnVariant(TTLL10, ONE), FOURTEEN_POINT_THREE_TWO)
+        Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10, ONE), data.VAAST_G_SCORE_VALUE_RECESSIVE)
+
+        page ReportsHomePage
+        clickOnHeaderButton(DOMINANT)
+        at ReportsHomePage
+        waitForThePageToLaunch()
+        Assert.assertEquals(verifyReportHeading(), VAAST_SOLO_REPORT)
+        page VariantInterpretationHomePage
+        Assert.assertEquals(getNumberOfItems(), FIVE)
+        Assert.assertEquals(getDefaultColumnNamesOnPage(), VAAST_SOLO_REPORT_COLUMN_LIST)
+        Assert.assertEquals(getPositionDBSNPBasedOnVariant(TTLL10), data.POSITION_DBSNP_VALUE)
+        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.CHANGE_VALUE)
+        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
+        Assert.assertEquals(getVAASTRankBasedOnVariant(TTLL10), THREE)
+        Assert.assertEquals(getVVPCADDBasecOnVariant(TTLL10), data.VVP_CADD_VALUE)
+        Assert.assertEquals(getVAASTVScoreBasedOnVariant(TTLL10), FOURTEEN_POINT_THREE_TWO)
+        Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10), data.VAAST_G_SCORE_VALUE_DOMINANT)
     }
 }

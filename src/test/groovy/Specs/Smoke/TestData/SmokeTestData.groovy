@@ -33,7 +33,17 @@ class SmokeTestData extends BaseSpec {
     public String PATIENT_ID = "Test Patient ID 123" + random
     public String GENOME_NAME_TO_BE_SELECTED = "Genome-Label-1-EX024-1 — External-ID-1"
 
-    public String VARIANT_CHANGE = "CAA → C c.742_743delAA p.Lys248AspfsTer24"
-    public String VARIANT_EFFECT = "frameshift"
+    public String VARIANT_CHANGE_SOLO = "G → A c.869G>A p.Arg290His"
+    public String VARIANT_CHANGE_TRIO = "T → C c.746T>C p.Val249Ala"
+    public String VARIANT_CHANGE_QUAD = "T → C c.746T>C p.Val249Ala"
+    public String VARIANT_EFFECT = "missense"
+
+    /*Report Page*/
+    public String POSITION_DBSNP_VALUE = "chr1 1117779 rs553315851"
+    public String CHANGE_VALUE = "G → A c.869G>A p.Arg290His"
+    public String VVP_CADD_VALUE = "56 14"
+    public String VAAST_G_SCORE_VALUE_RECESSIVE = "14.32 5.90e-1"
+    public String VAAST_G_SCORE_VALUE_DOMINANT = "14.32 1.87e-1"
+
 
 }

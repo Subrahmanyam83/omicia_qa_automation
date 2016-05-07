@@ -12,7 +12,7 @@ class VariantInterpretationHomeModule extends Module {
         geneNameLink { String variantName, int index -> $(".paginator-row .gene-symbol .gene", text: variantName).getAt(index) }
 
         /*Home Page*/
-        variantTable { $("#variants") }
+        variantTable { $("#variants tbody#variants") }
         getEffectBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.consequence a") }
         getClassBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.classification-sort-order span") }
         getStatusBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.status") }

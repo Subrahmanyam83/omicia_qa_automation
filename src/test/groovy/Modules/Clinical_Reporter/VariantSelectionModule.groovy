@@ -21,17 +21,23 @@ class VariantSelectionModule extends Module {
         filtersPane { $("div.span2.filters") }
 
         /*Variant Table*/
-        variantsTable { $("table#variants") }
+        variantsTable { $("table#variants tbody#variants") }
         variantTableColumnText { $("#variants thead tr th") }
         numberOfItems { $(".total") }
+        itemText { $(".total", text: "Items") }
 
         variantNameLink { String variantName, int index -> $(".paginator-row .gene-symbol .gene", text: variantName).getAt(index) }
+        getPositionDBSNAP { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.chromosome-int") }
         getChangeBasedOnVariant { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.variant-change div") }
         getEffectBasedOnVariant { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.consequence a") }
         getVAASTGeneRank { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.vaast-gene-rank") }
+        getVAASTRank { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.rank") }
         getPhevorGeneRank { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.phevor-gene-rank") }
         getCheckBoxBasedOnVariant { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.select input") }
         getInheritanceMode { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.inheritance-mode") }
+        getVVPCADD { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.vvp-cadd") }
+        getVAASTVScore { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.variantScore") }
+        getVAASTGScore { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.geneScore") }
         isCheckboxCheckedBasedOnVariant { String variantName, int index -> variantNameLink(variantName, index).parent().parent().filter(".warning").displayed }
 
         /*Phevor Tab*/
@@ -39,6 +45,7 @@ class VariantSelectionModule extends Module {
         dropDownValue { String value -> $(".typeahead.dropdown-menu li", "data-value": value) }
         runButtonOnPhevor { $(".btn.btn-primary.close-button", text: "Run") }
         runingPhevorProgressBar { $(".loading-spinner .progress.active") }
+        phevorProgressBar { $(".modal-scrollable div div")[1] }
 
         /*Modal Popup*/
         addNoteTextField { $(".modal-overflow #add-variants-note") }

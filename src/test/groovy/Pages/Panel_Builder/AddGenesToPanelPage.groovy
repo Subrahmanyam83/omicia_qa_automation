@@ -40,7 +40,6 @@ class AddGenesToPanelPage extends BasePage{
     }
 
     def clickOnButton(String button){
-
         if(button.equals("Add Genes")){
             waitFor { addGenesToPanel.addGene.displayed }
             click(addGenesToPanel.addGene, "Add Genes Button")

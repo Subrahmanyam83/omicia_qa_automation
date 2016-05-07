@@ -58,6 +58,7 @@ class BasePage extends Page implements Constants{
             for(int i=0;i<30;i++) {
                 if (!(navigator.isDisplayed())) {
                     getEreportTest().log(PASS,"Wait on the Element Not Present successful on the element: "+elementName);
+                    Thread.sleep(1000L)
                     return true;
                 } else {
                     Thread.sleep(1000L);
@@ -73,6 +74,7 @@ class BasePage extends Page implements Constants{
             int center = driver.manage().window().getSize().getHeight()/2
             int locatorHeight = navigator.firstElement().getLocation().getY() - center
             js.exec("window.scrollTo(0,$locatorHeight);")
+        Thread.sleep(1000)
     }
 
     public int getResponseCode(String url) {

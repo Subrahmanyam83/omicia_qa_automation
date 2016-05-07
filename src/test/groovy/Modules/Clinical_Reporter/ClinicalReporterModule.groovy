@@ -47,7 +47,7 @@ class ClinicalReporterModule extends Module {
         /*New Solo Report*/
         numberOfMembersInNewVAASTAnalysis { $("#select-genomes svg g g text") }
         tabBasedOnRelationship { String relationship -> numberOfMembersInNewVAASTAnalysis.filter(text: contains(relationship)) }
-        geneBasedOnRelationship { String relationship -> $(".genome-option", text: relationship) }
+        geneBasedOnRelationship { String relationship -> $(".genomes").children().filter(text: relationship) }
         maleRadioButton { $("input", type: "radio", value: "male") }
         femaleRadioButton { $("input", type: "radio", value: "female") }
         selectButton { $(".btn.btn-primary.close-button", text: "Select") }

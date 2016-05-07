@@ -42,7 +42,7 @@ class OmiciaPOCSpec extends BaseSpec{
         clickProjectInProjectsHomePage(NewProjectName);
 
         at ProjectsPage
-        int expectedGeneCount = getNumberOfGenomes();
+        int expectedGeneCount = getNumberOfGenes();
         Assert.assertEquals(ONE, expectedGeneCount);
     }
 

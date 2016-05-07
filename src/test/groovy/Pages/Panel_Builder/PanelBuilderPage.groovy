@@ -20,7 +20,16 @@ class PanelBuilderPage extends BasePage{
         panelBuilder {module PanelBuilderModule}
     }
 
+    def clickItemsPerPageNndChooseValue(String value = HUNDRED) {
+        scrollToCenter(panelBuilder.activePaginatorButton)
+        click(panelBuilder.activePaginatorButton, "Paginator Button")
+        waitFor { panelBuilder.paginatorDropDownValue(value) }
+        click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
+        scrollToCenter(panelBuilder.newPanelButton)
+    }
+
     def createNewPanel(String panel_name,String panel_description){
+        clickItemsPerPageNndChooseValue()
         waitFor { panelBuilder.newPanelButton.displayed }
         click(panelBuilder.newPanelButton,"New Panel Button");
         waitFor {panelBuilder.createPanelModal.displayed}
@@ -28,7 +37,7 @@ class PanelBuilderPage extends BasePage{
         type(panelBuilder.panelDescriptionField,panel_description,"Panel Description");
         click(panelBuilder.createPanelButton,"Create Panel Button")
         waitTillElementIsNotPresent(panelBuilder.createPanelModal,"Create Panel Modal")
-        waitFor { panelBuilder.panelRowBasedOnPanelName(panel_name).displayed }
+        waitFor { panelBuilder.panelRowBasedOnPanelName(panel_name) }
     }
 
     def clickOnActionsButtonBasedOnAndClickAction(String panelName, String action) {

@@ -70,8 +70,6 @@ class VariantInterpretEditPage extends BasePage {
         click(interpretVariant.closeButton, "Close Button on Interpret Variant Dialog")
     }
 
-    /*Variant Evidence Methods*/
-
     def clickOnCopyToVariantInterpretationAndDescription() {
         waitFor { interpretVariant.copyToVariantInterpretationAndDescritpion.displayed }
         click(interpretVariant.copyToVariantInterpretationAndDescritpion, "Copy to Variant Interpretation and Description Button")

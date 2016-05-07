@@ -28,15 +28,19 @@ public interface Constants {
     String GET_TEXT = "get_text";
     String NONE = ""
     String NONE_TEXT = "None"
-    int ZERO = 0;
-    int ONE = 1;
-    int TWO = 2;
-    int THREE = 3;
-    int FOUR = 4;
-    int FIFTY = 50;
-    int THIRTY = 30;
-    int THIRTY_NINE = 39
-    int SIXTY_THREE = 63;
+    def ZERO = 0;
+    def ONE = 1;
+    def TWO = 2;
+    def THREE = 3;
+    def FOUR = 4;
+    def FIVE = 5;
+    def FIFTY = 50;
+    def THIRTY = 30;
+    def THIRTY_NINE = 39
+    def SIXTY_THREE = 63;
+    def TWELVE = 12
+    def HUNDRED = 100
+    def FOURTEEN_POINT_THREE_TWO = "14.32"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -56,6 +60,15 @@ public interface Constants {
     String REPORT_DATE = ".report-date";
     String REPORT_VERSION = ".report-version";
     String REPORT_STATUS = ".report-status";
+
+    String VAAST_SOLO_ANALYSIS = "VAAST Solo Analysis (3.0.4.2)"
+    String VAAST_TRIO_ANALYSIS = "VAAST Trio Analysis (3.0.4.2)"
+    String VAAST_QUAD_ANALYSIS = "VAAST Quad Analysis (3.0.4.2)"
+    String VAAST_SOLO_REPORT = "VAAST Solo Report"
+    String VAAST_TRIO_REPORT = "VAAST Trio Report"
+    String VAAST_QUAD_REPORT = "VAAST Quad Report"
+    String FLEX_TRIO_REPORT = "Flex Trio Report"
+    String FLEX_QUAD_REPORT = "Flex Quad Report"
 
     /*Variant Report Page*/
     String POSITION = ".position a";
@@ -130,10 +143,14 @@ public interface Constants {
     public String SAMD11 = "SAMD11"
     public String PLEKHN1 = "PLEKHN1"
     public String SCNN1D = "SCNN1D"
+    public String TTLL10 = "TTLL10"
 
     /*Variant Interpret Home Page*/
     public List SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
+    public List TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
+    public List QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
     public String RECESSIVE = "Recessive"
+    public String DOMINANT = "Dominant"
 
     /*Variant Interpret Edit Page*/
     public String CLASSIFICATION_PATHOGENIC = "Pathogenic"
@@ -150,9 +167,18 @@ public interface Constants {
 
     /*Variant Selection*/
     public List SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
+    public List TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
+    public List QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"
+
+    /*Report Page*/
+    public List VAAST_SOLO_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
+    public List VAAST_TRIO_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
+    public List VAAST_QUAD_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
+    public List FLEX_TRIO_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
+    public List FLEX_QUAD_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
 
 
 }

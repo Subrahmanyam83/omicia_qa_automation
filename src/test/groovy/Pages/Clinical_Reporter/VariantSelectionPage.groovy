@@ -37,58 +37,6 @@ class VariantSelectionPage extends BasePage {
         click(variantSelection.variantInterpretationButton, "Variant Interpretation Button");
     }
 
-    def getDefaultColumnNamesForSoloVariantSelection() {
-        List<String> columnNames = new LinkedList<String>()
-        for (int i = 0; i < variantSelection.variantTableColumnText.size(); i++) {
-            if (variantSelection.variantTableColumnText[i].text() != "") {
-                columnNames.add(variantSelection.variantTableColumnText[i].text().replace("\n", " "))
-            }
-        }
-        return columnNames.sort()
-    }
-
-    /*This will get the number of Items on the Variants Page*/
-
-    def getNumberOfItems() {
-        return Integer.parseInt(variantSelection.numberOfItems.text().replace(" Items", ""))
-    }
-
-    def getChangeBasedOnVariant(String variantName, int index = 0) {
-        waitFor { variantSelection.getChangeBasedOnVariant(variantName, index).displayed }
-        return variantSelection.getChangeBasedOnVariant(variantName, index).text().replace("\n", " ")
-    }
-
-    def getEffectBasedOnVariant(String variantName, int index = 0) {
-        waitFor { variantSelection.getEffectBasedOnVariant(variantName, index).displayed }
-        return variantSelection.getEffectBasedOnVariant(variantName, index).text().replace("\n", " ")
-    }
-
-    def getVAASTRankBasedOnVariant(String variantName, int index = 0) {
-        waitFor { variantSelection.getVAASTGeneRank(variantName, index).displayed }
-        return Integer.parseInt(variantSelection.getVAASTGeneRank(variantName, index).text().replace("\n", " "))
-    }
-
-    def getPhevorRankBasedOnVariant(String variantName, int index = 0) {
-        waitFor { variantSelection.getPhevorGeneRank(variantName, index).displayed }
-        return Integer.parseInt(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " "))
-    }
-
-
-    def runPhevor(String textFieldValue) {
-        waitFor { variantSelection.runPhevorButton.displayed }
-        waitFor { variantSelection.runPhevorButton.click() }
-        waitFor { variantSelection.phevorTextField.displayed }
-        type(variantSelection.phevorTextField, textFieldValue, "Run Phevor Text Field")
-        waitFor { variantSelection.dropDownValue(textFieldValue) }
-        click(variantSelection.dropDownValue(textFieldValue), "Drop Down Value-> " + textFieldValue)
-
-        waitFor { variantSelection.runButtonOnPhevor.displayed }
-        click(variantSelection.runButtonOnPhevor, "Run Phevor Button on dialog")
-
-        waitTillElementIsNotPresent(variantSelection.runingPhevorProgressBar, "Running Phevor Progress Bar")
-        Thread.sleep(2000L)
-    }
-
     def clickCheckBoxBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getCheckBoxBasedOnVariant(variantName, index).displayed }
         click(variantSelection.getCheckBoxBasedOnVariant(variantName, index), "Variant Selection Checkbox")

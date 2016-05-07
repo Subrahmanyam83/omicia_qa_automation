@@ -18,7 +18,7 @@ class VariantInterpretationHomePage extends BasePage {
         variantSelection { module VariantSelectionModule }
     }
 
-    def getColumnNamesForSoloRun() {
+    def getDefaultColumnNamesOnPage() {
         List<String> columnNames = new LinkedList<String>()
         for (int i = 0; i < variantSelection.variantTableColumnText.size(); i++) {
             if (variantSelection.variantTableColumnText[i].text() != "") {
@@ -29,9 +29,13 @@ class VariantInterpretationHomePage extends BasePage {
     }
 
     /*This will get the number of Items on the Variants Page*/
-
     def getNumberOfItems() {
         return Integer.parseInt(variantSelection.numberOfItems.text().replace(" Items", ""))
+    }
+
+    def getPositionDBSNPBasedOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getPositionDBSNAP(variantName, index).displayed }
+        return variantSelection.getPositionDBSNAP(variantName, index).text().replace("\n", " ")
     }
 
     def getChangeBasedOnVariant(String variantName, int index = 0) {
@@ -59,11 +63,6 @@ class VariantInterpretationHomePage extends BasePage {
         return interpretVariantsHome.getReportSectionBasedOnVariant(variantName, index).text().trim()
     }
 
-    def getVAASTRankBasedOnVariant(String variantName, int index = 0) {
-        waitFor { variantSelection.getVAASTGeneRank(variantName, index).displayed }
-        return Integer.parseInt(variantSelection.getVAASTGeneRank(variantName, index).text().replace("\n", " "))
-    }
-
     def getPhevorRankBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getPhevorGeneRank(variantName, index).displayed }
         return Integer.parseInt(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " "))
@@ -74,6 +73,31 @@ class VariantInterpretationHomePage extends BasePage {
         return variantSelection.getInheritanceMode(variantName, index).text().replace("\n", " ")
     }
 
+    def getVVPCADDBasecOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getVVPCADD(variantName, index).displayed }
+        return variantSelection.getVVPCADD(variantName, index).text().replace("\n", " ")
+    }
+
+    def getVAASTGeneRankBasedOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getVAASTGeneRank(variantName, index).displayed }
+        return Integer.parseInt(interpretVariantsHome.getReportSectionBasedOnVariant(variantName, index).text().trim())
+    }
+
+    def getVAASTRankBasedOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getVAASTRank(variantName, index).displayed }
+        return Integer.parseInt(variantSelection.getVAASTRank(variantName, index).text().replace("\n", " "))
+    }
+
+    def getVAASTVScoreBasedOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getVAASTVScore(variantName, index).displayed }
+        return variantSelection.getVAASTVScore(variantName, index).text().replace("\n", " ")
+    }
+
+    def getVAASTGScoreBasedOnVariant(String variantName, int index = 0) {
+        waitFor { variantSelection.getVAASTGScore(variantName, index).displayed }
+        return variantSelection.getVAASTGScore(variantName, index).text().replace("\n", " ")
+    }
+
     def clickOnInterpretVariantBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index).displayed }
         click(interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index), "Interpret Variant of the Variant: '" + variantName + "'")
@@ -81,6 +105,22 @@ class VariantInterpretationHomePage extends BasePage {
 
     def getVariantIdBasedOnVariantName(String variantName, int index = 0) {
         return interpretVariantsHome.getVariantIdWithIndexBasedOnVariantName.toString().trim()
+    }
+
+    def runPhevor(String textFieldValue) {
+        waitFor { variantSelection.runPhevorButton.displayed }
+        waitFor { variantSelection.runPhevorButton.click() }
+        waitFor { variantSelection.phevorTextField.displayed }
+        type(variantSelection.phevorTextField, textFieldValue, "Run Phevor Text Field")
+        waitFor { variantSelection.dropDownValue(textFieldValue) }
+        click(variantSelection.dropDownValue(textFieldValue), "Drop Down Value-> " + textFieldValue)
+
+        waitFor { variantSelection.runButtonOnPhevor.displayed }
+        click(variantSelection.runButtonOnPhevor, "Run Phevor Button on dialog")
+
+        waitTillElementIsNotPresent(variantSelection.runingPhevorProgressBar, "Running Phevor Progress Bar")
+        waitTillElementIsNotPresent(variantSelection.phevorProgressBar, " Phevor Progress Bar")
+        Thread.sleep(2000L)
     }
 
     def showHideColumns(String columnName, boolean OnOff = true) {
