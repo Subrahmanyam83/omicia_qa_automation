@@ -10,3 +10,6 @@ src/main/groovy/Drivers
 .js
 .png
 test-output
+reports/*
+src/main/groovy/Log4j/*
+src/test/resources/testng.xml
