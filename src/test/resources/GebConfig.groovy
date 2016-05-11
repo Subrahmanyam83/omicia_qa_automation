@@ -20,8 +20,8 @@ String sep = File.separator;
 DesiredCapabilities capabilities;
 String gridUrl = System.getProperty("gridUrl");
 String parallel = System.getProperty("parallel");
+String os = System.getProperty("os.name");
 String rootDir = new File(".").getCanonicalPath();
-String baseDirectory = System.getProperty("user.dir");
 
 driver = {
     /*System.setProperty("webdriver.ie.driver", "src/main/groovy/Drivers/IEDriverServer.exe")
@@ -32,22 +32,22 @@ driver = {
     return browserDriver*/
 
     /************* Use when Running tests in Chrome Browser ************/
-    /*System.setProperty("geb.env", "chrome")
-    System.setProperty("webdriver.chrome.driver", rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep))
+    System.setProperty("geb.env", "chrome")
+    String chromeDriverPath = os.equals("UNIX") ? "/usr/local/bin/chromedriver".replace("/", sep) : rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep)
+    System.setProperty("webdriver.chrome.driver", chromeDriverPath)
     capabilities = DesiredCapabilities.chrome();
     ChromeOptions options = new ChromeOptions();
-    //capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
     options.addArguments("test-type");
     capabilities.setCapability(ChromeOptions.CAPABILITY, options);
     browserDriver = new ChromeDriver(capabilities)
     browserDriver.manage().window().maximize()
-    return browserDriver*/
+    return browserDriver
 
     /************* Use when Running tests in Firefox Browser ************/
-    browserDriver = new FirefoxDriver()
+    /*browserDriver = new FirefoxDriver()
     browserDriver.manage().window().maximize()
     browserDriver.manage().timeouts().pageLoadTimeout(20,TimeUnit.MINUTES)
-    return browserDriver
+    return browserDriver*/
 
     /************* Use This for Safari******************/
   /*  System.setProperty("webdriver.safari.noinstall", "true");
@@ -104,7 +104,7 @@ environments {
             capabilities.setJavascriptEnabled(true);
             capabilities.setCapability("requireWindowFocus", true);
             capabilities.setCapability("enablePersistentHover", false);
-            File file = new File(baseDirectory + "\\src\\main\\groovy\\Drivers\\IEDriverServer.exe");
+            File file = new File(rootDir + "/src/main/groovy/Drivers/IEDriverServer.exe".replace("/", sep));
             System.setProperty("webdriver.ie.driver", file.path);
 
             browserDriver = (parallel.equalsIgnoreCase("no")) ? new InternetExplorerDriver(capabilities) : new RemoteWebDriver(new URL(gridUrl), capabilities);
@@ -134,7 +134,8 @@ environments {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("test-type");
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-            System.setProperty("webdriver.chrome.driver",rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep))
+            String chromeDriverPath = os.equals("UNIX") ? "/usr/local/bin/chromedriver".replace("/", sep) : rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep)
+            System.setProperty("webdriver.chrome.driver", chromeDriverPath)
 
             browserDriver = (parallel.equalsIgnoreCase("no")) ? new ChromeDriver(capabilities) : new RemoteWebDriver(new URL(gridUrl), capabilities);
             if(parallel.equalsIgnoreCase("yes")){
@@ -149,10 +150,12 @@ environments {
         driver = {
             System.setProperty("webdriver.safari.noinstall", "true");
             capabilities = DesiredCapabilities.safari();
-            capabilities.setPlatform(Platform.WINDOWS);
+            Platform platform = os.equals("UNIX") ? Platform.UNIX : Platform.WINDOWS
+            capabilities.setPlatform(platform);
+            capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 
             browserDriver = (parallel.equalsIgnoreCase("no")) ? new SafariDriver(capabilities) : new RemoteWebDriver(new URL(gridUrl), capabilities);
-            Thread.sleep(10000);
+            Thread.sleep(20000);
             return browserDriver
         }
     }
