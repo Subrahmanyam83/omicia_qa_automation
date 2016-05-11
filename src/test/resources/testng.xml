@@ -1,32 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-
-<!--suppress ALL -->
-<suite name="OMICIA" parallel="classes" thread-count='2' preserve-order="true">
-
+<suite thread-count="1" name="Omicia OPAL Suite" parallel="tests">
     <listeners>
-        <listener class-name="Utilities.Class.BaseSpec" />
-        <!--  <listener class-name="org.uncommons.reportng.HTMLReporter" />
-        <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
-        <listener class-name="org.testng.reporters.EmailableReporter2" />-->
+        <listener class-name="Utilities.Class.BaseSpec"/>
     </listeners>
-
-    <test name="POC Demo">
+    <test name="Omicia OPAL Test">
         <classes>
-            <class name="Specs.Smoke.SmokeSpec">
+            <class name="Specs.Smoke.LaunchVAASTReportsSpec">
                 <methods>
-                    <include name="launchEndToEndPanelReport"/>
+                    <include name="launchVAASTSoloAnalysis"/>
                 </methods>
-            </class>
+            </class> <!-- Specs.Smoke.LaunchVAASTReportsSpec -->
         </classes>
-    </test>
-
-
-    <!-- <test name="POC Demo">
-         <packages>
-             <package name="Specs.Smoke" />
-         </packages>
-
-     </test>-->
-
-</suite>
+    </test> <!-- Omicia OPAL Test -->
+</suite> <!-- Omicia OPAL Suite -->

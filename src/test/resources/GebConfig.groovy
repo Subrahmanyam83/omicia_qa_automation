@@ -8,6 +8,7 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.LocalFileDetector
 import org.openqa.selenium.remote.RemoteWebDriver
 import org.openqa.selenium.safari.SafariDriver
+
 import java.util.concurrent.TimeUnit
 
 baseNavigatorWaiting = true /*Sometimes Firefox throws an error 'Root Element not loaded'*/
@@ -35,6 +36,7 @@ driver = {
     System.setProperty("webdriver.chrome.driver", rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep))
     capabilities = DesiredCapabilities.chrome();
     ChromeOptions options = new ChromeOptions();
+    //capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
     options.addArguments("test-type");
     capabilities.setCapability(ChromeOptions.CAPABILITY, options);
     browserDriver = new ChromeDriver(capabilities)
@@ -143,7 +145,6 @@ environments {
             return browserDriver;
         }
     }
-
     safari {
         driver = {
             System.setProperty("webdriver.safari.noinstall", "true");
@@ -155,5 +156,5 @@ environments {
             return browserDriver
         }
     }
-
 }
+

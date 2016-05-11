@@ -17,6 +17,7 @@ class NewFilteringProtocolModule extends Module {
         dropDownBasedOnLabel { String labelName -> $("." + labelName + " .btn.input-medium.btn-small.pull-right.multiselect-default-state") }
         checkboxBasedOnValue { String value -> $(".multiselect-menu.multiselect-corner-all .multiselect-checkboxes label span", text: contains(value)).parent().find("input", type: "checkbox") }
         saveFilteringProtocolButton { $(".btn.btn-primary.pull-right.save-button", text: "Save Filtering Protocol") }
+        newFilteringProtocolRowBasedOnName { String value -> $("a", text: value) }
 
 
     }

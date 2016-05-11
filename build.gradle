@@ -5,12 +5,12 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'maven'
 
+def drivers = ["firefox", "chrome", "ie", "safari"]
+
 repositories {
     mavenCentral()
     jcenter()
 }
-
-def drivers = ["firefox","chrome","ie","safari"]
 
 dependencies {
 
@@ -25,48 +25,34 @@ dependencies {
     compile "org.seleniumhq.selenium:selenium-java:$seleniumVersion"
     compile "org.codehaus.geb:geb-testng:0.7.2"
     compile "org.apache.poi:poi:3.12"
-    compile "junit:junit:4.12"
     compile "org.jsoup:jsoup:1.8.3"
     compile "com.relevantcodes:extentreports:2.40.2" /*For Extent Reports*/
     compile "com.google.inject:guice:4.0" /*For TestNG Listeners*/
     compile "com.google.guava:guava:19.0"
     compile "org.apache.httpcomponents:fluent-hc:4.5.2"
+    compile "javax.xml.parsers:jaxp-api:1.4.5"
 }
 
 drivers.each { driver ->
-    task "${driver}Test"(type: Test, dependsOn: [classes,testClasses]) {
-        doFirst{
-            delete "reports"
-        }
-        useTestNG {
-                convertPropertiesToSystemProperties()
-                changeTestngThreadCountParam()
-                /*If a task is executed without fail,the task will get marked as 'UP-TO-DATE' on subsequent runs and skipped.To avoid that use this parameter as false*/
-                outputs.upToDateWhen { false }
-                systemProperty "geb.env", driver;
-                //reports.html.enabled = false; /* Enable this when you do not want default JUNIT Reports*/
-                reports.html.destination = System.properties['junit.reports.directory']
-                suites 'src/test/resources/testng.xml'
+    task "${driver}Test"(type: Test, dependsOn: [classes, testClasses, 'testNGXMLCreator']) {
+        outputs.upToDateWhen { false }
+        doLast {
+            copy {
+                from "test-output"
+                into 'reports/TestNG-Reports'
+            }
         }
     }
 }
 
-public void changeTestngThreadCountParam(){
-    def file = new File('src/test/resources/testng.xml')
-    def xml = file.text
-    file.text = xml.replace('$threadCount',System.getProperty('threadCount'))
+task(testNGXMLCreator, dependsOn: ['classes'], type: JavaExec) {
+    doFirst {
+        delete "reports", "test-output"
+    }
+    main = 'Specs.Utilities.TestNGXMLCreator'
+    classpath = sourceSets.test.runtimeClasspath
 }
 
-/* This Function reads the project.properties file and puts each K,V pair into System Properties.*/
-public void convertPropertiesToSystemProperties() {
-    String rootDir = new File(".").getCanonicalPath() /*Absolute Path*/
-    String projectPropertiesPath = rootDir + "/src/main/resources/project.properties".replace('/', File.separator)
-    Properties properties = new Properties()
-    properties.load(new FileInputStream(projectPropertiesPath))
-    properties.each { key, value ->
-        if (System.getProperty(key) == null) {
-            System.setProperty(key, value);
-        }
-    }
-}
+
+
 

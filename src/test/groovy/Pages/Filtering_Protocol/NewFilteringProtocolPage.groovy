@@ -65,4 +65,8 @@ class NewFilteringProtocolPage extends BasePage {
     def saveFilteringProtocol() {
         click(filteringprotocol.saveFilteringProtocolButton, "Save Filtering Protocol")
     }
+
+    def verifyNewFilteringProtocolIsCreated(String filteringprotocolName) {
+        waitFor { filteringprotocol.newFilteringProtocolRowBasedOnName(filteringprotocolName) }
+    }
 }
