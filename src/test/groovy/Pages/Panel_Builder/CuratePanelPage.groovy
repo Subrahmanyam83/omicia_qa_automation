@@ -23,7 +23,11 @@ class CuratePanelPage extends BasePage{
     }
 
     def clickOnCuratePanelHeaderButton(String buttonName){
-        click(curatePanel.curatePanelHeaderButton(buttonName),buttonName)
+        switch (buttonName) {
+            case ADD_GENE:
+                click(curatePanel.addGeneButton, buttonName);
+                break;
+        }
     }
 
     def getNumberOfPanelGenes(){

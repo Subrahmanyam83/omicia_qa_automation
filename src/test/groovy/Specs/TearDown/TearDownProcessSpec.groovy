@@ -14,6 +14,7 @@ import org.testng.annotations.Test
 /**
  * Created by E002183 on 4/25/2016.
  */
+@Test(groups = "tearDown")
 class TearDownProcessSpec extends BaseSpec{
 
     @Test(priority = 5, description = "This will delete all the Test Projects created during Automation")

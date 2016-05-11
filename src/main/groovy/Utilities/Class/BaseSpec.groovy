@@ -171,7 +171,6 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
         else{
             getEreportTest().log(WARNING, "Failure Snapshot of Test Case: '"+result.getName()+"' below:" + getEreportTest().addScreenCapture("../Geb-Reports/"+result.getName()+".png"));
         }
-
     }
 
     /**

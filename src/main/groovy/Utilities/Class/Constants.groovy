@@ -34,6 +34,8 @@ public interface Constants {
     def THREE = 3;
     def FOUR = 4;
     def FIVE = 5;
+    def SIX = 6;
+    def SEVEN = 7;
     def FIFTY = 50;
     def THIRTY = 30;
     def THIRTY_NINE = 39
@@ -41,6 +43,7 @@ public interface Constants {
     def TWELVE = 12
     def HUNDRED = 100
     def FOURTEEN_POINT_THREE_TWO = "14.32"
+    String GEL = "gel.omicia.com"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -149,8 +152,12 @@ public interface Constants {
     public List SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
     public List TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
     public List QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
+    public List SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
+    public List TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
+    public List QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
     public String RECESSIVE = "Recessive"
     public String DOMINANT = "Dominant"
+    public String DE_NOVO = "De Novo"
 
     /*Variant Interpret Edit Page*/
     public String CLASSIFICATION_PATHOGENIC = "Pathogenic"
@@ -166,9 +173,14 @@ public interface Constants {
     public String DUCTAL_BREAST_CARCINOMA = "Ductal breast carcinoma"
 
     /*Variant Selection*/
+    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "Status", "Previously Seen"].sort()
     public List SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
     public List TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
     public List QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
+    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class", "Status", "Previously Seen"].sort()
+    public List SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
+    public List TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
+    public List QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"
@@ -179,6 +191,11 @@ public interface Constants {
     public List VAAST_QUAD_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
     public List FLEX_TRIO_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
     public List FLEX_QUAD_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
+    public List VAAST_SOLO_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
+    public List VAAST_TRIO_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
+    public List VAAST_QUAD_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
+    public List FLEX_TRIO_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
+    public List FLEX_QUAD_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
 
 
 }

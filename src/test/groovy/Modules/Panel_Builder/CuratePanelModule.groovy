@@ -16,7 +16,6 @@ class CuratePanelModule extends Module{
         returnToPanelsButton                {$(".btn.btn-primary.navigate-back")}
         defaultFilterDropDown               {$(".filter-option.pull-left")}
         valueOfDefaultFilterDropDown        {String value-> $('.dropdown-menu.open li a .text',text:contains(value))}
-        curatePanelHeaderButton             {String value -> $('a',text:contains(value))}
         getNumberOfPanelGenes               {$("#panel-builder-regions tr")}
     }
 }

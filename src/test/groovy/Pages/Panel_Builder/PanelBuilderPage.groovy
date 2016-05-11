@@ -21,11 +21,11 @@ class PanelBuilderPage extends BasePage{
     }
 
     def clickItemsPerPageNndChooseValue(String value = HUNDRED) {
-        scrollToCenter(panelBuilder.activePaginatorButton)
-        click(panelBuilder.activePaginatorButton, "Paginator Button")
-        waitFor { panelBuilder.paginatorDropDownValue(value) }
-        click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
-        scrollToCenter(panelBuilder.newPanelButton)
+        if (panelBuilder.activePaginatorButton.displayed) {
+            click(panelBuilder.activePaginatorButton, "Paginator Button")
+            waitFor { panelBuilder.paginatorDropDownValue(value) }
+            click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
+        }
     }
 
     def createNewPanel(String panel_name,String panel_description){

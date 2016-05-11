@@ -63,6 +63,11 @@ class VariantInterpretationHomePage extends BasePage {
         return interpretVariantsHome.getReportSectionBasedOnVariant(variantName, index).text().trim()
     }
 
+    def getEvidenceBasedOnVariant(String variantName, int index = 0) {
+        waitFor { interpretVariantsHome.getEvidenceBasedOnVariant(variantName, index).displayed }
+        return interpretVariantsHome.getEvidenceBasedOnVariant(variantName, index).text().trim()
+    }
+
     def getPhevorRankBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getPhevorGeneRank(variantName, index).displayed }
         return Integer.parseInt(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " "))
@@ -80,7 +85,7 @@ class VariantInterpretationHomePage extends BasePage {
 
     def getVAASTGeneRankBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getVAASTGeneRank(variantName, index).displayed }
-        return Integer.parseInt(interpretVariantsHome.getReportSectionBasedOnVariant(variantName, index).text().trim())
+        return Integer.parseInt(variantSelection.getVAASTGeneRank(variantName, index).text().trim())
     }
 
     def getVAASTRankBasedOnVariant(String variantName, int index = 0) {

@@ -1,6 +1,5 @@
 package Specs.Smoke
 
-import Pages.App_Store.AnalysisHomePage
 import Pages.Clinical_Reporter.*
 import Pages.Filtering_Protocol.NewFilteringProtocolPage
 import Pages.Gene_Sets.GeneSetsPage
@@ -12,7 +11,6 @@ import Pages.Panel_Builder.CuratePanelPage
 import Pages.Panel_Builder.PanelBuilderPage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
-import Pages.Projects.ReportsHomePage
 import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
@@ -24,14 +22,14 @@ import org.testng.annotations.Test
 /**
  * Created by E002183 on 4/21/2016.
  */
-class SmokeSpec extends BaseSpec{
+class LaunchClinicalReportsSpec extends BaseSpec {
 
     SmokeTestData data = new SmokeTestData();
     public String PROJECT_NAME;
 
     @BeforeMethod
     public void setUpMethod() {
-        PROJECT_NAME = PROJECT__NAME + generateRandom()
+        PROJECT_NAME = PROJECT__NAME + data.random
     }
 
     @Test(groups = "smoke", priority = 1)
@@ -104,6 +102,7 @@ class SmokeSpec extends BaseSpec{
         fillNameAndDescription(data.FILTERING_PROTOCOL_NAME, data.FILTERING_PROTOCOL_DESCRIPTION)
         chooseConsequenceGenemodelAndExclude(CONSEQUENCE_LIST, [], EVIDENCE_LIST)
         saveFilteringProtocol()
+        verifyNewFilteringProtocolIsCreated(data.FILTERING_PROTOCOL_NAME)
 
         at HeaderPage
         clickOnMenuAndSelectOption(CLINICAL_REPORTER)
@@ -117,7 +116,17 @@ class SmokeSpec extends BaseSpec{
         clickOnActionsAndValueBasedOnPatientId(data.PATIENT_ID, INTERPRET_VARIANTS)
 
         at VariantInterpretationHomePage
+        if (baseUrl.contains(GEL)) {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL)
+        } else {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        }
+        Assert.assertEquals(getNumberOfItems(), SEVEN)
         Assert.equals(getEffectBasedOnVariant(SAMD11).equals(MISSENSE))
+        Assert.equals(getChangeBasedOnVariant(SAMD11).equals(data.VARIANT_CHANGE_PANEL))
+        Assert.equals(getClassBasedOnVariant(SAMD11).equals(NONE_TEXT))
+        Assert.equals(getStatusBasedOnVariant(SAMD11).equals(NONE_TEXT))
+
         clickOnInterpretVariantBasedOnVariant(SAMD11)
 
         at VariantInterpretEditPage
@@ -186,7 +195,11 @@ class SmokeSpec extends BaseSpec{
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), SIXTY_THREE)
         runPhevor(ATAXIA)
-        Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        if (baseUrl.contains(GEL)) {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL)
+        } else {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        }
         Assert.assertEquals(getNumberOfItems(), SIXTY_THREE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_SOLO)
         Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
@@ -200,7 +213,11 @@ class SmokeSpec extends BaseSpec{
         clickVariantInterpretationButton()
 
         at VariantInterpretationHomePage
-        Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        if (baseUrl.contains(GEL)) {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL)
+        } else {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        }
         Assert.assertEquals(getNumberOfItems(), ONE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_SOLO)
         Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
@@ -260,7 +277,11 @@ class SmokeSpec extends BaseSpec{
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), FOUR)
         runPhevor(ATAXIA)
-        Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        if (baseUrl.contains(GEL)) {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL)
+        } else {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        }
         Assert.assertEquals(getNumberOfItems(), FOUR)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
         Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
@@ -274,7 +295,11 @@ class SmokeSpec extends BaseSpec{
         clickVariantInterpretationButton()
 
         at VariantInterpretationHomePage
-        Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        if (baseUrl.contains(GEL)) {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL)
+        } else {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        }
         Assert.assertEquals(getNumberOfItems(), ONE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
         Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
@@ -334,7 +359,11 @@ class SmokeSpec extends BaseSpec{
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), FOUR)
         runPhevor(ATAXIA)
-        Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        if (baseUrl.contains(GEL)) {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL)
+        } else {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+        }
         Assert.assertEquals(getNumberOfItems(), FOUR)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_QUAD)
         Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
@@ -348,7 +377,11 @@ class SmokeSpec extends BaseSpec{
         clickVariantInterpretationButton()
 
         at VariantInterpretationHomePage
-        Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        if (baseUrl.contains(GEL)) {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL)
+        } else {
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        }
         Assert.assertEquals(getNumberOfItems(), ONE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_QUAD)
         Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
@@ -372,68 +405,5 @@ class SmokeSpec extends BaseSpec{
         Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
 
-    @Test(groups = "smoke", priority = 5)
-    public void launchVAASTSoloAnalysis() {
 
-        to LoginPage
-        signIn();
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
-
-        at UploadGenomePage
-        fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
-        waitForTheVCFFileToUpload();
-
-        at HeaderPage
-        clickOnMenuAndSelectOption(PROJECTS)
-
-        at ProjectsHomePage
-        refreshTillCountMatches(PROJECT_NAME, FOUR)
-        clickProjectInProjectsHomePage(PROJECT_NAME);
-
-        at ProjectsPage
-        waitTillAllVariantReportsAreAvailable()
-        launchAppAndChooseValue(VAAST_SOLO_ANALYSIS)
-
-        at AnalysisHomePage
-        page ClinicalReporterPage
-        chooseGeneForEachMember(SOLO)
-        page AnalysisHomePage
-        clickOnRun()
-
-        at ProjectsPage
-        waitTillAllVariantReportsAreAvailable()
-        clickOnReport(VAAST_SOLO_REPORT)
-
-        at ReportsHomePage
-        waitForThePageToLaunch()
-        Assert.assertEquals(verifyReportHeading(), VAAST_SOLO_REPORT)
-        page VariantInterpretationHomePage
-        Assert.assertEquals(getNumberOfItems(), TWELVE)
-        Assert.assertEquals(getDefaultColumnNamesOnPage(), VAAST_SOLO_REPORT_COLUMN_LIST)
-        Assert.assertEquals(getPositionDBSNPBasedOnVariant(TTLL10, ONE), data.POSITION_DBSNP_VALUE)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10, ONE), data.CHANGE_VALUE)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10, ONE), MISSENSE)
-        Assert.assertEquals(getVAASTRankBasedOnVariant(TTLL10, ONE), TWO)
-        Assert.assertEquals(getVVPCADDBasecOnVariant(TTLL10, ONE), data.VVP_CADD_VALUE)
-        Assert.assertEquals(getVAASTVScoreBasedOnVariant(TTLL10, ONE), FOURTEEN_POINT_THREE_TWO)
-        Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10, ONE), data.VAAST_G_SCORE_VALUE_RECESSIVE)
-
-        page ReportsHomePage
-        clickOnHeaderButton(DOMINANT)
-        at ReportsHomePage
-        waitForThePageToLaunch()
-        Assert.assertEquals(verifyReportHeading(), VAAST_SOLO_REPORT)
-        page VariantInterpretationHomePage
-        Assert.assertEquals(getNumberOfItems(), FIVE)
-        Assert.assertEquals(getDefaultColumnNamesOnPage(), VAAST_SOLO_REPORT_COLUMN_LIST)
-        Assert.assertEquals(getPositionDBSNPBasedOnVariant(TTLL10), data.POSITION_DBSNP_VALUE)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.CHANGE_VALUE)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
-        Assert.assertEquals(getVAASTRankBasedOnVariant(TTLL10), THREE)
-        Assert.assertEquals(getVVPCADDBasecOnVariant(TTLL10), data.VVP_CADD_VALUE)
-        Assert.assertEquals(getVAASTVScoreBasedOnVariant(TTLL10), FOURTEEN_POINT_THREE_TWO)
-        Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10), data.VAAST_G_SCORE_VALUE_DOMINANT)
-    }
 }

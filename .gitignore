@@ -1,3 +1,4 @@
+out
 .idea
 .gradle
 build
@@ -8,3 +9,4 @@ src/main/groovy/Drivers
 .css
 .js
 .png
+test-output
