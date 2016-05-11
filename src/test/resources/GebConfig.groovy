@@ -32,7 +32,7 @@ driver = {
     return browserDriver*/
 
     /************* Use when Running tests in Chrome Browser ************/
-    System.setProperty("geb.env", "chrome")
+    /*System.setProperty("geb.env", "chrome")
     System.setProperty("webdriver.chrome.driver", rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep))
     capabilities = DesiredCapabilities.chrome();
     ChromeOptions options = new ChromeOptions();
@@ -41,13 +41,13 @@ driver = {
     capabilities.setCapability(ChromeOptions.CAPABILITY, options);
     browserDriver = new ChromeDriver(capabilities)
     browserDriver.manage().window().maximize()
-    return browserDriver
+    return browserDriver*/
 
     /************* Use when Running tests in Firefox Browser ************/
-    /*def browserDriver=new FirefoxDriver()
+    browserDriver = new FirefoxDriver()
     browserDriver.manage().window().maximize()
     browserDriver.manage().timeouts().pageLoadTimeout(20,TimeUnit.MINUTES)
-    return browserDriver*/
+    return browserDriver
 
     /************* Use This for Safari******************/
   /*  System.setProperty("webdriver.safari.noinstall", "true");

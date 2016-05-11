@@ -33,7 +33,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
     public void launchVAASTSoloAnalysis() {
 
         to LoginPage
-        signIns();
+        signIn();
 
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);
