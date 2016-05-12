@@ -34,12 +34,6 @@ class ReportsHomePage extends BasePage {
     }
 
     def waitForThePageToLaunch() {
-        while (!$(".btn.btn-success.active").displayed) {
-            Thread.sleep(1000L)
-        }
-        while ($(".total", text: "Items").displayed) {
-            Thread.sleep(1000L)
-        }
-        Thread.sleep(2000L)
+        Thread.sleep(4000L)
     }
 }
