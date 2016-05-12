@@ -74,7 +74,7 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     @AfterSuite
     def afterSuite(){
         ExtentReportFactory.closeReport();
-        changeExtentReportHtml();
+        //changeExtentReportHtml();
     }
 
     def changeExtentReportHtml(){
