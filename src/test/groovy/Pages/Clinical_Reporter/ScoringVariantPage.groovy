@@ -1,5 +1,6 @@
 package Pages.Clinical_Reporter
 
+import Modules.Clinical_Reporter.ScoringVariantModule
 import Utilities.Class.BasePage
 
 /**
@@ -8,10 +9,10 @@ import Utilities.Class.BasePage
 class ScoringVariantPage extends BasePage {
 
     static at = {
-
+        scoringVariant.scoringVariantContainer
     }
 
     static content = {
-
+        scoringVariant { module ScoringVariantModule }
     }
 }

@@ -1,6 +1,7 @@
 package Specs.ClinicalReporter
 
 import Pages.Clinical_Reporter.ClinicalReporterPage
+import Pages.Clinical_Reporter.ScoringVariantPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
@@ -93,7 +94,6 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.equals(getScoringStatusBasedOnVariant(AGRN).equals(NONE))
         Assert.equals(getReportSectionBasedOnVariant(AGRN).equals(NONE))
         Assert.equals(getLatestClassificationBasedOnVariant(AGRN).equals("-"))
-
         openScoreVariantsBasedOnVariantName(AGRN)
 
         at ScoringVariantPage
