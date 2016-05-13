@@ -46,6 +46,8 @@ public interface Constants {
     def FOURTEEN_POINT_THREE_TWO = "14.32"
     String GEL = "gel.omicia.com"
     String ADMIN = "Admin"
+    String SAVE = "Save"
+    String CANCEL = "Cancel"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -133,10 +135,10 @@ public interface Constants {
     public String UNAFFECTED_MOTHER = "Unaffected Mother"
     public String UNAFFECTED_SIBLING = "Unaffected Sibling"
 
-    public GENE_OF_AFFECTED_PERSON = "Genome-Label-1-EX024-1 — External-ID-1 (Pipeline Version: 6.0.1)"
-    public GENE_OF_UNAFFECTED_FATHER = "Genome-Label-1-EX024-4 — External-ID-1 (Pipeline Version: 6.0.1)"
-    public GENE_OF_UNAFFECTED_MOTHER = "Genome-Label-1-EX024-3 — External-ID-1 (Pipeline Version: 6.0.1)"
-    public GENE_OF_UNAFFECTED_SIBLING = "Genome-Label-1-EX024-2 — External-ID-1 (Pipeline Version: 6.0.1)"
+    public GENE_OF_AFFECTED_PERSON = "Genome-Label-1-EX024-1 — External-ID-1 (Pipeline Version:"
+    public GENE_OF_UNAFFECTED_FATHER = "Genome-Label-1-EX024-4 — External-ID-1 (Pipeline Version:"
+    public GENE_OF_UNAFFECTED_MOTHER = "Genome-Label-1-EX024-3 — External-ID-1 (Pipeline Version:"
+    public GENE_OF_UNAFFECTED_SIBLING = "Genome-Label-1-EX024-2 — External-ID-1 (Pipeline Version:"
 
     public String EDIT_PATIENT_INFORMATION = "Edit Patient Information"
     public String INTERPRET_VARIANTS = "Interpret Variants"
@@ -187,8 +189,8 @@ public interface Constants {
     public List TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
     public List QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
 
-    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
-    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG_GEL = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"

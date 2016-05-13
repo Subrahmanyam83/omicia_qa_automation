@@ -24,7 +24,7 @@ class TestNGXMLCreator {
 
         XmlSuite suite = new XmlSuite();
         suite.setName("Omicia OPAL Suite");
-        suite.setParallel("Tests");
+        suite.setParallel("classes");
         suite.setThreadCount(thread_count)
         suite.addListener("Utilities.Class.BaseSpec")
 

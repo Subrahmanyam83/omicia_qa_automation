@@ -98,6 +98,6 @@ class ScoringVariantSpec extends BaseSpec {
 
         at ScoringVariantPage
         Assert.assertTrue(getActiveHeaderTab(CONDITION_GENE))
-        Assert.assertTrue(getActiveConditionGeneTab(WORKSPACE_CONDITION_GENES))
+        Assert.assertTrue(getActiveConditionGeneTab(CLINIVAR_OMIM))
     }
 }

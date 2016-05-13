@@ -36,7 +36,7 @@ class ScoringVariantModule extends Module {
         dropDownValue                   {String value-> modalPopUp.find(".dropdown-menu.open ul li a span",text:contains(value))}
         prevalanceTextBox               {modalPopUp.find('name':'prevalence')}
         penetranceDropDown              {modalPopUp.find(".control-label",text:"Penetrance").find(".filter-option")}
-        ageOfOnsetDorpDown              {modalPopUp.find(".control-label",text:"Age of Onset").find(".filter-option")}
+        ageOfOnsetDropDown { modalPopUp.find(".control-label", text: "Age of Onset").find(".filter-option") }
         saveButton                      {modalPopUp.find(".cancel-button",text:"Cancel")}
         cancelButton                    {modalPopUp.find(".close-button",text:"Save")}
     }

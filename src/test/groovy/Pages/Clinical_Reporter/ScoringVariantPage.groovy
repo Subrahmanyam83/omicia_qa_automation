@@ -23,19 +23,23 @@ class ScoringVariantPage extends BasePage {
     }
 
     def getActiveHeaderTab(String headerName){
-        return scoringVariant.activeHeaderTab(headerName).isDisplayed
+        return scoringVariant.activeHeaderTab(headerName).isDisplayed()
     }
 
     /*Condition-Gene Methods*/
     def getActiveConditionGeneTab(String tabName){
-        return scoringVariant.activeConditionGeneTab(tabName).isDisplayed
+        return scoringVariant.activeConditionGeneTab(tabName).isDisplayed()
     }
 
     def clickOnTabUnderConditionGenes(String tabName){
         waitFor {scoringVariant.tabNameUnderConditionGene}
     }
 
-            /*Edit Condition Gene*/
+    def editCondition(List list) {
+
+    }
+
+    /*Edit Condition Gene*/
             def editCondition(String conditionValue){
                 scoringVariant.conditionTextBox.firstElement().clear();
                 type(scoringVariant.conditionTextBox,conditionValue,"Condition Value Text Box")
@@ -56,20 +60,30 @@ class ScoringVariantPage extends BasePage {
             }
 
             def editPrevalance(String prevalance){
-                scoringVariant.conditionTextBox.firstElement().clear();
-                type(scoringVariant.conditionTextBox,conditionValue,"Condition Value Text Box")
+                scoringVariant.prevalanceTextBox.firstElement().clear();
+                type(scoringVariant.prevalanceTextBox, prevalance, "Prevalance Text Box")
             }
 
             def choosePenetrance(String penetrance){
-                
+                click(scoringVariant.penetranceDropDown, "Penetrance Drop Box")
+                click(scoringVariant.dropDownValue(penetrance), "Penetrance Drop Down Value: " + penetrance)
             }
 
             def chooseAgeOfOnset(String ageOfOnset){
-
+                click(scoringVariant.ageOfOnsetDropDown, "Age OF Onset Drop Down");
+                click(scoringVariant.dropDownValue(ageOfOnset), "Drop Down Value of Age Of Onset: " + ageOfOnset);
             }
 
             def clickSaveOrCancel(String buttonName){
+                switch (buttonName) {
+                    case SAVE:
+                        click(scoringVariant.saveButton, "Save Button");
+                        break;
 
+                    case CANCEL:
+                        click(scoringVariant.cancelButton);
+                        break;
+                }
             }
 
 
