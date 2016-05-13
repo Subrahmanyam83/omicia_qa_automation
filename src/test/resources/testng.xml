@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="1" name="Omicia OPAL Suite" parallel="tests">
-    <listeners>
-        <listener class-name="Utilities.Class.BaseSpec"/>
-    </listeners>
-    <test name="Omicia OPAL Test">
-        <classes>
-            <class name="Specs.Smoke.LaunchVAASTReportsSpec">
-                <methods>
-                    <include name="launchVAASTSoloAnalysis"/>
-                </methods>
-            </class> <!-- Specs.Smoke.LaunchVAASTReportsSpec -->
-        </classes>
-    </test> <!-- Omicia OPAL Test -->
+  <listeners>
+    <listener class-name="Utilities.Class.BaseSpec"/>
+  </listeners>
+  <test name="Omicia OPAL Test">
+    <classes>
+      <class name="Specs.Smoke.LaunchVAASTReportsSpec">
+        <methods>
+          <include name="launchVAASTSoloAnalysis"/>
+        </methods>
+      </class> <!-- Specs.Smoke.LaunchVAASTReportsSpec -->
+    </classes>
+  </test> <!-- Omicia OPAL Test -->
 </suite> <!-- Omicia OPAL Suite -->
