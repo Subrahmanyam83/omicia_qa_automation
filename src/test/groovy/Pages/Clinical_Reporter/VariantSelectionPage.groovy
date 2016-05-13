@@ -45,6 +45,4 @@ class VariantSelectionPage extends BasePage {
     def verifyIfCheckBoxIsCheckedBasedOnVariant(String variantName, int index = 0) {
         return variantSelection.isCheckboxCheckedBasedOnVariant(variantName, index)
     }
-
-
 }

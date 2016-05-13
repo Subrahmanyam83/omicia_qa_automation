@@ -23,7 +23,20 @@ class LoginPage extends BasePage{
         click(login.signInButton,"Sign In Button");
     }
 
-    def abc() {
-        waitFor { login.abc }
+    def signInWIthCredentials(String userID, String passWord) {
+        type(login.usernameField, userID, "UserName Field");
+        type(login.passwordField, passWord, "Password Field");
+        click(login.signInButton, "Sign In Button");
+    }
+
+    def loginWithUser(String user) {
+        switch (user) {
+
+            case ADMIN:
+                String userName = xlsrdr.getDataArrayBySheet("Credentials")[2][0]
+                String password = xlsrdr.getDataArrayBySheet("Credentials")[2][1]
+                signInWIthCredentials(userName, password);
+                break;
+        }
     }
 }

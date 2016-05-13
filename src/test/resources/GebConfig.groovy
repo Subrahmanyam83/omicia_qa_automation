@@ -24,14 +24,8 @@ String os = System.getProperty("os.name");
 String rootDir = new File(".").getCanonicalPath();
 
 driver = {
-    /*System.setProperty("webdriver.ie.driver", "src/main/groovy/Drivers/IEDriverServer.exe")
-    System.setProperty("geb.env", "ie")
-    DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-    def browserDriver=new InternetExplorerDriver(capabilities)
-    browserDriver.manage().window().maximize()
-    return browserDriver*/
 
-    /************* Use when Running tests in Chrome Browser ************/
+    /************* Use this for Chrome ************/
     System.setProperty("geb.env", "chrome")
     String chromeDriverPath = os.equals("UNIX") ? "/usr/local/bin/chromedriver".replace("/", sep) : rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep)
     System.setProperty("webdriver.chrome.driver", chromeDriverPath)
@@ -43,14 +37,14 @@ driver = {
     browserDriver.manage().window().maximize()
     return browserDriver
 
-    /************* Use when Running tests in Firefox Browser ************/
+    /************* Use this for Firefox*****************/
     /*browserDriver = new FirefoxDriver()
     browserDriver.manage().window().maximize()
     browserDriver.manage().timeouts().pageLoadTimeout(20,TimeUnit.MINUTES)
     return browserDriver*/
 
-    /************* Use This for Safari******************/
-  /*  System.setProperty("webdriver.safari.noinstall", "true");
+    /************* Use this for Safari******************/
+    /* System.setProperty("webdriver.safari.noinstall", "true");
     System.setProperty("geb.env","safari")
     capabilities = DesiredCapabilities.safari();
     capabilities.setPlatform(Platform.WINDOWS);
@@ -58,10 +52,18 @@ driver = {
     Thread.sleep(5000);
     return browserDriver*/
 
-    /************** Use this for Remote *****************/
+    /************** Use this for Remote ****************/
     /*capabilities = DesiredCapabilities.firefox();
     browserDriver = new RemoteWebDriver(new URL(gridUrl), capabilities);
     return browserDriver;*/
+
+    /************* Use this for IE *****************/
+    /*System.setProperty("webdriver.ie.driver", "src/main/groovy/Drivers/IEDriverServer.exe")
+    System.setProperty("geb.env", "ie")
+    DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+    def browserDriver=new InternetExplorerDriver(capabilities)
+    browserDriver.manage().window().maximize()
+    return browserDriver*/
 }
 
 waiting {
@@ -146,6 +148,7 @@ environments {
             return browserDriver;
         }
     }
+
     safari {
         driver = {
             System.setProperty("webdriver.safari.noinstall", "true");

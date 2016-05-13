@@ -15,5 +15,9 @@ class HomeModule extends Module{
         clinicalReporterButton      {$("h3",text:"Clinical Reporter")}
         filteringProtocolsButton    {$("h3",text:"Filtering Protocols")}
         geneSets { $("h3", text: "Gene Sets") }
+        workSpaceDropDown { $(".workspace-label") }
+        workSpaceDropDownValue { String workSpace -> $("#workspaces-list li a", text: contains(workSpace)) }
+        switchWorkspaceAlert { String value -> $(".alert.alert-success", text: contains(value)) }
+        numberOfWorkSpaces { $("#workspaces-list li") }
     }
 }

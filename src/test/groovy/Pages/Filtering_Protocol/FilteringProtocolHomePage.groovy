@@ -20,7 +20,7 @@ class FilteringProtocolHomePage extends BasePage {
     }
 
     def deleteAllFilteringProtocols() {
-        if (filteringProtocolHome.numberOfRows.size() > 0) {
+        if (filteringProtocolHome.numberOfRows > 0) {
             while (!filteringProtocolHome.numberOfFilteringProtocols.equals(ZERO)) {
                 click(filteringProtocolHome.deleteButtonOfTheFilteringProtocol, "Filtering protocol Delete Button")
                 click(filteringProtocolHome.deleteButtonOnDialog, "Delete Confirmation on Dialog")

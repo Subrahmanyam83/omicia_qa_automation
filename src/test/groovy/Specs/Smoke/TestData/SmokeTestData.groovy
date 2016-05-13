@@ -39,6 +39,8 @@ class SmokeTestData extends BaseSpec {
     public String VARIANT_CHANGE_QUAD = "T → C c.746T>C p.Val249Ala"
     public String VARIANT_EFFECT = "missense"
 
+    public String VARIANT_CHANGE_PANEL_ACMG = "G → T c.45G>T p.Pro15Pro";
+
     /*Report Page*/
     public String POSITION_DBSNP_VALUE = "chr1 1117779 rs553315851"
     public String CHANGE_VALUE = "G → A c.869G>A p.Arg290His"

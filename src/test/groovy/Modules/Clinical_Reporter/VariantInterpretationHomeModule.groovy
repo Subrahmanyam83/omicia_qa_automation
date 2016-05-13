@@ -19,7 +19,11 @@ class VariantInterpretationHomeModule extends Module {
         getReportSectionBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.to-report") }
         getEvidenceBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.evidence") }
         interpretVariantLinkBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.edit-variant a") }
-        getVariantIdWithIndexBasedOnVariantName { String variantName, int index -> $(".paginator-row .gene-symbol .gene", text: variantName).getAt(index).parent().parent().getAttribute("id") }
+        getVariantIdWithIndexBasedOnVariantName { String variantName, int index -> geneNameLink(variantName, index).parent().parent().getAttribute("id") }
+        getScoringStatus { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.scoring-status") }
+        getLatestClassification { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.latest-classification") }
+        getClassCondition { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.classification-sort-order-curated-variant") }
+        getReportSection { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.acmg-report-section") }
 
         /*Headers*/
         reviewReportButton { $(".review-report") }
@@ -33,6 +37,7 @@ class VariantInterpretationHomeModule extends Module {
         updateShowHideColumnsButton { $(".btn.btn-primary.close-button", text: "Update") }
         cancelSHowHideCoulmnsButton { $(".btn.cancel-button", text: "Cancel") }
 
-
+        /*Table*/
+        scoreVariantsLink { $(".expansion-tab.visible") }
     }
 }
