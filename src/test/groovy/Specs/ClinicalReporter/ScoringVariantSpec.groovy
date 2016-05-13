@@ -97,5 +97,7 @@ class ScoringVariantSpec extends BaseSpec {
         openScoreVariantsBasedOnVariantName(AGRN)
 
         at ScoringVariantPage
+        Assert.assertTrue(getActiveHeaderTab(CONDITION_GENE))
+        Assert.assertTrue(getActiveConditionGeneTab(CLINIVAR_OMIM))
     }
 }

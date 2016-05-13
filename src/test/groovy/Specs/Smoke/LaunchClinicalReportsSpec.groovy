@@ -298,7 +298,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         if (baseUrl.contains(GEL)) {
             Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
         }
         Assert.assertEquals(getNumberOfItems(), ONE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
