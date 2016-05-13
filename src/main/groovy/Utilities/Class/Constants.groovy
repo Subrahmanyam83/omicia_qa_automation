@@ -205,5 +205,14 @@ public interface Constants {
     public List FLEX_TRIO_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
     public List FLEX_QUAD_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
 
+    /*Scoring Variants*/
+    public String SCORE_VARIANT = "Score Variant"
+    public String GENE_KNOWLEDGE_BASE = "Gene Knowledge Base"
+    public String SCORING_HISTORY = "Scoring History"
+    public String CITATIONS = "Citations"
+    public String CONDITION_GENE = "Condition-Gene"
 
+    public String WORKSPACE_CONDITION_GENES = "Workspace Condition-Genes"
+    public String CLINIVAR_OMIM = "ClinVar and OMIM Condition-Genes"
+    public String NLP_PHENOTYPE = "NLP Phenotype Mapper"
 }
