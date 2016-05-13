@@ -25,4 +25,9 @@ class HeaderPage extends BasePage{
         click(header.signOut,"Header Sign Out Button");
         waitFor {login.signInLink}
     }
+
+    def goToHomePage() {
+        waitFor { header.omiciaOpalHomePage }
+        click(header.omiciaOpalHomePage, "HomePage Button on Header")
+    }
 }

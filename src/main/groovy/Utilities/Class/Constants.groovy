@@ -36,14 +36,16 @@ public interface Constants {
     def FIVE = 5;
     def SIX = 6;
     def SEVEN = 7;
-    def FIFTY = 50;
+    def TWELVE = 12;
+    def EIGHTEEN = 18;
     def THIRTY = 30;
-    def THIRTY_NINE = 39
+    def THIRTY_NINE = 39;
+    def FIFTY = 50;
     def SIXTY_THREE = 63;
-    def TWELVE = 12
-    def HUNDRED = 100
+    def HUNDRED = 100;
     def FOURTEEN_POINT_THREE_TWO = "14.32"
     String GEL = "gel.omicia.com"
+    String ADMIN = "Admin"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -55,6 +57,7 @@ public interface Constants {
     String GENE_SETS = "Gene Sets";
     String APP_STORE = "App Store";
     String ASSAY_TYPES = "Assay Types";
+    String ACMG_AUTOMATION_WORKSPACE = "ACMG_Automation_Workspace"
 
     /*Projects Page*/
     String CLINICAL_GRADE = ".clinical-grade";
@@ -143,10 +146,12 @@ public interface Constants {
     public String DELETE_REPORT = "Delete Report"
 
     public String MISSENSE = "missense"
+    public String SYNONYMOUS = "synonymous"
     public String SAMD11 = "SAMD11"
     public String PLEKHN1 = "PLEKHN1"
     public String SCNN1D = "SCNN1D"
     public String TTLL10 = "TTLL10"
+    public String AGRN = "AGRN"
 
     /*Variant Interpret Home Page*/
     public List SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
@@ -181,6 +186,9 @@ public interface Constants {
     public List SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
     public List TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
     public List QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
+
+    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"

@@ -29,7 +29,6 @@ class PanelBuilderPage extends BasePage{
     }
 
     def createNewPanel(String panel_name,String panel_description){
-        clickItemsPerPageNndChooseValue()
         waitFor { panelBuilder.newPanelButton.displayed }
         click(panelBuilder.newPanelButton,"New Panel Button");
         waitFor {panelBuilder.createPanelModal.displayed}
@@ -37,6 +36,7 @@ class PanelBuilderPage extends BasePage{
         type(panelBuilder.panelDescriptionField,panel_description,"Panel Description");
         click(panelBuilder.createPanelButton,"Create Panel Button")
         waitTillElementIsNotPresent(panelBuilder.createPanelModal,"Create Panel Modal")
+        clickItemsPerPageNndChooseValue()
         waitFor { panelBuilder.panelRowBasedOnPanelName(panel_name) }
     }
 

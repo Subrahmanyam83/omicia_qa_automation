@@ -53,6 +53,26 @@ class VariantInterpretationHomePage extends BasePage {
         return interpretVariantsHome.getClassBasedOnVariant(variantName, index).text().trim()
     }
 
+    def getClassConditionBasedOnVariant(String variantName, int index = 0) {
+        waitFor { interpretVariantsHome.getClassCondition(variantName, index).displayed }
+        return interpretVariantsHome.getClassCondition(variantName, index).text().trim()
+    }
+
+    def getScoringStatusBasedOnVariant(String variantName, int index = 0) {
+        waitFor { interpretVariantsHome.getScoringStatus(variantName, index).displayed }
+        return interpretVariantsHome.getScoringStatus(variantName, index).text().trim()
+    }
+
+    def getReportSectionBasedOnVariant(String variantName, int index = 0) {
+        waitFor { interpretVariantsHome.getReportSection(variantName, index).displayed }
+        return interpretVariantsHome.getReportSection(variantName, index).text().trim()
+    }
+
+    def getLatestClassificationBasedOnVariant(String variantName, int index = 0) {
+        waitFor { interpretVariantsHome.getLatestClassification(variantName, index).displayed }
+        return interpretVariantsHome.getLatestClassification(variantName, index).text().trim()
+    }
+
     def getStatusBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.getStatusBasedOnVariant(variantName, index).displayed }
         return interpretVariantsHome.getStatusBasedOnVariant(variantName, index).text().trim()
@@ -146,5 +166,11 @@ class VariantInterpretationHomePage extends BasePage {
     def clickReviewReport() {
         waitFor { interpretVariantsHome.reviewReportButton.displayed }
         click(interpretVariantsHome.reviewReportButton, "Review Report Button")
+    }
+
+    def openScoreVariantsBasedOnVariantName(String variantName, int index = 0) {
+        interact { moveToElement(interpretVariantsHome.geneNameLink(variantName, index)) }
+        waitFor { interpretVariantsHome.scoreVariantsLink }
+        click(interpretVariantsHome.scoreVariantsLink, "Score Variant Link on the " + index + " " + variantName + " Variant")
     }
 }

@@ -16,15 +16,11 @@ class VariantInterpretEditPage extends BasePage {
         interpretVariant { module VariantInterpretEditModule }
     }
 
-    /*Header Methods*/
-
     def clickOnTab(String tabName) {
         waitFor { interpretVariant.tab(tabName) }
         click(interpretVariant.tab(tabName), "Interpret Variant Tab Name: '" + tabName + "'")
         waitFor { interpretVariant.currentActiveTab(tabName) }
     }
-
-    /*Edit Variant Methods*/
 
     def editVariant(String classification, String report, String description = "_Test Description for Interpret Variation", String condition = "Ataxia", String citation = "123", String status = "Reviewed", String note = "Test Note for Finding") {
         waitFor { interpretVariant.variantClassificationDropDown }
@@ -58,8 +54,6 @@ class VariantInterpretEditPage extends BasePage {
         return interpretVariant.conditionTextField.value().toString().trim()
     }
 
-    /*Footer Methods*/
-
     def saveVariant() {
         click(interpretVariant.saveButton, "Save Variant")
         Thread.sleep(2000)
@@ -75,6 +69,4 @@ class VariantInterpretEditPage extends BasePage {
         click(interpretVariant.copyToVariantInterpretationAndDescritpion, "Copy to Variant Interpretation and Description Button")
         waitFor { interpretVariant.currentActiveTab(EDIT_VARIANT) }
     }
-
-
 }

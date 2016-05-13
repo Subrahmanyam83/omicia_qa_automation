@@ -9,7 +9,7 @@ class FilteringProtocolHomeModule extends Module {
 
     static content = {
         filteringWorkspaceProtocolTable { $(".active #workspace-protocols #filter-workspace-protocols") }
-        numberOfRows { $(".active #workspace-protocols #filter-workspace-protocols tr") }
+        numberOfRows { $(".active #workspace-protocols #filter-workspace-protocols tr").size() }
 
         numberOfFilteringProtocols { $('.delete-filter.opaque-button.pull-right').size() }
         deleteButtonOfTheFilteringProtocol { $('.delete-filter.opaque-button.pull-right') }

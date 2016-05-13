@@ -17,5 +17,6 @@ class CuratePanelModule extends Module{
         defaultFilterDropDown               {$(".filter-option.pull-left")}
         valueOfDefaultFilterDropDown        {String value-> $('.dropdown-menu.open li a .text',text:contains(value))}
         getNumberOfPanelGenes               {$("#panel-builder-regions tr")}
+        nameOfGenesAdded { $("#panel-builder-regions .gene-symbol") }
     }
 }

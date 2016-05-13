@@ -33,4 +33,12 @@ class CuratePanelPage extends BasePage{
     def getNumberOfPanelGenes(){
         return curatePanel.getNumberOfPanelGenes.size()
     }
+
+    def getNamesOfGenesAdded() {
+        List GenesAdded = new ArrayList();
+        for (int i = 0; i < getNumberOfPanelGenes(); i++) {
+            GenesAdded.add(curatePanel.nameOfGenesAdded[i].text());
+        }
+        return GenesAdded.toString().replaceAll("\\[|\\]", "")
+    }
 }

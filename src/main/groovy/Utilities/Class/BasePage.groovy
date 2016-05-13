@@ -71,9 +71,9 @@ class BasePage extends Page implements Constants{
     }
 
     public void scrollToCenter(Navigator navigator) {
-            int center = driver.manage().window().getSize().getHeight()/2
-            int locatorHeight = navigator.firstElement().getLocation().getY() - center
-            js.exec("window.scrollTo(0,$locatorHeight);")
+        int center = driver.manage().window().getSize().getHeight() / 2
+        int locatorHeight = navigator.firstElement().getLocation().getY() - center
+        js.exec("window.scrollTo(0,$locatorHeight);")
         Thread.sleep(1000)
     }
 
