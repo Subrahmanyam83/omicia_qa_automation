@@ -20,7 +20,7 @@ String sep = File.separator;
 DesiredCapabilities capabilities;
 String gridUrl = System.getProperty("gridUrl");
 String parallel = System.getProperty("parallel");
-String os = System.getProperty("os.name");
+String os = System.getProperty("op.sys.name");
 String rootDir = new File(".").getCanonicalPath();
 
 driver = {
