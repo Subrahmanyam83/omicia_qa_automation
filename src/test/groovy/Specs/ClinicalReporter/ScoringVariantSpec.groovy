@@ -67,7 +67,7 @@ class ScoringVariantSpec extends BaseSpec {
 
         at CuratePanelPage
         waitFor { curatePanel.getNumberOfPanelGenes }
-        Assert.assertEquals(getNamesOfGenesAdded(), AGRN, "The Gene added in Panel Page is displayed different in Curate Panel Page")
+        Assert.assertEquals(getNamesOfGenesAdded(), AGRN, "The Gene(s) added in Panel Page is different in Curate Panel Page")
         Assert.assertEquals(getNumberOfPanelGenes(), ONE)
 
         at HeaderPage
@@ -98,6 +98,41 @@ class ScoringVariantSpec extends BaseSpec {
 
         at ScoringVariantPage
         Assert.assertTrue(getActiveHeaderTab(CONDITION_GENE))
-        Assert.assertTrue(getActiveConditionGeneTab(CLINIVAR_OMIM))
+        Assert.assertTrue(getActiveTabUnderConditionGeneTab(CLINIVAR_OMIM))
+        clickOnTabUnderConditionGenes(NLP_PHENOTYPE)
+        verifyContentUnderConditionGeneTabs(NLP_PHENOTYPE)
+        clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
+        verifyContentUnderConditionGeneTabs(CLINIVAR_OMIM)
+        clickOnTabUnderConditionGenes(WORKSPACE_CONDITION_GENES)
+        verifyContentUnderConditionGeneTabs(WORKSPACE_CONDITION_GENES)
+        clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
+        clickOnColumnBasedOnConditionUnderClinVarAndOminTab(CLINVAR_OMIM_CONDITION_NAME, COPY_TO_WORKSPACE, 1)
+        clickSaveOrCancel(SAVE)
+        clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
+        clickOnColumnBasedOnConditionUnderClinVarAndOminTab(CLINVAR_OMIM_CONDITION_NAME, COPY_TO_WORKSPACE, 1)
+        clickSaveOrCancel(SAVE)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
+        clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, DELETE)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), ONE)
+
+        Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
+        Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), PREVALANCE_VALUE)
+        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NEONATAL)
+        Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
+        Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
+        Assert.assertEquals(getPMIDBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
+
+        clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, EDIT)
+        editCondition(data.EDIT_CONDITION_GENE_LIST)
+        clickSaveOrCancel(SAVE)
+
+        Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(1))
+        Assert.assertEquals(getPMIDBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(2))
+        Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(3))
+        Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(4))
+        Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(5))
+        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(6))
+
+
     }
 }
