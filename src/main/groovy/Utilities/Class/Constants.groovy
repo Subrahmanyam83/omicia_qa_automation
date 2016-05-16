@@ -48,6 +48,9 @@ public interface Constants {
     String ADMIN = "Admin"
     String SAVE = "Save"
     String CANCEL = "Cancel"
+    String ACTIONS = "Actions"
+    String DELETE = "Delete"
+    String EDIT = "Edit"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -217,4 +220,14 @@ public interface Constants {
     public String WORKSPACE_CONDITION_GENES = "Workspace Condition-Genes"
     public String CLINIVAR_OMIM = "ClinVar and OMIM Condition-Genes"
     public String NLP_PHENOTYPE = "NLP Phenotype Mapper"
+
+    public String NLP_PHENOTYPE_COLUMN_NAMES = "Condition p-Value Score Citations"
+    public String CLINVAR_OMIM_COLUMN_NAMES = "Condition Inheritance Prevalence Age of Onset Additional Information Source Actions"
+
+    public String CLINVAR_OMIM_CONDITION_NAME = "MYASTHENIC SYNDROME, CONGENITAL, WITH PRE- AND POSTSYNAPTIC DEFECTS"
+    public String COPY_TO_WORKSPACE = "Copy to Workspace"
+    public PREVALANCE_VALUE = "1-9 / 1 000 000"
+    public String NEONATAL = "Neonatal"
+
+
 }
