@@ -108,6 +108,7 @@ class ClinicalReporterPage extends BasePage {
             case SOLO:
                 click(clinicalReporter.tabBasedOnRelationship(AFFECTED_PERSON), "Tab Of Affected Person")
                 waitFor { clinicalReporter.modalPopup.displayed }
+                waitFor { clinicalReporter.selectGeneSpace }
                 waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON) }
                 click(clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON), "Gene of the Affected Person")
                 click(clinicalReporter.femaleRadioButton, "Female Radio Button")
@@ -117,6 +118,7 @@ class ClinicalReporterPage extends BasePage {
             case TRIO:
                 click(clinicalReporter.tabBasedOnRelationship(AFFECTED_CHILD), "Tab Of Affected Person")
                 waitFor { clinicalReporter.modalPopup.displayed }
+                waitFor { clinicalReporter.selectGeneSpace }
                 waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON).displayed }
                 click(clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON), "Gene of the Affected Person")
                 click(clinicalReporter.femaleRadioButton, "Female Radio Button")
@@ -125,6 +127,7 @@ class ClinicalReporterPage extends BasePage {
                 waitFor { clinicalReporter.tabBasedOnRelationship(UNAFFECTED_FATHER).displayed }
                 click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_FATHER), "Tab Of Unaffected Father")
                 waitFor { clinicalReporter.modalPopup.displayed }
+                waitFor { clinicalReporter.selectGeneSpace }
                 waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_FATHER) }
                 click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_FATHER), "Gene of the Unaffected Father")
                 click(clinicalReporter.selectButton, "Select Button")
@@ -132,6 +135,7 @@ class ClinicalReporterPage extends BasePage {
                 waitFor { clinicalReporter.tabBasedOnRelationship(UNAFFECTED_MOTHER) }
                 click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_MOTHER), "Tab Of Unaffected Mother")
                 waitFor { clinicalReporter.modalPopup }
+                waitFor { clinicalReporter.selectGeneSpace }
                 waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_MOTHER) }
                 click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_MOTHER), "Gene of the Unaffected Mother")
                 click(clinicalReporter.selectButton, "Select Button");
@@ -140,6 +144,7 @@ class ClinicalReporterPage extends BasePage {
             case QUAD:
                 click(clinicalReporter.tabBasedOnRelationship(AFFECTED_CHILD), "Tab Of Affected Person")
                 waitFor { clinicalReporter.modalPopup.displayed }
+                waitFor { clinicalReporter.selectGeneSpace }
                 waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON) }
                 click(clinicalReporter.geneBasedOnRelationship(GENE_OF_AFFECTED_PERSON), "Gene of the Affected Person")
                 click(clinicalReporter.femaleRadioButton, "Female Radio Button")
@@ -148,6 +153,7 @@ class ClinicalReporterPage extends BasePage {
                 waitFor { clinicalReporter.tabBasedOnRelationship(UNAFFECTED_FATHER) }
                 click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_FATHER), "Tab Of Unaffected Father")
                 waitFor { clinicalReporter.modalPopup.displayed }
+                waitFor { clinicalReporter.selectGeneSpace }
                 waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_FATHER) }
                 click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_FATHER), "Gene of the Unaffected Father")
                 click(clinicalReporter.selectButton, "Select Button")
@@ -155,6 +161,7 @@ class ClinicalReporterPage extends BasePage {
                 waitFor { clinicalReporter.tabBasedOnRelationship(UNAFFECTED_MOTHER) }
                 click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_MOTHER), "Tab Of Unaffected Mother")
                 waitFor { clinicalReporter.modalPopup.displayed }
+                waitFor { clinicalReporter.selectGeneSpace }
                 waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_MOTHER) }
                 click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_MOTHER), "Gene of the Unaffected Mother")
                 click(clinicalReporter.selectButton, "Select Button")
@@ -162,6 +169,7 @@ class ClinicalReporterPage extends BasePage {
                 waitFor { clinicalReporter.tabBasedOnRelationship(UNAFFECTED_SIBLING) }
                 click(clinicalReporter.tabBasedOnRelationship(UNAFFECTED_SIBLING), "Tab Of Unaffected Sibling")
                 waitFor { clinicalReporter.modalPopup.displayed }
+                waitFor { clinicalReporter.selectGeneSpace }
                 waitFor { clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_SIBLING) }
                 click(clinicalReporter.geneBasedOnRelationship(GENE_OF_UNAFFECTED_SIBLING), "Gene of the Unaffected Sibling")
                 click(clinicalReporter.maleRadioButton, "Male Radio Button")
