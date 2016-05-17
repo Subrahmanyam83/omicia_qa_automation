@@ -1,7 +1,6 @@
 package Specs.ClinicalReporter
 
 import Pages.Clinical_Reporter.ClinicalReporterPage
-import Pages.Clinical_Reporter.ScoringVariantPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
@@ -96,7 +95,7 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.equals(getLatestClassificationBasedOnVariant(AGRN).equals("-"))
         openScoreVariantsBasedOnVariantName(AGRN)
 
-        at ScoringVariantPage
+        at Conditio nGenePage
         Assert.assertTrue(getActiveHeaderTab(CONDITION_GENE))
         Assert.assertTrue(getActiveTabUnderConditionGeneTab(CLINIVAR_OMIM))
         clickOnTabUnderConditionGenes(NLP_PHENOTYPE)
