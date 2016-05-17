@@ -14,3 +14,4 @@ reports/*
 src/main/groovy/Log4j/*
 src/test/resources/testng.xml
 test.iml
+debug.log
