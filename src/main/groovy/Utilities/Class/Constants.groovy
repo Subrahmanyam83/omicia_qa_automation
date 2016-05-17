@@ -72,9 +72,9 @@ public interface Constants {
     String REPORT_VERSION = ".report-version";
     String REPORT_STATUS = ".report-status";
 
-    String VAAST_SOLO_ANALYSIS = "VAAST Solo Analysis (3.0.4.2)"
-    String VAAST_TRIO_ANALYSIS = "VAAST Trio Analysis (3.0.4.2)"
-    String VAAST_QUAD_ANALYSIS = "VAAST Quad Analysis (3.0.4.2)"
+    String VAAST_SOLO_ANALYSIS = "VAAST Solo Analysis"
+    String VAAST_TRIO_ANALYSIS = "VAAST Trio Analysis"
+    String VAAST_QUAD_ANALYSIS = "VAAST Quad Analysis"
     String VAAST_SOLO_REPORT = "VAAST Solo Report"
     String VAAST_TRIO_REPORT = "VAAST Trio Report"
     String VAAST_QUAD_REPORT = "VAAST Quad Report"

@@ -27,6 +27,8 @@ class TestNGXMLCreator {
         suite.setParallel("classes");
         suite.setThreadCount(thread_count)
         suite.addListener("Utilities.Class.BaseSpec")
+        suite.addListener("org.uncommons.reportng.HTMLReporter")
+        suite.addListener("org.uncommons.reportng.JUnitXMLReporter")
 
         XmlTest test = new XmlTest(suite);
         test.setName("Omicia OPAL Test");
@@ -86,7 +88,7 @@ class TestNGXMLCreator {
         mySuites.add(suite);
 
         myTestNG.setXmlSuites(mySuites);
-        myTestNG.run();
+        //myTestNG.run();
     }
 
     public static void convertPropertiesToSystemProperties() {
@@ -99,6 +101,5 @@ class TestNGXMLCreator {
                 System.setProperty(key, value);
             }
         }
-        System.setProperty("geb.env", System.getProperty("browser"))
     }
 }
