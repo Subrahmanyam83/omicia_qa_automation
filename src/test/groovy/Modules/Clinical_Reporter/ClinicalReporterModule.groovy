@@ -51,6 +51,7 @@ class ClinicalReporterModule extends Module {
         maleRadioButton { $("input", type: "radio", value: "male") }
         femaleRadioButton { $("input", type: "radio", value: "female") }
         selectButton { $(".btn.btn-primary.close-button", text: "Select") }
+        selectGeneSpace { $(".genomes") }
 
 
     }
