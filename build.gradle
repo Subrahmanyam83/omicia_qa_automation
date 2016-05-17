@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-
     def gebVersion = "0.12.2"
     def testngVersion = "6.9.10"
     def seleniumVersion = "2.53.0"
@@ -39,13 +38,13 @@ drivers.each { driver ->
     task "${driver}Test"(type: Test, dependsOn: [classes, testClasses]) {
         doFirst {
             delete "reports", "test-output"
+            editTestNGParams()
             testNGXMLCreator.execute()
         }
         outputs.upToDateWhen { false }
         useTestNG {
             convertPropertiesToSystemProperties()
             systemProperty "geb.env", driver;
-            //reports.html.enabled = false;  Enable this when you do not want default JUNIT Reports
             reports.html.destination = System.properties['junit.reports.directory']
             suites 'src/test/resources/testng.xml'
         }
@@ -57,8 +56,26 @@ task(testNGXMLCreator, dependsOn: ['classes'], type: JavaExec) {
     classpath = sourceSets.test.runtimeClasspath
 }
 
-/* This Function reads the project.properties file and puts each K,V pair into System Properties.*/
+public void editTestNGParams() {
+    FileInputStream file = new FileInputStream("./src/main/resources/project.properties");
+    Properties props = new Properties();
+    props.load(file);
+    file.close();
 
+    FileOutputStream out = new FileOutputStream("./src/main/resources/project.properties");
+    props.setProperty("parallel", System.properties['parallel']);
+    props.setProperty("threadCount", System.properties['threadCount']);
+    props.setProperty("geb.build.baseUrl", System.properties['geb.build.baseUrl']);
+    props.setProperty("package.name", System.properties['package.name']);
+    props.setProperty("group.name", System.properties['group.name']);
+    props.setProperty("class.name", System.properties['class.name']);
+    props.setProperty("method.name", System.properties['method.name']);
+    props.setProperty("browser", System.properties['browser']);
+    props.store(out, null);
+    out.close();
+}
+
+/* This Function reads the project.properties file and puts each K,V pair into System Properties.*/
 public void convertPropertiesToSystemProperties() {
     String rootDir = new File(".").getCanonicalPath() /*Absolute Path*/
     String projectPropertiesPath = rootDir + "/src/main/resources/project.properties".replace('/', File.separator)

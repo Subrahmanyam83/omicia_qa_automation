@@ -1,20 +1,20 @@
 package Pages.Clinical_Reporter
 
-import Modules.Clinical_Reporter.ScoringVariantModule
+import Modules.Clinical_Reporter.ConditionGeneModule
 import Utilities.Class.BasePage
 import org.testng.Assert
 
 /**
  * Created by E002183 on 5/12/2016.
  */
-class ScoringVariantPage extends BasePage {
+class ConditionGenePage extends BasePage {
 
     static at = {
         scoringVariant.scoringVariantContainer
     }
 
     static content = {
-        scoringVariant { module ScoringVariantModule }
+        scoringVariant { module ConditionGeneModule }
     }
 
     /*Header Methods*/
