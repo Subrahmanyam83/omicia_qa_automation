@@ -12,11 +12,11 @@ class TestNGXMLCreator {
 
         String rootDir = new File(".").getCanonicalPath();
         convertPropertiesToSystemProperties();
-        String PACKAGES = System.getProperty("package.name")
-        String GROUPS = System.getProperty("group.name")
-        String CLASSES = System.getProperty("class.name")
-        String METHODS = System.getProperty("method.name")
-        int thread_count = System.getProperty("threadCount").toInteger();
+        String PACKAGES = System.getProperty("package.name").trim()
+        String GROUPS = System.getProperty("group.name").trim()
+        String CLASSES = System.getProperty("class.name").trim()
+        String METHODS = System.getProperty("method.name").trim()
+        int thread_count = System.getProperty("threadCount").trim().toInteger();
         String testngXMLFilePath = rootDir + System.getProperty("testng.xml.file.path").replace("/", File.separator)
 
         TestNG myTestNG = new TestNG();
