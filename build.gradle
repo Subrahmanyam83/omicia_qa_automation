@@ -63,14 +63,14 @@ public void editTestNGParams() {
     file.close();
 
     FileOutputStream out = new FileOutputStream("./src/main/resources/project.properties");
+    props.setProperty("browser", System.properties['browser']);
+    props.setProperty("geb.build.baseUrl", System.properties['geb.build.baseUrl']);
     props.setProperty("parallel", System.properties['parallel']);
     props.setProperty("threadCount", System.properties['threadCount']);
-    props.setProperty("geb.build.baseUrl", System.properties['geb.build.baseUrl']);
     props.setProperty("package.name", System.properties['package.name']);
     props.setProperty("group.name", System.properties['group.name']);
     props.setProperty("class.name", System.properties['class.name']);
     props.setProperty("method.name", System.properties['method.name']);
-    props.setProperty("browser", System.properties['browser']);
     props.store(out, null);
     out.close();
 }
