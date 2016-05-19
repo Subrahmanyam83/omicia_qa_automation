@@ -30,4 +30,11 @@ class HeaderPage extends BasePage{
         waitFor { header.omiciaOpalHomePage }
         click(header.omiciaOpalHomePage, "HomePage Button on Header")
     }
+
+    def clickOnOPALAdminAndChooseTab(String tabName) {
+        waitFor { header.opalAdminButton }
+        click(header.opalAdminButton, "OPAL ADMIn Button")
+        waitFor { header.opalAdminTabs(tabName) }
+        click(header.opalAdminTabs(tabName), "Opal Admin Tab: " + tabName)
+    }
 }

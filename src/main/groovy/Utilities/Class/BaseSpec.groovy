@@ -35,13 +35,15 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     }
 
     /* Runs Before Every Suite*/
-    @BeforeSuite
+
+    @BeforeSuite(alwaysRun = true)
     def beforeSuite(){
         convertPropertiesToSystemProperties();
     }
 
     /*Runs before every Class or Spec*/
-    @BeforeClass
+
+    @BeforeClass(alwaysRun = true)
     def beforeClass(){
         log = Logger.getLogger(this.class);
         if(System.getProperty("geb.env").equals("safari")){
@@ -50,7 +52,8 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     }
 
     /*Runs before every Method or Test*/
-    @BeforeMethod
+
+    @BeforeMethod(alwaysRun = true)
     def beforeMethod(Method method){
         ExtentReportFactory.getTest(method.getName(), "Test Case Name: "+method.getName());
         etest = ExtentReportFactory.getTest();
@@ -60,18 +63,21 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     }
 
     /*Runs After every Method or Test*/
-    @AfterMethod
+
+    @AfterMethod(alwaysRun = true)
     def afterMethod(Method method) {
         ExtentReportFactory.closeTest(method.getName());
     }
 
     /*Runs after every Class or Spec*/
-    @AfterClass
+
+    @AfterClass(alwaysRun = true)
     def afterClass() {
     }
 
     /*Runs after every Suite*/
-    @AfterSuite
+
+    @AfterSuite(alwaysRun = true)
     def afterSuite(){
         ExtentReportFactory.closeReport();
         //changeExtentReportHtml();
@@ -132,35 +138,18 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
 
     def generateRandom() {
         Random r = new Random(System.currentTimeMillis());
-        return ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
+        return 1000000000 + r.nextInt(2000000000);
     }
 
-    /**
-     * Invoked each time before a test will be invoked.
-     * The <code>ITestResult</code> is only partially filled with the references to
-     * class, method, start millis and status.
-     * @param result the partially filled <code>ITestResult</code>
-     * @see ITestResult#STARTED
-     */
     @Override
     void onTestStart(ITestResult result) {
     }
 
-    /**
-     * Invoked each time a test succeeds.
-     * @param result <code>ITestResult</code> containing information about the run test
-     * @see ITestResult#SUCCESS
-     */
     @Override
     void onTestSuccess(ITestResult result) {
         getEreportTest().log(INFO,"Test Case: '"+result.getName()+"' PASSED SUCESSFULLY");
     }
 
-    /**
-     * Invoked each time a test fails.
-     * @param result <code>ITestResult</code> containing information about the run test
-     * @see ITestResult#FAILURE
-     */
     @Override
     void onTestFailure(ITestResult result) {
         report(result.getName());
@@ -173,39 +162,19 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
         }
     }
 
-    /**
-     * Invoked each time a test is skipped.
-     * @param result <code>ITestResult</code> containing information about the run test
-     * @see ITestResult#SKIP
-     */
     @Override
     void onTestSkipped(ITestResult result) {
     }
 
-    /**
-     * Invoked each time a method fails but has been annotated with
-     * successPercentage and this failure still keeps it within the
-     * success percentage requested.
-     *
-     * @param result <code>ITestResult</code> containing information about the run test
-     * @see ITestResult#SUCCESS_PERCENTAGE_FAILURE
-     */
     @Override
     void onTestFailedButWithinSuccessPercentage(ITestResult result) {
     }
 
-    /**
-     * Invoked after the test class is instantiated and before
-     * any configuration method is called.
-     */
     @Override
     void onStart(ITestContext context) {
+        convertPropertiesToSystemProperties();
     }
 
-    /**
-     * Invoked after all the tests have run and all their
-     * Configuration methods have been called.
-     */
     @Override
     void onFinish(ITestContext context) {
     }

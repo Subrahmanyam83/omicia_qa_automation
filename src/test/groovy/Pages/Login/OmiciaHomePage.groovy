@@ -9,7 +9,9 @@ import Utilities.Class.BasePage
  */
 class OmiciaHomePage extends BasePage{
 
-    static at = {header.homePageHeaderOmiciaText.displayed}
+    static at = {
+        header.homePageHeaderOmiciaText.displayed
+    }
 
     static content = {
         home {module HomeModule}
@@ -46,5 +48,35 @@ class OmiciaHomePage extends BasePage{
         }
         click(home.workSpaceDropDown, "Workspace Drop Down")
         return workspaceNames
+    }
+
+    def createNewWorkspace(String workspaceName, boolean switchworkspace = false) {
+        waitFor { home.workSpaceDropDown }
+        click(home.workSpaceDropDown, "Workspace Drop Down")
+        waitFor { home.createNewWorkspaceLink }
+        click(home.createNewWorkspaceLink, "Create New Workspace Button")
+
+        waitFor { home.createNewWorkspaceButton }
+        type(home.workspaceNameTextField, workspaceName, "WorkSpace Name Text Field")
+        click(home.createNewWorkspaceButton, "Create New Workspace Button")
+        waitFor { home.returnToListButton }
+        click(home.returnToListButton, "Return to List Button")
+        waitFor { home.newWorkspaceButton }
+        changePaginatorLevel()
+        waitFor { home.workSpaceRow(workspaceName) }
+        if (!switchworkspace.equals(false)) {
+            switchWorkspace(workspaceName)
+        }
+        waitFor { header.omiciaOpalHomePage }
+        click(header.omiciaOpalHomePage, "Header Logo")
+    }
+
+    def changePaginatorLevel(String value = HUNDRED) {
+        Thread.sleep(2000L)
+        if (home.paginatorDropDown.displayed) {
+            click(home.paginatorDropDown, "Paginator Drop Down value")
+            waitFor { home.paginatorDropDownValue(value) }
+            click(home.paginatorDropDownValue(value), "Paginator Drop Down value: " + value)
+        }
     }
 }

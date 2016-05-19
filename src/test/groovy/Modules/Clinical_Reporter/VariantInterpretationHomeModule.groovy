@@ -13,6 +13,7 @@ class VariantInterpretationHomeModule extends Module {
 
         /*Home Page*/
         variantTable { $("#variants tbody#variants") }
+        rowBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent() }
         getEffectBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.consequence a") }
         getClassBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.classification-sort-order span") }
         getStatusBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.status") }

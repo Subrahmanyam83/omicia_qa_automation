@@ -48,5 +48,6 @@ class SmokeTestData extends BaseSpec {
     public String VAAST_G_SCORE_VALUE_RECESSIVE = "14.32 5.90e-1"
     public String VAAST_G_SCORE_VALUE_DOMINANT = "14.32 1.87e-1"
 
-
+    /*Scoring Variants Page*/
+    public List EDIT_CONDITION_GENE_LIST = [NONE, "Edit Condition Gene Note", "1", "X-linked", "950 /226 5906", "Medium", "Variable"]
 }
