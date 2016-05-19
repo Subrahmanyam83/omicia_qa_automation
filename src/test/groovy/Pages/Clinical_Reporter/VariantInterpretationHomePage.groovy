@@ -3,6 +3,7 @@ package Pages.Clinical_Reporter
 import Modules.Clinical_Reporter.VariantInterpretationHomeModule
 import Modules.Clinical_Reporter.VariantSelectionModule
 import Utilities.Class.BasePage
+import org.openqa.selenium.interactions.Actions
 
 /**
  * Created by E002183 on 4/26/2016.
@@ -169,7 +170,9 @@ class VariantInterpretationHomePage extends BasePage {
     }
 
     def openScoreVariantsBasedOnVariantName(String variantName, int index = 0) {
+        waitFor { interpretVariantsHome.geneNameLink(variantName, index) }
         interact { moveToElement(interpretVariantsHome.geneNameLink(variantName, index)) }
+        new Actions(driver).moveToElement(interpretVariantsHome.rowBasedOnVariant(variantName, index).firstElement(), 0, 0).moveByOffset(1, 1).click().build().perform()
         waitFor { interpretVariantsHome.scoreVariantsLink }
         click(interpretVariantsHome.scoreVariantsLink, "Score Variant Link on the " + index + " " + variantName + " Variant")
     }

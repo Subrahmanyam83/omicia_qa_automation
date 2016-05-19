@@ -45,7 +45,14 @@ public interface Constants {
     def HUNDRED = 100;
     def FOURTEEN_POINT_THREE_TWO = "14.32"
     String GEL = "gel.omicia.com"
+    String NORMAL_USER = "Normal"
     String ADMIN = "Admin"
+    String OWNER = "Owner"
+    String SAVE = "Save"
+    String CANCEL = "Cancel"
+    String ACTIONS = "Actions"
+    String DELETE = "Delete"
+    String EDIT = "Edit"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -58,6 +65,10 @@ public interface Constants {
     String APP_STORE = "App Store";
     String ASSAY_TYPES = "Assay Types";
     String ACMG_AUTOMATION_WORKSPACE = "ACMG_Automation_Workspace"
+    String MANAGE_WORKSPACES = "Manage Workspaces"
+    String ID = "id"
+    String NAME = "Name"
+    String USERS = "Users"
 
     /*Projects Page*/
     String CLINICAL_GRADE = ".clinical-grade";
@@ -67,9 +78,9 @@ public interface Constants {
     String REPORT_VERSION = ".report-version";
     String REPORT_STATUS = ".report-status";
 
-    String VAAST_SOLO_ANALYSIS = "VAAST Solo Analysis (3.0.4.2)"
-    String VAAST_TRIO_ANALYSIS = "VAAST Trio Analysis (3.0.4.2)"
-    String VAAST_QUAD_ANALYSIS = "VAAST Quad Analysis (3.0.4.2)"
+    String VAAST_SOLO_ANALYSIS = "VAAST Solo Analysis"
+    String VAAST_TRIO_ANALYSIS = "VAAST Trio Analysis"
+    String VAAST_QUAD_ANALYSIS = "VAAST Quad Analysis"
     String VAAST_SOLO_REPORT = "VAAST Solo Report"
     String VAAST_TRIO_REPORT = "VAAST Trio Report"
     String VAAST_QUAD_REPORT = "VAAST Quad Report"
@@ -133,10 +144,10 @@ public interface Constants {
     public String UNAFFECTED_MOTHER = "Unaffected Mother"
     public String UNAFFECTED_SIBLING = "Unaffected Sibling"
 
-    public GENE_OF_AFFECTED_PERSON = "Genome-Label-1-EX024-1 — External-ID-1 (Pipeline Version: 6.0.1)"
-    public GENE_OF_UNAFFECTED_FATHER = "Genome-Label-1-EX024-4 — External-ID-1 (Pipeline Version: 6.0.1)"
-    public GENE_OF_UNAFFECTED_MOTHER = "Genome-Label-1-EX024-3 — External-ID-1 (Pipeline Version: 6.0.1)"
-    public GENE_OF_UNAFFECTED_SIBLING = "Genome-Label-1-EX024-2 — External-ID-1 (Pipeline Version: 6.0.1)"
+    public GENE_OF_AFFECTED_PERSON = "Genome-Label-1-EX024-1 — External-ID-1 (Pipeline Version:"
+    public GENE_OF_UNAFFECTED_FATHER = "Genome-Label-1-EX024-4 — External-ID-1 (Pipeline Version:"
+    public GENE_OF_UNAFFECTED_MOTHER = "Genome-Label-1-EX024-3 — External-ID-1 (Pipeline Version:"
+    public GENE_OF_UNAFFECTED_SIBLING = "Genome-Label-1-EX024-2 — External-ID-1 (Pipeline Version:"
 
     public String EDIT_PATIENT_INFORMATION = "Edit Patient Information"
     public String INTERPRET_VARIANTS = "Interpret Variants"
@@ -187,8 +198,8 @@ public interface Constants {
     public List TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
     public List QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
 
-    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
-    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG_GEL = ["Review Priority", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG_GEL = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"
@@ -215,4 +226,24 @@ public interface Constants {
     public String WORKSPACE_CONDITION_GENES = "Workspace Condition-Genes"
     public String CLINIVAR_OMIM = "ClinVar and OMIM Condition-Genes"
     public String NLP_PHENOTYPE = "NLP Phenotype Mapper"
+
+    public String NLP_PHENOTYPE_COLUMN_NAMES = "Condition p-Value Score Citations"
+    public String CLINVAR_OMIM_COLUMN_NAMES = "Condition Inheritance Prevalence Age of Onset Additional Information Source Actions"
+
+    public String CLINVAR_OMIM_CONDITION_NAME = "MYASTHENIC SYNDROME, CONGENITAL, WITH PRE- AND POSTSYNAPTIC DEFECTS"
+    public String COPY_TO_WORKSPACE = "Copy to Workspace"
+    public PREVALANCE_VALUE = "1-9 / 1 000 000"
+    public String NEONATAL = "Neonatal"
+
+    /*Manage WorkSpaces*/
+    public String ADMINS = "Admins"
+    public String GROUPS = "Groups"
+    public String PAYMENT_INFO = "Payment Info"
+    public String CLINICAL_REPORTS = "Clinical Reports"
+    public String MEMBERS = "Members"
+
+    /*Group Tab*/
+    public String CLINICAL_REPORTER_ACCESS = "Clinical Reporter access"
+
+
 }
