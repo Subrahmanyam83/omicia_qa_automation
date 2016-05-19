@@ -1,6 +1,8 @@
 package Specs.ClinicalReporter
 
+import Pages.Admin.ManageWorkspacePage
 import Pages.Clinical_Reporter.ClinicalReporterPage
+import Pages.Clinical_Reporter.ConditionGenePage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
@@ -23,19 +25,51 @@ class ScoringVariantSpec extends BaseSpec {
 
     SmokeTestData data = new SmokeTestData();
     public String PROJECT_NAME;
+    public String WORKSPACE_NAME;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
-        PROJECT_NAME = PROJECT__NAME + data.random
-    }
+        PROJECT_NAME = PROJECT__NAME + data.random;
+        WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
 
-    @Test(groups = "clinical_reporter", priority = 1)
-    public void testScoringVariantsInACMGRepport() {
         to LoginPage
         signIn();
 
         at OmiciaHomePage
-        switchWorkspace(ACMG_AUTOMATION_WORKSPACE);
+        createNewWorkspace(WORKSPACE_NAME)
+
+        at HeaderPage
+        signOut()
+
+        to LoginPage
+        loginWithUser(ADMIN)
+
+        at HeaderPage
+        clickOnOPALAdminAndChooseTab(MANAGE_WORKSPACES)
+
+        at ManageWorkspacePage
+        search(WORKSPACE_NAME)
+        String WID = getIDBasedOnWorkspaceName(WORKSPACE_NAME)
+        clickManageBasedOnNameOrId(WORKSPACE_NAME)
+        Assert.assertEquals(getHeaderTextOnManageWorkspacePage(), "Workspace ID " + WID + ": " + WORKSPACE_NAME)
+        goToTab(GROUPS)
+        clickOnCheckBoxUnderGroupsTab([CLINICAL_REPORTER_ACCESS])
+        goToTab(PAYMENT_INFO)
+        addPOAccount()
+
+        at HeaderPage
+        signOut()
+    }
+
+    @Test(groups = ["clinical_reporter", "acmg"], priority = 1)
+    public void testScoringVariantsInACMGRepport() {
+
+        to LoginPage
+        signIn();
+
+        at OmiciaHomePage
+        switchWorkspace(WORKSPACE_NAME)
+
         openTab(UPLOAD_GENOMES);
 
         at UploadGenomePage
@@ -95,13 +129,12 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.equals(getLatestClassificationBasedOnVariant(AGRN).equals("-"))
         openScoreVariantsBasedOnVariantName(AGRN)
 
-        at Conditio nGenePage
+        at ConditionGenePage
         Assert.assertTrue(getActiveHeaderTab(CONDITION_GENE))
         Assert.assertTrue(getActiveTabUnderConditionGeneTab(CLINIVAR_OMIM))
+        verifyContentUnderConditionGeneTabs(CLINIVAR_OMIM)
         clickOnTabUnderConditionGenes(NLP_PHENOTYPE)
         verifyContentUnderConditionGeneTabs(NLP_PHENOTYPE)
-        clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
-        verifyContentUnderConditionGeneTabs(CLINIVAR_OMIM)
         clickOnTabUnderConditionGenes(WORKSPACE_CONDITION_GENES)
         verifyContentUnderConditionGeneTabs(WORKSPACE_CONDITION_GENES)
         clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
@@ -118,12 +151,13 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), PREVALANCE_VALUE)
         Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NEONATAL)
         Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
-        Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
+        Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME, false), NONE)
         Assert.assertEquals(getPMIDBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
 
         clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, EDIT)
         editCondition(data.EDIT_CONDITION_GENE_LIST)
         clickSaveOrCancel(SAVE)
+        waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
 
         Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(1))
         Assert.assertEquals(getPMIDBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(2))
@@ -131,5 +165,6 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(4))
         Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(5))
         Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(6))
+        clickOnCheckBoxBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME)
     }
 }

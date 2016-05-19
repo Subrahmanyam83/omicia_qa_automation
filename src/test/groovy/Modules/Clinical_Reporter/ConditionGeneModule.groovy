@@ -31,7 +31,7 @@ class ConditionGeneModule extends Module {
 
         ClinVarOmimTable { $("div.clinvar-and-omim-condition-genes.active") }
         ClinVarOminColumnNames { $("table.clinvar-omim thead tr") }
-        columnNameBasedOnCondition { String index, String conditionName, String columnName -> $("table.clinvar-omim tbody tr").getAt(index).find("td.condition", text: contains(conditionName)).parent().find("td", text: contains(columnName)) }
+        columnNameBasedOnCondition { int index, String conditionName, String columnName -> $("table.clinvar-omim tbody tr").getAt(index).find("td.condition", text: contains(conditionName)).parent().find("td", text: contains(columnName)) }
 
         workSpaceConditionGeneText {
             $("div.no-cgs-alert", text: contains("There are no conditions associated with this gene in this workspace yet. Curate one from the ClinVar and OMIM Condition-Genes tab or add one."))
@@ -47,22 +47,25 @@ class ConditionGeneModule extends Module {
         prevalanceTextBasedOnCondition { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".prevalence") }
         ageOfOnsetTextBasedOnCondition { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".age-of-onset") }
         penetranceTextBasedOnCondition { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".penetrance") }
-        notesBasedOnCondition { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".notes") }
+        notesViewBasedOnCondition { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".notes a") }
+        notesTextBasedOnCondition { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".notes") }
+        notesOnModalPopup { $(".modal.modal-overflow.in .modal-body").text().trim() }
         PMIDTextBasedOnCondition { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".pmids") }
+        checkboxBasedCondition { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".selected .select-condition-gene") }
 
         /*Edit Condition Gene*/
         conditionTextBox                {modalPopUp.find("#condition")}
         notesTextBox                    {modalPopUp.find("#notes")}
         pmidTextBox                     {modalPopUp.find(".input-medium")}
         addPmidButton                   {modalPopUp.find(".btn.add-pmid")}
-        pmidTextSuccessAlert            {modalPopUp.find(".abstract")}
+        pmidTextSuccessAlert { String message -> modalPopUp.find(".abstract", text: contains(message)) }
         inheritanceDropDown             {modalPopUp.find(".filter-option")}
         dropDownValue                   {String value-> modalPopUp.find(".dropdown-menu.open ul li a span",text:contains(value))}
         prevalanceTextBox               {modalPopUp.find('name':'prevalence')}
-        penetranceDropDown              {modalPopUp.find(".control-label",text:"Penetrance").find(".filter-option")}
-        ageOfOnsetDropDown { modalPopUp.find(".control-label", text: "Age of Onset").find(".filter-option") }
-        saveButton                      {modalPopUp.find(".cancel-button",text:"Cancel")}
-        cancelButton                    {modalPopUp.find(".close-button",text:"Save")}
+        penetranceDropDown { modalPopUp.find(".control-label", text: "Penetrance").parent().find(".filter-option") }
+        ageOfOnsetDropDown { modalPopUp.find(".control-label", text: "Age of Onset").parent().find(".filter-option") }
+        cancelButton { modalPopUp.find(".cancel-button", text: "Cancel") }
+        saveButton { modalPopUp.find(".close-button", text: "Save") }
         closeButton { modalPopUp.find(".close-button", text: "Close") }
     }
 }

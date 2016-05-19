@@ -18,12 +18,13 @@ class ConditionGenePage extends BasePage {
     }
 
     /*Header Methods*/
-    def clickOnHeaderTab(String tabName){
-        waitFor {scoringVariant.headerTab(tabName)}
-        click(scoringVariant.headerTab(tabName))
+
+    def clickOnHeaderTab(String tabName) {
+        waitFor { scoringVariant.headerTab(tabName) }
+        click(scoringVariant.headerTab(tabName), "Header Tab: " + tabName)
     }
 
-    def getActiveHeaderTab(String headerName){
+    def getActiveHeaderTab(String headerName) {
         return scoringVariant.activeHeaderTab(headerName).isDisplayed()
     }
 
@@ -33,18 +34,18 @@ class ConditionGenePage extends BasePage {
         return scoringVariant.activeConditionGeneTab(tabName).isDisplayed()
     }
 
-    def clickOnTabUnderConditionGenes(String tabName){
+    def clickOnTabUnderConditionGenes(String tabName) {
         waitFor { scoringVariant.tabNameUnderConditionGene(tabName) }
-        click(scoringVariant.tabNameUnderConditionGene(tabName))
+        click(scoringVariant.tabNameUnderConditionGene(tabName), "Tab under Condition Name: " + tabName)
     }
 
     def verifyContentUnderConditionGeneTabs(String tabName) {
         switch (tabName) {
-            case CLINIVAR_OMIM:
+            case WORKSPACE_CONDITION_GENES:
                 waitFor { scoringVariant.workSpaceConditionGeneText }
                 break;
 
-            case WORKSPACE_CONDITION_GENES:
+            case CLINIVAR_OMIM:
                 waitFor { scoringVariant.ClinVarOmimTable }
                 Assert.assertEquals(scoringVariant.ClinVarOminColumnNames.text().replace("\n", " "), CLINVAR_OMIM_COLUMN_NAMES, "ClinVar and OMIM column names are different from: [" + CLINVAR_OMIM_COLUMN_NAMES + "]")
                 break;
@@ -108,8 +109,18 @@ class ConditionGenePage extends BasePage {
         return scoringVariant.penetranceTextBasedOnCondition(index, conditionName).text().trim()
     }
 
-    def getNotesBasedOnCondition(String conditionName, int index = 0) {
-        return scoringVariant.notesBasedOnCondition(index, conditionName).text().trim()
+    def getNotesBasedOnCondition(String conditionName, boolean notesPresent = true, int index = 0) {
+        if (notesPresent.equals(true)) {
+            waitFor { scoringVariant.notesViewBasedOnCondition(index, conditionName) }
+            click(scoringVariant.notesViewBasedOnCondition(index, conditionName), "View Link of Notes");
+            waitFor { scoringVariant.modalPopUp }
+            String notesText = scoringVariant.notesOnModalPopup
+            click(scoringVariant.closeButton, "Close Button On Modal Popup")
+            return notesText
+        } else if (notesPresent.equals(false)) {
+            return scoringVariant.notesTextBasedOnCondition(index, conditionName).text().trim()
+        }
+
     }
 
     def getPMIDBasedOnCondition(String conditionName, int index = 0) {
@@ -145,53 +156,69 @@ class ConditionGenePage extends BasePage {
     }
 
     /*Edit Condition Gene*/
-            def editCondition(String conditionValue){
-                scoringVariant.conditionTextBox.firstElement().clear();
-                type(scoringVariant.conditionTextBox,conditionValue,"Condition Value Text Box")
-            }
 
-            def editNote(String note){
-                scoringVariant.notesTextBox.firstElement().clear();
-                type(scoringVariant.notesTextBox,note,"Note Text Box")
-            }
+    def editCondition(String conditionValue) {
+        scoringVariant.conditionTextBox.firstElement().clear();
+        type(scoringVariant.conditionTextBox, conditionValue, "Condition Value Text Box")
+    }
+
+    def editNote(String note) {
+        scoringVariant.notesTextBox.firstElement().clear();
+        type(scoringVariant.notesTextBox, note, "Note Text Box")
+    }
 
     def addPMID(String pmid) {
-                type(scoringVariant.pmidTextBox,pmid,"Condition Value Text Box")
-            }
-
-            def chooseInheritance(String inheritance){
-                click(scoringVariant.inheritanceDropDown,"Inheritance Drop Down");
-                click(scoringVariant.dropDownValue(inheritance),"Inheritance Value")
-            }
-
-            def editPrevalance(String prevalance){
-                scoringVariant.prevalanceTextBox.firstElement().clear();
-                type(scoringVariant.prevalanceTextBox, prevalance, "Prevalance Text Box")
-            }
-
-            def choosePenetrance(String penetrance){
-                click(scoringVariant.penetranceDropDown, "Penetrance Drop Box")
-                click(scoringVariant.dropDownValue(penetrance), "Penetrance Drop Down Value: " + penetrance)
-            }
-
-            def chooseAgeOfOnset(String ageOfOnset){
-                click(scoringVariant.ageOfOnsetDropDown, "Age OF Onset Drop Down");
-                click(scoringVariant.dropDownValue(ageOfOnset), "Drop Down Value of Age Of Onset: " + ageOfOnset);
-            }
-
-            def clickSaveOrCancel(String buttonName){
-                switch (buttonName) {
-                    case SAVE:
-                        click(scoringVariant.saveButton, "Save Button");
-                        waitFor { scoringVariant.closeButton }
-                        click(scoringVariant.closeButton, "Close Button of Modal Popup")
-                        break;
-
-                    case CANCEL:
-                        click(scoringVariant.cancelButton);
-                        break;
+        type(scoringVariant.pmidTextBox, pmid, "Condition Value Text Box")
+        click(scoringVariant.addPmidButton, "Add PMID Button")
+        switch (pmid) {
+            case "1":
+                waitFor {
+                    scoringVariant.pmidTextSuccessAlert("Formate assay in body fluids: application in methanol poisoning.")
                 }
-            }
+                break;
+        }
+    }
 
+    def chooseInheritance(String inheritance) {
+        click(scoringVariant.inheritanceDropDown, "Inheritance Drop Down");
+        click(scoringVariant.dropDownValue(inheritance), "Inheritance Value")
+    }
 
+    def editPrevalance(String prevalance) {
+        scoringVariant.prevalanceTextBox.firstElement().clear();
+        type(scoringVariant.prevalanceTextBox, prevalance, "Prevalance Text Box")
+    }
+
+    def choosePenetrance(String penetrance) {
+        click(scoringVariant.penetranceDropDown, "Penetrance Drop Box")
+        click(scoringVariant.dropDownValue(penetrance), "Penetrance Drop Down Value: " + penetrance)
+    }
+
+    def chooseAgeOfOnset(String ageOfOnset) {
+        click(scoringVariant.ageOfOnsetDropDown, "Age OF Onset Drop Down");
+        click(scoringVariant.dropDownValue(ageOfOnset), "Drop Down Value of Age Of Onset: " + ageOfOnset);
+    }
+
+    def clickSaveOrCancel(String buttonName) {
+        switch (buttonName) {
+            case SAVE:
+                click(scoringVariant.saveButton, "Save Button");
+                waitFor { scoringVariant.closeButton }
+                click(scoringVariant.closeButton, "Close Button of Modal Popup")
+                break;
+
+            case CANCEL:
+                click(scoringVariant.cancelButton, "Cancel Button on Modal Popup");
+                break;
+        }
+    }
+
+    def waitTillYouAreInActiveTab(String tabName) {
+        waitFor { scoringVariant.activeConditionGeneTab(tabName) }
+    }
+
+    def clickOnCheckBoxBasedOnCondition(String conditionName, int index = 0) {
+        waitFor { scoringVariant.checkboxBasedCondition(index, conditionName) }
+        click(scoringVariant.checkboxBasedCondition(index, conditionName), "Checkbox based on the Condition")
+    }
 }

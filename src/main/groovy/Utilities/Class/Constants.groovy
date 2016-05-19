@@ -45,7 +45,9 @@ public interface Constants {
     def HUNDRED = 100;
     def FOURTEEN_POINT_THREE_TWO = "14.32"
     String GEL = "gel.omicia.com"
+    String NORMAL_USER = "Normal"
     String ADMIN = "Admin"
+    String OWNER = "Owner"
     String SAVE = "Save"
     String CANCEL = "Cancel"
     String ACTIONS = "Actions"
@@ -63,6 +65,10 @@ public interface Constants {
     String APP_STORE = "App Store";
     String ASSAY_TYPES = "Assay Types";
     String ACMG_AUTOMATION_WORKSPACE = "ACMG_Automation_Workspace"
+    String MANAGE_WORKSPACES = "Manage Workspaces"
+    String ID = "id"
+    String NAME = "Name"
+    String USERS = "Users"
 
     /*Projects Page*/
     String CLINICAL_GRADE = ".clinical-grade";
@@ -228,6 +234,16 @@ public interface Constants {
     public String COPY_TO_WORKSPACE = "Copy to Workspace"
     public PREVALANCE_VALUE = "1-9 / 1 000 000"
     public String NEONATAL = "Neonatal"
+
+    /*Manage WorkSpaces*/
+    public String ADMINS = "Admins"
+    public String GROUPS = "Groups"
+    public String PAYMENT_INFO = "Payment Info"
+    public String CLINICAL_REPORTS = "Clinical Reports"
+    public String MEMBERS = "Members"
+
+    /*Group Tab*/
+    public String CLINICAL_REPORTER_ACCESS = "Clinical Reporter access"
 
 
 }
