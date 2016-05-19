@@ -19,5 +19,18 @@ class HomeModule extends Module{
         workSpaceDropDownValue { String workSpace -> $("#workspaces-list li a", text: contains(workSpace)) }
         switchWorkspaceAlert { String value -> $(".alert.alert-success", text: contains(value)) }
         numberOfWorkSpaces { $("#workspaces-list li") }
+        createNewWorkspaceLink { $("li a", text: contains("Create New Workspace")) }
+
+        /*New Workspace Page*/
+        createNewWorkspaceButton { $(".btn-primary.save", text: contains("Create New Workspace")) }
+        newWorkspaceButton { $(".new-workspace", text: contains("New Workspace")) }
+        workspaceNameTextField { $("#workspace-name") }
+        returnToListButton { $(".close-button", text: contains("Return to list")) }
+        workSpaceRow { String workspaceName -> $("tr.paginator-row td", text: contains(workspaceName)) }
+        numberOfWorkSpaces { $("tbody#workspaces tr").size() }
+        paginatorDropDown { $(".paginator.limit .btn") }
+        paginatorDropDownValue { String value -> $(".paginator.open .dropdown-menu.open ul li a span", text: contains(value)) }
+
+
     }
 }

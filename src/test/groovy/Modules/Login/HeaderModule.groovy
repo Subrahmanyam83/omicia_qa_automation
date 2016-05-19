@@ -14,5 +14,9 @@ class HeaderModule extends Module{
 
         signOut                                   {$("li a",text: contains("Sign Out"))}
         omiciaOpalHomePage { $(".brand", text: contains("Omicia Opal")) }
+
+        /*OPAL ADMIN*/
+        opalAdminButton { $("span", text: "Opal Admin") }
+        opalAdminTabs { String tabName -> $("div.container-fluid .row-fluid .admin-task-name", text: contains(tabName)) }
     }
 }
