@@ -235,6 +235,12 @@ public interface Constants {
     public PREVALANCE_VALUE = "1-9 / 1 000 000"
     public String NEONATAL = "Neonatal"
 
+    public String VARIANT_DESCRIPTION = "Variant Description"
+    public String SCORING_SUMMARY = "Scoring Summary"
+    public String INTERNAL_NOTES = "Internal Notes"
+    public String VARIANT_HISTORY = "Variant History"
+    public String UNSCORED = "Unscored"
+
     /*Manage WorkSpaces*/
     public String ADMINS = "Admins"
     public String GROUPS = "Groups"

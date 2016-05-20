@@ -1,17 +1,10 @@
 package Specs.ClinicalReporter
 
-import Pages.Admin.ManageWorkspacePage
-import Pages.Clinical_Reporter.ClinicalReporterPage
-import Pages.Clinical_Reporter.ConditionGenePage
+import Pages.Clinical_Reporter.ScoringVariant.ConditionGenePage
+import Pages.Clinical_Reporter.ScoringVariant.ScoreVariantPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
-import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
 import Pages.Login.OmiciaHomePage
-import Pages.Panel_Builder.AddGenesToPanelPage
-import Pages.Panel_Builder.CuratePanelPage
-import Pages.Panel_Builder.PanelBuilderPage
-import Pages.Projects.ProjectsHomePage
-import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
 import org.testng.Assert
@@ -32,7 +25,7 @@ class ScoringVariantSpec extends BaseSpec {
         PROJECT_NAME = PROJECT__NAME + data.random;
         WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
 
-        to LoginPage
+        /*to LoginPage
         signIn();
 
         at OmiciaHomePage
@@ -58,7 +51,7 @@ class ScoringVariantSpec extends BaseSpec {
         addPOAccount()
 
         at HeaderPage
-        signOut()
+        signOut()*/
     }
 
     @Test(groups = ["clinical_reporter", "acmg"], priority = 1)
@@ -68,7 +61,13 @@ class ScoringVariantSpec extends BaseSpec {
         signIn();
 
         at OmiciaHomePage
-        switchWorkspace(WORKSPACE_NAME)
+        switchWorkspace("ACMG_Automation_Workspace_-1772387553");
+        go("http://dev1.omicia-private.com/clinical_reporter/#/build_report/5498/interpret_variants")
+
+        at VariantInterpretationHomePage
+        openScoreVariantsBasedOnVariantName(AGRN)
+
+        /*switchWorkspace(WORKSPACE_NAME)
 
         openTab(UPLOAD_GENOMES);
 
@@ -164,7 +163,24 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(3))
         Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(4))
         Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(5))
-        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(6))
+        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(6))*/
+        clickOnHeaderTab(SCORE_VARIANT)
+
+        at ScoreVariantPage
+        Assert.assertEquals(getInferredClassification(), UNSCORED, "Default Score in Score Variant before adding a condition Gene is not: 'Unscored'")
+        clickOnHeaderTab(CONDITION_GENE)
+
+        at ConditionGenePage
         clickOnCheckBoxBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME)
+
+        at ScoreVariantPage
+        Assert.assertEquals(getInferredClassification(), UNCERTAIN_SIGNIFICANCE, "Default Classification in Score Variant Page is not '" + UNCERTAIN_SIGNIFICANCE + "'")
+        addVariantDescription()
+        addInternalNote()
+        Assert.assertEquals(verifyTextOfNote(), INTERNAL_NOTES, "Internal Notes Text is not matching in Score Variant Tab")
+        clickOnTab(VARIANT_HISTORY)
+        Assert.assertEquals(verifyNumberOfHistoryRows(), TWO, "Variant History rows are not equal to TWO")
+
+
     }
 }

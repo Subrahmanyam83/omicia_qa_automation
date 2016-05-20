@@ -1,4 +1,4 @@
-package Modules.Clinical_Reporter
+package Modules.Clinical_Reporter.ScoreVariantModule
 
 import geb.Module
 
