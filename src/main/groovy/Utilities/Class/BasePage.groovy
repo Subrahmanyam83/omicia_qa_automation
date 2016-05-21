@@ -36,7 +36,6 @@ class BasePage extends Page implements Constants{
 
     public void type(Navigator navigator, String value,String elementName){
         waitForElement(navigator,elementName)
-        click(navigator,"Text Field: "+elementName)
         navigator << value;
         getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }

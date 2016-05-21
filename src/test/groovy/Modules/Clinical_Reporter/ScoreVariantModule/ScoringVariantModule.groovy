@@ -21,10 +21,19 @@ class ScoringVariantModule extends Module {
         labNotesTextField { $(".active .lab-notes") }
         addNoteButton { $("button.add-note", text: "Add Note") }
         numberOfInternalNotesList { $(".internal-notes-list .internal-notes div.internal-note").size() }
-        internalNoteText { int index -> $(".internal-notes-list .internal-notes div.internal-note").getAt(index).find("internal-note-content").text() }
+        notesList { $(".internal-notes-list .internal-notes div.internal-note") }
+        internalNoteText { int index -> $(".internal-notes-list .internal-notes div.internal-note").getAt(index).find(".internal-note-content").text() }
 
         historyContainer { $(".curated-variant-history") }
         numberOfHistoryRows { $(".curated-variant-history div.scoring-history-container").size() }
+        scoringSummaryDefaultText { $(".well.variant-summary", text: contains("No ACMG Criteria answered.")) }
+
+        /*Score Variant*/
+        criterionCounter { $(".criterion-counter").text() }
+        nextCriterionArrow { $(".next-criterion") }
+        previousCriterionArrow { $(".previous-criterion") }
+        radioButtonBasedOnName { String value -> $('label.radio', text: value).find("input") }
+        linkName { String value -> $('.options a', text: value) }
 
 
     }

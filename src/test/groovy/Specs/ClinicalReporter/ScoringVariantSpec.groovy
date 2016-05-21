@@ -1,13 +1,10 @@
 package Specs.ClinicalReporter
 
-import Pages.Clinical_Reporter.ScoringVariant.ConditionGenePage
-import Pages.Clinical_Reporter.ScoringVariant.ScoreVariantPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.LoginPage
 import Pages.Login.OmiciaHomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
-import org.testng.Assert
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -22,36 +19,36 @@ class ScoringVariantSpec extends BaseSpec {
 
     @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
-        PROJECT_NAME = PROJECT__NAME + data.random;
-        WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
+        /* PROJECT_NAME = PROJECT__NAME + data.random;
+         WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
 
-        /*to LoginPage
-        signIn();
+         to LoginPage
+         signIn();
 
-        at OmiciaHomePage
-        createNewWorkspace(WORKSPACE_NAME)
+         at OmiciaHomePage
+         createNewWorkspace(WORKSPACE_NAME)
 
-        at HeaderPage
-        signOut()
+         at HeaderPage
+         signOut()
 
-        to LoginPage
-        loginWithUser(ADMIN)
+         to LoginPage
+         loginWithUser(ADMIN)
 
-        at HeaderPage
-        clickOnOPALAdminAndChooseTab(MANAGE_WORKSPACES)
+         at HeaderPage
+         clickOnOPALAdminAndChooseTab(MANAGE_WORKSPACES)
 
-        at ManageWorkspacePage
-        search(WORKSPACE_NAME)
-        String WID = getIDBasedOnWorkspaceName(WORKSPACE_NAME)
-        clickManageBasedOnNameOrId(WORKSPACE_NAME)
-        Assert.assertEquals(getHeaderTextOnManageWorkspacePage(), "Workspace ID " + WID + ": " + WORKSPACE_NAME)
-        goToTab(GROUPS)
-        clickOnCheckBoxUnderGroupsTab([CLINICAL_REPORTER_ACCESS])
-        goToTab(PAYMENT_INFO)
-        addPOAccount()
+         at ManageWorkspacePage
+         search(WORKSPACE_NAME)
+         String WID = getIDBasedOnWorkspaceName(WORKSPACE_NAME)
+         clickManageBasedOnNameOrId(WORKSPACE_NAME)
+         Assert.assertEquals(getHeaderTextOnManageWorkspacePage(), "Workspace ID " + WID + ": " + WORKSPACE_NAME)
+         goToTab(GROUPS)
+         clickOnCheckBoxUnderGroupsTab([CLINICAL_REPORTER_ACCESS])
+         goToTab(PAYMENT_INFO)
+         addPOAccount()
 
-        at HeaderPage
-        signOut()*/
+         at HeaderPage
+         signOut()*/
     }
 
     @Test(groups = ["clinical_reporter", "acmg"], priority = 1)
@@ -61,16 +58,14 @@ class ScoringVariantSpec extends BaseSpec {
         signIn();
 
         at OmiciaHomePage
-        switchWorkspace("ACMG_Automation_Workspace_-1772387553");
-        go("http://dev1.omicia-private.com/clinical_reporter/#/build_report/5498/interpret_variants")
 
+        switchWorkspace("ACMG_Automation_Workspace_-2086695893 ");
+        go("http://dev1.omicia-private.com/clinical_reporter/#/build_report/5607/interpret_variants")
         at VariantInterpretationHomePage
         openScoreVariantsBasedOnVariantName(AGRN)
 
-        /*switchWorkspace(WORKSPACE_NAME)
-
-        openTab(UPLOAD_GENOMES);
-
+        /*
+        switchWorkspace(WORKSPACE_NAME)openTab(UPLOAD_GENOMES);
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, data.FOUR_EXOMES);
         waitForTheVCFFileToUpload();
@@ -163,7 +158,7 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(3))
         Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(4))
         Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(5))
-        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(6))*/
+        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(6))
         clickOnHeaderTab(SCORE_VARIANT)
 
         at ScoreVariantPage
@@ -179,8 +174,24 @@ class ScoringVariantSpec extends BaseSpec {
         addInternalNote()
         Assert.assertEquals(verifyTextOfNote(), INTERNAL_NOTES, "Internal Notes Text is not matching in Score Variant Tab")
         clickOnTab(VARIANT_HISTORY)
-        Assert.assertEquals(verifyNumberOfHistoryRows(), TWO, "Variant History rows are not equal to TWO")
+        Assert.assertEquals(verifyNumberOfHistoryRows(), THREE, "Variant History rows are not equal to Three")
+        clickOnTab(SCORING_SUMMARY)
+        verifyScoringSummaryDefaultText()
+        clickOnHeaderTab(CITATIONS)
 
+        at CitationsPage
+        addNewCitationsButton(COSEGREGATION)
+        Assert.assertEquals(verifyNumberOfCitationsOnCitationsTab(),ONE,"Citation Count on Citations Tab is incorrect")
+        clickOnHeaderTab(SCORE_VARIANT)
+
+        at ScoreVariantPage
+        clickOnTab(VARIANT_HISTORY)
+        Assert.assertEquals(verifyNumberOfHistoryRows(), FOUR, "Variant History rows are not equal to FOUR")
+
+        at VariantInterpretationHomePage
+        Assert.equals(getClassConditionBasedOnVariant(AGRN).contains(CLINVAR_OMIM_CONDITION_NAME))
+        Assert.equals(getScoringStatusBasedOnVariant(AGRN).equals(SCORING))
+        Assert.equals(getLatestClassificationBasedOnVariant(AGRN).contains(SCORING_IN_PROGRESS))*/
 
     }
 }

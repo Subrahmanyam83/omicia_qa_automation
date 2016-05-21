@@ -10,125 +10,173 @@ import Pages.Panel_Builder.PanelBuilderPage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Utilities.Class.BaseSpec
+import org.testng.Assert
 import org.testng.annotations.Test
 
 /**
  * Created by E002183 on 4/25/2016.
  */
 @Test(groups = "tearDown")
-class TearDownProcessSpec extends BaseSpec{
+class TearDownProcessSpec extends BaseSpec {
 
     @Test(priority = 1, description = "Deleting All the Test Clinical Reports. Need to delete clinical Reports before deleting anything else")
     public void deleteClinicalReports() {
+        String id;
         to LoginPage
-        loginWithUser(ADMIN);
+        loginWithUser(NORMAL_USER);
 
         at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
-                switchWorkspace(workspace)
-                openTab(CLINICAL_REPORTER);
+                try {
+                    id = getWorkspaceIdBasedOnName(workspace)
+                    switchWorkspace(workspace)
+                    openTab(CLINICAL_REPORTER);
 
-                at ClinicalReporterPage
-                deleteAllClinicalReports()
+                    at ClinicalReporterPage
+                    deleteAllClinicalReports()
 
-                at HeaderPage
-                goToHomePage()
+                    at HeaderPage
+                    goToHomePage()
 
-                at OmiciaHomePage
+                    at OmiciaHomePage
+                }
+                catch (Throwable throwable) {
+                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
+                    throwable.printStackTrace()
+                }
         }
     }
 
     @Test(priority = 2, description = "This will delete all the Test Panels created during Automation")
     public void deletePanels() {
+        String id;
         to LoginPage
-        loginWithUser(ADMIN);
+        loginWithUser(NORMAL_USER);
 
         at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
-                switchWorkspace(workspace)
-                openTab(PANEL_BUILDER);
+                try {
+                    if (workspace.contains("Automation")) {
+                        id = getWorkspaceIdBasedOnName(workspace)
+                        switchWorkspace(workspace)
+                        openTab(PANEL_BUILDER);
 
-                at PanelBuilderPage
-                deleteAllPanels()
+                        at PanelBuilderPage
+                        deleteAllPanels()
 
-                at HeaderPage
-                goToHomePage()
+                        at HeaderPage
+                        goToHomePage()
 
-                at OmiciaHomePage
+                        at OmiciaHomePage
+                    }
+                }
+                catch (Throwable throwable) {
+                    Assert.fail("Panel Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
+                    throwable.printStackTrace()
+                }
         }
     }
 
     @Test(priority = 3, description = "This will Delete all the Test Gene Sets created during Automation")
     public void deleteAllGeneSets() {
+        String id;
         to LoginPage
         loginWithUser(ADMIN);
 
         at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
-                switchWorkspace(workspace)
-                openTab(GENE_SETS);
+                try {
+                    if (workspace.contains("Automation")) {
+                        id = getWorkspaceIdBasedOnName(workspace)
+                        switchWorkspace(workspace)
+                        openTab(GENE_SETS);
 
-                at GeneSetsPage
-                deleteSets(MY_SET);
+                        at GeneSetsPage
+                        deleteSets(MY_SET);
 
-                at HeaderPage
-                goToHomePage()
+                        at HeaderPage
+                        goToHomePage()
 
-                at OmiciaHomePage
+                        at OmiciaHomePage
+                    }
+                }
+                catch (Throwable throwable) {
+                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
+                    throwable.printStackTrace()
+                }
         }
     }
 
     @Test(priority = 4, description = "This will delete all the Test Filtering protocols created during Automation")
     public void deleteFilteringProtocols() {
+        String id;
         to LoginPage
         loginWithUser(ADMIN);
 
         at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
-                switchWorkspace(workspace)
-                openTab(FILTERING_PROTOCOL);
+                try {
+                    if (workspace.contains("Automation")) {
+                        id = getWorkspaceIdBasedOnName(workspace)
+                        switchWorkspace(workspace)
+                        openTab(FILTERING_PROTOCOL);
 
-                at FilteringProtocolHomePage
-                deleteAllFilteringProtocols()
+                        at FilteringProtocolHomePage
+                        deleteAllFilteringProtocols()
 
-                at HeaderPage
-                goToHomePage()
+                        at HeaderPage
+                        goToHomePage()
 
-                at OmiciaHomePage
+                        at OmiciaHomePage
+                    }
+                }
+                catch (Throwable throwable) {
+                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
+                    throwable.printStackTrace()
+                }
         }
     }
 
     @Test(priority = 5, description = "This will delete all the Test Projects created during Automation")
     public void deleteAllProjects() {
-
+        String id;
         to LoginPage
         loginWithUser(ADMIN);
 
         at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
-                switchWorkspace(workspace)
-                openTab(PROJECTS);
+                try {
+                    if (workspace.contains("Automation")) {
+                        id = getWorkspaceIdBasedOnName(workspace)
+                        switchWorkspace(workspace)
+                        openTab(PROJECTS);
 
-                at ProjectsHomePage
-                def projectNames = getAllProjectNames();
-
-                if (!projectNames.size().equals(ZERO)) {
-                    for (String projectName in projectNames) {
-                        clickProjectInProjectsHomePage(projectName);
-                        at ProjectsPage
-                        deleteProjects();
                         at ProjectsHomePage
+                        def projectNames = getAllProjectNames();
+
+                        if (!projectNames.size().equals(ZERO)) {
+                            for (String projectName in projectNames) {
+                                clickProjectInProjectsHomePage(projectName);
+                                at ProjectsPage
+                                deleteProjects();
+                                at ProjectsHomePage
+                            }
+                        }
+                        at HeaderPage
+                        goToHomePage()
+
+                        at OmiciaHomePage
                     }
                 }
-                at HeaderPage
-                goToHomePage()
-
-                at OmiciaHomePage
+                catch (Throwable throwable) {
+                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
+                    throwable.printStackTrace()
+                }
         }
     }
 }

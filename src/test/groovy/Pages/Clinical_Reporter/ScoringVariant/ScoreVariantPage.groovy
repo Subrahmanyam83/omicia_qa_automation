@@ -49,6 +49,7 @@ class ScoreVariantPage extends BasePage {
         int old_notes = scoringVariant.numberOfInternalNotesList
         type(scoringVariant.labNotesTextField, INTERNAL_NOTES, "Internal Notes Text Field")
         click(scoringVariant.addNoteButton, "Add Note Button")
+        waitFor { scoringVariant.notesList }
         Assert.assertEquals(scoringVariant.numberOfInternalNotesList, old_notes + 1, "Internal Note is not added to the list in Score Variant Tab.")
     }
 
@@ -59,6 +60,24 @@ class ScoreVariantPage extends BasePage {
     def verifyNumberOfHistoryRows() {
         waitFor { scoringVariant.historyContainer }
         return scoringVariant.numberOfHistoryRows
+    }
+
+    def verifyScoringSummaryDefaultText() {
+        waitFor { scoringVariant.scoringSummaryDefaultText }
+    }
+
+    def getCriterionCounterText() {
+        return scoringVariant.criterionCounter
+    }
+
+    def clickPreviousCounter() {
+        waitFor { scoringVariant.previousCriterionArrow }
+        click(scoringVariant.previousCriterionArrow, "Previous Criterion Counter")
+    }
+
+    def clickNextCounter() {
+        waitFor { scoringVariant.nextCriterionArrow }
+        click(scoringVariant.nextCriterionArrow, "Previous Criterion Counter")
     }
 
 
