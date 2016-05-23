@@ -1,10 +1,22 @@
 package Specs.ClinicalReporter
 
+import Pages.Admin.ManageWorkspacePage
+import Pages.Clinical_Reporter.ClinicalReporterPage
+import Pages.Clinical_Reporter.ScoringVariant.CitationsPage
+import Pages.Clinical_Reporter.ScoringVariant.ConditionGenePage
+import Pages.Clinical_Reporter.ScoringVariant.ScoreVariantPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
+import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
 import Pages.Login.OmiciaHomePage
+import Pages.Panel_Builder.AddGenesToPanelPage
+import Pages.Panel_Builder.CuratePanelPage
+import Pages.Panel_Builder.PanelBuilderPage
+import Pages.Projects.ProjectsHomePage
+import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
+import org.testng.Assert
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -19,7 +31,7 @@ class ScoringVariantSpec extends BaseSpec {
 
     @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
-        /* PROJECT_NAME = PROJECT__NAME + data.random;
+        PROJECT_NAME = PROJECT__NAME + data.random;
          WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
 
          to LoginPage
@@ -48,7 +60,7 @@ class ScoringVariantSpec extends BaseSpec {
          addPOAccount()
 
          at HeaderPage
-         signOut()*/
+        signOut()
     }
 
     @Test(groups = ["clinical_reporter", "acmg"], description = "Scoring Variants for ACMG Report", priority = 1)
@@ -59,13 +71,13 @@ class ScoringVariantSpec extends BaseSpec {
 
         at OmiciaHomePage
 
-        switchWorkspace("ACMG_Automation_Workspace_-2086695893 ");
+        /*switchWorkspace("ACMG_Automation_Workspace_-2086695893 ");
         go("http://dev1.omicia-private.com/clinical_reporter/#/build_report/5607/interpret_variants")
         at VariantInterpretationHomePage
-        openScoreVariantsBasedOnVariantName(AGRN)
+        openScoreVariantsBasedOnVariantName(AGRN)*/
 
-        /*
-        switchWorkspace(WORKSPACE_NAME)openTab(UPLOAD_GENOMES);
+        switchWorkspace(WORKSPACE_NAME)
+        openTab(UPLOAD_GENOMES);
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, data.FOUR_EXOMES);
         waitForTheVCFFileToUpload();
@@ -191,7 +203,7 @@ class ScoringVariantSpec extends BaseSpec {
         at VariantInterpretationHomePage
         Assert.equals(getClassConditionBasedOnVariant(AGRN).contains(CLINVAR_OMIM_CONDITION_NAME))
         Assert.equals(getScoringStatusBasedOnVariant(AGRN).equals(SCORING))
-        Assert.equals(getLatestClassificationBasedOnVariant(AGRN).contains(SCORING_IN_PROGRESS))*/
+        Assert.equals(getLatestClassificationBasedOnVariant(AGRN).contains(SCORING_IN_PROGRESS))
 
     }
 }

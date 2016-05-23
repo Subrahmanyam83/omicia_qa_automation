@@ -83,7 +83,7 @@ class TearDownProcessSpec extends BaseSpec {
     public void deleteAllGeneSets() {
         String id;
         to LoginPage
-        loginWithUser(ADMIN);
+        loginWithUser(NORMAL_USER);
 
         at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
@@ -114,7 +114,7 @@ class TearDownProcessSpec extends BaseSpec {
     public void deleteFilteringProtocols() {
         String id;
         to LoginPage
-        loginWithUser(ADMIN);
+        loginWithUser(NORMAL_USER);
 
         at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
@@ -145,7 +145,7 @@ class TearDownProcessSpec extends BaseSpec {
     public void deleteAllProjects() {
         String id;
         to LoginPage
-        loginWithUser(ADMIN);
+        loginWithUser(NORMAL_USER);
 
         at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
