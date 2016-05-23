@@ -16,6 +16,8 @@ class CreateTestCaseDetailsTask implements ITestListener {
     private final String FILE_PATH = "./opal-test-cases-details.xlsx";
     List testCases = new ArrayList();
 
+    public CreateTestCaseDetailsTask() {}
+
     private String testCaseName;
     private String[] group;
     private String className;

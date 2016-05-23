@@ -19,7 +19,7 @@ import org.testng.annotations.Test
 @Test(groups = "tearDown")
 class TearDownProcessSpec extends BaseSpec {
 
-    @Test(priority = 1, description = "Deleting All the Test Clinical Reports. Need to delete clinical Reports before deleting anything else")
+    @Test(priority = 1, description = "Deleting All the Test Clinical Reports")
     public void deleteClinicalReports() {
         String id;
         to LoginPage

@@ -51,7 +51,7 @@ class ScoringVariantSpec extends BaseSpec {
          signOut()*/
     }
 
-    @Test(groups = ["clinical_reporter", "acmg"], priority = 1)
+    @Test(groups = ["clinical_reporter", "acmg"], description = "Scoring Variants for ACMG Report", priority = 1)
     public void testScoringVariantsInACMGRepport() {
 
         to LoginPage

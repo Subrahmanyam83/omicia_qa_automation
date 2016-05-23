@@ -32,7 +32,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         PROJECT_NAME = PROJECT__NAME + data.random
     }
 
-    @Test(groups = "smoke", priority = 1)
+    @Test(groups = "smoke", priority = 1, description = "Launch End to End Panel Report")
     public void launchEndToEndPanelReport() {
 
         to LoginPage
@@ -159,7 +159,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
 
-    @Test(groups = "smoke", priority = 2)
+    @Test(groups = "smoke", priority = 2, description = "Launch Solo Report")
     public void launchSoloReport() {
 
         to LoginPage
@@ -241,7 +241,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
 
-    @Test(groups = "smoke", priority = 3)
+    @Test(groups = "smoke", priority = 3, description = "Launch Trio Report")
     public void launchTrioReport() {
 
         to LoginPage
@@ -323,7 +323,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
 
-    @Test(groups = "smoke", priority = 4)
+    @Test(groups = "smoke", priority = 4, description = "Launch Quad Report")
     public void launchQuadReport() {
 
         to LoginPage

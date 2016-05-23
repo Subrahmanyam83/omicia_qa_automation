@@ -29,7 +29,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         PROJECT_NAME = PROJECT__NAME + generateRandom()
     }
 
-    @Test(groups = "smoke", priority = 1)
+    @Test(groups = "smoke", priority = 1, description = "Launch VAAST Solo Analysis")
     public void launchVAASTSoloAnalysis() {
 
         to LoginPage
@@ -102,7 +102,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10), data.VAAST_G_SCORE_VALUE_DOMINANT)
     }
 
-    @Test(groups = "smoke", priority = 2)
+    @Test(groups = "smoke", priority = 2, description = "Launch VAAST Trio Analysis")
     public void launchVAASTTrioAnalysis() {
 
         to LoginPage
@@ -168,7 +168,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         }
     }
 
-    @Test(groups = "smoke", priority = 3)
+    @Test(groups = "smoke", priority = 3, description = "Launch VAAST Quad Analysis")
     public void launchVAASTQuadAnalysis() {
 
         to LoginPage
