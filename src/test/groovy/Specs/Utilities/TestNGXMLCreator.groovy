@@ -11,13 +11,13 @@ class TestNGXMLCreator {
     public static void main(String[] args) {
 
         String rootDir = new File(".").getCanonicalPath();
-        convertPropertiesToSystemProperties()
-        String PACKAGES = System.getProperty("package.name")
-        String GROUPS = System.getProperty("group.name")
-        String CLASSES = System.getProperty("class.name")
-        String METHODS = System.getProperty("method.name")
+        convertPropertiesToSystemProperties();
+        String PACKAGES = System.getProperty("package.name").trim()
+        String GROUPS = System.getProperty("group.name").trim()
+        String CLASSES = System.getProperty("class.name").trim()
+        String METHODS = System.getProperty("method.name").trim()
+        int thread_count = System.getProperty("threadCount").trim().toInteger();
         String testngXMLFilePath = rootDir + System.getProperty("testng.xml.file.path").replace("/", File.separator)
-        int thread_count = System.getProperty("threadCount").toInteger();
 
         TestNG myTestNG = new TestNG();
         List<XmlSuite> mySuites = new ArrayList<XmlSuite>();
@@ -27,6 +27,8 @@ class TestNGXMLCreator {
         suite.setParallel("classes");
         suite.setThreadCount(thread_count)
         suite.addListener("Utilities.Class.BaseSpec")
+        suite.addListener("org.uncommons.reportng.HTMLReporter")
+        suite.addListener("org.uncommons.reportng.JUnitXMLReporter")
 
         XmlTest test = new XmlTest(suite);
         test.setName("Omicia OPAL Test");
@@ -86,7 +88,7 @@ class TestNGXMLCreator {
         mySuites.add(suite);
 
         myTestNG.setXmlSuites(mySuites);
-        myTestNG.run();
+        //myTestNG.run();
     }
 
     public static void convertPropertiesToSystemProperties() {
@@ -99,6 +101,5 @@ class TestNGXMLCreator {
                 System.setProperty(key, value);
             }
         }
-        System.setProperty("geb.env", System.getProperty("browser"))
     }
 }

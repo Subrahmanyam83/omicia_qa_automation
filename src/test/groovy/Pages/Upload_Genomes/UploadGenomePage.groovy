@@ -28,9 +28,10 @@ class UploadGenomePage extends BasePage{
             click(uploadGenome.newProjectButton, "New Project Button");
             type(uploadGenome.projectNameField,projectName, "Project Name Field");
             click(uploadGenome.createProjectButton, "Create Project Button");
-            waitTillElementIsNotPresent(uploadGenome.projectCreatedModalDialog, "Project Created Alert");
+            click(uploadGenome.closeButton, "Close Button on the Modal Popup")
         }
         if(uploadGene){
+            waitFor { uploadGenome.browseVcfFileButton }
             sendKeys(uploadGenome.browseVcfFileButton,filepath,"Browse VCF File Button")
         }
         type(uploadGenome.genomeLabel,GenomeLabel,"Genome Label");
@@ -43,7 +44,6 @@ class UploadGenomePage extends BasePage{
 
     def waitForTheVCFFileToUpload(){
         waitFor {uploadGenome.uploadSuccessMessage}
-        Thread.sleep(3000L)
     }
 
 }

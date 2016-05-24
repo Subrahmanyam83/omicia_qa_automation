@@ -28,6 +28,7 @@ public interface Constants {
     String GET_TEXT = "get_text";
     String NONE = ""
     String NONE_TEXT = "None"
+    String ONE_STRING = "1"
     def ZERO = 0;
     def ONE = 1;
     def TWO = 2;
@@ -38,6 +39,7 @@ public interface Constants {
     def SEVEN = 7;
     def TWELVE = 12;
     def EIGHTEEN = 18;
+    def TWENTY_SIX = 26
     def THIRTY = 30;
     def THIRTY_NINE = 39;
     def FIFTY = 50;
@@ -45,9 +47,14 @@ public interface Constants {
     def HUNDRED = 100;
     def FOURTEEN_POINT_THREE_TWO = "14.32"
     String GEL = "gel.omicia.com"
+    String NORMAL_USER = "Normal"
     String ADMIN = "Admin"
+    String OWNER = "Owner"
     String SAVE = "Save"
     String CANCEL = "Cancel"
+    String ACTIONS = "Actions"
+    String DELETE = "Delete"
+    String EDIT = "Edit"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
@@ -60,6 +67,10 @@ public interface Constants {
     String APP_STORE = "App Store";
     String ASSAY_TYPES = "Assay Types";
     String ACMG_AUTOMATION_WORKSPACE = "ACMG_Automation_Workspace"
+    String MANAGE_WORKSPACES = "Manage Workspaces"
+    String ID = "id"
+    String NAME = "Name"
+    String USERS = "Users"
 
     /*Projects Page*/
     String CLINICAL_GRADE = ".clinical-grade";
@@ -69,9 +80,9 @@ public interface Constants {
     String REPORT_VERSION = ".report-version";
     String REPORT_STATUS = ".report-status";
 
-    String VAAST_SOLO_ANALYSIS = "VAAST Solo Analysis (3.0.4.2)"
-    String VAAST_TRIO_ANALYSIS = "VAAST Trio Analysis (3.0.4.2)"
-    String VAAST_QUAD_ANALYSIS = "VAAST Quad Analysis (3.0.4.2)"
+    String VAAST_SOLO_ANALYSIS = "VAAST Solo Analysis"
+    String VAAST_TRIO_ANALYSIS = "VAAST Trio Analysis"
+    String VAAST_QUAD_ANALYSIS = "VAAST Quad Analysis"
     String VAAST_SOLO_REPORT = "VAAST Solo Report"
     String VAAST_TRIO_REPORT = "VAAST Trio Report"
     String VAAST_QUAD_REPORT = "VAAST Quad Report"
@@ -165,6 +176,10 @@ public interface Constants {
     public String RECESSIVE = "Recessive"
     public String DOMINANT = "Dominant"
     public String DE_NOVO = "De Novo"
+    public String SCORING = "Scoring"
+    public String CLASSIFIED = "Classified"
+    public String SCORING_IN_PROGRESS = "Scoring in Progress"
+    public String NOT_REPORTED = "Not Reported"
 
     /*Variant Interpret Edit Page*/
     public String CLASSIFICATION_PATHOGENIC = "Pathogenic"
@@ -217,4 +232,46 @@ public interface Constants {
     public String WORKSPACE_CONDITION_GENES = "Workspace Condition-Genes"
     public String CLINIVAR_OMIM = "ClinVar and OMIM Condition-Genes"
     public String NLP_PHENOTYPE = "NLP Phenotype Mapper"
+
+    public String NLP_PHENOTYPE_COLUMN_NAMES = "Condition p-Value Score Citations"
+    public String CLINVAR_OMIM_COLUMN_NAMES = "Condition Inheritance Prevalence Age of Onset Additional Information Source Actions"
+
+    public String CLINVAR_OMIM_CONDITION_NAME = "MYASTHENIC SYNDROME, CONGENITAL, WITH PRE- AND POSTSYNAPTIC DEFECTS"
+    public String COPY_TO_WORKSPACE = "Copy to Workspace"
+    public PREVALANCE_VALUE = "1-9 / 1 000 000"
+    public String NEONATAL = "Neonatal"
+
+    public String VARIANT_DESCRIPTION = "Variant Description"
+    public String SCORING_SUMMARY = "Scoring Summary"
+    public String INTERNAL_NOTES = "Internal Notes"
+    public String VARIANT_HISTORY = "Variant History"
+    public String UNSCORED = "Unscored"
+    public String BENIGN = "Benign"
+
+    public String PRIMARY_FINDINGS = "Primary Findings"
+    public String SECONDARY_FINDINGS = "Secondary Findings"
+
+    /*Citations*/
+    public String COSEGREGATION = "cosegregation"
+    public String FUNCTIONAL = "functional"
+    public String GENERAL = "general"
+
+    /*Score Variant*/
+    public String YES = "Yes"
+    public String NO = "No"
+    public String STRONG = "Strong"
+    public String SKIP_CRITERIA = "Skip"
+    public String CLEAR_SELECTION = "Clear Selection"
+
+    /*Manage WorkSpaces*/
+    public String ADMINS = "Admins"
+    public String GROUPS = "Groups"
+    public String PAYMENT_INFO = "Payment Info"
+    public String CLINICAL_REPORTS = "Clinical Reports"
+    public String MEMBERS = "Members"
+
+    /*Group Tab*/
+    public String CLINICAL_REPORTER_ACCESS = "Clinical Reporter access"
+
+
 }
