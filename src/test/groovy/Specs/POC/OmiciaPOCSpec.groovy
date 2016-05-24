@@ -19,13 +19,16 @@ class OmiciaPOCSpec extends BaseSpec{
 
     SmokeTestData smokeData = new SmokeTestData();
 
-    @Test(groups= "omicia_poc")
+    @Test(groups = "omicia_poc", description = "Verify Genome Count in Project after VCF Upload")
     public void testGenomeCount() {
 
         String NewProjectName = "Test-OMICIA-Project-"+Math.random();
 
         to LoginPage
         signIn();
+
+        at HeaderPage
+        goToHomePage()
 
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES)
@@ -46,12 +49,15 @@ class OmiciaPOCSpec extends BaseSpec{
         Assert.assertEquals(ONE, expectedGeneCount);
     }
 
-    @Test(groups= "omicia_poc")
+    @Test(groups = "omicia_poc", description = "Upload Genome without VCF File")
     public void uploadGemomeWithoutVCFFile(){
         String NewProjectName = "Test-OMICIA-Project-"+Math.random();
 
         to LoginPage
         signIn();
+
+        at HeaderPage
+        goToHomePage()
 
         at OmiciaHomePage
         openUploadGenomes();

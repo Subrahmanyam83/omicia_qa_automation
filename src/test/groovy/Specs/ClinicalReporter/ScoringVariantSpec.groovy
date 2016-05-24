@@ -1,7 +1,11 @@
 package Specs.ClinicalReporter
 
+import Pages.Admin.ManageWorkspacePage
 import Pages.Clinical_Reporter.ClinicalReporterPage
-import Pages.Clinical_Reporter.ScoringVariantPage
+import Pages.Clinical_Reporter.ReviewReportPage
+import Pages.Clinical_Reporter.ScoringVariant.CitationsPage
+import Pages.Clinical_Reporter.ScoringVariant.ConditionGenePage
+import Pages.Clinical_Reporter.ScoringVariant.ScoreVariantPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
@@ -24,21 +28,64 @@ class ScoringVariantSpec extends BaseSpec {
 
     SmokeTestData data = new SmokeTestData();
     public String PROJECT_NAME;
+    public String WORKSPACE_NAME;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
-        PROJECT_NAME = PROJECT__NAME + data.random
-    }
+        PROJECT_NAME = PROJECT__NAME + data.random;
+        WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
 
-    @Test(groups = "clinical_reporter", priority = 1)
-    public void testScoringVariantsInACMGRepport() {
+        getEreportTest().log(INFO,"Test Case is executing with WORKSPACE: "+WORKSPACE_NAME+" and PROJECT: "+PROJECT_NAME)
+
         to LoginPage
         signIn();
 
-        at OmiciaHomePage
-        switchWorkspace(ACMG_AUTOMATION_WORKSPACE);
-        openTab(UPLOAD_GENOMES);
+        at HeaderPage
+        goToHomePage()
 
+        at OmiciaHomePage
+        createNewWorkspace(WORKSPACE_NAME)
+
+        at HeaderPage
+        signOut()
+
+        to LoginPage
+        loginWithUser(ADMIN)
+
+        at HeaderPage
+        clickOnOPALAdminAndChooseTab(MANAGE_WORKSPACES)
+
+        at ManageWorkspacePage
+        search(WORKSPACE_NAME)
+        String WID = getIDBasedOnWorkspaceName(WORKSPACE_NAME)
+        clickManageBasedOnNameOrId(WORKSPACE_NAME)
+        Assert.assertEquals(getHeaderTextOnManageWorkspacePage(), "Workspace ID " + WID + ": " + WORKSPACE_NAME)
+        goToTab(GROUPS)
+        clickOnCheckBoxUnderGroupsTab([CLINICAL_REPORTER_ACCESS])
+        goToTab(PAYMENT_INFO)
+        addPOAccount()
+
+        at HeaderPage
+        signOut()
+    }
+
+    @Test(groups = ["clinical_reporter", "acmg"], description = "Scoring Variants for ACMG Report", priority = 1)
+    public void testScoringVariantsInACMGRepport() {
+
+        to LoginPage
+        signIn();
+
+        at HeaderPage
+        goToHomePage()
+
+        at OmiciaHomePage
+        switchWorkspace(WORKSPACE_NAME)
+
+        at HeaderPage
+        goToHomePage()
+
+        at OmiciaHomePage
+        openTab(UPLOAD_GENOMES);
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, data.FOUR_EXOMES);
         waitForTheVCFFileToUpload();
@@ -67,7 +114,7 @@ class ScoringVariantSpec extends BaseSpec {
 
         at CuratePanelPage
         waitFor { curatePanel.getNumberOfPanelGenes }
-        Assert.assertEquals(getNamesOfGenesAdded(), AGRN, "The Gene added in Panel Page is displayed different in Curate Panel Page")
+        Assert.assertEquals(getNamesOfGenesAdded(), AGRN, "The Gene(s) added in Panel Page is different in Curate Panel Page")
         Assert.assertEquals(getNumberOfPanelGenes(), ONE)
 
         at HeaderPage
@@ -96,8 +143,96 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.equals(getLatestClassificationBasedOnVariant(AGRN).equals("-"))
         openScoreVariantsBasedOnVariantName(AGRN)
 
-        at ScoringVariantPage
+        at ConditionGenePage
         Assert.assertTrue(getActiveHeaderTab(CONDITION_GENE))
-        Assert.assertTrue(getActiveConditionGeneTab(WORKSPACE_CONDITION_GENES))
+        Assert.assertTrue(getActiveTabUnderConditionGeneTab(CLINIVAR_OMIM))
+        verifyContentUnderConditionGeneTabs(CLINIVAR_OMIM)
+        clickOnTabUnderConditionGenes(NLP_PHENOTYPE)
+        verifyContentUnderConditionGeneTabs(NLP_PHENOTYPE)
+        clickOnTabUnderConditionGenes(WORKSPACE_CONDITION_GENES)
+        verifyContentUnderConditionGeneTabs(WORKSPACE_CONDITION_GENES)
+        clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
+        clickOnColumnBasedOnConditionUnderClinVarAndOminTab(CLINVAR_OMIM_CONDITION_NAME, COPY_TO_WORKSPACE, 1)
+        clickSaveOrCancel(SAVE)
+        clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
+        clickOnColumnBasedOnConditionUnderClinVarAndOminTab(CLINVAR_OMIM_CONDITION_NAME, COPY_TO_WORKSPACE, 1)
+        clickSaveOrCancel(SAVE)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
+        clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, DELETE)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), ONE)
+
+        Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
+        Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), PREVALANCE_VALUE)
+        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NEONATAL)
+        Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
+        Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME, false), NONE)
+        Assert.assertEquals(getPMIDBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
+
+        clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, EDIT)
+        editCondition(data.EDIT_CONDITION_GENE_LIST)
+        clickSaveOrCancel(SAVE)
+        waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
+
+        Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(1))
+        Assert.assertEquals(getPMIDBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(2))
+        Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(3))
+        Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(4))
+        Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(5))
+        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(6))
+        clickOnHeaderTab(SCORE_VARIANT)
+
+        at ScoreVariantPage
+        Assert.assertEquals(getScoringHeader(), UNSCORED, "Default Score in Score Variant before adding a condition Gene is not: 'Unscored'")
+        clickOnHeaderTab(CONDITION_GENE)
+
+        at ConditionGenePage
+        clickOnCheckBoxBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME)
+
+        at ScoreVariantPage
+        Assert.assertEquals(getInferredClassification(), UNCERTAIN_SIGNIFICANCE, "Default Classification in Score Variant Page is not '" + UNCERTAIN_SIGNIFICANCE + "'")
+        addVariantDescription()
+        addInternalNote()
+        Assert.assertEquals(verifyTextOfNote(), INTERNAL_NOTES, "Internal Notes Text is not matching in Score Variant Tab")
+        clickOnTab(VARIANT_HISTORY)
+        Assert.assertEquals(verifyNumberOfHistoryRows(), THREE, "Variant History rows are not equal to Three")
+        clickOnTab(SCORING_SUMMARY)
+        verifyScoringSummaryDefaultText()
+        clickOnHeaderTab(CITATIONS)
+
+        at CitationsPage
+        addNewCitationsButton(COSEGREGATION)
+        Assert.assertEquals(verifyNumberOfCitationsOnCitationsTab(), ONE, "Citation Count on Citations Tab is incorrect")
+        clickOnHeaderTab(SCORE_VARIANT)
+
+        at ScoreVariantPage
+        clickOnTab(VARIANT_HISTORY)
+        Assert.assertEquals(verifyNumberOfHistoryRows(), FOUR, "Variant History rows are not equal to FOUR")
+
+        at VariantInterpretationHomePage
+        Assert.equals(getClassConditionBasedOnVariant(AGRN).contains(CLINVAR_OMIM_CONDITION_NAME))
+        Assert.equals(getScoringStatusBasedOnVariant(AGRN).equals(SCORING))
+        Assert.equals(getLatestClassificationBasedOnVariant(AGRN).contains(SCORING_IN_PROGRESS))
+
+        at ScoreVariantPage
+        startScoring(data.CRITERION_SCORING_LIST)
+        Assert.assertEquals(getCurrentCriterion(),data.CRITERION_COMPLETE_TEXT)
+        Assert.assertEquals(getScoringProgressText(),data.CRITERION_PROGRESS_TEXT)
+        clickOnTab(VARIANT_HISTORY)
+        Assert.assertEquals(verifyNumberOfHistoryRows(), TWENTY_SIX, "Variant History rows are not equal to FOUR")
+        setClassification()
+        Assert.assertEquals(getInferredClassification(),BENIGN)
+        Assert.assertEquals(getAssignedClassification(),BENIGN)
+
+        at VariantInterpretationHomePage
+        Assert.equals(getClassConditionBasedOnVariant(AGRN).contains(BENIGN.replace("\n"," ")+CLINVAR_OMIM_CONDITION_NAME))
+        Assert.equals(getScoringStatusBasedOnVariant(AGRN).equals(CLASSIFIED))
+        Assert.assertEquals(getReportSectionBasedOnVariant(AGRN),NOT_REPORTED)
+        changeReportSectionFromDropDown(AGRN)
+        clickReviewReport()
+
+        at ReviewReportPage
+        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
+        Assert.equals(getNumberOfSecondaryFindingReports().equals(ZERO))
+        Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
 }

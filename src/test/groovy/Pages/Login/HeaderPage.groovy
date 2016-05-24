@@ -17,6 +17,7 @@ class HeaderPage extends BasePage{
     }
 
     def clickOnMenuAndSelectOption(String pageName){
+        waitFor {header.menuDropDown}
         click(header.menuDropDown,"Menu Drop Down");
         click(header.menuDropDownValue(pageName), "Menu Drop Down Value")
     }
@@ -29,5 +30,12 @@ class HeaderPage extends BasePage{
     def goToHomePage() {
         waitFor { header.omiciaOpalHomePage }
         click(header.omiciaOpalHomePage, "HomePage Button on Header")
+    }
+
+    def clickOnOPALAdminAndChooseTab(String tabName) {
+        waitFor { header.opalAdminButton }
+        click(header.opalAdminButton, "OPAL ADMIn Button")
+        waitFor { header.opalAdminTabs(tabName) }
+        click(header.opalAdminTabs(tabName), "Opal Admin Tab: " + tabName)
     }
 }
