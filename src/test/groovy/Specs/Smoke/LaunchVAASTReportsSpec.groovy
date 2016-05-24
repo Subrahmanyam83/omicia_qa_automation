@@ -35,6 +35,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         to LoginPage
         signIn();
 
+        at HeaderPage
+        goToHomePage()
+
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);
 
@@ -108,6 +111,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         to LoginPage
         signIn();
 
+        at HeaderPage
+        goToHomePage()
+
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);
 
@@ -173,6 +179,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
 
         to LoginPage
         signIn();
+
+        at HeaderPage
+        goToHomePage()
 
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);

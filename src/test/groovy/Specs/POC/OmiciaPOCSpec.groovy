@@ -27,6 +27,9 @@ class OmiciaPOCSpec extends BaseSpec{
         to LoginPage
         signIn();
 
+        at HeaderPage
+        goToHomePage()
+
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES)
 
@@ -52,6 +55,9 @@ class OmiciaPOCSpec extends BaseSpec{
 
         to LoginPage
         signIn();
+
+        at HeaderPage
+        goToHomePage()
 
         at OmiciaHomePage
         openUploadGenomes();

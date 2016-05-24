@@ -38,6 +38,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         to LoginPage
         signIn();
 
+        at HeaderPage
+        goToHomePage()
+
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);
 
@@ -165,6 +168,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         to LoginPage
         signIn();
 
+        at HeaderPage
+        goToHomePage()
+
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);
 
@@ -247,6 +253,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         to LoginPage
         signIn();
 
+        at HeaderPage
+        goToHomePage()
+
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);
 
@@ -328,6 +337,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         to LoginPage
         signIn();
+
+        at HeaderPage
+        goToHomePage()
 
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);

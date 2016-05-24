@@ -47,7 +47,6 @@ class BasePage extends Page implements Constants{
     }
 
     public void sendKeys(Navigator navigator,String value, String elementName){
-        waitForElement(navigator,elementName)
         navigator.firstElement().sendKeys(value);
         getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }

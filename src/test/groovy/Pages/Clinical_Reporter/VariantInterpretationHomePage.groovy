@@ -133,6 +133,13 @@ class VariantInterpretationHomePage extends BasePage {
         return interpretVariantsHome.getVariantIdWithIndexBasedOnVariantName.toString().trim()
     }
 
+    def changeReportSectionFromDropDown(String variantName,int index = 0, String type = PRIMARY_FINDING){
+        waitFor { interpretVariantsHome.getReportSection(variantName, index)}
+        click(interpretVariantsHome.getReportSection(variantName, index),"Report Section of the "+index+1+" Variant:"+variantName)
+        waitFor {interpretVariantsHome.reportSectionDropDownValue(type)}
+        click(interpretVariantsHome.reportSectionDropDownValue(type),"Report Section Drop Down Value: "+type)
+    }
+
     def runPhevor(String textFieldValue) {
         waitFor { variantSelection.runPhevorButton.displayed }
         waitFor { variantSelection.runPhevorButton.click() }

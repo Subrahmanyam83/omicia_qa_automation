@@ -17,6 +17,7 @@ class HeaderPage extends BasePage{
     }
 
     def clickOnMenuAndSelectOption(String pageName){
+        waitFor {header.menuDropDown}
         click(header.menuDropDown,"Menu Drop Down");
         click(header.menuDropDownValue(pageName), "Menu Drop Down Value")
     }

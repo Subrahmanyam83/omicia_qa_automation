@@ -39,6 +39,7 @@ public interface Constants {
     def SEVEN = 7;
     def TWELVE = 12;
     def EIGHTEEN = 18;
+    def TWENTY_SIX = 26
     def THIRTY = 30;
     def THIRTY_NINE = 39;
     def FIFTY = 50;
@@ -176,7 +177,9 @@ public interface Constants {
     public String DOMINANT = "Dominant"
     public String DE_NOVO = "De Novo"
     public String SCORING = "Scoring"
+    public String CLASSIFIED = "Classified"
     public String SCORING_IN_PROGRESS = "Scoring in Progress"
+    public String NOT_REPORTED = "Not Reported"
 
     /*Variant Interpret Edit Page*/
     public String CLASSIFICATION_PATHOGENIC = "Pathogenic"
@@ -243,6 +246,7 @@ public interface Constants {
     public String INTERNAL_NOTES = "Internal Notes"
     public String VARIANT_HISTORY = "Variant History"
     public String UNSCORED = "Unscored"
+    public String BENIGN = "Benign"
 
     /*Citations*/
     public String COSEGREGATION = "cosegregation"

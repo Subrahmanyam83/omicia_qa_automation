@@ -36,6 +36,7 @@ class CitationsPage extends BasePage {
                 if (citations.pubMedIDTextField.firstElement().getAttribute("value").equals(ONE_STRING)) {
                     Assert.equals(citations.pubMedCitationText.text().contains("Makar AB, McMartin KE, Palese M, Tephly TR. \"Formate assay in body fluids: application in methanol poisoning..\" Biochemical medicine, Jun 1975"))
                 }
+                Thread.sleep(1000L)
                 type(citations.phenoType, "Test Phenotype", "Phenotype Text Filed")
                 type(citations.pedigreeReference, "Pedigree Reference", "Pedigree Reference Text Filed")
 

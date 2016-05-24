@@ -66,7 +66,9 @@ class ManageWorkspacePage extends BasePage {
         click(manageworkspace.nameTextField, "PO popup::Name Text Field")
         type(manageworkspace.omiciaAminContactTextField, "Admin", "PO popup::Omicia Admin Contact Text Field")
         type(manageworkspace.customerAdminContactTextField, "Admin", "PO popup::Customer Admin Contact Text Field")
+        waitFor {manageworkspace.workspaceDefaultCheckbox}
         click(manageworkspace.workspaceDefaultCheckbox, "PO Popup:: Workspace Default Checkbox")
+        waitFor {manageworkspace.saveButton}
         click(manageworkspace.saveButton, "PO Popup:: Save Button")
         waitFor { manageworkspace.closeButton }
         click(manageworkspace.closeButton, "Close Button on Modal Popup of PO Popup")
@@ -75,5 +77,12 @@ class ManageWorkspacePage extends BasePage {
 
     def getNumberOfPOAccounts() {
         return manageworkspace.numberOfPOAccounts
+    }
+
+    def deleteAllMembersFromMembersTab(){
+        while(manageworkspace.membersTableSize()>0){
+            click(manageworkspace.deleteButton,"Delete Button on Each User")
+            Thread.sleep(1000L)
+        }
     }
 }

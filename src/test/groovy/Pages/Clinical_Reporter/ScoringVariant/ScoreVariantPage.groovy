@@ -30,8 +30,18 @@ class ScoreVariantPage extends BasePage {
     }
 
     def getInferredClassification() {
-        waitFor { scoringVariant.classificationText }
-        return scoringVariant.classificationText.text()
+        waitFor { scoringVariant.inferredClassificationText }
+        return scoringVariant.inferredClassificationText.text()
+    }
+
+    def getScoringHeader(){
+        waitFor {scoringVariant.scoringHeaderText}
+        return scoringVariant.scoringHeaderText.text().trim()
+    }
+
+    def getAssignedClassification() {
+        waitFor { scoringVariant.assignedClassificationText }
+        return scoringVariant.assignedClassificationText.text()
     }
 
     def clickOnTab(String tabName) {
@@ -53,6 +63,20 @@ class ScoreVariantPage extends BasePage {
         Assert.assertEquals(scoringVariant.numberOfInternalNotesList, old_notes + 1, "Internal Note is not added to the list in Score Variant Tab.")
     }
 
+    def setClassification(String classification = "", boolean changeClassification = false){
+        if(changeClassification == false){
+            waitFor {scoringVariant.setClassificationButton}
+            click(scoringVariant.setClassificationButton,"Set Classification Button")
+            waitFor {scoringVariant.setClassificationButtonOnPopup}
+            click(scoringVariant.setClassificationButtonOnPopup,"Set Classification Button on Modal Popup")
+            waitFor {scoringVariant.closeButton}
+            click(scoringVariant.closeButton,"Close Button on Modal Popup")
+        }
+        else{
+
+        }
+    }
+
     def verifyTextOfNote(int index = 0) {
         return scoringVariant.internalNoteText(index)
     }
@@ -66,10 +90,6 @@ class ScoreVariantPage extends BasePage {
         waitFor { scoringVariant.scoringSummaryDefaultText }
     }
 
-    def getCriterionCounterText() {
-        return scoringVariant.criterionCounter
-    }
-
     def clickPreviousCounter() {
         waitFor { scoringVariant.previousCriterionArrow }
         click(scoringVariant.previousCriterionArrow, "Previous Criterion Counter")
@@ -78,6 +98,32 @@ class ScoreVariantPage extends BasePage {
     def clickNextCounter() {
         waitFor { scoringVariant.nextCriterionArrow }
         click(scoringVariant.nextCriterionArrow, "Previous Criterion Counter")
+    }
+
+    def startScoring(List list){
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).equals(SKIP_CRITERIA) || list.get(i).equals(CLEAR_SELECTION)){
+                String currentCiterionText = getCurrentCriterion()
+                click(scoringVariant.optionsLinkName(list.get(i)),"Link: "+list.get(i))
+                waitFor {!scoringVariant.criterionCounter.text().trim().equals(currentCiterionText)}
+            }
+            else{
+                String currentCiterionText = getCurrentCriterion()
+                click(scoringVariant.radioButtonBasedOnName(list.get(i)),"Link: "+list.get(i))
+                Thread.sleep(500L)
+                if(!(i.equals(list.size() - 1))){
+                    waitFor {!scoringVariant.criterionCounter.text().trim().equals(currentCiterionText)}
+                }
+            }
+        }
+    }
+
+    def getCurrentCriterion(){
+        return scoringVariant.criterionCounter.text().trim()
+    }
+
+    def getScoringProgressText(){
+        return scoringVariant.scoringProgressText.text().trim()
     }
 
 
