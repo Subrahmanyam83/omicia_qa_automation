@@ -139,6 +139,7 @@ environments {
             options.addArguments("test-type");
             if(os.equals("UNIX")){
                 options.setBinary("/opt/google/chrome/google-chrome")
+                println("_______________--------------------------------")
             }
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             String chromeDriverPath = os.equals("UNIX") ? "/usr/local/bin/chromedriver".replace("/", sep) : rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep)
