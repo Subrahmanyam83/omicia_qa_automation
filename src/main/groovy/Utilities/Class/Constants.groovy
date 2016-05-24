@@ -28,6 +28,7 @@ public interface Constants {
     String GET_TEXT = "get_text";
     String NONE = ""
     String NONE_TEXT = "None"
+    String ONE_STRING = "1"
     def ZERO = 0;
     def ONE = 1;
     def TWO = 2;
@@ -38,6 +39,7 @@ public interface Constants {
     def SEVEN = 7;
     def TWELVE = 12;
     def EIGHTEEN = 18;
+    def TWENTY_SIX = 26
     def THIRTY = 30;
     def THIRTY_NINE = 39;
     def FIFTY = 50;
@@ -174,6 +176,10 @@ public interface Constants {
     public String RECESSIVE = "Recessive"
     public String DOMINANT = "Dominant"
     public String DE_NOVO = "De Novo"
+    public String SCORING = "Scoring"
+    public String CLASSIFIED = "Classified"
+    public String SCORING_IN_PROGRESS = "Scoring in Progress"
+    public String NOT_REPORTED = "Not Reported"
 
     /*Variant Interpret Edit Page*/
     public String CLASSIFICATION_PATHOGENIC = "Pathogenic"
@@ -234,6 +240,28 @@ public interface Constants {
     public String COPY_TO_WORKSPACE = "Copy to Workspace"
     public PREVALANCE_VALUE = "1-9 / 1 000 000"
     public String NEONATAL = "Neonatal"
+
+    public String VARIANT_DESCRIPTION = "Variant Description"
+    public String SCORING_SUMMARY = "Scoring Summary"
+    public String INTERNAL_NOTES = "Internal Notes"
+    public String VARIANT_HISTORY = "Variant History"
+    public String UNSCORED = "Unscored"
+    public String BENIGN = "Benign"
+
+    public String PRIMARY_FINDINGS = "Primary Findings"
+    public String SECONDARY_FINDINGS = "Secondary Findings"
+
+    /*Citations*/
+    public String COSEGREGATION = "cosegregation"
+    public String FUNCTIONAL = "functional"
+    public String GENERAL = "general"
+
+    /*Score Variant*/
+    public String YES = "Yes"
+    public String NO = "No"
+    public String STRONG = "Strong"
+    public String SKIP_CRITERIA = "Skip"
+    public String CLEAR_SELECTION = "Clear Selection"
 
     /*Manage WorkSpaces*/
     public String ADMINS = "Admins"

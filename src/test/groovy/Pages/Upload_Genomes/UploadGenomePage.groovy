@@ -31,6 +31,7 @@ class UploadGenomePage extends BasePage{
             click(uploadGenome.closeButton, "Close Button on the Modal Popup")
         }
         if(uploadGene){
+            waitFor { uploadGenome.browseVcfFileButton }
             sendKeys(uploadGenome.browseVcfFileButton,filepath,"Browse VCF File Button")
         }
         type(uploadGenome.genomeLabel,GenomeLabel,"Genome Label");

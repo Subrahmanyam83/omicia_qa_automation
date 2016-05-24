@@ -32,6 +32,8 @@ dependencies {
     compile "org.apache.httpcomponents:fluent-hc:4.5.2"
     compile "javax.xml.parsers:jaxp-api:1.4.5"
     compile "org.uncommons:reportng:1.1.4"
+    compile "org.apache.poi:poi:3.10-FINAL"
+    compile "org.apache.poi:poi-ooxml:3.10-FINAL"
 }
 
 drivers.each { driver ->
@@ -85,6 +87,13 @@ public void convertPropertiesToSystemProperties() {
         if (System.getProperty(key) == null) {
             System.setProperty(key, value);
         }
+    }
+}
+
+task testCasesDetails(type: Test, dependsOn: [classes, testClasses]) {
+    outputs.upToDateWhen { false }
+    useTestNG {
+        suites 'src/test/resources/xmls/test-case-details.xml'
     }
 }
 

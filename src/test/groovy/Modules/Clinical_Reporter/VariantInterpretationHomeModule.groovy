@@ -9,36 +9,38 @@ class VariantInterpretationHomeModule extends Module {
 
     static content = {
 
-        geneNameLink { String variantName, int index -> $(".paginator-row .gene-symbol .gene", text: variantName).getAt(index) }
+        geneNameLink                                { String variantName, int index -> $(".paginator-row .gene-symbol .gene", text: variantName).getAt(index) }
 
         /*Home Page*/
-        variantTable { $("#variants tbody#variants") }
-        rowBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent() }
-        getEffectBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.consequence a") }
-        getClassBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.classification-sort-order span") }
-        getStatusBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.status") }
-        getReportSectionBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.to-report") }
-        getEvidenceBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.evidence") }
-        interpretVariantLinkBasedOnVariant { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.edit-variant a") }
-        getVariantIdWithIndexBasedOnVariantName { String variantName, int index -> geneNameLink(variantName, index).parent().parent().getAttribute("id") }
-        getScoringStatus { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.scoring-status") }
-        getLatestClassification { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.latest-classification") }
-        getClassCondition { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.classification-sort-order-curated-variant") }
-        getReportSection { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.acmg-report-section") }
+        variantTable                                { $("#variants tbody#variants") }
+        rowBasedOnVariant                           { String variantName, int index -> geneNameLink(variantName, index).parent().parent() }
+        getEffectBasedOnVariant                     { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.consequence a") }
+        getClassBasedOnVariant                      { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.classification-sort-order span") }
+        getStatusBasedOnVariant                     { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.status") }
+        getReportSectionBasedOnVariant              { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.to-report") }
+        getEvidenceBasedOnVariant                   { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.evidence") }
+        interpretVariantLinkBasedOnVariant          { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.edit-variant a") }
+        getVariantIdWithIndexBasedOnVariantName     { String variantName, int index -> geneNameLink(variantName, index).parent().parent().getAttribute("id") }
+        getScoringStatus                            { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.scoring-status") }
+        getLatestClassification                     { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.latest-classification") }
+        getClassCondition                           { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.classification-sort-order-curated-variant") }
+        getReportSection                            { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.acmg-report-section") }
+        reportSectionDropDown                       { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.acmg-report-section span.filter-option") }
 
         /*Headers*/
-        reviewReportButton { $(".review-report") }
-        showHideColumnButton { $(".btn.change-columns") }
+        reviewReportButton                          { $(".review-report") }
+        showHideColumnButton                        { $(".btn.change-columns") }
 
-        modalPopUp { $(".modal.modal-overflow.in") }
+        modalPopUp                                  { $(".modal.modal-overflow.in") }
 
         /*Show Hide Columns*/
-        checkBoxBasedOnColumnName { String columnName -> $(".row-fluid div label.checkbox", text: columnName).find(".checkbox") }
-        ifCheckBoxIsChecked { String columnName -> $(".row-fluid div label.checkbox", text: columnName).find(".checkbox").getAttribute("checked") }
-        updateShowHideColumnsButton { $(".btn.btn-primary.close-button", text: "Update") }
-        cancelSHowHideCoulmnsButton { $(".btn.cancel-button", text: "Cancel") }
+        checkBoxBasedOnColumnName                   { String columnName -> $(".row-fluid div label.checkbox", text: columnName).find(".checkbox") }
+        ifCheckBoxIsChecked                         { String columnName -> $(".row-fluid div label.checkbox", text: columnName).find(".checkbox").getAttribute("checked") }
+        updateShowHideColumnsButton                 { $(".btn.btn-primary.close-button", text: "Update") }
+        cancelSHowHideCoulmnsButton                 { $(".btn.cancel-button", text: "Cancel") }
 
         /*Table*/
-        scoreVariantsLink { $(".expansion-tab.visible") }
+        scoreVariantsLink                           { $(".expansion-tab.visible") }
+        reportSectionDropDownValue                  { String value-> $(".acmg-report-section .dropdown-menu.open ul li a span",text:contains(value))}
     }
 }

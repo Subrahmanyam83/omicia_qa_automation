@@ -52,7 +52,6 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     }
 
     /*Runs before every Method or Test*/
-
     @BeforeMethod(alwaysRun = true)
     def beforeMethod(Method method){
         ExtentReportFactory.getTest(method.getName(), "Test Case Name: "+method.getName());
@@ -63,20 +62,17 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     }
 
     /*Runs After every Method or Test*/
-
     @AfterMethod(alwaysRun = true)
     def afterMethod(Method method) {
         ExtentReportFactory.closeTest(method.getName());
     }
 
     /*Runs after every Class or Spec*/
-
     @AfterClass(alwaysRun = true)
     def afterClass() {
     }
 
     /*Runs after every Suite*/
-
     @AfterSuite(alwaysRun = true)
     def afterSuite(){
         ExtentReportFactory.closeReport();
