@@ -23,6 +23,7 @@ class OmiciaHomePage extends BasePage{
     }
 
     def openUploadGenomes(){
+        waitFor {home.uploadGenomesButton}
         click(home.uploadGenomesButton,"Upload Genome Button");
     }
 
