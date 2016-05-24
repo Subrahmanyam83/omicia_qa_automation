@@ -35,7 +35,7 @@ class ScoringVariantSpec extends BaseSpec {
         PROJECT_NAME = PROJECT__NAME + data.random;
         WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
 
-        getEreportTest().log(INFO,"Test Case is executing with WORKSPACE: "+WORKSPACE_NAME+" and PROJECT NAME: "+PROJECT_NAME)
+        getEreportTest().log(INFO,"Test Case is executing with WORKSPACE: "+WORKSPACE_NAME+" and PROJECT: "+PROJECT_NAME)
 
         to LoginPage
         signIn();
@@ -79,12 +79,6 @@ class ScoringVariantSpec extends BaseSpec {
         goToHomePage()
 
         at OmiciaHomePage
-
-        /*switchWorkspace("ACMG_Automation_Workspace_-2086695893 ");
-        go("http://dev1.omicia-private.com/clinical_reporter/#/build_report/5607/interpret_variants")
-        at VariantInterpretationHomePage
-        openScoreVariantsBasedOnVariantName(AGRN)*/
-
         switchWorkspace(WORKSPACE_NAME)
 
         at HeaderPage
@@ -237,8 +231,8 @@ class ScoringVariantSpec extends BaseSpec {
         clickReviewReport()
 
         at ReviewReportPage
-        Assert.assertEquals(getNumberOfPrimaryFindingReports(),ONE)
-        Assert.assertEquals(getNumberOfSecondaryFindingReports(),ZERO)
+        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
+        Assert.equals(getNumberOfSecondaryFindingReports().equals(ZERO))
         Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
 }

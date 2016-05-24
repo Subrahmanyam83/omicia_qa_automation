@@ -248,6 +248,9 @@ public interface Constants {
     public String UNSCORED = "Unscored"
     public String BENIGN = "Benign"
 
+    public String PRIMARY_FINDINGS = "Primary Findings"
+    public String SECONDARY_FINDINGS = "Secondary Findings"
+
     /*Citations*/
     public String COSEGREGATION = "cosegregation"
     public String FUNCTIONAL = "functional"

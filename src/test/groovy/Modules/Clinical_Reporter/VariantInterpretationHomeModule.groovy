@@ -25,6 +25,7 @@ class VariantInterpretationHomeModule extends Module {
         getLatestClassification                     { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.latest-classification") }
         getClassCondition                           { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.classification-sort-order-curated-variant") }
         getReportSection                            { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.acmg-report-section") }
+        reportSectionDropDown                       { String variantName, int index -> geneNameLink(variantName, index).parent().parent().find("td.acmg-report-section span.filter-option") }
 
         /*Headers*/
         reviewReportButton                          { $(".review-report") }
@@ -40,7 +41,6 @@ class VariantInterpretationHomeModule extends Module {
 
         /*Table*/
         scoreVariantsLink                           { $(".expansion-tab.visible") }
-        openReportSection                           { $(".acmg-report-section .dropup .dropdown-menu.open ul li a span")}
-        reportSectionDropDownValue                  { String value-> $(".acmg-report-section .dropup .dropdown-menu.open ul li a span",text:contains(value))}
+        reportSectionDropDownValue                  { String value-> $(".acmg-report-section .dropdown-menu.open ul li a span",text:contains(value))}
     }
 }
