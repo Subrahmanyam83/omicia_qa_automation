@@ -31,7 +31,7 @@ class ConditionGeneModule extends Module {
 
         ClinVarOmimTable { $("div.clinvar-and-omim-condition-genes.active") }
         ClinVarOminColumnNames { $("table.clinvar-omim thead tr") }
-        columnNameBasedOnCondition { int index, String conditionName, String columnName -> $("table.clinvar-omim tbody tr").getAt(index).find("td.condition", text: contains(conditionName)).parent().find("td", text: contains(columnName)) }
+        columnNameBasedOnCondition { int index, String conditionName, String columnName -> $("table.clinvar-omim tbody tr").getAt(index).find("td.condition", text: contains(conditionName)).parent().find("td a", text: contains(columnName)) }
 
         workSpaceConditionGeneText {
             $("div.no-cgs-alert", text: contains("There are no conditions associated with this gene in this workspace yet. Curate one from the ClinVar and OMIM Condition-Genes tab or add one."))

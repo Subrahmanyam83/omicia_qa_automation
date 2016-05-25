@@ -26,7 +26,7 @@ class VariantReportPage extends BasePage{
     def clickOnColumnBasedOnGene(String geneName,String columnName){
         int index = 0;
         while(!variantReport.columnNameBasedOnGene(geneName,columnName).isDisplayed()){
-            driver.get(driver.currentUrl);
+            driver.navigate().refresh()
             index++;
             if (index.equals(FIFTY)) {
                 Assert.fail("Pipeline is busy or Down: 'Refreshing Page is not showing link on Projects Page'")

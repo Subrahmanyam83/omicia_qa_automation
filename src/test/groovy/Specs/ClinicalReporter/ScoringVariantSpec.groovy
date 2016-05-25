@@ -219,6 +219,7 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.assertEquals(getScoringProgressText(),data.CRITERION_PROGRESS_TEXT)
         clickOnTab(VARIANT_HISTORY)
         Assert.assertEquals(verifyNumberOfHistoryRows(), TWENTY_SIX, "Variant History rows are not equal to FOUR")
+        clickOnTab(SCORING_SUMMARY)
         setClassification()
         Assert.assertEquals(getInferredClassification(),BENIGN)
         Assert.assertEquals(getAssignedClassification(),BENIGN)
