@@ -137,14 +137,10 @@ environments {
             capabilities = DesiredCapabilities.chrome();
             ChromeOptions options = new ChromeOptions();
             options.addArguments("test-type");
-            if(os.equals("UNIX")){
-                options.setBinary("/usr/bin/google-chrome-stable")
-                println("_______________--------------------------------")
-            }
+
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             String chromeDriverPath = os.equals("UNIX") ? "/usr/local/bin/chromedriver".replace("/", sep) : rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep)
             System.setProperty("webdriver.chrome.driver", chromeDriverPath)
-            println("*********************************************"+chromeDriverPath)
 
             browserDriver = (parallel.equalsIgnoreCase("no")) ? new ChromeDriver(capabilities) : new RemoteWebDriver(new URL(gridUrl), capabilities);
             if(parallel.equalsIgnoreCase("yes")){
