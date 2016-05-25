@@ -242,6 +242,7 @@ class TearDownProcessSpec extends BaseSpec {
                         }
                         catch(Throwable throwable){
                             Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
+                            System.out.println("Error: " + throwable.getMessage());
                             throwable.printStackTrace()
                         }
                     }
@@ -256,10 +257,18 @@ class TearDownProcessSpec extends BaseSpec {
 
             workSpaceList.each {
                 wid->
-                    go(System.getProperty("geb.build.baseUrl")+"admin_tools/view_workspace?workspace_id="+wid)
-                    page ManageWorkspacePage
-                    goToTab(MEMBERS)
-                    deleteAllMembersFromMembersTab()
+                    try{
+                        go(System.getProperty("geb.build.baseUrl")+"/admin_tools/view_workspace?workspace_id="+wid)
+                        page ManageWorkspacePage
+                        goToTab(MEMBERS)
+                        deleteAllMembersFromMembersTab()
+                    }
+                    catch (Throwable throwable){
+                        Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE_ID: " + wid);
+                        System.out.println("Error: " + throwable.getMessage());
+                        throwable.printStackTrace()
+                    }
+
             }
         }
     }
