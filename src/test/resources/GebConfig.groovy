@@ -126,7 +126,7 @@ environments {
                 browserDriver.setFileDetector(new LocalFileDetector())
             }
             browserDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.MINUTES)
-            browserDriver.manage().window().setSize(new Dimension(1200, 800))
+            browserDriver.manage().window().setSize(new Dimension(1280,1024))
             browserDriver.manage().window().maximize()
             return browserDriver;
         }
