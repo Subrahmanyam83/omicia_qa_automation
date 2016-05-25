@@ -138,7 +138,8 @@ environments {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("test-type");
             if(os.equals("UNIX")){
-                options.setBinary("/usr/bin/google-chrome")
+                options.setBinary()
+                options.setBinary("/usr/bin/google-chrome-stable")
                 println("_______________--------------------------------")
             }
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
