@@ -30,12 +30,14 @@ Clone this project and open it in IntelliJ
 # Run Tests LOCALLY:
 There are two ways of running test cases locally.
 1. Through IDE: Right click on the test case or class or package -> Run
+   For this the driver will be taken from the GebConfig driver parameter.
 2. Through cmd: Follow tye steps to run particular test cases locally
     a. Edit the project.properties
     b. Open cmd -> Go to the project root directory and execute command: gradle <browser>Test
     Note: browser value could be either of these : chrome,firefox,safari,ie
     eg: to run all tests under smoke group, edit:
-    group = smoke
+    group = smoke;
+    package.name = Specs.*
 
 NOTE: Please note we need to provide these details in project.properties to execute our tests.
     1. op.sys.name = UNIX 
