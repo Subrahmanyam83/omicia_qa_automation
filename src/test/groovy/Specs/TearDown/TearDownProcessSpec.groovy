@@ -12,6 +12,7 @@ import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Utilities.Class.BaseSpec
 import org.testng.Assert
+import org.testng.annotations.AfterMethod
 import org.testng.annotations.Test
 
 /**
@@ -261,5 +262,11 @@ class TearDownProcessSpec extends BaseSpec {
                     deleteAllMembersFromMembersTab()
             }
         }
+    }
+
+    @AfterMethod(alwaysRun = true)
+    def signOutOfOPAL() {
+        at HeaderPage
+        signOut()
     }
 }
