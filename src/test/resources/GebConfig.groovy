@@ -138,7 +138,8 @@ environments {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("test-type");
             if(os.equals("UNIX")){
-                options.setBinary("/opt/google/chrome/google-chrome")
+                options.setBinary("/usr/bin/google-chrome")
+                options.put("binary", "/usr/bin/google-chrome");
                 println("_______________--------------------------------")
             }
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
