@@ -44,7 +44,7 @@ class ProjectsPage extends BasePage{
     def clickOnColumnBasedOnGenomeLabel(String genomeLabel, String columnName){
         int index = 0;
         while (!projects.selectColumnBasedOnGeneLabel(genomeLabel, columnName)) {
-            driver.get(driver.currentUrl);
+            driver.navigate().refresh()
             index++;
             Thread.sleep(500)
             if (index.equals(FIFTY)) {
@@ -57,7 +57,7 @@ class ProjectsPage extends BasePage{
     def waitTillAllVariantReportsAreAvailable() {
         int index = 0;
         while (!projects.availableVariantReports.equals(projects.numberOfVariantReports)) {
-            driver.get(driver.currentUrl);
+            driver.navigate().refresh()
             index++;
             Thread.sleep(1000L)
             if (index.equals(FIFTY)) {

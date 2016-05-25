@@ -34,9 +34,9 @@ class ProjectsHomePage extends BasePage{
     def refreshTillCountMatches(String NewProjectName,int count){
         int index = 0;
         while(getGenomeBasedOnProjectName(NewProjectName)!=(count)){
-            driver.get(driver.currentUrl);
+            driver.navigate().refresh()
             index++;
-            Thread.sleep(500)
+            Thread.sleep(1000)
             if (index.equals(FIFTY)) {
                 Assert.fail("Pipeline is busy or Down: 'Refreshing Page is not making the Gene Count increase On Projects Home Page'")
             }

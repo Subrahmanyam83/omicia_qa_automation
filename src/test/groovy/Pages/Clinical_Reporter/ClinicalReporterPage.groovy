@@ -62,9 +62,10 @@ class ClinicalReporterPage extends BasePage {
     def refreshTillStatusChangesToReadyForInterpretation(String patientId) {
         int index = 0;
         while (!clinicalReporter.getStatusBasedonPatientId(patientId).equals("Ready for Interpretation")) {
-            driver.get(driver.currentUrl)
+            driver.navigate().refresh()
             waitFor { clinicalReporter.reportTable.displayed }
             index++;
+            Thread.sleep(1000L)
             if (clinicalReporter.getStatusBasedonPatientId(patientId).equals("Failed")) {
                 Assert.fail("Clinical Report Failed for the Report ID: " + patientId)
             }

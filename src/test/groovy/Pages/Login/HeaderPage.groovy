@@ -34,7 +34,7 @@ class HeaderPage extends BasePage{
 
     def clickOnOPALAdminAndChooseTab(String tabName) {
         waitFor { header.opalAdminButton }
-        click(header.opalAdminButton, "OPAL ADMIn Button")
+        click(header.opalAdminButton, "OPAL ADMIN Button")
         waitFor { header.opalAdminTabs(tabName) }
         click(header.opalAdminTabs(tabName), "Opal Admin Tab: " + tabName)
     }
