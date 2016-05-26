@@ -12,7 +12,6 @@ import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Utilities.Class.BaseSpec
 import org.testng.Assert
-import org.testng.annotations.AfterMethod
 import org.testng.annotations.Test
 
 /**
@@ -21,7 +20,60 @@ import org.testng.annotations.Test
 @Test(groups = "tearDown")
 class TearDownProcessSpec extends BaseSpec {
 
-    @Test(priority = 1, description = "Delete all Automation Clinical Reports created during Automation")
+    public List workSpaceList = new LinkedList();
+
+    @Test(priority = 1)
+    public void setupMethod() {
+        String id;
+
+        to LoginPage
+        loginWithUser(NORMAL_USER);
+
+        at HeaderPage
+        goToHomePage()
+
+        at OmiciaHomePage
+        getNamesOfAllWorkSpaces().each {
+            workspace ->
+                if (workspace.contains("ACMG_Automation_Workspace")) {
+                    try {
+                        id = getWorkspaceIdBasedOnName(workspace)
+                        workSpaceList.add(id)
+                    }
+                    catch (Throwable throwable) {
+                        Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
+                        Assert.fail("Setup Failed. Skipping rest of the methods")
+                        System.out.println("Error: " + throwable.getMessage());
+                        throwable.printStackTrace()
+                    }
+                }
+        }
+
+        if (!workSpaceList.size().equals(ZERO)) {
+            at HeaderPage
+            signOut()
+
+            to LoginPage
+            loginWithUser(ADMIN)
+
+            workSpaceList.each {
+                wid ->
+                    try {
+                        go(System.getProperty("geb.build.baseUrl") + "/admin_tools/view_workspace?workspace_id=" + wid)
+                        page ManageWorkspacePage
+                        goToTab(GROUPS)
+                        clickOnCheckBoxUnderGroupsTab([CLINICAL_REPORTER_ACCESS])
+                    }
+                    catch (Throwable throwable) {
+                        Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE_ID: " + wid);
+                        System.out.println("Error: " + throwable.getMessage());
+                        throwable.printStackTrace()
+                    }
+            }
+        }
+    }
+
+    @Test(priority = 2, description = "Delete all Automation Clinical Reports created during Automation",dependsOnMethods = "setupMethod")
     public void deleteClinicalReports() {
         String id;
         to LoginPage
@@ -58,7 +110,7 @@ class TearDownProcessSpec extends BaseSpec {
         }
     }
 
-    @Test(priority = 2, description = "Delete all the Test Panels created during Automation")
+    @Test(priority = 3, description = "Delete all the Test Panels created during Automation",dependsOnMethods = "setupMethod")
     public void deletePanels() {
         String id;
         to LoginPage
@@ -97,7 +149,7 @@ class TearDownProcessSpec extends BaseSpec {
         }
     }
 
-    @Test(priority = 3, description = "Delete all the Test Gene Sets created during Automation")
+    @Test(priority = 4, description = "Delete all the Test Gene Sets created during Automation",dependsOnMethods = "setupMethod")
     public void deleteAllGeneSets() {
         String id;
         to LoginPage
@@ -136,7 +188,7 @@ class TearDownProcessSpec extends BaseSpec {
         }
     }
 
-    @Test(priority = 4, description = "Delete all the Test Filtering protocols created during Automation")
+    @Test(priority = 5, description = "Delete all the Test Filtering protocols created during Automation",dependsOnMethods = "setupMethod")
     public void deleteFilteringProtocols() {
         String id;
         to LoginPage
@@ -175,7 +227,7 @@ class TearDownProcessSpec extends BaseSpec {
         }
     }
 
-    @Test(priority = 5, description = "Delete all the Test Projects created during Automation")
+    @Test(priority = 6, description = "Delete all the Test Projects created during Automation",dependsOnMethods = "setupMethod")
     public void deleteAllProjects() {
         String id;
         to LoginPage
@@ -222,60 +274,25 @@ class TearDownProcessSpec extends BaseSpec {
         }
     }
 
-    @Test(priority = 6, description = "Remove test user from the Automation Workspaces")
+    @Test(priority = 7, description = "Remove test user from the Automation Workspaces",dependsOnMethods = "setupMethod")
     public void deleteUsersFromWorkspaces() {
         String id;
-        List workSpaceList = new LinkedList();
         to LoginPage
-        loginWithUser(NORMAL_USER);
+        loginWithUser(ADMIN)
 
-        at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        getNamesOfAllWorkSpaces().each {
-            workspace ->
-                    if (workspace.contains("ACMG_Automation_Workspace")) {
-                        try{
-                            id = getWorkspaceIdBasedOnName(workspace)
-                            workSpaceList.add(id)
-                        }
-                        catch(Throwable throwable){
-                            Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
-                            System.out.println("Error: " + throwable.getMessage());
-                            throwable.printStackTrace()
-                        }
-                    }
+        workSpaceList.each {
+            wid ->
+                try {
+                    go(System.getProperty("geb.build.baseUrl") + "/admin_tools/view_workspace?workspace_id=" + wid)
+                    page ManageWorkspacePage
+                    goToTab(MEMBERS)
+                    deleteAllMembersFromMembersTab()
                 }
-
-        if(!workSpaceList.size().equals(ZERO)){
-            at HeaderPage
-            signOut()
-
-            to LoginPage
-            loginWithUser(ADMIN)
-
-            workSpaceList.each {
-                wid->
-                    try{
-                        go(System.getProperty("geb.build.baseUrl")+"/admin_tools/view_workspace?workspace_id="+wid)
-                        page ManageWorkspacePage
-                        goToTab(MEMBERS)
-                        deleteAllMembersFromMembersTab()
-                    }
-                    catch (Throwable throwable){
-                        Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE_ID: " + wid);
-                        System.out.println("Error: " + throwable.getMessage());
-                        throwable.printStackTrace()
-                    }
-
-            }
+                catch (Throwable throwable) {
+                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE_ID: " + wid);
+                    System.out.println("Error: " + throwable.getMessage());
+                    throwable.printStackTrace()
+                }
         }
-    }
-
-    @AfterMethod(alwaysRun = true)
-    def signOutOfOPAL() {
-        at HeaderPage
-        signOut()
     }
 }
