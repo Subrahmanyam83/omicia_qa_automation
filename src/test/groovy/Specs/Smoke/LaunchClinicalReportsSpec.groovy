@@ -27,7 +27,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
     SmokeTestData data = new SmokeTestData();
     public String PROJECT_NAME;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
         PROJECT_NAME = PROJECT__NAME + data.random
     }
@@ -416,6 +416,4 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
         Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
-
-
 }
