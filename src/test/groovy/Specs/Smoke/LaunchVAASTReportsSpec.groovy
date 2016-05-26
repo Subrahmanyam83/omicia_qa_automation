@@ -24,7 +24,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
     SmokeTestData data = new SmokeTestData();
     public String PROJECT_NAME;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
         PROJECT_NAME = PROJECT__NAME + generateRandom()
     }
