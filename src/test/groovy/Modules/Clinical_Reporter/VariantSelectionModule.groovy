@@ -42,7 +42,7 @@ class VariantSelectionModule extends Module {
 
         /*Phevor Tab*/
         phevorTextField { $(".hpo-terms-view div div input", placeholder: "Start typing here...") }
-        dropDownValue { String value -> $(".typeahead.dropdown-menu li", "data-value": value) }
+        dropDownValue { String value -> $(".tt-menu.tt-open .tt-dataset div", "data-value": value) }
         runButtonOnPhevor { $(".btn.btn-primary.close-button", text: "Run") }
         runingPhevorProgressBar { $(".loading-spinner .progress.active") }
         phevorProgressBar { $(".modal-scrollable div div")[1] }

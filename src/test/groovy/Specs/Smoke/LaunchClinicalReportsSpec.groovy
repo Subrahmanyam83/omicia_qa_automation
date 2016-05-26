@@ -120,9 +120,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
         }
         Assert.assertEquals(getNumberOfItems(), SEVEN)
         Assert.equals(getEffectBasedOnVariant(SAMD11).equals(MISSENSE))
@@ -201,10 +201,10 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), SIXTY_THREE)
         runPhevor(ATAXIA)
-        if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL)
+        if (baseUrl.contains(GEL)){
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
         }
         Assert.assertEquals(getNumberOfItems(), SIXTY_THREE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_SOLO)
@@ -219,10 +219,10 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         clickVariantInterpretationButton()
 
         at VariantInterpretationHomePage
-        if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL)
-        } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        if (baseUrl.contains(GEL)){
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+        } else{
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
         }
         Assert.assertEquals(getNumberOfItems(), ONE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_SOLO)
@@ -287,9 +287,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         Assert.assertEquals(getNumberOfItems(), FOUR)
         runPhevor(ATAXIA)
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
         }
         Assert.assertEquals(getNumberOfItems(), FOUR)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
@@ -305,9 +305,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
         }
         Assert.assertEquals(getNumberOfItems(), ONE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
@@ -372,9 +372,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         Assert.assertEquals(getNumberOfItems(), FOUR)
         runPhevor(ATAXIA)
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_GEL)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
         }
         Assert.assertEquals(getNumberOfItems(), FOUR)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_QUAD)
@@ -390,9 +390,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE_GEL)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
         }
         Assert.assertEquals(getNumberOfItems(), ONE)
         Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_QUAD)
