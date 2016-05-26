@@ -65,6 +65,7 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     @AfterMethod(alwaysRun = true)
     def afterMethod(Method method) {
         ExtentReportFactory.closeTest(method.getName());
+        driver.manage().deleteAllCookies();
     }
 
     /*Runs after every Class or Spec*/
