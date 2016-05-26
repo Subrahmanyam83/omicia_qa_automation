@@ -3,6 +3,7 @@ package Pages.Clinical_Reporter
 import Modules.Clinical_Reporter.VariantInterpretationHomeModule
 import Modules.Clinical_Reporter.VariantSelectionModule
 import Utilities.Class.BasePage
+import org.openqa.selenium.interactions.Actions
 
 /**
  * Created by E002183 on 4/26/2016.
@@ -132,6 +133,14 @@ class VariantInterpretationHomePage extends BasePage {
         return interpretVariantsHome.getVariantIdWithIndexBasedOnVariantName.toString().trim()
     }
 
+    def changeReportSectionFromDropDown(String variantName,int index = 0, String type = PRIMARY_FINDINGS){
+        waitFor { interpretVariantsHome.reportSectionDropDown(variantName, index)}
+        scrollToCenter(interpretVariantsHome.reportSectionDropDown(variantName, index))
+        click(interpretVariantsHome.reportSectionDropDown(variantName, index),"Report Section of the "+index+1+" Variant:"+variantName)
+        waitFor {interpretVariantsHome.reportSectionDropDownValue(type)}
+        click(interpretVariantsHome.reportSectionDropDownValue(type),"Report Section Drop Down Value: "+type)
+    }
+
     def runPhevor(String textFieldValue) {
         waitFor { variantSelection.runPhevorButton.displayed }
         waitFor { variantSelection.runPhevorButton.click() }
@@ -169,7 +178,9 @@ class VariantInterpretationHomePage extends BasePage {
     }
 
     def openScoreVariantsBasedOnVariantName(String variantName, int index = 0) {
+        waitFor { interpretVariantsHome.geneNameLink(variantName, index) }
         interact { moveToElement(interpretVariantsHome.geneNameLink(variantName, index)) }
+        new Actions(driver).moveToElement(interpretVariantsHome.rowBasedOnVariant(variantName, index).firstElement(), 0, 0).moveByOffset(1, 1).click().build().perform()
         waitFor { interpretVariantsHome.scoreVariantsLink }
         click(interpretVariantsHome.scoreVariantsLink, "Score Variant Link on the " + index + " " + variantName + " Variant")
     }
