@@ -15,7 +15,7 @@ class CuratePanelModule extends Module{
         savePanelPropertiesButton           {$('#save-panel')}
         returnToPanelsButton                {$(".btn.btn-primary.navigate-back")}
         defaultFilterDropDown               {$(".filter-option.pull-left")}
-        valueOfDefaultFilterDropDown        {String value-> $('.dropdown-menu.open li a .text',text:contains(value))}
+        valueOfDefaultFilterDropDown        {String value-> $('.open .dropdown-menu.open li a .text',text:contains(value))}
         getNumberOfPanelGenes               {$("#panel-builder-regions tr")}
         nameOfGenesAdded { $("#panel-builder-regions .gene-symbol") }
     }
