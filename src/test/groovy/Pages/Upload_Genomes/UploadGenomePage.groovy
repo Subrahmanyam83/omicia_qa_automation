@@ -29,6 +29,7 @@ class UploadGenomePage extends BasePage{
             type(uploadGenome.projectNameField,projectName, "Project Name Field");
             click(uploadGenome.createProjectButton, "Create Project Button");
             click(uploadGenome.closeButton, "Close Button on the Modal Popup")
+            Thread.sleep(2000L)
         }
         if(uploadGene){
             waitFor { uploadGenome.browseVcfFileButton }

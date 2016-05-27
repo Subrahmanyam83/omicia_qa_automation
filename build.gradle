@@ -48,6 +48,7 @@ drivers.each { driver ->
             convertPropertiesToSystemProperties()
             systemProperty "geb.env", driver;
             reports.html.destination = System.properties['junit.reports.directory']
+            useDefaultListeners = true
             suites 'src/test/resources/testng.xml'
         }
     }
