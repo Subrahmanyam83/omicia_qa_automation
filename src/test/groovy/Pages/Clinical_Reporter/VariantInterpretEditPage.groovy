@@ -23,6 +23,7 @@ class VariantInterpretEditPage extends BasePage {
     }
 
     def editVariant(String classification, String report, String description = "_Test Description for Interpret Variation", String condition = "Ataxia", String citation = "123", String status = "Reviewed", String note = "Test Note for Finding") {
+        clickOnTab(EDIT_VARIANT)
         waitFor { interpretVariant.variantClassificationDropDown }
         click(interpretVariant.variantClassificationDropDown, "Variant Classification Drop Down")
         click(interpretVariant.dropDownValue(classification), "Variant Classification Drop Down Value: " + classification);
