@@ -1,22 +1,41 @@
 package Pages.Projects
 
+import Modules.Clinical_Reporter.VariantSelectionModule
 import Modules.Projects.VariantReportModule
 import Utilities.Class.BasePage
 import org.testng.Assert
 
 /**
- * Created by E002183 on 4/22/2016.
+ * Created by E002183 on 5/6/2016.
  */
-class VariantReportPage extends BasePage{
+class VariantReportPage extends BasePage {
 
     static at = {
-        $(".variants.paginator.table.table-condensed.table-bordered.table-striped").isDisplayed()
-        $(".accordion.accordion-menu").isDisplayed()
-        $("#report-variants").displayed
+        variantReport.reportsPageVariantsTable
+        variantSelection.filtersPane.displayed
+        variantSelection.resetFilterButton.displayed
     }
 
     static content = {
-        variantReport {module VariantReportModule}
+        variantReport { module VariantReportModule }
+        variantSelection { module VariantSelectionModule }
+    }
+
+    def getNumberOfItems() {
+        return Integer.parseInt(variantSelection.numberOfItems.text().replace(" Items", ""))
+    }
+
+    def clickOnHeaderButton(String buttonName) {
+        waitFor { variantReport.headerButton(buttonName) }
+        click(variantReport.headerButton(buttonName), "Header Button: " + buttonName)
+    }
+
+    def getReportHeading() {
+        return variantReport.header().text().split("\n")[0]
+    }
+
+    def waitForTheReportToAppearWithNoOpacity(){
+        waitFor {variantReport.reportTableAppear}
     }
 
     def getNumberOfGenesOnVariantPage(){
@@ -39,5 +58,4 @@ class VariantReportPage extends BasePage{
         waitFor("fast") {variantReport.dialogBox.isDisplayed()}
         click(variantReport.closeButtonOfDialogBox,"Close button of the Dialog Box")
     }
-
 }
