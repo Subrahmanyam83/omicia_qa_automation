@@ -4,6 +4,7 @@ import Modules.Clinical_Reporter.VariantInterpretationHomeModule
 import Modules.Clinical_Reporter.VariantSelectionModule
 import Utilities.Class.BasePage
 import org.openqa.selenium.interactions.Actions
+import org.testng.Assert
 
 /**
  * Created by E002183 on 4/26/2016.
@@ -70,7 +71,7 @@ class VariantInterpretationHomePage extends BasePage {
     }
 
     def getLatestClassificationBasedOnVariant(String variantName, int index = 0) {
-        waitFor { interpretVariantsHome.getLatestClassification(variantName, index).displayed }
+        waitFor { interpretVariantsHome.getLatestClassification(variantName, index) }
         return interpretVariantsHome.getLatestClassification(variantName, index).text().trim()
     }
 
@@ -91,7 +92,10 @@ class VariantInterpretationHomePage extends BasePage {
 
     def getPhevorRankBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getPhevorGeneRank(variantName, index).displayed }
-        return Integer.parseInt(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " "))
+        if(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " ").equals("")){
+            return NONE
+        }
+        else return Integer.parseInt(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " "))
     }
 
     def getInheritanceMode(String variantName, int index = 0) {
@@ -106,7 +110,10 @@ class VariantInterpretationHomePage extends BasePage {
 
     def getVAASTGeneRankBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getVAASTGeneRank(variantName, index).displayed }
-        return Integer.parseInt(variantSelection.getVAASTGeneRank(variantName, index).text().trim())
+        if(variantSelection.getVAASTGeneRank(variantName, index).text().trim().equals("")){
+            return NONE
+        }
+        else return Integer.parseInt(variantSelection.getVAASTGeneRank(variantName, index).text().trim())
     }
 
     def getVAASTRankBasedOnVariant(String variantName, int index = 0) {
@@ -124,13 +131,51 @@ class VariantInterpretationHomePage extends BasePage {
         return variantSelection.getVAASTGScore(variantName, index).text().replace("\n", " ")
     }
 
+    def getVariantIdBasedOnVariantName(String variantName, int index = 0) {
+        return interpretVariantsHome.getVariantIdWithIndexBasedOnVariantName.toString().trim()
+    }
+
+    def clickVariantChromosomePosition(String variantName, int index = 0){
+        waitFor {variantSelection.chromosomePositionBasedOnVariant(variantName,index)}
+        click(variantSelection.chromosomePositionBasedOnVariant(variantName,index),"Chromosome Position of Variant: "+variantName)
+    }
+
+    def clickVariantChromosomeDBSNP(String variantName, int index = 0){
+        waitFor {variantSelection.chromosomeDBSNPBasedOnVariant(variantName,index)}
+        click(variantSelection.chromosomeDBSNPBasedOnVariant(variantName,index),"Chromosome DBSNP of Variant: "+variantName)
+    }
+
     def clickOnInterpretVariantBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index).displayed }
         click(interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index), "Interpret Variant of the Variant: '" + variantName + "'")
     }
 
-    def getVariantIdBasedOnVariantName(String variantName, int index = 0) {
-        return interpretVariantsHome.getVariantIdWithIndexBasedOnVariantName.toString().trim()
+    def clickOnEffectBasedOnVariant(String variantName, int index = 0){
+        waitFor {variantSelection.getEffectBasedOnVariant(variantName,index)}
+        click(variantSelection.getEffectBasedOnVariant(variantName,index),"Effect Link of the Variant: "+variantName)
+
+        switch (variantName){
+            case MISSENSE:
+                waitFor {variantSelection.transcriptsDiv}
+                waitFor {variantSelection.consensusTable}
+                waitFor {variantSelection.nnSpliceTable}
+                waitFor {variantSelection.proteinDomainTable}
+                break;
+        }
+    }
+
+    def closeModalPopup(){
+        waitFor {variantSelection.modalCloseButton}
+        click(variantSelection.modalCloseButton,"Modal Popup Close Button")
+    }
+
+    def getNumberOfCheckBoxesInShowHideColumns(){
+        waitFor {variantSelection.showHideColumnsButton}
+        click(variantSelection.showHideColumnsButton,"Show Hide Columns Button")
+        waitFor {variantSelection.modalPopup}
+        int size = variantSelection.numberOfCheckBoxesInShowHideColumns
+        closeModalPopup()
+        return size
     }
 
     def changeReportSectionFromDropDown(String variantName,int index = 0, String type = PRIMARY_FINDINGS){
@@ -153,8 +198,14 @@ class VariantInterpretationHomePage extends BasePage {
         click(variantSelection.runButtonOnPhevor, "Run Phevor Button on dialog")
 
         waitTillElementIsNotPresent(variantSelection.runingPhevorProgressBar, "Running Phevor Progress Bar")
-        waitTillElementIsNotPresent(variantSelection.phevorProgressBar, " Phevor Progress Bar")
+        waitTillElementIsNotPresent(variantSelection.phevorProgressBar, "Phevor Progress Bar")
         Thread.sleep(2000L)
+        waitFor {variantSelection.HPOTermsText}
+        Assert.equals(getHPOTermsValue().equals(textFieldValue))
+    }
+
+    def getHPOTermsValue(){
+        return variantSelection.getHPOTermsValue
     }
 
     def showHideColumns(String columnName, boolean OnOff = true) {
