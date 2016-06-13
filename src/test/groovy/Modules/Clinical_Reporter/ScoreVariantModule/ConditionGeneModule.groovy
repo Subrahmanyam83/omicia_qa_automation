@@ -47,7 +47,7 @@ class ConditionGeneModule extends Module {
         notesViewBasedOnCondition       { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".notes a") }
         notesTextBasedOnCondition       { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".notes") }
         notesOnModalPopup               { $(".modal.modal-overflow.in .modal-body").text().trim() }
-        PMIDTextBasedOnCondition        { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".pmids") }
+        PMIDTextBasedOnCondition        { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".pmids a") }
         checkboxBasedCondition          { int index, String conditionName -> conditionUnderWorkSpaceConditionGeneTab(index, conditionName).parent().find(".selected .select-condition-gene") }
         addConditionGeneLink            { $("a.new-condition-gene",text:contains("add one"))}
         newConditionGeneButton          { $("a.new-condition-gene",text:contains("+ New Condition-Gene"))}

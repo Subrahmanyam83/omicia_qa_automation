@@ -134,7 +134,7 @@ class ConditionGenePage extends BasePage {
 
     def clickPMIDBasedOnCondition(String conditionName, int index = 0){
         waitFor {conditionGene.PMIDTextBasedOnCondition(index, conditionName)}
-        click(conditionGene.PMIDTextBasedOnCondition(index, conditionName))
+        click(conditionGene.PMIDTextBasedOnCondition(index, conditionName),"PMID link for the condition: "+conditionName)
     }
 
     def getnumberOfWorkSpaceConditionRows() {

@@ -26,6 +26,7 @@ class ScoringVariantModule extends Module {
         numberOfInternalNotesList       { $(".internal-notes-list .internal-notes div.internal-note").size() }
         notesList                       { $(".internal-notes-list .internal-notes div.internal-note") }
         internalNoteText                { int index -> $(".internal-notes-list .internal-notes div.internal-note").getAt(index).find(".internal-note-content").text() }
+        internalNoteBasedOnNote         { String note-> $(".internal-note .internal-note-content",text:contains(note))}
 
         historyContainer                { $(".curated-variant-history") }
         numberOfHistoryRows             { $(".curated-variant-history div.scoring-history-container").size() }
@@ -38,6 +39,7 @@ class ScoringVariantModule extends Module {
         radioButtonBasedOnName          { String value -> $('label.radio', text: value).find("input") }
         optionsLinkName                 { String value -> $('.options a', text: value) }
         scoringProgressText             { $("p.scoring-progress")}
+        completedScroingProgressText    { $(".scoring-progress").filter('style':"color: green; font-weight: bold;")}
 
         /*Set Classification Popup*/
         setClassificationButtonOnPopup  {$(".close-button",text:"Set Classification")}

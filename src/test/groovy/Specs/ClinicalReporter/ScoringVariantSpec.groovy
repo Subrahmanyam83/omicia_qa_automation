@@ -238,7 +238,7 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
     }
 
-    @Test(groups = ["clinical_reporter", "acmg"], description = "Scoring Variants for ACMG Quad Report")
+    @Test(groups = ["clinical_reporter", "acmg"], description = "Scoring Variants for ACMG Quad Report with No Default Condition Genes.")
     public void testScoringVariantsInACMGQuadReportWithNoDefaultConditionGene() {
 
         to LoginPage
@@ -255,6 +255,7 @@ class ScoringVariantSpec extends BaseSpec {
 
         at OmiciaHomePage
         openTab(UPLOAD_GENOMES);
+
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, data.FOUR_EXOMES);
         waitForTheVCFFileToUpload();
@@ -379,12 +380,6 @@ class ScoringVariantSpec extends BaseSpec {
         editConditionGene(data.CREATE_CONDITION_GENE_LIST)
         clickSaveOrCancel(SAVE)
         waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
-        clickOnNewConditionGeneButton()
-        editConditionGene(data.CREATE_CONDITION_GENE_LIST)
-        clickSaveOrCancel(SAVE)
-        waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
-        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
-        clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(FEVER, DELETE)
         Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), ONE)
         Assert.assertEquals(getNotesBasedOnCondition(FEVER),data.CREATE_CONDITION_GENE_LIST.get(1))
         Assert.assertEquals(getPMIDBasedOnCondition(FEVER), data.CREATE_CONDITION_GENE_LIST.get(2))
@@ -393,63 +388,33 @@ class ScoringVariantSpec extends BaseSpec {
         Assert.assertEquals(getPenetranceBasedOnCondition(FEVER), data.CREATE_CONDITION_GENE_LIST.get(5))
         Assert.assertEquals(getAgeOfOnsetBasedOnCondition(FEVER), data.CREATE_CONDITION_GENE_LIST.get(6))
 
+        clickOnNewConditionGeneButton()
+        editConditionGene(data.CREATE_CONDITION_GENE_LIST)
+        clickSaveOrCancel(SAVE)
+        waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
+        clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(FEVER, DELETE)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
+
         clickPMIDBasedOnCondition(FEVER)
         withWindow(getAvailableWindows().getAt(1).toString()){
             Assert.equals(driver.getCurrentUrl().contains("ncbi.nlm.nih.gov"))
             driver.close()
         }
-        clickOnCheckBoxBasedOnCondition(FEVER)
-
-
-
-
-
-
-
-
-
-        /*clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
-        clickOnColumnBasedOnConditionUnderClinVarAndOminTab(CLINVAR_OMIM_CONDITION_NAME, COPY_TO_WORKSPACE, 1)
-        clickSaveOrCancel(SAVE)
-        clickOnTabUnderConditionGenes(CLINIVAR_OMIM)
-        clickOnColumnBasedOnConditionUnderClinVarAndOminTab(CLINVAR_OMIM_CONDITION_NAME, COPY_TO_WORKSPACE, 1)
-        clickSaveOrCancel(SAVE)
-        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
-        clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, DELETE)
-        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), ONE)
-
-        Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
-        Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), PREVALANCE_VALUE)
-        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NEONATAL)
-        Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
-        Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME, false), NONE)
-        Assert.assertEquals(getPMIDBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
-
-        clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, EDIT)
-        editConditionGene(data.EDIT_CONDITION_GENE_LIST)
-        clickSaveOrCancel(SAVE)
-        waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
-
-        Assert.assertEquals(getNotesBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(1))
-        Assert.assertEquals(getPMIDBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(2))
-        Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(3))
-        Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(4))
-        Assert.assertEquals(getPenetranceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(5))
-        Assert.assertEquals(getAgeOfOnsetBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), data.EDIT_CONDITION_GENE_LIST.get(6))
         clickOnHeaderTab(SCORE_VARIANT)
-
         at ScoreVariantPage
         Assert.assertEquals(getScoringHeader(), UNSCORED, "Default Score in Score Variant before adding a condition Gene is not: 'Unscored'")
         clickOnHeaderTab(CONDITION_GENE)
 
         at ConditionGenePage
-        clickOnCheckBoxBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME)*/
+        clickOnCheckBoxBasedOnCondition(FEVER)
 
         at ScoreVariantPage
         Assert.assertEquals(getInferredClassification(), UNCERTAIN_SIGNIFICANCE, "Default Classification in Score Variant Page is not '" + UNCERTAIN_SIGNIFICANCE + "'")
         addVariantDescription()
+
         addInternalNote()
-        Assert.assertEquals(verifyTextOfNote(), INTERNAL_NOTES, "Internal Notes Text is not matching in Score Variant Tab")
+        Assert.assertTrue(verifyTextOfNote().contains(INTERNAL_NOTES), "Internal Notes Text is not matching in Score Variant Tab")
         clickOnTab(VARIANT_HISTORY)
         Assert.assertEquals(verifyNumberOfHistoryRows(), THREE, "Variant History rows are not equal to Three")
         clickOnTab(SCORING_SUMMARY)
