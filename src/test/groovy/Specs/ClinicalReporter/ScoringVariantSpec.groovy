@@ -33,8 +33,8 @@ class ScoringVariantSpec extends BaseSpec {
 
     @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
-        PROJECT_NAME = PROJECT__NAME + data.random;
-        WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
+        PROJECT_NAME = PROJECT__NAME + generateRandom();
+        WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + generateRandom()
 
         getEreportTest().log(INFO,"Test Case is executing with WORKSPACE: "+WORKSPACE_NAME+" and PROJECT: "+PROJECT_NAME)
 
@@ -160,7 +160,7 @@ class ScoringVariantSpec extends BaseSpec {
         clickSaveOrCancel(SAVE)
         Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
         clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, DELETE)
-        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), ONE)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
 
         Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
         Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), PREVALANCE_VALUE)
