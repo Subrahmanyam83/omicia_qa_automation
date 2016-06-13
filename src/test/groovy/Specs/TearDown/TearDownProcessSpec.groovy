@@ -41,7 +41,7 @@ class TearDownProcessSpec extends BaseSpec {
                         workSpaceList.add(id)
                     }
                     catch (Throwable throwable) {
-                        Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
+                        Assert.fail("Extraction of Workspace IDs Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
                         Assert.fail("Setup Failed. Skipping rest of the methods")
                         System.out.println("Error: " + throwable.getMessage());
                         throwable.printStackTrace()
@@ -65,7 +65,7 @@ class TearDownProcessSpec extends BaseSpec {
                         clickOnCheckBoxUnderGroupsTab([CLINICAL_REPORTER_ACCESS])
                     }
                     catch (Throwable throwable) {
-                        Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE_ID: " + wid);
+                        Assert.fail("Clinical Report Access in MANAGE WORKSPACE Failed for WORKSPACE_ID: " + wid);
                         System.out.println("Error: " + throwable.getMessage());
                         throwable.printStackTrace()
                     }
@@ -182,7 +182,7 @@ class TearDownProcessSpec extends BaseSpec {
                     }
                 }
                 catch (Throwable throwable) {
-                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
+                    Assert.fail("Gene Sets Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
                     throwable.printStackTrace()
                 }
         }
@@ -221,7 +221,7 @@ class TearDownProcessSpec extends BaseSpec {
                     }
                 }
                 catch (Throwable throwable) {
-                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + " , WORKSPACE_ID: " + id);
+                    Assert.fail("Filtering Protocol Deletion Failed for WORKSPACE: " + workspace + " , WORKSPACE_ID: " + id);
                     throwable.printStackTrace()
                 }
         }
@@ -268,7 +268,7 @@ class TearDownProcessSpec extends BaseSpec {
                     }
                 }
                 catch (Throwable throwable) {
-                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
+                    Assert.fail("Project Deletion Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
                     throwable.printStackTrace()
                 }
         }
@@ -289,7 +289,7 @@ class TearDownProcessSpec extends BaseSpec {
                     deleteAllMembersFromMembersTab()
                 }
                 catch (Throwable throwable) {
-                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE_ID: " + wid);
+                    Assert.fail("Removal of Users from the Workspace Failed for WORKSPACE_ID: " + wid);
                     System.out.println("Error: " + throwable.getMessage());
                     throwable.printStackTrace()
                 }

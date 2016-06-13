@@ -40,6 +40,7 @@ public interface Constants {
     def TWELVE = 12;
     def EIGHTEEN = 18;
     def TWENTY_SIX = 26
+    def TWENTY_THREE = 23
     def THIRTY = 30;
     def THIRTY_NINE = 39;
     def FIFTY = 50;
@@ -120,6 +121,7 @@ public interface Constants {
     String FROM_HPO_TERMS_AND_PHEVOR = "phevor"
     String FROM_CHROMOSOME_REGIONS = "regions"
     String ATAXIA = "Ataxia"
+    String FEVER = "Fever"
     String ADD_GENE = "Add Genes"
     String RUN_PHEVOR = "Run Phevor"
     String BACK = "Back"
@@ -173,6 +175,9 @@ public interface Constants {
     public List PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene","Position dbSNP", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
     public List PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene","Position dbSNP","Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
     public List PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene","Position dbSNP","Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
+
+    public List ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene","Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "VAAST gene rank","Phevor gene rank", "Inheritance Mode", "Scoring Status", "Report Section","Latest Classification (Date Classified) Confirmation Status"].sort()
+
     public String RECESSIVE = "Recessive"
     public String DOMINANT = "Dominant"
     public String DE_NOVO = "De Novo"
@@ -194,7 +199,7 @@ public interface Constants {
     public String UNCERTAIN_SIGNIFICANCE = "Uncertain Significance"
     public String DUCTAL_BREAST_CARCINOMA = "Ductal breast carcinoma"
 
-    /*Variant Interpretation*/
+    /*Variant Selection*/
     public List PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "Status", "Previously Seen"].sort()
     public List PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
     public List PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
@@ -204,8 +209,11 @@ public interface Constants {
     public List PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene","Position dbSNP",  "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
     public List PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene","Position dbSNP",  "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling 1 Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "VAAST gene rank", "Phevor gene rank"].sort()
 
-    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
-    public List PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE_ACMG_GEL = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene","Position dbSNP",  "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity","Sibling 1 Zygosity","Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence","VAAST gene rank","Phevor gene rank","Latest Classification (Date Classified) Confirmation Status"].sort()
+    public List ACMG_QUAD_GEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene","Position dbSNP",  "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity","Sibling 1 Zygosity","Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "VAAST gene rank","Phevor gene rank","Inheritance Mode", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
+
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"

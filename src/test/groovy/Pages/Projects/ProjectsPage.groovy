@@ -61,7 +61,7 @@ class ProjectsPage extends BasePage{
             index++;
             Thread.sleep(1000L)
             if (index.equals(FIFTY)) {
-                Assert.fail("Pipeline is busy or Down: : 'Refreshing Projects Page is not making Variant Reports available'")
+                Assert.fail("Pipeline is busy or Down:: 'Refreshing Projects Page is not making Variant Reports available'")
             }
         }
     }

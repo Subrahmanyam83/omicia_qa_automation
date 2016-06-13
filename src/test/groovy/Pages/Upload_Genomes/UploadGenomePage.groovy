@@ -25,9 +25,13 @@ class UploadGenomePage extends BasePage{
         String ExternalID = "External-ID-1";
 
         if(createNewProject){
+            waitFor {uploadGenome.newProjectButton}
             click(uploadGenome.newProjectButton, "New Project Button");
+            waitFor {uploadGenome.projectNameField}
             type(uploadGenome.projectNameField,projectName, "Project Name Field");
+            waitFor {uploadGenome.createProjectButton}
             click(uploadGenome.createProjectButton, "Create Project Button");
+            waitFor {uploadGenome.closeButton}
             click(uploadGenome.closeButton, "Close Button on the Modal Popup")
             Thread.sleep(2000L)
         }

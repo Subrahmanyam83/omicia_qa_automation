@@ -82,4 +82,9 @@ class BasePage extends Page implements Constants{
             throw new RuntimeException(e);
         }
     }
+
+    def generateRandom() {
+        Random r = new Random(System.currentTimeMillis());
+        return 1000000000 + r.nextInt(2000000000);
+    }
 }

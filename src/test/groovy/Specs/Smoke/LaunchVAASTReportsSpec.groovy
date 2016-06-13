@@ -8,7 +8,7 @@ import Pages.Login.LoginPage
 import Pages.Login.OmiciaHomePage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
-import Pages.Projects.ReportsHomePage
+import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
@@ -66,10 +66,12 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         waitTillAllVariantReportsAreAvailable()
         clickOnReport(VAAST_SOLO_REPORT)
 
-        at ReportsHomePage
-        waitForThePageToLaunch()
-        Assert.assertEquals(verifyReportHeading(), VAAST_SOLO_REPORT)
+        at VariantReportPage
+        waitForTheReportToAppearWithNoOpacity()
+        Assert.assertEquals(getReportHeading(), VAAST_SOLO_REPORT)
+
         page VariantInterpretationHomePage
+
         Assert.assertEquals(getNumberOfItems(), TWELVE)
         if (baseUrl.contains(GEL)) {
             Assert.assertEquals(getDefaultColumnNamesOnPage(), VAAST_SOLO_REPORT_COLUMN_LIST_GEL)
@@ -84,11 +86,10 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         Assert.assertEquals(getVAASTVScoreBasedOnVariant(TTLL10, ONE), FOURTEEN_POINT_THREE_TWO)
         Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10, ONE), data.VAAST_G_SCORE_VALUE_RECESSIVE)
 
-        page ReportsHomePage
+        page VariantReportPage
         clickOnHeaderButton(DOMINANT)
-        at ReportsHomePage
-        waitForThePageToLaunch()
-        Assert.assertEquals(verifyReportHeading(), VAAST_SOLO_REPORT)
+        waitForTheReportToAppearWithNoOpacity()
+        Assert.assertEquals(getReportHeading(), VAAST_SOLO_REPORT)
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), FIVE)
         if (baseUrl.contains(GEL)) {
@@ -142,9 +143,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         waitTillAllVariantReportsAreAvailable()
         clickOnReport(VAAST_TRIO_REPORT)
 
-        at ReportsHomePage
-        waitForThePageToLaunch()
-        Assert.assertEquals(verifyReportHeading(), VAAST_TRIO_REPORT)
+        at VariantReportPage
+        waitForTheReportToAppearWithNoOpacity()
+        Assert.assertEquals(getReportHeading(), VAAST_TRIO_REPORT)
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), TWO)
         if (baseUrl.contains(GEL)) {
@@ -160,11 +161,11 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         Assert.assertEquals(getVAASTVScoreBasedOnVariant(TTLL10, ONE), FOURTEEN_POINT_THREE_TWO)
         Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10, ONE), data.VAAST_G_SCORE_VALUE_RECESSIVE)
 
-        page ReportsHomePage
+        page VariantReportPage
         clickOnHeaderButton(DE_NOVO)
-        at ReportsHomePage
-        waitForThePageToLaunch()
-        Assert.assertEquals(verifyReportHeading(), VAAST_TRIO_REPORT)
+        at VariantReportPage
+        waitForTheReportToAppearWithNoOpacity()
+        Assert.assertEquals(getReportHeading(), VAAST_TRIO_REPORT)
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), ZERO)
         if (baseUrl.contains(GEL)) {
@@ -211,9 +212,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         waitTillAllVariantReportsAreAvailable()
         clickOnReport(VAAST_QUAD_REPORT)
 
-        at ReportsHomePage
-        waitForThePageToLaunch()
-        Assert.assertEquals(verifyReportHeading(), VAAST_QUAD_REPORT)
+        at VariantReportPage
+        waitForTheReportToAppearWithNoOpacity()
+        Assert.assertEquals(getReportHeading(), VAAST_QUAD_REPORT)
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), TWO)
         if (baseUrl.contains(GEL)) {
@@ -229,11 +230,11 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         Assert.assertEquals(getVAASTVScoreBasedOnVariant(TTLL10, ONE), FOURTEEN_POINT_THREE_TWO)
         Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10, ONE), data.VAAST_G_SCORE_VALUE_RECESSIVE)
 
-        page ReportsHomePage
+        page VariantReportPage
         clickOnHeaderButton(DE_NOVO)
-        at ReportsHomePage
-        waitForThePageToLaunch()
-        Assert.assertEquals(verifyReportHeading(), VAAST_QUAD_REPORT)
+        at VariantReportPage
+        waitForTheReportToAppearWithNoOpacity()
+        Assert.assertEquals(getReportHeading(), VAAST_QUAD_REPORT)
         page VariantInterpretationHomePage
         Assert.assertEquals(getNumberOfItems(), ZERO)
         if (baseUrl.contains(GEL)) {
