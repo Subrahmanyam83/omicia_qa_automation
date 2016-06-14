@@ -30,7 +30,7 @@ class PanelBuilderModule extends Module{
         createPanelButton                               {$('.modal-footer .btn.btn-primary.close-button')}
         cancelPanelButton                               {$('.modal-footer .btn.cancel-button')}
 
-        actionButtonBasedOnPanelName                    {String panelName -> $("#panel-builder-panels .paginator-row .view-panel",text:panelName).parent().parent().find(".btn.btn-mini.dropdown-toggle.action-button i")}
+        actionButtonBasedOnPanelName                    {String panelName -> $("#panel-builder-panels .paginator-row .view-panel",text:panelName).parent().parent().find("td a.action-button",text:contains("Actions"))}
         optionsOfActionButton                           {String option-> $(".btn-group.pull-right.open .dropdown-menu ."+option)}
         numberOfPanelsOnWorkSpacePanel                  {$("ul.nav.nav-tabs li a", text: "Workspace Panels").parent().parent().parent().find(".tab-content .workspace-panels .paginator-row").size()}
     }

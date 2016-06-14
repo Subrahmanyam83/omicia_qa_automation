@@ -44,6 +44,7 @@ class UploadGenomePage extends BasePage{
         click(uploadGenome.genderDropDown,"Gender Drop Down");
         click(uploadGenome.genderValue("Unspecified"), "Select Gender as Unspecified");
         click(uploadGenome.confirmCheckBox,"Confirm Check Box");
+        Thread.sleep(1000L)
         click(uploadGenome.uploadButton, "Upload Button");
     }
 

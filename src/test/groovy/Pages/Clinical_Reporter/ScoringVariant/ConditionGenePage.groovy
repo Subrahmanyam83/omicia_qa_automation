@@ -79,6 +79,7 @@ class ConditionGenePage extends BasePage {
         switch (action) {
 
             case DELETE:
+                int conditionGenes = getnumberOfWorkSpaceConditionRows()
                 waitFor { conditionGene.actionsButtonBasedOnCondition(conditionName, index) }
                 click(conditionGene.actionsButtonBasedOnCondition(conditionName, index), "Actions Button")
                 waitFor { conditionGene.actionButtonValue(action, conditionName, index) }
@@ -87,6 +88,7 @@ class ConditionGenePage extends BasePage {
                 click(conditionGene.deleteButtonOnModalPopup, "Delete Button on Modal Popup")
                 waitFor { conditionGene.closeButton }
                 click(conditionGene.closeButton, "Close Button")
+                waitFor {getnumberOfWorkSpaceConditionRows() == (conditionGenes - 1)}
                 break;
 
             case EDIT:
@@ -133,8 +135,8 @@ class ConditionGenePage extends BasePage {
     }
 
     def clickPMIDBasedOnCondition(String conditionName, int index = 0){
-        waitFor {conditionGene.PMIDTextBasedOnCondition(index, conditionName)}
-        click(conditionGene.PMIDTextBasedOnCondition(index, conditionName),"PMID link for the condition: "+conditionName)
+        waitFor {conditionGene.PMIDLinkBasedOnCondition(index, conditionName)}
+        click(conditionGene.PMIDLinkBasedOnCondition(index, conditionName),"PMID link for the condition: "+conditionName)
     }
 
     def getnumberOfWorkSpaceConditionRows() {
