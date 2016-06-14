@@ -67,7 +67,7 @@ public interface Constants {
     String GENE_SETS = "Gene Sets";
     String APP_STORE = "App Store";
     String ASSAY_TYPES = "Assay Types";
-    String ACMG_AUTOMATION_WORKSPACE = "ACMG_Automation_Workspace"
+    String ACMG_AUTOMATION_WORKSPACE = "ACMG_Automation_Workspace_"
     String MANAGE_WORKSPACES = "Manage Workspaces"
     String ID = "id"
     String NAME = "Name"

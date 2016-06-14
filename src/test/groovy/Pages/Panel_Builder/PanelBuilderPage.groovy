@@ -41,7 +41,7 @@ class PanelBuilderPage extends BasePage{
     }
 
     def clickOnActionsButtonBasedOnAndClickAction(String panelName, String action) {
-        waitFor { panelBuilder.actionButtonBasedOnPanelName(panelName).displayed }
+        waitFor { panelBuilder.actionButtonBasedOnPanelName(panelName) }
         click(panelBuilder.actionButtonBasedOnPanelName(panelName),"Action Button");
         click(panelBuilder.optionsOfActionButton(action),"Action Button -> "+action)
     }
