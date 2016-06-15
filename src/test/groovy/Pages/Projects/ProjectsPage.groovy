@@ -77,4 +77,8 @@ class ProjectsPage extends BasePage{
         waitFor { projects.variantReportType(reportType) }
         click(projects.variantReportType(reportType), "Variant Report Type")
     }
+
+    def getProjectNameFromHeader(){
+        return projects.getProjectHeaderTitle.replace("Project: ","")
+    }
 }

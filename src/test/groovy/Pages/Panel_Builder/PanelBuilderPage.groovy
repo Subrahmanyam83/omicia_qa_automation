@@ -22,6 +22,8 @@ class PanelBuilderPage extends BasePage{
 
     def clickItemsPerPageAndChooseValue(String value = HUNDRED) {
         if (panelBuilder.activePaginatorButton.displayed) {
+            waitFor {panelBuilder.activePaginatorButton}
+            Thread.sleep(2000)
             click(panelBuilder.activePaginatorButton, "Paginator Button")
             waitFor { panelBuilder.paginatorDropDownValue(value) }
             click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
@@ -36,12 +38,14 @@ class PanelBuilderPage extends BasePage{
         type(panelBuilder.panelDescriptionField,panel_description,"Panel Description");
         click(panelBuilder.createPanelButton,"Create Panel Button")
         click(panelBuilder.closeButtonOnDialogWindow,"Close Button on Modal Dialog")
+        waitFor{panelBuilder.newPanelButton}
         clickItemsPerPageAndChooseValue()
         waitFor { panelBuilder.panelRowBasedOnPanelName(panel_name) }
     }
 
     def clickOnActionsButtonBasedOnAndClickAction(String panelName, String action) {
         waitFor { panelBuilder.actionButtonBasedOnPanelName(panelName) }
+        scrollToCenter(panelBuilder.actionButtonBasedOnPanelName(panelName))
         click(panelBuilder.actionButtonBasedOnPanelName(panelName),"Action Button");
         click(panelBuilder.optionsOfActionButton(action),"Action Button -> "+action)
     }

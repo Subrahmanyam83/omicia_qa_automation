@@ -55,7 +55,7 @@ class VariantReportPage extends BasePage {
     }
 
     def verifyDialogBoxPresentOnClickAndClose(){
-        waitFor("fast") {variantReport.dialogBox.isDisplayed()}
+        waitFor {variantReport.dialogBox.isDisplayed()}
         click(variantReport.closeButtonOfDialogBox,"Close button of the Dialog Box")
     }
 }

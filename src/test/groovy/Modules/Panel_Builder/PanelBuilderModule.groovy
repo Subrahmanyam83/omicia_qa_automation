@@ -13,8 +13,8 @@ class PanelBuilderModule extends Module{
         panelTable                                      { $(".active #panel-table #panel-builder-panels") }
         numberOfPanelItems                              { $(".active .pull-left.total ") }
         loadingPanelText                                { $("#loading", text: contains("Loading panels...")) }
-        activePaginatorButton                           { $(".active div.btn-group.paginator.limit") }
-        paginatorDropDownValue                          { String value -> $(".active .dropdown-menu.open ul li a span", text: value) }
+        activePaginatorButton                           { $(".active div.btn-group.paginator.limit .btn") }
+        paginatorDropDownValue                          { String value -> $(".active div.btn-group.paginator.limit.open li a span", text: value) }
 
         /*Panel Builder Home Page*/
         actionButton                                    { $('.btn.btn-mini.dropdown-toggle.action-button') }
@@ -24,11 +24,11 @@ class PanelBuilderModule extends Module{
         panelRowBasedOnPanelName                        { String panelName -> $("tr.paginator-row td a", text: panelName) }
 
         /*Create Panel*/
-        createPanelModal                                {$(".modal.modal-overflow.in")}
-        panelNameField                                  {$(".modal.modal-overflow.in #panel_name")}
-        panelDescriptionField                           {$(".modal.modal-overflow.in #panel_description")}
-        createPanelButton                               {$('.modal-footer .btn.btn-primary.close-button')}
-        cancelPanelButton                               {$('.modal-footer .btn.cancel-button')}
+        createPanelModal                                { $(".modal.modal-overflow.in") }
+        panelNameField                                  { $(".modal.modal-overflow.in #panel_name") }
+        panelDescriptionField                           { $(".modal.modal-overflow.in #panel_description") }
+        createPanelButton                               { $('.modal-footer .btn.btn-primary.close-button') }
+        cancelPanelButton                               { $('.modal-footer .btn.cancel-button') }
 
         actionButtonBasedOnPanelName                    {String panelName -> $("#panel-builder-panels .paginator-row .view-panel",text:panelName).parent().parent().find("td a.action-button",text:contains("Actions"))}
         optionsOfActionButton                           {String option-> $(".btn-group.pull-right.open .dropdown-menu ."+option)}

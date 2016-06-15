@@ -44,6 +44,7 @@ public interface Constants {
     def THIRTY = 30;
     def THIRTY_NINE = 39;
     def FIFTY = 50;
+    def SIXTY = 60;
     def SIXTY_THREE = 63;
     def HUNDRED = 100;
     def FOURTEEN_POINT_THREE_TWO = "14.32"

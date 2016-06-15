@@ -147,6 +147,7 @@ class VariantInterpretationHomePage extends BasePage {
 
     def clickOnInterpretVariantBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index).displayed }
+        scrollToCenter(interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index))
         click(interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index), "Interpret Variant of the Variant: '" + variantName + "'")
     }
 
@@ -197,8 +198,7 @@ class VariantInterpretationHomePage extends BasePage {
         waitFor { variantSelection.runButtonOnPhevor.displayed }
         click(variantSelection.runButtonOnPhevor, "Run Phevor Button on dialog")
 
-        waitTillElementIsNotPresent(variantSelection.runingPhevorProgressBar, "Running Phevor Progress Bar")
-        waitTillElementIsNotPresent(variantSelection.phevorProgressBar, "Phevor Progress Bar")
+        waitTillElementIsNotPresent(variantSelection.runingPhevorProgressBar, "Running Phevor Progress Bar",SIXTY)
         Thread.sleep(2000L)
         waitFor {variantSelection.HPOTermsText}
         Assert.equals(getHPOTermsValue().equals(textFieldValue))
@@ -225,6 +225,7 @@ class VariantInterpretationHomePage extends BasePage {
 
     def clickReviewReport() {
         waitFor { interpretVariantsHome.reviewReportButton.displayed }
+        scrollToCenter(interpretVariantsHome.reviewReportButton)
         click(interpretVariantsHome.reviewReportButton, "Review Report Button")
     }
 
