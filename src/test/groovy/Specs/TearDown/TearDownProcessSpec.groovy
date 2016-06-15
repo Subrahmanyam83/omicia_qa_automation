@@ -43,7 +43,6 @@ class TearDownProcessSpec extends BaseSpec {
                     catch (Throwable throwable) {
                         Assert.fail("Extraction of Workspace IDs Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
                         Assert.fail("Setup Failed. Skipping rest of the methods")
-                        System.out.println("Error: " + throwable.getMessage());
                         throwable.printStackTrace()
                     }
                 }
@@ -288,16 +287,17 @@ class TearDownProcessSpec extends BaseSpec {
 
         workSpaceList.each {
             wid ->
-                try {
-                    go(System.getProperty("geb.build.baseUrl") + "/admin_tools/view_workspace?workspace_id=" + wid)
-                    page ManageWorkspacePage
-                    goToTab(MEMBERS)
-                    deleteAllMembersFromMembersTab()
-                }
-                catch (Throwable throwable) {
-                    Assert.fail("Removal of Users from the Workspace Failed for WORKSPACE_ID: " + wid);
-                    System.out.println("Error: " + throwable.getMessage());
-                    throwable.printStackTrace()
+                if (wid != 300) {
+                    try {
+                        go(System.getProperty("geb.build.baseUrl") + "/admin_tools/view_workspace?workspace_id=" + wid)
+                        page ManageWorkspacePage
+                        goToTab(MEMBERS)
+                        deleteAllMembersFromMembersTab()
+                    }
+                    catch (Throwable throwable) {
+                        Assert.fail("Removal of Users from the Workspace Failed for WORKSPACE_ID: " + wid);
+                        throwable.printStackTrace()
+                    }
                 }
         }
     }
