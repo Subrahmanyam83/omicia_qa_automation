@@ -7,7 +7,7 @@ import Utilities.Class.BasePage
 /**
  * Created by E002183 on 5/5/2016.
  */
-class AnalysisHomePage extends BasePage {
+class AppStoreAnalysisHomePage extends BasePage {
 
     static at = {
         analysisHome.runButton
@@ -22,5 +22,10 @@ class AnalysisHomePage extends BasePage {
     def clickOnRun() {
         waitFor { analysisHome.runButton }
         click(analysisHome.runButton, "Analysis Run Button")
+    }
+
+    def getHeadingAppName(String){
+        waitFor {analysisHome.analysisHeaderName}
+        return analysisHome.analysisHeaderName.text()
     }
 }

@@ -33,8 +33,8 @@ class ScoringVariantSpec extends BaseSpec {
 
     @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
-        PROJECT_NAME = PROJECT__NAME + data.random;
-        WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + data.random
+        PROJECT_NAME = PROJECT__NAME + generateRandom();
+        WORKSPACE_NAME = ACMG_AUTOMATION_WORKSPACE + generateRandom()
 
         getEreportTest().log(INFO,"Test Case is executing with WORKSPACE: "+WORKSPACE_NAME+" and PROJECT: "+PROJECT_NAME)
 
@@ -394,7 +394,7 @@ class ScoringVariantSpec extends BaseSpec {
         waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
         Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
         clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(FEVER, DELETE)
-        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), ONE)
 
         clickPMIDBasedOnCondition(FEVER)
         withWindow(getAvailableWindows().getAt(1).toString()){
