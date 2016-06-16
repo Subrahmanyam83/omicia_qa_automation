@@ -78,7 +78,23 @@ class ProjectsPage extends BasePage{
         click(projects.variantReportType(reportType), "Variant Report Type")
     }
 
+    def deleteReport(String reportName,int index = 0){
+        waitFor {projects.reportLink(reportName,index)}
+        waitFor {projects.deleteButtonAgainstReport(reportName,index)}
+        click(projects.deleteButtonAgainstReport(reportName,index),"Delete Button on Report Name: "+reportName)
+        waitFor {projects.deleteReportButton}
+        click(projects.deleteReportButton,"Delete Report Button on Modal Dialog Popup")
+        waitTillElementIsNotPresent(projects.fadedBackgroundWindow,"Transparent background Window")
+        waitFor {projects.projectNameFromHeader.displayed}
+    }
+
     def getProjectNameFromHeader(){
-        return projects.getProjectHeaderTitle.replace("Project: ","")
+        waitFor {projects.projectNameFromHeader}
+        return projects.projectNameFromHeader.text().replace("Project: ","").trim()
+    }
+
+    def getNumberOfReports(){
+        waitFor {projects.reportsUnderReportType.displayed}
+        return projects.reportsUnderReportType.size()
     }
 }

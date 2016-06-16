@@ -85,6 +85,8 @@ public interface Constants {
     String VAAST_SOLO_ANALYSIS = "VAAST Solo Analysis"
     String VAAST_TRIO_ANALYSIS = "VAAST Trio Analysis"
     String VAAST_QUAD_ANALYSIS = "VAAST Quad Analysis"
+    String FLEX_TRIO_ANALYSIS = "Flex Trio Analysis"
+    String FLEX_QUAD_ANALYSIS = "Flex Quad Analysis"
     String VAAST_SOLO_REPORT = "VAAST Solo Report"
     String VAAST_TRIO_REPORT = "VAAST Trio Report"
     String VAAST_QUAD_REPORT = "VAAST Quad Report"

@@ -1,6 +1,6 @@
 package Specs.Smoke
 
-import Pages.App_Store.AnalysisHomePage
+import Pages.App_Store.AppStoreAnalysisHomePage
 import Pages.Clinical_Reporter.ClinicalReporterPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.HeaderPage
@@ -64,10 +64,10 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         waitTillAllVariantReportsAreAvailable()
         launchAppAndChooseValue(VAAST_SOLO_ANALYSIS)
 
-        at AnalysisHomePage
+        at AppStoreAnalysisHomePage
         page ClinicalReporterPage
         chooseGeneForEachMember(SOLO)
-        page AnalysisHomePage
+        page AppStoreAnalysisHomePage
         clickOnRun()
 
         at ProjectsPage
@@ -142,10 +142,10 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         waitTillAllVariantReportsAreAvailable()
         launchAppAndChooseValue(VAAST_TRIO_ANALYSIS)
 
-        at AnalysisHomePage
+        at AppStoreAnalysisHomePage
         page ClinicalReporterPage
         chooseGeneForEachMember(TRIO)
-        page AnalysisHomePage
+        page AppStoreAnalysisHomePage
         clickOnRun()
 
         at ProjectsPage
@@ -212,10 +212,10 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         waitTillAllVariantReportsAreAvailable()
         launchAppAndChooseValue(VAAST_QUAD_ANALYSIS)
 
-        at AnalysisHomePage
+        at AppStoreAnalysisHomePage
         page ClinicalReporterPage
         chooseGeneForEachMember(QUAD)
-        page AnalysisHomePage
+        page AppStoreAnalysisHomePage
         clickOnRun()
 
         at ProjectsPage

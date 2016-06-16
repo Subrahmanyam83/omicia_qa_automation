@@ -8,7 +8,9 @@ import geb.Module
 class AnalysisHomeModule extends Module {
 
     static content = {
-        runButton            { $("#submit") }
-        selectGenesTab       { $("#select-genomes") }
+        runButton                           { $("#submit") }
+        selectGenesTab                      { $("#select-genomes") }
+        analysisHeaderName                  { $("div legend")}
+
     }
 }
