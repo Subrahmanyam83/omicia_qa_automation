@@ -66,7 +66,7 @@ class TearDownProcessSpec extends BaseSpec {
         }
     }
 
-/*    @Test(priority = 2, description = "Delete all Automation Clinical Reports created during Automation", dependsOnMethods = "setupMethod")
+    @Test(priority = 2, description = "Delete all Automation Clinical Reports created during Automation", dependsOnMethods = "setupMethod")
     public void deleteClinicalReports() {
         String id;
         to LoginPage
@@ -271,7 +271,7 @@ class TearDownProcessSpec extends BaseSpec {
                     }
                 }
         }
-    }*/
+    }
 
     @Test(priority = 7, description = "Remove test user from the Automation Workspaces", dependsOnMethods = "setupMethod")
     public void deleteUsersFromWorkspaces() {
