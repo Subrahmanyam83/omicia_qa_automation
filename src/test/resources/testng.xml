@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="1" name="Omicia OPAL Suite" parallel="classes">
+<suite thread-count="1" name="Omicia OPAL Suite" parallel="tests">
   <listeners>
     <listener class-name="Utilities.Class.BaseSpec"/>
-    <listener class-name="org.uncommons.reportng.HTMLReporter"/>
-    <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
   </listeners>
   <test name="Omicia OPAL Test">
     <classes>
-      <class name="Specs.Smoke.LaunchClinicalReportsSpec"/>
-      <class name="Specs.Smoke.LaunchVAASTReportsSpec"/>
-      <class name="Specs.ClinicalReporter.ScoringVariantSpec"/>
+      <class name="Specs.Smoke.LaunchVAASTReportsSpec">
+        <methods>
+          <include name="launchVAASTSoloAnalysis"/>
+        </methods>
+      </class> <!-- Specs.Smoke.LaunchVAASTReportsSpec -->
     </classes>
   </test> <!-- Omicia OPAL Test -->
 </suite> <!-- Omicia OPAL Suite -->
