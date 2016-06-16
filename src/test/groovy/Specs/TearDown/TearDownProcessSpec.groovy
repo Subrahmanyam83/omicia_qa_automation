@@ -1,15 +1,9 @@
 package Specs.TearDown
 
 import Pages.Admin.ManageWorkspacePage
-import Pages.Clinical_Reporter.ClinicalReporterPage
-import Pages.Filtering_Protocol.FilteringProtocolHomePage
-import Pages.Gene_Sets.GeneSetsPage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
 import Pages.Login.OmiciaHomePage
-import Pages.Panel_Builder.PanelBuilderPage
-import Pages.Projects.ProjectsHomePage
-import Pages.Projects.ProjectsPage
 import Utilities.Class.BaseSpec
 import org.testng.Assert
 import org.testng.annotations.Test
@@ -72,7 +66,7 @@ class TearDownProcessSpec extends BaseSpec {
         }
     }
 
-    @Test(priority = 2, description = "Delete all Automation Clinical Reports created during Automation", dependsOnMethods = "setupMethod")
+/*    @Test(priority = 2, description = "Delete all Automation Clinical Reports created during Automation", dependsOnMethods = "setupMethod")
     public void deleteClinicalReports() {
         String id;
         to LoginPage
@@ -277,7 +271,7 @@ class TearDownProcessSpec extends BaseSpec {
                     }
                 }
         }
-    }
+    }*/
 
     @Test(priority = 7, description = "Remove test user from the Automation Workspaces", dependsOnMethods = "setupMethod")
     public void deleteUsersFromWorkspaces() {
@@ -287,7 +281,7 @@ class TearDownProcessSpec extends BaseSpec {
 
         workSpaceList.each {
             wid ->
-                if (wid != 300) {
+                if (wid != "300") {
                     try {
                         go(System.getProperty("geb.build.baseUrl") + "/admin_tools/view_workspace?workspace_id=" + wid)
                         page ManageWorkspacePage
