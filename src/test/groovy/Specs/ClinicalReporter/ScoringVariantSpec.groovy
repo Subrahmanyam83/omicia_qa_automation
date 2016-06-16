@@ -124,7 +124,7 @@ class ScoringVariantSpec extends BaseSpec {
         at CuratePanelPage
         waitFor { curatePanel.getNumberOfPanelGenes }
         verifyUtil.verify(getNamesOfGenesAdded().equals(AGRN), "The Gene "+ AGRN+" is not present in the list")
-        verifyUtil.verify(getNumberOfPanelGenes().equals(ONE), "Total number of panel genes are not equal to "+ONE)
+        verifyUtil.verify(getNumberOfPanelGenes().equals(ONE), "Total number of genes shown in Panel Builder are not equal to "+ONE)
 
         at HeaderPage
         clickOnMenuAndSelectOption(CLINICAL_REPORTER)
@@ -139,9 +139,9 @@ class ScoringVariantSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching with "+ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching with "+ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(EIGHTEEN),"Total number of items are not equal to "+EIGHTEEN)
         verifyUtil.verify(getEffectBasedOnVariant(AGRN).equals(SYNONYMOUS),"EFFECT of Variant: "+AGRN+" is not equal to "+SYNONYMOUS)
@@ -168,7 +168,7 @@ class ScoringVariantSpec extends BaseSpec {
         clickSaveOrCancel(SAVE)
         verifyUtil.verify(getnumberOfWorkSpaceConditionRows().equals(TWO),"Number of workspace conditions rows are not equal to "+ TWO)
         clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, DELETE)
-        verifyUtil.verify(getnumberOfWorkSpaceConditionRows().equals(ONE),"Number of workspace conditions rows are not equal to "+ TWO)
+        verifyUtil.verify(getnumberOfWorkSpaceConditionRows().equals(ONE),"Number of workspace conditions rows are not equal to "+ ONE)
 
         verifyUtil.verify(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME).equals(NONE), "Inheritance for Condition: "+CLINVAR_OMIM_CONDITION_NAME+" is not equal to "+NONE)
         verifyUtil.verify(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME).equals(PREVALANCE_VALUE), "Prevalance for Condition: "+CLINVAR_OMIM_CONDITION_NAME+" is not equal to "+PREVALANCE_VALUE)
@@ -309,9 +309,9 @@ class ScoringVariantSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(ACMG_QUAD_GEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Interpretation column names are not matching with "+ACMG_QUAD_GEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(ACMG_QUAD_GEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Interpretation column names are not matching. Expected: "+ ACMG_QUAD_GEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Interpretation column names are not matching with "+ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Interpretation column names are not matching. Expected: "+ ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(THREE), "Total number of items are not equal to "+THREE)
         verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10).equals(data.positiondbSNP_QUAD),"DBSNP Position of Variant: "+TTLL10+" is not equal to "+data.positiondbSNP_QUAD)
@@ -404,7 +404,7 @@ class ScoringVariantSpec extends BaseSpec {
         waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
         verifyUtil.verify(getnumberOfWorkSpaceConditionRows().equals(TWO),"Work space condition rows are not equal to "+TWO)
         clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(FEVER, DELETE)
-        verifyUtil.verify(getnumberOfWorkSpaceConditionRows().equals(ONE),"Work space condition rows are not equal to "+TWO)
+        verifyUtil.verify(getnumberOfWorkSpaceConditionRows().equals(ONE),"Work space condition rows are not equal to "+ONE)
 
         clickPMIDBasedOnCondition(FEVER)
         withWindow(getAvailableWindows().getAt(1).toString()){

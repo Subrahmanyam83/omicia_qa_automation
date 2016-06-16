@@ -130,9 +130,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         at VariantInterpretationHomePage
         List<String> columnNames = getDefaultColumnNamesOnPage();
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(columnNames.equals(PRE_ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching with "+PRE_ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(columnNames.equals(PRE_ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(columnNames.equals(PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Interpretation column names are not matching with "+PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(columnNames.equals(PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         int totalNumberOfItems = getNumberOfItems();
         verifyUtil.verify(totalNumberOfItems.equals(SEVEN), "Total number of items are not equal to "+ SEVEN)
@@ -214,9 +214,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfItems().equals(SIXTY_THREE),"Total number of Items are not equal to "+ SIXTY_THREE)
         runPhevor(ATAXIA)
         if (baseUrl.contains(GEL)){
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Selection column names are not matching with "+PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Selection column names are not matching. Expected: "+ PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Selection column names are not matching with "+PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Selection column names are not matching. Expected: "+ PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(SIXTY_THREE),"Total number of Items are not equal to "+SIXTY_THREE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_SOLO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_SOLO)
@@ -232,9 +232,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)){
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching with "+PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else{
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE), "Variant Interpretation column names are not matching with "+PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE), "Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_SOLO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_SOLO)
@@ -300,9 +300,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of Items are not equal to "+FOUR)
         runPhevor(ATAXIA)
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Selection column names are not matching with "+PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Selection column names are not matching with "+PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of Items are not equal to "+FOUR)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_TRIO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_TRIO)
@@ -318,9 +318,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching with "+PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching with "+PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_TRIO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_TRIO)
@@ -386,9 +386,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of items are not equal to "+FOUR)
         runPhevor(ATAXIA)
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Selection column names are not matching with "+PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Selection column names are not matching with "+PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of items is not equal to "+FOUR)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_QUAD),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_QUAD)
@@ -404,9 +404,9 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching with "+PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching with "+PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_QUAD),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_QUAD)

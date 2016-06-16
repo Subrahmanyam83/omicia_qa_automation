@@ -82,9 +82,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
 
         verifyUtil.verify(getNumberOfItems().equals(TWELVE),"Total number of items are not equal to "+TWELVE)
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_SOLO_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching with "+VAAST_SOLO_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_SOLO_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching. Expected: "+ VAAST_SOLO_REPORT_COLUMN_LIST_GEL + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_SOLO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching with "+VAAST_SOLO_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_SOLO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching. Expected: "+ VAAST_SOLO_REPORT_COLUMN_LIST_GEL + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10, ONE).equals(data.POSITION_DBSNP_VALUE),"Position DBSNP of Variant: "+TTLL10+" is not equal to "+data.POSITION_DBSNP_VALUE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10, ONE).equals(data.CHANGE_VALUE),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.CHANGE_VALUE)
@@ -101,9 +101,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantInterpretationHomePage
         verifyUtil.verify(getNumberOfItems().equals(FIVE),"Total number of Items are not equal to "+FIVE)
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_SOLO_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching with "+VAAST_SOLO_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_SOLO_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching. Expected: "+ VAAST_SOLO_REPORT_COLUMN_LIST_GEL + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_SOLO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching with "+VAAST_SOLO_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_SOLO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching. Expected: "+ VAAST_SOLO_REPORT_COLUMN_LIST + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10).equals(data.POSITION_DBSNP_VALUE),"Position DBSNP of Variant: "+TTLL10+" is not equal to "+data.POSITION_DBSNP_VALUE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.CHANGE_VALUE),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.CHANGE_VALUE)
@@ -158,9 +158,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantInterpretationHomePage
         verifyUtil.verify(getNumberOfItems().equals(TWO),"Total number of items are not equal to "+TWO)
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching with "+VAAST_TRIO_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching. Expected: "+ VAAST_TRIO_REPORT_COLUMN_LIST_GEL + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching with "+VAAST_TRIO_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching. Expected: "+ VAAST_TRIO_REPORT_COLUMN_LIST + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10, ONE).equals(data.POSITION_DBSNP_VALUE),"Position DBSNP of Variant: "+TTLL10+" is not equal to "+data.POSITION_DBSNP_VALUE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10, ONE).equals(data.CHANGE_VALUE),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.CHANGE_VALUE)
@@ -178,9 +178,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantInterpretationHomePage
         verifyUtil.verify(getNumberOfItems().equals(ZERO),"Total number of items are not equal to "+ZERO)
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching with "+VAAST_TRIO_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching. Expected: "+ VAAST_TRIO_REPORT_COLUMN_LIST_GEL + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching with "+VAAST_TRIO_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching. Expected: "+ VAAST_TRIO_REPORT_COLUMN_LIST + "Actual: "+ getDefaultColumnNamesOnPage())
         }
     }
 
@@ -228,9 +228,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantInterpretationHomePage
         verifyUtil.verify(getNumberOfItems().equals(TWO),"Total number of items are not equal to "+TWO)
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching with "+VAAST_QUAD_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching. Expected: "+ VAAST_QUAD_REPORT_COLUMN_LIST_GEL + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching with "+VAAST_QUAD_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching. Expected: "+ VAAST_QUAD_REPORT_COLUMN_LIST + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10, ONE).equals(data.POSITION_DBSNP_VALUE),"Position DBSNP of Variant: "+TTLL10+" is not equal to "+data.POSITION_DBSNP_VALUE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10, ONE).equals(data.CHANGE_VALUE),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.CHANGE_VALUE)
@@ -248,9 +248,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantInterpretationHomePage
         verifyUtil.verify(getNumberOfItems().equals(ZERO),"Total number of items are not equal to "+ ZERO)
         if (baseUrl.contains(GEL)) {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching with "+VAAST_QUAD_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST_GEL),"Variant Interpretation column names are not matching. Expected: "+ VAAST_QUAD_REPORT_COLUMN_LIST_GEL + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching with "+VAAST_QUAD_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching. Expected: "+ VAAST_QUAD_REPORT_COLUMN_LIST + "Actual: "+ getDefaultColumnNamesOnPage())
         }
 
     }
