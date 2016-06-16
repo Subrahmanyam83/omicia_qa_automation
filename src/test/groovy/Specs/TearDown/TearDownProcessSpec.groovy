@@ -1,9 +1,15 @@
 package Specs.TearDown
 
 import Pages.Admin.ManageWorkspacePage
+import Pages.Clinical_Reporter.ClinicalReporterPage
+import Pages.Filtering_Protocol.FilteringProtocolHomePage
+import Pages.Gene_Sets.GeneSetsPage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
 import Pages.Login.OmiciaHomePage
+import Pages.Panel_Builder.PanelBuilderPage
+import Pages.Projects.ProjectsHomePage
+import Pages.Projects.ProjectsPage
 import Utilities.Class.BaseSpec
 import org.testng.Assert
 import org.testng.annotations.Test
