@@ -287,7 +287,7 @@ class TearDownProcessSpec extends BaseSpec {
 
         workSpaceList.each {
             wid ->
-                if (wid != 300) {
+                if (wid != "300") {
                     try {
                         go(System.getProperty("geb.build.baseUrl") + "/admin_tools/view_workspace?workspace_id=" + wid)
                         page ManageWorkspacePage
