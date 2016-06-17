@@ -108,6 +108,13 @@ class LaunchVAASTReportsSpec extends BaseSpec {
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_SOLO_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 
     @Test(groups = "smoke", priority = 2, description = "Launch VAAST Trio Analysis")
@@ -182,6 +189,13 @@ class LaunchVAASTReportsSpec extends BaseSpec {
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_TRIO_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 
     @Test(groups = "smoke", priority = 3, description = "Launch VAAST Quad Analysis")
@@ -256,5 +270,12 @@ class LaunchVAASTReportsSpec extends BaseSpec {
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_QUAD_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 }

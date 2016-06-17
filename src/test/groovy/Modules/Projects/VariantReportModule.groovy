@@ -9,6 +9,11 @@ class VariantReportModule extends Module {
 
     static content = {
 
+        /*Headers*/
+        reportId                    { $("dt",text:"Report ID:").next("dd").text()}
+        projectName                 { $("ul.breadcrumb li a").getAt(2).text()}
+        projectId                   { $("ul.breadcrumb li a").getAt(2).getAttribute("href").split("/")[$("ul.breadcrumb li a").getAt(2).getAttribute("href").split("/").size() -1]}
+
         reportsPageVariantsTable    { $("div.variants-table table#variants").filter('style':"opacity: 1;").find("tbody#report-variants") }
         header                      { $(".header-div legend") }
         headerButton                { String buttonName -> $("div.header-buttons ").find("button", text: buttonName) }

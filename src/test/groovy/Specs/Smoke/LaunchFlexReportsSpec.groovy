@@ -94,6 +94,9 @@ class LaunchFlexReportsSpec extends BaseSpec{
         } else {
             Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_TRIO_REPORT_COLUMN_LIST)
         }
+
+        page VariantReportPage
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
         driver.navigate().back()
 
         at ProjectsPage
@@ -167,6 +170,9 @@ class LaunchFlexReportsSpec extends BaseSpec{
         } else {
             Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_QUAD_REPORT_COLUMN_LIST)
         }
+
+        page VariantReportPage
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
         driver.navigate().back()
 
         at ProjectsPage
