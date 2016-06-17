@@ -19,6 +19,5 @@ class HeaderModule extends Module{
         opalAdminButton                           {$("span", text: "Opal Admin") }
         opalAdminTabs                             {String tabName -> $("div.container-fluid .row-fluid .admin-task-name", text: contains(tabName)) }
         userEmailOnHeaderPage                     {$("ul.pull-right").find(".login")[1]}
-        userName                                  {$(".dl-horizontal").find("dd")[1].text()}
     }
 }

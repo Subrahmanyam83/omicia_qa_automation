@@ -38,4 +38,9 @@ class HeaderPage extends BasePage{
         waitFor { header.opalAdminTabs(tabName) }
         click(header.opalAdminTabs(tabName), "Opal Admin Tab: " + tabName)
     }
+
+    def clickOnEmailOnHeaderPage(){
+        waitFor {header.userEmailOnHeaderPage}
+        click(header.userEmailOnHeaderPage,"Email on Header Page")
+    }
 }
