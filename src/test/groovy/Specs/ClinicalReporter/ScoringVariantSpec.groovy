@@ -160,7 +160,7 @@ class ScoringVariantSpec extends BaseSpec {
         clickSaveOrCancel(SAVE)
         Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
         clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(CLINVAR_OMIM_CONDITION_NAME, DELETE)
-        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), ONE)
 
         Assert.assertEquals(getInheritanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), NONE)
         Assert.assertEquals(getPrevalanceBasedOnCondition(CLINVAR_OMIM_CONDITION_NAME), PREVALANCE_VALUE)
@@ -394,7 +394,7 @@ class ScoringVariantSpec extends BaseSpec {
         waitTillYouAreInActiveTab(WORKSPACE_CONDITION_GENES)
         Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
         clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(FEVER, DELETE)
-        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), TWO)
+        Assert.assertEquals(getnumberOfWorkSpaceConditionRows(), ONE)
 
         clickPMIDBasedOnCondition(FEVER)
         withWindow(getAvailableWindows().getAt(1).toString()){
