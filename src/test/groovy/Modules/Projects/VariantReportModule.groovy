@@ -18,5 +18,10 @@ class VariantReportModule extends Module {
         dialogBox                   { $("#modal .modal-body")}
         closeButtonOfDialogBox      { $('.btn.btn-primary.close-button')}
         reportTableAppear           { $("li.pull-right .ajax-loading-fade.hide").filter('style':"display: none;")}
+
+        /*VAAST Viewer Page*/
+        yAxisLabel                  {$(".plot-box #vaast_plot_yaxis")}
+        xAxisLabel                  {$(".plot-box #vaast_plot_xaxis")}
+        vaastPlotOverview           {$(".plot-box #vaast_plot_overview")}
     }
 }

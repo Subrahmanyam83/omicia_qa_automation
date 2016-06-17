@@ -56,9 +56,11 @@ public interface Constants {
     String ACTIONS = "Actions"
     String DELETE = "Delete"
     String EDIT = "Edit"
+    String CHROMOSOME = "Chromosome"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
+    String UPLOAD = "Upload";
     String PROJECTS = "Projects";
     String PANEL_BUILDER = "Panel Builder";
     String CLINICAL_REPORTER = "Clinical Reporter";
@@ -91,6 +93,7 @@ public interface Constants {
     String VAAST_QUAD_REPORT = "VAAST Quad Report"
     String FLEX_TRIO_REPORT = "Flex Trio Report"
     String FLEX_QUAD_REPORT = "Flex Quad Report"
+    String VAAST_SCORE = "VAAST score"
 
     /*Variant Report Page*/
     String POSITION = ".position a";
@@ -231,6 +234,10 @@ public interface Constants {
     public List VAAST_QUAD_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
     public List FLEX_TRIO_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
     public List FLEX_QUAD_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
+
+    public String VAAST_VIEWER = "VAAST Viewer"
+    public String RESET_FILTERS = "Reset Filters"
+    public String EXPORT_REPORT = "Export Report"
 
     /*Scoring Variants*/
     public String SCORE_VARIANT = "Score Variant"
