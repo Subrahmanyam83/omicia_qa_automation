@@ -5,7 +5,6 @@ import Pages.Clinical_Reporter.ClinicalReporterPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
-import Pages.Login.OmiciaHomePage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Projects.VariantReportPage
@@ -36,10 +35,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -104,6 +100,21 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         Assert.assertEquals(getVVPCADDBasecOnVariant(TTLL10), data.VVP_CADD_VALUE)
         Assert.assertEquals(getVAASTVScoreBasedOnVariant(TTLL10), FOURTEEN_POINT_THREE_TWO)
         Assert.assertEquals(getVAASTGScoreBasedOnVariant(TTLL10), data.VAAST_G_SCORE_VALUE_DOMINANT)
+
+        page VariantReportPage
+        clickOnHeaderButton(VAAST_VIEWER)
+        withWindow(getAvailableWindows().getAt(1).toString()){
+            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyContentOnVAASTViewerPage()
+            driver.close()
+        }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_SOLO_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 
     @Test(groups = "smoke", priority = 2, description = "Launch VAAST Trio Analysis")
@@ -113,10 +124,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -173,6 +181,21 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         } else {
             Assert.assertEquals(getDefaultColumnNamesOnPage(), VAAST_TRIO_REPORT_COLUMN_LIST)
         }
+
+        page VariantReportPage
+        clickOnHeaderButton(VAAST_VIEWER)
+        withWindow(getAvailableWindows().getAt(1).toString()){
+            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyContentOnVAASTViewerPage()
+            driver.close()
+        }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_TRIO_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 
     @Test(groups = "smoke", priority = 3, description = "Launch VAAST Quad Analysis")
@@ -182,10 +205,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -243,5 +263,19 @@ class LaunchVAASTReportsSpec extends BaseSpec {
             Assert.assertEquals(getDefaultColumnNamesOnPage(), VAAST_QUAD_REPORT_COLUMN_LIST)
         }
 
+        page VariantReportPage
+        clickOnHeaderButton(VAAST_VIEWER)
+        withWindow(getAvailableWindows().getAt(1).toString()){
+            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyContentOnVAASTViewerPage()
+            driver.close()
+        }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_QUAD_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 }

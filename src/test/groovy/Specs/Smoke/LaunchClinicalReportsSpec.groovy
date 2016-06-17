@@ -5,7 +5,6 @@ import Pages.Filtering_Protocol.NewFilteringProtocolPage
 import Pages.Gene_Sets.GeneSetsPage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
-import Pages.Login.OmiciaHomePage
 import Pages.Panel_Builder.AddGenesToPanelPage
 import Pages.Panel_Builder.CuratePanelPage
 import Pages.Panel_Builder.PanelBuilderPage
@@ -39,10 +38,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, SHORT_FILE);
@@ -169,10 +165,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -254,10 +247,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -339,10 +329,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);

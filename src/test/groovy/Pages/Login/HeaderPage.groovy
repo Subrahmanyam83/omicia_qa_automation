@@ -1,6 +1,7 @@
 package Pages.Login
 
 import Modules.Login.HeaderModule
+import Modules.Login.HomeModule
 import Modules.Login.LoginModule
 import Utilities.Class.BasePage
 
@@ -14,6 +15,7 @@ class HeaderPage extends BasePage{
     static content = {
         header {module HeaderModule}
         login  {module LoginModule}
+        home {module HomeModule}
     }
 
     def clickOnMenuAndSelectOption(String pageName){
@@ -39,8 +41,60 @@ class HeaderPage extends BasePage{
         click(header.opalAdminTabs(tabName), "Opal Admin Tab: " + tabName)
     }
 
-    def clickOnEmailOnHeaderPage(){
-        waitFor {header.userEmailOnHeaderPage}
-        click(header.userEmailOnHeaderPage,"Email on Header Page")
+    def switchWorkspace(String workspace) {
+        waitFor { home.workSpaceDropDown }
+        click(home.workSpaceDropDown, "Workspace Drop Down")
+        waitFor { home.workSpaceDropDownValue(workspace) }
+        click(home.workSpaceDropDownValue(workspace), "Workspace Value on Drop Down")
+        waitFor { home.switchWorkspaceAlert("Selected workspace: " + workspace) }
+    }
+
+    def createNewWorkspace(String workspaceName, boolean switchworkspace = false) {
+        waitFor { home.workSpaceDropDown }
+        click(home.workSpaceDropDown, "Workspace Drop Down")
+        waitFor { home.createNewWorkspaceLink }
+        click(home.createNewWorkspaceLink, "Create New Workspace Button")
+
+        waitFor { home.createNewWorkspaceButton }
+        type(home.workspaceNameTextField, workspaceName, "WorkSpace Name Text Field")
+        click(home.createNewWorkspaceButton, "Create New Workspace Button")
+        waitFor { home.returnToListButton }
+        click(home.returnToListButton, "Return to List Button")
+        waitFor { home.newWorkspaceButton }
+        changePaginatorLevel()
+        waitFor { home.workSpaceRow(workspaceName) }
+        if (!switchworkspace.equals(false)) {
+            switchWorkspace(workspaceName)
+        }
+        waitFor { header.omiciaOpalHomePage }
+        click(header.omiciaOpalHomePage, "Header Logo")
+    }
+
+    def getNamesOfAllWorkSpaces() {
+        waitFor { home.workSpaceDropDown }
+        click(home.workSpaceDropDown, "Workspace Drop Down")
+        int numberOfWorkspaces = home.numberOfWorkSpacesRows.size();
+        List workspaceNames = new ArrayList()
+        for (int i = 0; i < numberOfWorkspaces; i++) {
+            workspaceNames.add(home.numberOfWorkSpacesRows[i].text())
+        }
+        click(home.workSpaceDropDown, "Workspace Drop Down")
+        return workspaceNames
+    }
+
+    def getWorkspaceIdBasedOnName(String workSpaceName) {
+        click(home.workSpaceDropDown, "Workspace Drop Down")
+        String workspaceId = home.workspaceIdBasedOnWorkspaceName(workSpaceName)
+        click(home.workSpaceDropDown, "Workspace Drop Down")
+        return workspaceId
+    }
+
+    def changePaginatorLevel(String value = HUNDRED) {
+        Thread.sleep(2000L)
+        if (home.paginatorDropDown.displayed) {
+            click(home.paginatorDropDown, "Paginator Drop Down value")
+            waitFor { home.paginatorDropDownValue(value) }
+            click(home.paginatorDropDownValue(value), "Paginator Drop Down value: " + value)
+        }
     }
 }
