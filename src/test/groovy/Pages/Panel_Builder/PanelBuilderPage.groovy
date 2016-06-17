@@ -49,11 +49,15 @@ class PanelBuilderPage extends BasePage{
     def deleteAllPanels() {
         Thread.sleep(3000L)
         while (!panelBuilder.numberOfPanelsOnWorkSpacePanel.equals(ZERO)) {
+            waitFor {panelBuilder.actionButton}
             click(panelBuilder.actionButton, "Action Button of Panel");
+            waitFor {panelBuilder.deletePanelUnderActionDropDpwn}
             click(panelBuilder.deletePanelUnderActionDropDpwn, "Delete Panel Aoption under Actions Drop Down")
+            waitFor {panelBuilder.deletePanelButtonOnDialog}
             click(panelBuilder.deletePanelButtonOnDialog, "Delete Button on Dialog");
+            waitFor {panelBuilder.closeButtonOnDialogWindow}
             click(panelBuilder.closeButtonOnDialogWindow, "Close button of the Delete Panel Dialog")
-            Thread.sleep(500)
+            Thread.sleep(1000)
         }
     }
 }
