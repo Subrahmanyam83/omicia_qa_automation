@@ -1,6 +1,5 @@
 package Specs.Smoke
 
-import Pages.App_Store.AnalysisHomePage
 import Pages.Clinical_Reporter.ClinicalReporterPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.HeaderPage
@@ -56,10 +55,10 @@ class LaunchFlexReportsSpec extends BaseSpec{
         waitTillAllVariantReportsAreAvailable()
         launchAppAndChooseValue(FLEX_TRIO_ANALYSIS)
 
-        at AnalysisHomePage
+        at AppStoreAnalysisHomePage
         page ClinicalReporterPage
         chooseGeneForEachMember(TRIO)
-        page AnalysisHomePage
+        page AppStoreAnalysisHomePage
         clickOnRun()
 
         at ProjectsPage
@@ -129,10 +128,10 @@ class LaunchFlexReportsSpec extends BaseSpec{
         waitTillAllVariantReportsAreAvailable()
         launchAppAndChooseValue(FLEX_QUAD_ANALYSIS)
 
-        at AnalysisHomePage
+        at AppStoreAnalysisHomePage
         page ClinicalReporterPage
         chooseGeneForEachMember(QUAD)
-        page AnalysisHomePage
+        page AppStoreAnalysisHomePage
         clickOnRun()
 
         at ProjectsPage
