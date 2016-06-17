@@ -76,29 +76,58 @@ class ProjectsHomePage extends BasePage{
         return projectsHome.publicProjectsTab.parent().has(".active")
     }
 
-    def projectSearch(String ProjectName){
+    def projectSearch(String SearchString){
         click(projectsHome.workspaceProjectsTab,"Workspace projects tab")
-        type(projectsHome.projectSearchTextField,ProjectName, "Project Search text field")
+        type(projectsHome.projectSearchTextField,SearchString, "Project Search text field")
         click(projectsHome.projectSearchButton,"Project Search button")
     }
 
-    def verifyProjectSearchResults(){
-        waitFor {projectsHome.projectsModalSubHeader}
-        return projectsHome.projectSearchResults
+    def verifyProjectSearchResults(String searchString){
+        waitFor {projectsHome.modalPopUp}
+        for(int i =0;i<projectsHome.projectSearchResults.size();i++) {
+            if (!projectsHome.projectSearchResults[i].text().contains(searchString)) {
+                return false
+            }
+            return true
+        }
     }
+
 
     def clickOnSearchModalCloseButton(){
-        click(projectsHome.searchModalCloseButton,"Search Modal close button")
+        click(projectsHome.modalCloseButton,"Search Modal close button")
     }
 
-    def createNewProject(String ProjectName){
+    def clickOnNewProjectButton(){
         click(projectsHome.newProjectButton,"New Project Button")
-        type(projectsHome.projectNameField,ProjectName,"Project Name")
-        click(projectsHome.createProjectButton,"Create Project button")
-        waitFor {projectsHome.projectSucessfullyCreatedAlert}
-        waitFor {projectsHome.closeButton}
-        click(projectsHome.closeButton,"Close button")
-        Thread.sleep(3000)
+    }
+
+    def createOrEditProject(String projectName,String description,boolean isShareProjectCheckboxRequired, boolean isProjectNameRequired, boolean isProjectDescriptionRequired, boolean isContributorsRole, String action){
+        waitFor {projectsHome.projectNameField}
+        if(isProjectNameRequired){
+            projectsHome.projectNameField.firstElement().clear()
+            type(projectsHome.projectNameField,projectName,"Project Name")
+        }
+        if(isProjectDescriptionRequired){
+            projectsHome.projectDescriptionTextField.firstElement().clear()
+            type(projectsHome.projectDescriptionTextField,description,"Project Description")
+        }
+        if(isShareProjectCheckboxRequired){
+            if(isContributorsRole){
+                click(projectsHome.contributorsRole, "As Contributors radio button")
+            }
+            click(projectsHome.shareProjectCheckbox,"Share Project checkbox")
+        }
+        if(action.equals("Create Project")||action.equals("Save")) {
+            waitFor {projectsHome.optionBasedOnCreateOrEditProject(action)}
+            click(projectsHome.optionBasedOnCreateOrEditProject(action), "Action button -> " + action)
+            waitFor { projectsHome.modalCloseButton }
+            click(projectsHome.modalCloseButton)
+        }
+        if(action.equals("Cancel")){
+            waitFor {projectsHome.optionBasedOnCreateOrEditProject(action)}
+            click(projectsHome.optionBasedOnCreateOrEditProject(action), "Action button -> "+action)
+        }
+
     }
 
     def clickActionsAndOptionBasedOnProject(String ProjectName, String option){
@@ -107,22 +136,26 @@ class ProjectsHomePage extends BasePage{
         click(projectsHome.optionActionsButton(option),"Action button -> "+ option)
     }
 
-    def editProjectBasedOnProjectName(String ProjectName, String Description){
-        waitFor { projectsHome.projectDescriptionTextField}
-        type(projectsHome.projectDescriptionTextField,Description,"Project Description text field")
-        click(projectsHome.saveButtonInEditProject,"Save button")
-        waitFor {projectsHome.projectSavedAlert}
-        click(projectsHome.closeButton,"Close button")
-    }
-
     def verifyEditedProjectDetails(String ProjectName){
         waitFor {projectsHome.projectDescBasedOnProjectName(ProjectName)}
         return projectsHome.projectDescBasedOnProjectName(ProjectName)
     }
 
     def verifyProjectNameOnProjectDetailsPopUp(){
-        return projectsHome.projectHeaderName
+        return projectsHome.projectHeaderName.trim()
     }
 
+    def verifyProjectDescOnProjectDetailsPopUp(){
+        return projectsHome.projectDescription.replaceAll("\n"," ").trim()
+    }
+
+    def verifyProjectContributorsOnProjectDetailsPopUp(){
+        return projectsHome.projectContributors.trim()
+    }
+
+    def clickCloseOnProjectDetailsPopUp(){
+        waitFor {projectsHome.modalCloseButton}
+        click(projectsHome.modalCloseButton,"Close Button")
+    }
 
 }
