@@ -12,7 +12,7 @@ import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
-import org.testng.Assert
+import Utilities.Validations.VerifyUtil
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -23,10 +23,12 @@ class LaunchFlexReportsSpec extends BaseSpec{
 
     SmokeTestData data = new SmokeTestData();
     public String PROJECT_NAME;
+    VerifyUtil verifyUtil;
 
     @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
         PROJECT_NAME = PROJECT__NAME + generateRandom()
+        verifyUtil = new VerifyUtil()
     }
 
     @Test(groups = "smoke",description = "Launch FLEX Trio Reports")
@@ -68,41 +70,41 @@ class LaunchFlexReportsSpec extends BaseSpec{
 
         at VariantReportPage
         waitForTheReportToAppearWithNoOpacity()
-        Assert.assertEquals(getReportHeading(), FLEX_TRIO_REPORT)
+        verifyUtil.verify(getReportHeading().equals(FLEX_TRIO_REPORT), "The Report Heading on Report Page is not equal to: "+FLEX_TRIO_REPORT)
 
         page VariantInterpretationHomePage
 
-        Assert.assertEquals(getNumberOfItems(), THREE)
+        verifyUtil.verify(getNumberOfItems().equals(THREE), "The Number of Items is not equal to: "+THREE)
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_TRIO_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(FLEX_TRIO_REPORT_COLUMN_LIST_GEL), "The Default Column Names are not equal to: "+FLEX_TRIO_REPORT_COLUMN_LIST_GEL)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_TRIO_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(FLEX_TRIO_REPORT_COLUMN_LIST), "The Default Column Names are not equal to: "+FLEX_TRIO_REPORT_COLUMN_LIST)
         }
-        Assert.assertEquals(getPositionDBSNPBasedOnVariant(TTLL10, ONE), data.POSITION_DBSNP_VALUE)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10, ONE), data.CHANGE_VALUE)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10, ONE), MISSENSE)
-        Assert.assertEquals(getVVPCADDBasecOnVariant(TTLL10, ONE), data.VVP_CADD_VALUE)
+        verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10, ONE).equals(data.POSITION_DBSNP_VALUE), "The Position DBSNP is not equal to: "+data.POSITION_DBSNP_VALUE)
+        verifyUtil.verify(getChangeBasedOnVariant(TTLL10, ONE).equals(data.CHANGE_VALUE), "The Change Based On Variant TTLL10 on is not equal to: "+data.CHANGE_VALUE)
+        verifyUtil.verify(getEffectBasedOnVariant(TTLL10, ONE).equals(MISSENSE), "The Effect Based on Variant TTLL10 is not equal to: "+MISSENSE)
+        verifyUtil.verify(getVVPCADDBasecOnVariant(TTLL10, ONE).equals(data.VVP_CADD_VALUE), "The VVPCADDB Based on Variant is not equal to: "+data.VVP_CADD_VALUE)
 
         page VariantReportPage
         clickOnHeaderButton(DE_NOVO)
         waitForTheReportToAppearWithNoOpacity()
-        Assert.assertEquals(getReportHeading(), FLEX_TRIO_REPORT)
+        verifyUtil.verify(getReportHeading().equals(FLEX_TRIO_REPORT), "The Report Heading on Report Page is not equal to: "+FLEX_TRIO_REPORT)
         page VariantInterpretationHomePage
-        Assert.assertEquals(getNumberOfItems(), ZERO)
+        verifyUtil.verify(getNumberOfItems().equals(ZERO), "The Number of Items is not equal to: "+ZERO+" in DE NOVO Tab")
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_TRIO_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(FLEX_TRIO_REPORT_COLUMN_LIST_GEL), "The Default Column Names is not equal to: "+FLEX_TRIO_REPORT_COLUMN_LIST_GEL)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_TRIO_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(FLEX_TRIO_REPORT_COLUMN_LIST), "The Default Column Name is not equal to: "+FLEX_TRIO_REPORT_COLUMN_LIST)
         }
 
         page VariantReportPage
-        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200), "The Response Code for Export Report Request is not equal to: "+200)
         driver.navigate().back()
 
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(FLEX_TRIO_REPORT)
-        Assert.equals(getNumberOfReports() == (reportSize-1))
+        verifyUtil.verify(getNumberOfReports().equals(reportSize -1), "The Number of Reports on Projects Page is not equal to: "+reportSize-1+" after deletion of the Report")
     }
 
     @Test(groups = "smoke",description = "Launch FLEX Quad Reports")
@@ -144,40 +146,40 @@ class LaunchFlexReportsSpec extends BaseSpec{
 
         at VariantReportPage
         waitForTheReportToAppearWithNoOpacity()
-        Assert.assertEquals(getReportHeading(), FLEX_QUAD_REPORT)
+        verifyUtil.verify(getReportHeading().equals(FLEX_QUAD_REPORT), "The Report Heading on Report Page is not equal to: "+FLEX_QUAD_REPORT)
 
         page VariantInterpretationHomePage
 
-        Assert.assertEquals(getNumberOfItems(), THREE)
+        verifyUtil.verify(getNumberOfItems().equals(THREE), "The Number of Items is not equal to: "+THREE)
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_QUAD_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(FLEX_QUAD_REPORT_COLUMN_LIST_GEL), "The Default Column Names are not equal to: "+FLEX_QUAD_REPORT_COLUMN_LIST_GEL)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_QUAD_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(FLEX_QUAD_REPORT_COLUMN_LIST), "The Default Column Names are not equal to: "+FLEX_QUAD_REPORT_COLUMN_LIST)
         }
-        Assert.assertEquals(getPositionDBSNPBasedOnVariant(TTLL10, ONE), data.POSITION_DBSNP_VALUE)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10, ONE), data.CHANGE_VALUE)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10, ONE), MISSENSE)
-        Assert.assertEquals(getVVPCADDBasecOnVariant(TTLL10, ONE), data.VVP_CADD_VALUE)
+        verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10, ONE).equals(data.POSITION_DBSNP_VALUE), "The Position DBSNP is not equal to: "+data.POSITION_DBSNP_VALUE)
+        verifyUtil.verify(getChangeBasedOnVariant(TTLL10, ONE).equals(data.CHANGE_VALUE), "The Change Based On Variant TTLL10 on is not equal to: "+data.CHANGE_VALUE)
+        verifyUtil.verify(getEffectBasedOnVariant(TTLL10, ONE).equals(MISSENSE), "The Effect Based on Variant TTLL10 is not equal to: "+MISSENSE)
+        verifyUtil.verify(getVVPCADDBasecOnVariant(TTLL10, ONE).equals(data.VVP_CADD_VALUE), "The VVPCADDB Based on Variant is not equal to: "+data.VVP_CADD_VALUE)
 
         page VariantReportPage
         clickOnHeaderButton(DE_NOVO)
         waitForTheReportToAppearWithNoOpacity()
-        Assert.assertEquals(getReportHeading(), FLEX_QUAD_REPORT)
+        verifyUtil.verify(getReportHeading().equals(FLEX_QUAD_REPORT), "The Report Heading on Report Page is not equal to: "+FLEX_QUAD_REPORT)
         page VariantInterpretationHomePage
-        Assert.assertEquals(getNumberOfItems(), ZERO)
+        verifyUtil.verify(getNumberOfItems().equals(ZERO), "The Number of Items is not equal to: "+ZERO+" in DE NOVO Tab")
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_QUAD_REPORT_COLUMN_LIST_GEL)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(FLEX_QUAD_REPORT_COLUMN_LIST_GEL), "The Default Column Names is not equal to: "+FLEX_QUAD_REPORT_COLUMN_LIST_GEL)
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), FLEX_QUAD_REPORT_COLUMN_LIST)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(FLEX_QUAD_REPORT_COLUMN_LIST), "The Default Column Name is not equal to: "+FLEX_QUAD_REPORT_COLUMN_LIST)
         }
 
         page VariantReportPage
-        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200), "The Response Code for Export Report Request is not equal to: "+200)
         driver.navigate().back()
 
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(FLEX_QUAD_REPORT)
-        Assert.equals(getNumberOfReports() == (reportSize-1))
+        verifyUtil.verify(getNumberOfReports().equals(reportSize -1), "The Number of Reports on Projects Page is not equal to: "+reportSize-1+" after deletion of the Report")
     }
 }

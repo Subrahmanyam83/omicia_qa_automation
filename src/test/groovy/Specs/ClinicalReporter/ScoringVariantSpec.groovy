@@ -19,7 +19,6 @@ import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.testng.Assert
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
@@ -456,7 +455,6 @@ class ScoringVariantSpec extends BaseSpec {
 
     @AfterMethod(alwaysRun = true)
     public void afterMethodExecution(){
-
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }
