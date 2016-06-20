@@ -6,7 +6,6 @@ import Pages.Filtering_Protocol.FilteringProtocolHomePage
 import Pages.Gene_Sets.GeneSetsPage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
-import Pages.Login.OmiciaHomePage
 import Pages.Panel_Builder.PanelBuilderPage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
@@ -30,9 +29,6 @@ class TearDownProcessSpec extends BaseSpec {
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
                 if (workspace.contains("ACMG_Automation_Workspace")) {
@@ -58,7 +54,7 @@ class TearDownProcessSpec extends BaseSpec {
             workSpaceList.each {
                 wid ->
                     try {
-                        go(System.getProperty("geb.build.baseUrl") + "/admin_tools/view_workspace?workspace_id=" + wid)
+                        go(System.getProperty("geb.build.baseUrl") + "admin_tools/view_workspace?workspace_id=" + wid)
                         page ManageWorkspacePage
                         goToTab(GROUPS)
                         clickOnCheckBoxUnderGroupsTab([CLINICAL_REPORTER_ACCESS])
@@ -79,29 +75,19 @@ class TearDownProcessSpec extends BaseSpec {
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
                 if (workspace.contains("ACMG_Automation_Workspace")) {
                     try {
                         id = getWorkspaceIdBasedOnName(workspace)
                         switchWorkspace(workspace)
-
-                        at HeaderPage
-                        goToHomePage()
-
-                        at OmiciaHomePage
-                        openTab(CLINICAL_REPORTER);
+                        clickOnMenuAndSelectOption(CLINICAL_REPORTER)
 
                         at ClinicalReporterPage
                         deleteAllClinicalReports()
 
                         at HeaderPage
                         goToHomePage()
-
-                        at OmiciaHomePage
                     }
                     catch (Throwable throwable) {
                         Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
@@ -118,9 +104,6 @@ class TearDownProcessSpec extends BaseSpec {
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
                 if (workspace.contains("ACMG_Automation_Workspace")) {
@@ -128,20 +111,13 @@ class TearDownProcessSpec extends BaseSpec {
                         if (workspace.contains("Automation")) {
                             id = getWorkspaceIdBasedOnName(workspace)
                             switchWorkspace(workspace)
-
-                            at HeaderPage
-                            goToHomePage()
-
-                            at OmiciaHomePage
-                            openTab(PANEL_BUILDER);
+                            clickOnMenuAndSelectOption(PANEL_BUILDER)
 
                             at PanelBuilderPage
                             deleteAllPanels()
 
                             at HeaderPage
                             goToHomePage()
-
-                            at OmiciaHomePage
                         }
                     }
                     catch (Throwable throwable) {
@@ -159,9 +135,6 @@ class TearDownProcessSpec extends BaseSpec {
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
                 if (workspace.contains("ACMG_Automation_Workspace")) {
@@ -169,20 +142,13 @@ class TearDownProcessSpec extends BaseSpec {
                         if (workspace.contains("Automation")) {
                             id = getWorkspaceIdBasedOnName(workspace)
                             switchWorkspace(workspace)
-
-                            at HeaderPage
-                            goToHomePage()
-
-                            at OmiciaHomePage
-                            openTab(GENE_SETS);
+                            clickOnMenuAndSelectOption(GENE_SETS)
 
                             at GeneSetsPage
                             deleteSets(MY_SET);
 
                             at HeaderPage
                             goToHomePage()
-
-                            at OmiciaHomePage
                         }
                     }
                     catch (Throwable throwable) {
@@ -200,29 +166,19 @@ class TearDownProcessSpec extends BaseSpec {
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
                 if (workspace.contains("ACMG_Automation_Workspace")) {
                     try {
                         id = getWorkspaceIdBasedOnName(workspace)
                         switchWorkspace(workspace)
-
-                        at HeaderPage
-                        goToHomePage()
-
-                        at OmiciaHomePage
-                        openTab(FILTERING_PROTOCOL);
+                        clickOnMenuAndSelectOption(FILTERING_PROTOCOL)
 
                         at FilteringProtocolHomePage
                         deleteAllFilteringProtocols()
 
                         at HeaderPage
                         goToHomePage()
-
-                        at OmiciaHomePage
                     }
                     catch (Throwable throwable) {
                         Assert.fail("Filtering Protocol Deletion Failed for WORKSPACE: " + workspace + " , WORKSPACE_ID: " + id);
@@ -239,21 +195,13 @@ class TearDownProcessSpec extends BaseSpec {
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         getNamesOfAllWorkSpaces().each {
             workspace ->
                 if (workspace.contains("ACMG_Automation_Workspace")) {
                     try {
                         id = getWorkspaceIdBasedOnName(workspace)
                         switchWorkspace(workspace)
-
-                        at HeaderPage
-                        goToHomePage()
-
-                        at OmiciaHomePage
-                        openTab(PROJECTS);
+                        clickOnMenuAndSelectOption(PROJECTS)
 
                         at ProjectsHomePage
                         def projectNames = getAllProjectNames();
@@ -268,8 +216,6 @@ class TearDownProcessSpec extends BaseSpec {
                         }
                         at HeaderPage
                         goToHomePage()
-
-                        at OmiciaHomePage
                     }
                     catch (Throwable throwable) {
                         Assert.fail("Project Deletion Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
@@ -281,7 +227,6 @@ class TearDownProcessSpec extends BaseSpec {
 
     @Test(priority = 7, description = "Remove test user from the Automation Workspaces", dependsOnMethods = "setupMethod")
     public void deleteUsersFromWorkspaces() {
-        String id;
         to LoginPage
         loginWithUser(ADMIN)
 

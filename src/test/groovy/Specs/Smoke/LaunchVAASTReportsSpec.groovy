@@ -5,7 +5,6 @@ import Pages.Clinical_Reporter.ClinicalReporterPage
 import Pages.Clinical_Reporter.VariantInterpretationHomePage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
-import Pages.Login.OmiciaHomePage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Projects.VariantReportPage
@@ -44,10 +43,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -112,6 +108,21 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         verifyUtil.verify(getVVPCADDBasecOnVariant(TTLL10).equals(data.VVP_CADD_VALUE),"VVPCADD of Variant: "+TTLL10+" is not equal to "+data.VVP_CADD_VALUE)
         verifyUtil.verify(getVAASTVScoreBasedOnVariant(TTLL10).equals(FOURTEEN_POINT_THREE_TWO),"VAASTV Score of Variant: "+TTLL10+" is not equal to "+FOURTEEN_POINT_THREE_TWO)
         verifyUtil.verify(getVAASTGScoreBasedOnVariant(TTLL10).equals(data.VAAST_G_SCORE_VALUE_DOMINANT),"VAASTG Score of Variant: "+TTLL10+" is not equal to "+data.VAAST_G_SCORE_VALUE_DOMINANT)
+
+        page VariantReportPage
+        clickOnHeaderButton(VAAST_VIEWER)
+        withWindow(getAvailableWindows().getAt(1).toString()){
+            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyContentOnVAASTViewerPage()
+            driver.close()
+        }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_SOLO_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 
     @Test(groups = "smoke", priority = 2, description = "Launch VAAST Trio Analysis")
@@ -122,10 +133,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -182,6 +190,21 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         } else {
             verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_TRIO_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching. Expected: "+ VAAST_TRIO_REPORT_COLUMN_LIST + "Actual: "+ getDefaultColumnNamesOnPage())
         }
+
+        page VariantReportPage
+        clickOnHeaderButton(VAAST_VIEWER)
+        withWindow(getAvailableWindows().getAt(1).toString()){
+            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyContentOnVAASTViewerPage()
+            driver.close()
+        }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_TRIO_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 
     @Test(groups = "smoke", priority = 3, description = "Launch VAAST Quad Analysis")
@@ -192,10 +215,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -253,11 +273,24 @@ class LaunchVAASTReportsSpec extends BaseSpec {
             verifyUtil.verify(getDefaultColumnNamesOnPage().equals(VAAST_QUAD_REPORT_COLUMN_LIST),"Variant Interpretation column names are not matching. Expected: "+ VAAST_QUAD_REPORT_COLUMN_LIST + "Actual: "+ getDefaultColumnNamesOnPage())
         }
 
+        page VariantReportPage
+        clickOnHeaderButton(VAAST_VIEWER)
+        withWindow(getAvailableWindows().getAt(1).toString()){
+            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyContentOnVAASTViewerPage()
+            driver.close()
+        }
+        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        driver.navigate().back()
+
+        at ProjectsPage
+        int reportSize = getNumberOfReports()
+        deleteReport(VAAST_QUAD_REPORT)
+        Assert.equals(getNumberOfReports() == (reportSize-1))
     }
 
     @AfterMethod(alwaysRun = true)
     public void afterMethodExecution(){
-
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }

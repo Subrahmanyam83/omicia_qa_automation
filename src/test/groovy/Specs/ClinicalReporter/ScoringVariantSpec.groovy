@@ -49,12 +49,7 @@ class ScoringVariantSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         createNewWorkspace(WORKSPACE_NAME)
-
-        at HeaderPage
         signOut()
 
         to LoginPage
@@ -85,12 +80,7 @@ class ScoringVariantSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         switchWorkspace(WORKSPACE_NAME)
-
-        at HeaderPage
         goToHomePage()
 
         at OmiciaHomePage
@@ -255,12 +245,7 @@ class ScoringVariantSpec extends BaseSpec {
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
         switchWorkspace(WORKSPACE_NAME)
-
-        at HeaderPage
         goToHomePage()
 
         at OmiciaHomePage

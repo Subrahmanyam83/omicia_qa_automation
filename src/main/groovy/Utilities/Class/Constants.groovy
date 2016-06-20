@@ -57,9 +57,11 @@ public interface Constants {
     String ACTIONS = "Actions"
     String DELETE = "Delete"
     String EDIT = "Edit"
+    String CHROMOSOME = "Chromosome"
 
     /*Home Page*/
     String UPLOAD_GENOMES = "Upload Genomes";
+    String UPLOAD = "Upload";
     String PROJECTS = "Projects";
     String PANEL_BUILDER = "Panel Builder";
     String CLINICAL_REPORTER = "Clinical Reporter";
@@ -92,6 +94,7 @@ public interface Constants {
     String VAAST_QUAD_REPORT = "VAAST Quad Report"
     String FLEX_TRIO_REPORT = "Flex Trio Report"
     String FLEX_QUAD_REPORT = "Flex Quad Report"
+    String VAAST_SCORE = "VAAST score"
 
     /*Variant Report Page*/
     String POSITION = ".position a";
@@ -221,7 +224,7 @@ public interface Constants {
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"
 
-    /*Report Page*/
+    /*Variant Report Page*/
     public List VAAST_SOLO_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
     public List VAAST_TRIO_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
     public List VAAST_QUAD_REPORT_COLUMN_LIST = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
@@ -232,6 +235,11 @@ public interface Constants {
     public List VAAST_QUAD_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence", "VAAST Rank", "VAAST V-Score", "VAAST G-Score"].sort()
     public List FLEX_TRIO_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
     public List FLEX_QUAD_REPORT_COLUMN_LIST_GEL = ["Review Priority", "Gene", "Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Sibling Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "VVP CADD", "Evidence"].sort()
+
+    public String VAAST_VIEWER = "VAAST Viewer"
+    public String RESET_FILTERS = "Reset Filters"
+    public String EXPORT_REPORT = "Export Report"
+    public String VAAST_VIEWER_REQUEST_APPENDER = "/variants/export?inheritance=RECESSIVE&filter=%7B%22description%22%3Anull%2C%22quality%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22coverage%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22frequency%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22evsfrequency%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22exacfrequency%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22sift%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22omiscore%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22chrom%22%3Anull%2C%22zygosity%22%3A%22%22%2C%22mutationtype%22%3A%22%22%2C%22regulatory%22%3Afalse%2C%22refseq%22%3Afalse%2C%22ccds%22%3Afalse%2C%22in-report%22%3Afalse%2C%22dbsnp%22%3Afalse%2C%22nocall%22%3Atrue%2C%22intronic%22%3Afalse%2C%22intergenic%22%3Afalse%2C%22filterFail%22%3Atrue%2C%22filterNone%22%3Afalse%2C%22noncoding%22%3Atrue%2C%22polymorph%22%3Afalse%2C%22omimhits%22%3Afalse%2C%22clinvarhits%22%3Afalse%2C%22allhits%22%3Afalse%2C%22consequence%22%3A%22nonsynonymous%22%2C%22chromStart%22%3Anull%2C%22chromEnd%22%3Anull%2C%22genesymbol%22%3A%5B%5D%2C%22rsid%22%3A%5B%5D%2C%22abratio%22%3Anull%2C%22panel%22%3A%22%22%2C%22gq%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22vvpscore%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22cadd%22%3A%7B%22min%22%3Anull%2C%22max%22%3Anull%7D%2C%22include_gene_sets%22%3A%5B%5D%2C%22exclude_gene_sets%22%3A%5B%5D%2C%22kp%22%3Afalse%2C%22lp%22%3Afalse%2C%22vus%22%3Afalse%2C%22benign%22%3Afalse%2C%22likely_benign%22%3Afalse%2C%22assoc%22%3Afalse%2C%22no_class%22%3Afalse%2C%22unique_variants%22%3A%7B%22genomes%22%3A%7B%7D%2C%22match_allele%22%3Atrue%2C%22match_zygosity%22%3Atrue%7D%2C%22shared_variants%22%3A%7B%22genomes%22%3A%7B%7D%2C%22match_allele%22%3Atrue%2C%22match_zygosity%22%3Atrue%7D%7D"
 
     /*Scoring Variants*/
     public String SCORE_VARIANT = "Score Variant"

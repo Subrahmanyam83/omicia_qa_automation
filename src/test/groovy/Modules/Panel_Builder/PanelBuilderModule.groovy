@@ -17,8 +17,8 @@ class PanelBuilderModule extends Module{
         paginatorDropDownValue                          { String value -> $(".active div.btn-group.paginator.limit.open li a span", text: value) }
 
         /*Panel Builder Home Page*/
-        actionButton                                    { $('.btn.btn-mini.dropdown-toggle.action-button') }
-        deletePanelUnderActionDropDpwn                  { $(".btn-group.pull-right.open .dropdown-menu .delete-panel") }
+        actionButton                                    { $('.btn.btn-mini.dropdown-toggle.action-button',text:contains("Actions")) }
+        deletePanelUnderActionDropDpwn                  { $(".btn-group.pull-right.open .dropdown-menu .delete-panel",text:contains("Delete Panel")) }
         deletePanelButtonOnDialog                       { $('.btn.btn-danger.close-button', text: "Delete") }
         closeButtonOnDialogWindow                       { $('.btn.btn-primary.close-button', text: "Close") }
         panelRowBasedOnPanelName                        { String panelName -> $("tr.paginator-row td a", text: panelName) }

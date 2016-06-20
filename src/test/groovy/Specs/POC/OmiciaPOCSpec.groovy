@@ -2,7 +2,6 @@ package Specs.POC
 
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
-import Pages.Login.OmiciaHomePage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Upload_Genomes.UploadGenomePage
@@ -30,10 +29,7 @@ class OmiciaPOCSpec extends BaseSpec{
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES)
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(NewProjectName, true, true, smokeData.SHORT_FILE);
@@ -60,10 +56,7 @@ class OmiciaPOCSpec extends BaseSpec{
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openUploadGenomes();
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(NewProjectName, false, false, NONE);
