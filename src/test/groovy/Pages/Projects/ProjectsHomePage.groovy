@@ -84,11 +84,22 @@ class ProjectsHomePage extends BasePage{
 
     def verifyProjectSearchResults(String searchString){
         waitFor {projectsHome.modalPopUp}
-        for(int i =0;i<projectsHome.projectSearchResults.size();i++) {
-            if (!projectsHome.projectSearchResults[i].text().contains(searchString)) {
-                return false
+        if(!projectsHome.noSearchResults){
+            if(projectsHome.projectsSubHeaderInSearchModal){
+                for(int i =0;i<projectsHome.projectSearchResultsCount.size();i++) {
+                    if (!projectsHome.projectSearchResultsCount[i].text().contains(searchString)) {
+                        return false
+                    }
+                    return true
+                }
+            }else if(projectsHome.genomeSubHeaderInSearchModal){
+
             }
-            return true
+
+        }else{
+
+            click(projectsHome.modalCloseButton, "Close Button")
+            return projectsHome.noSearchResults.text().trim()
         }
     }
 
