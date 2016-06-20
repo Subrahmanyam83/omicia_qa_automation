@@ -38,8 +38,8 @@ class ManageWorkspaceModule extends Module {
         numberOfPOAccounts              { $('.po-accounts-div tbody tr').size() }
 
         /*Members*/
-        membersTableSize                {$("#members-table tbody tr").size()}
-        deleteButton                    {$(".remove-member")}
+        membersTableSize                { $("#members-table tbody tr").size() }
+        deleteButton                    { $(".remove-member") }
 
 
     }
