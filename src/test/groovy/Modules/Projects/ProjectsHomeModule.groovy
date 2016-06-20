@@ -8,7 +8,7 @@ import geb.Module
 class ProjectsHomeModule extends Module{
 
     static content = {
-        projectNameColumn                                   {$(".project-name-column",text:contains("Project Name"))}
+        projectNameColumn                {$(".project-name-column",text:contains("Project Name"))}
 
         genomeCountBasedOnProjectName                       {String projectName-> $("div",'data-name':projectName).parent().parent().find("td div.genome_count").text()}
         projectButton                                       {String projectName-> $('div.project-link.truncate','data-name':projectName)}

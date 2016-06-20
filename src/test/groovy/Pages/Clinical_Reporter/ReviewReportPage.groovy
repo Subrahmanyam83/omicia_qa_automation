@@ -18,10 +18,12 @@ class ReviewReportPage extends BasePage {
     }
 
     def getNumberOfPrimaryFindingReports() {
+        waitFor {reviewReport.primaryReportsHeading}
         return reviewReport.primaryFindingReports
     }
 
     def getNumberOfSecondaryFindingReports() {
+        waitFor {reviewReport.secondaryReportsHeading}
         return reviewReport.secondaryFindingReports
     }
 
@@ -30,7 +32,8 @@ class ReviewReportPage extends BasePage {
     }
 
     def getResponseCodeForPreviewPDF() {
-        String url = "http://test1.omicia-private.com/clinical_report/" + getClinicalReportId() + "/preview";
+        waitFor {reviewReport.previewPDFButton}
+        String url = System.getProperty("geb.build.baseUrl")+"clinical_report/" + getClinicalReportId() + "/preview";
         return getResponseCode(url);
     }
 
