@@ -12,7 +12,6 @@ import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.testng.Assert
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
@@ -112,17 +111,17 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
         withWindow(getAvailableWindows().getAt(1).toString()){
-            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyUtil.verify(driver.getCurrentUrl(),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
-        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()
 
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_SOLO_REPORT)
-        Assert.equals(getNumberOfReports() == (reportSize-1))
+        verifyUtil.verify(reportSize-1.equals(getNumberOfReports()),"The Number of SOLO Reports after deletion is not reducing")
     }
 
     @Test(groups = "smoke", priority = 2, description = "Launch VAAST Trio Analysis")
@@ -194,17 +193,17 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
         withWindow(getAvailableWindows().getAt(1).toString()){
-            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyUtil.verify(driver.getCurrentUrl(),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
-        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()
 
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_TRIO_REPORT)
-        Assert.equals(getNumberOfReports() == (reportSize-1))
+        verifyUtil.verify(reportSize-1.equals(getNumberOfReports()),"The Number of TRIO Reports after deletion is not reducing")
     }
 
     @Test(groups = "smoke", priority = 3, description = "Launch VAAST Quad Analysis")
@@ -276,17 +275,17 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
         withWindow(getAvailableWindows().getAt(1).toString()){
-            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyUtil.verify(driver.getCurrentUrl(),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
-        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()
 
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_QUAD_REPORT)
-        Assert.equals(getNumberOfReports() == (reportSize-1))
+        verifyUtil.verify(reportSize-1.equals(getNumberOfReports()),"The Number of TRIO Reports after deletion is not reducing")
     }
 
     @AfterMethod(alwaysRun = true)
