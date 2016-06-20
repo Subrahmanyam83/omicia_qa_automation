@@ -28,12 +28,12 @@ class ProjectsHomeModule extends Module{
         modalPopUp                                          {$(".modal-overflow")}
         projectSearchResultsCount                           {$(".found-results tbody tr.found-project")}
         projectSearchResults                                {String index -> projectSearchResultsCount[index].find("a").text()}
-
         modalCloseButton                                    {$(".close-button")}
         noSearchResults                                     {$(".found-results",text:"No results found.")}
         projectsSubHeaderInSearchModal                      {$(".found-results h4",text:"Projects")}
         genomeSubHeaderInSearchModal                        {$(".found-results h4",text:"Genomes")}
-        genomeSearchResults
+        genomeSearchResultsCount                            {$(".found-results tbody tr.found-genome")}
+        genomeSearchResults                                 {String index -> genomeSearchResultsCount[index].find("a").text()}
 
         //Create New Project Modal Window
         newProjectButton                                    {$("#new_project_button")}
