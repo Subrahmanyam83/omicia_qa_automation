@@ -19,27 +19,29 @@ class ProjectsHomeModule extends Module{
         createdByBasedOnProjectName                         {String projectName-> $("div",'data-name':projectName).parent().parent().find("td span.truncate").text()}
         dateCreatedBasedOnProjectName                       {String projectName-> $("div",'data-name':projectName).parent().parent().find("td")[3].text()}
         dateModifiedBasedOnProjectName                      {String projectName-> $("div",'data-name':projectName).parent().parent().find("td")[4].text()}
+        projectDescriptionBasedOnProjectName                {String projectName-> $("div",'data-name':projectName).parent().parent().find("td.project-description-column div").text()}
 
        //Project Search
-        publicProjectsTab                                   {$("a",text: "Public Projects")}
-        workspaceProjectsTab                                {$("a",text:'Workspace Projects')}
+        projectsTab                                         {String tabName-> $("a",text:contains(tabName))}
+        activeProjectTab                                    {String tabName-> $("li.active a",text:contains(tabName))}
         projectSearchTextField                              {$("input.search-query")}
         projectSearchButton                                 {$("button.search-btn")}
         modalPopUp                                          {$(".modal-overflow")}
         projectSearchResultsCount                           {$(".found-results tbody tr.found-project")}
-        projectSearchResults                                {String index -> projectSearchResultsCount[index].find("a").text()}
-        modalCloseButton                                    {$(".close-button")}
-        noSearchResults                                     {$(".found-results",text:"No results found.")}
-        projectsSubHeaderInSearchModal                      {$(".found-results h4",text:"Projects")}
+        projectSearchResults                                {int index -> projectSearchResultsCount[index].find("a").text()}
+        modalCloseButton                                    {$("button.close-button",text:"Close")}
+        modalCloseIcon                                      {$("div.modal-scrollable button.close")}
+        noSearchResults                                     {$(".found-results")}
+        projectsSubHeaderInSearchModal                      {$(".found-results h4")}
         genomeSubHeaderInSearchModal                        {$(".found-results h4",text:"Genomes")}
         genomeSearchResultsCount                            {$(".found-results tbody tr.found-genome")}
-        genomeSearchResults                                 {String index -> genomeSearchResultsCount[index].find("a").text()}
+        genomeSearchResults                                 {int index -> genomeSearchResultsCount[index].find("a").text()}
 
         //Create New Project Modal Window
-        newProjectButton                                    {$("#new_project_button")}
+        newProjectButton                                    {$("#new-project")}
         projectNameField                                    {$("#project_name")}
         shareProjectCheckbox                                {$("#share-project-checkbox")}
-        contributorsRole                                    {$("contributor-radio")}
+        contributorsRole                                    {$("#contributor-radio")}
         editProjectCancelButton                             {$(".cancel-button")}
         optionBasedOnCreateOrEditProject                    {String option-> $("#modal .btn",text: option)}
         projectSucessfullyCreatedAlert                      {$(".alert-text",text: "Project successfully created!")}
@@ -50,7 +52,6 @@ class ProjectsHomeModule extends Module{
         //Edit Project
         projectDescriptionTextField                         {$("#description")}
         projectSavedAlert                                   {$(".alert-text",text: "Project saved!")}
-        projectDescBasedOnProjectName                       {String projectName-> $("div",'data-name':projectName).parent().parent().find("td div",title: contains('Description:')).text()}
 
         //Project Details Page
         projectHeaderName                                   {$("h3.modal-title").text()}

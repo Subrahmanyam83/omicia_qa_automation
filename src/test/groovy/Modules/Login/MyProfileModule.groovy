@@ -9,7 +9,7 @@ class MyProfileModule  extends Module {
 
     static content = {
 
-        myProfileHeaderText                       {$(".offset2 legend",text:"My Profile")}
+        myProfileHeaderText                       {$(".offset2 legend a",text: "Manage Workspaces")}
         userName                                  {$(".dl-horizontal").find("dd")[1].text()}
     }
 }

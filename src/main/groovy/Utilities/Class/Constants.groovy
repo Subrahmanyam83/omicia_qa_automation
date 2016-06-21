@@ -292,5 +292,23 @@ public interface Constants {
     /*Group Tab*/
     public String CLINICAL_REPORTER_ACCESS = "Clinical Reporter access"
 
+    /*Projects Home Page*/
+    public String PROJECT_DESCRIPTION_1 = "Sample 1"
+    public String PROJECT_DESCRIPTION_2 = "Sample 2"
+    public String PROJECT_DESCRIPTION_3 = "Sample 3"
+    public String PROJECT_DESCRIPTION_4 = "Sample 4"
+    public String CREATE_ACTION = "Create Project"
+    public String INVALID_SEARCH_STRING = "qwerty"
+    public String VALID_SEARCH_STRING = "4"
+    public String EDIT_PROJECT_OPTION = "Edit Project"
+    public String PROJECT_DETAILS_OPTION = "Project Details"
+    public String SHARE_PROJECT_OPTION = "Share Project"
+    public String EDIT_PROJECT_NAME = "Test Project 1"
+    public String EDIT_PROJECT_DESCRIPTION = "Sample Edit 1"
+    public String PUBLIC_PROJECTS = "Public Projects"
+    public String WORKSPACE_PROJECTS = "Workspace Projects"
+
+
+
 
 }

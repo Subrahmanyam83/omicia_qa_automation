@@ -56,7 +56,11 @@ class ProjectsHomePage extends BasePage{
 
     def verifyProjectIsDisplayed(String ProjectName){
         waitFor {projectsHome.projectNameInProjectTable(ProjectName)}
-        return projectsHome.projectNameInProjectTable(ProjectName).isDisplayed()
+        return projectsHome.projectNameInProjectTable(ProjectName).displayed
+    }
+
+    def getProjectDescriptionBasedOnProjectName(String ProjectName){
+        return projectsHome.projectDescriptionBasedOnProjectName(ProjectName)
     }
 
     def getCreatedByTextBasedOnProjectName(String ProjectName){
@@ -71,41 +75,51 @@ class ProjectsHomePage extends BasePage{
         return projectsHome.dateModifiedBasedOnProjectName(ProjectName)
     }
 
-    def clickAndCheckActiveStatusonPublicProjectsTab(){
-        click(projectsHome.publicProjectsTab,"Public Projects tab")
-        return projectsHome.publicProjectsTab.parent().has(".active")
+    def clickOnTab(String tabName){
+        waitFor {projectsHome.projectsTab(tabName)}
+        click(projectsHome.projectsTab(tabName),tabName+" Projects tab")
+        waitFor {projectsHome.activeProjectTab(tabName)}
     }
 
-    def projectSearch(String SearchString){
+    def clickOnWorkSpaceProjectsTab(){
+        waitFor {projectsHome.workspaceProjectsTab}
         click(projectsHome.workspaceProjectsTab,"Workspace projects tab")
+    }
+    def projectSearch(String SearchString){
+        projectsHome.projectSearchTextField.firstElement().clear()
         type(projectsHome.projectSearchTextField,SearchString, "Project Search text field")
         click(projectsHome.projectSearchButton,"Project Search button")
     }
 
     def verifyProjectSearchResults(String searchString){
         waitFor {projectsHome.modalPopUp}
-        if(!projectsHome.noSearchResults){
-            if(projectsHome.projectsSubHeaderInSearchModal){
-                for(int i =0;i<projectsHome.projectSearchResultsCount.size();i++) {
-                    if (!projectsHome.projectSearchResultsCount[i].text().contains(searchString)) {
-                        return false
-                    }
-                    return true
+        String noResults
+        List searchResults = new ArrayList()
+        if(projectsHome.noSearchResults.text().contains("Projects")){
+            int projectSize = projectsHome.projectSearchResultsCount.size()
+                for(int i =0;i<projectSize;i++) {
+                    searchResults.add(projectsHome.projectSearchResults(i))
                 }
-            }else if(projectsHome.genomeSubHeaderInSearchModal){
-
+            if(projectsHome.noSearchResults.text().contains("Genomes")){
+                int genomeSize = projectsHome.genomeSearchResultsCount.size()
+                for(int i =0;i<genomeSize;i++) {
+                    searchResults.add(projectsHome.genomeSearchResults(i))
+                }
             }
-
         }else{
-
-            click(projectsHome.modalCloseButton, "Close Button")
-            return projectsHome.noSearchResults.text().trim()
+            noResults = projectsHome.noSearchResults.text().trim()
+            searchResults.add(noResults)
+            click(projectsHome.modalCloseButton,"Modal close button")
+            return searchResults
         }
+
+        click(projectsHome.modalCloseButton,"Modal close button")
+        return searchResults.sort()
     }
 
-
-    def clickOnSearchModalCloseButton(){
-        click(projectsHome.modalCloseButton,"Search Modal close button")
+    def clickOnModalCloseIcon(){
+        waitFor {projectsHome.modalCloseIcon}
+        click(projectsHome.modalCloseIcon,"Modal close Icon")
     }
 
     def clickOnNewProjectButton(){
@@ -124,15 +138,17 @@ class ProjectsHomePage extends BasePage{
         }
         if(isShareProjectCheckboxRequired){
             if(isContributorsRole){
+                click(projectsHome.shareProjectCheckbox,"Share Project checkbox")
                 click(projectsHome.contributorsRole, "As Contributors radio button")
+            }else {
+                click(projectsHome.shareProjectCheckbox, "Share Project checkbox")
             }
-            click(projectsHome.shareProjectCheckbox,"Share Project checkbox")
         }
         if(action.equals("Create Project")||action.equals("Save")) {
             waitFor {projectsHome.optionBasedOnCreateOrEditProject(action)}
             click(projectsHome.optionBasedOnCreateOrEditProject(action), "Action button -> " + action)
             waitFor { projectsHome.modalCloseButton }
-            click(projectsHome.modalCloseButton)
+            click(projectsHome.modalCloseButton,"Close button")
         }
         if(action.equals("Cancel")){
             waitFor {projectsHome.optionBasedOnCreateOrEditProject(action)}
@@ -144,16 +160,13 @@ class ProjectsHomePage extends BasePage{
     def clickActionsAndOptionBasedOnProject(String ProjectName, String option){
         waitFor { projectsHome.actionsBasedOnProjectName(ProjectName).displayed }
         click(projectsHome.actionsBasedOnProjectName(ProjectName),"Actions button")
+        Thread.sleep(2000)
         click(projectsHome.optionActionsButton(option),"Action button -> "+ option)
     }
 
-    def verifyEditedProjectDetails(String ProjectName){
-        waitFor {projectsHome.projectDescBasedOnProjectName(ProjectName)}
-        return projectsHome.projectDescBasedOnProjectName(ProjectName)
-    }
-
     def verifyProjectNameOnProjectDetailsPopUp(){
-        return projectsHome.projectHeaderName.trim()
+        waitFor {projectsHome.projectHeaderName}
+        return projectsHome.projectHeaderName.replaceAll("Project:"," ").trim()
     }
 
     def verifyProjectDescOnProjectDetailsPopUp(){
@@ -162,11 +175,6 @@ class ProjectsHomePage extends BasePage{
 
     def verifyProjectContributorsOnProjectDetailsPopUp(){
         return projectsHome.projectContributors.trim()
-    }
-
-    def clickCloseOnProjectDetailsPopUp(){
-        waitFor {projectsHome.modalCloseButton}
-        click(projectsHome.modalCloseButton,"Close Button")
     }
 
 }
