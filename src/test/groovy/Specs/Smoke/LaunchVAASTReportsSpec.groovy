@@ -34,7 +34,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         verifyUtil = new VerifyUtil()
     }
 
-    @Test(groups = "smoke", priority = 1, description = "Launch VAAST Solo Analysis")
+    @Test(groups = ["smoke", "functional"], priority = 1, description = "Launch VAAST Solo Analysis")
     public void launchVAASTSoloAnalysis(Method method) {
 
         String projectId, reportId;
@@ -128,7 +128,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of SOLO Reports after deletion is not reducing")
     }
 
-    @Test(groups = "smoke", priority = 2, description = "Launch VAAST Trio Analysis")
+    @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch VAAST Trio Analysis")
     public void launchVAASTTrioAnalysis(Method method) {
 
         currentMethod = method.name
@@ -210,7 +210,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of TRIO Reports after deletion is not reducing")
     }
 
-    @Test(groups = "smoke", priority = 3, description = "Launch VAAST Quad Analysis")
+    @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch VAAST Quad Analysis")
     public void launchVAASTQuadAnalysis(Method method) {
 
         currentMethod = method.name

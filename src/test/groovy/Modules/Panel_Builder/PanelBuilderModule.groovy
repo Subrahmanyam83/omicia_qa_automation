@@ -15,7 +15,7 @@ class PanelBuilderModule extends Module{
         loadingPanelText                                { $("#loading", text: contains("Loading panels...")) }
         activePaginatorButton                           { $(".active div.btn-group.paginator.limit .btn") }
         paginatorDropDownValue                          { String value -> $(".active div.btn-group.paginator.limit.open li a span", text: value) }
-        panelLoadingBarWithDisplayNone                  { $(".ajax-loading-fade.hide").filter('style':"display: none;")}
+        panelLoadingBarWithDisplayNone                  { $(".ajax-loading-fade.hide").filter('alt':"Loading...")}
 
         /*Panel Builder Home Page*/
         actionButton                                    { $('.btn.btn-mini.dropdown-toggle.action-button',text:contains("Actions")) }

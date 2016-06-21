@@ -35,7 +35,7 @@ class LaunchFlexReportsSpec extends BaseSpec{
         verifyUtil = new VerifyUtil()
     }
 
-    @Test(groups = "smoke",description = "Launch FLEX Trio Reports")
+    @Test(groups = ["smoke", "functional"],description = "Launch FLEX Trio Reports")
     public void launchFlexTrioReports(Method method) {
 
         currentMethod = method.name
@@ -112,7 +112,7 @@ class LaunchFlexReportsSpec extends BaseSpec{
         verifyUtil.verify(getNumberOfReports().equals(reportSize -1), "The Number of Reports on Projects Page is not equal to: "+reportSize-1+" after deletion of the Report")
     }
 
-    @Test(groups = "smoke",description = "Launch FLEX Quad Reports")
+    @Test(groups = ["smoke", "functional"],description = "Launch FLEX Quad Reports")
     public void launchFlexQuadReports(Method method) {
 
         currentMethod = method.name

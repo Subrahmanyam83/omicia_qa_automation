@@ -37,7 +37,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil = new VerifyUtil()
     }
 
-    @Test(groups = "smoke", priority = 1, description = "Launch End to End Panel Report")
+    @Test(groups = ["smoke", "functional"], priority = 1, description = "Launch End to End Panel Report")
     public void launchEndToEndPanelReport(Method method) {
 
         currentMethod = method.name;
@@ -168,7 +168,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200");
     }
 
-    @Test(groups = "smoke", priority = 2, description = "Launch Solo Report")
+    @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch Solo Report")
     public void launchSoloReport(Method method) {
 
         currentMethod = method.name;
@@ -251,7 +251,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
     }
 
-    @Test(groups = "smoke", priority = 3, description = "Launch Trio Report")
+    @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch Trio Report")
     public void launchTrioReport(Method method) {
 
         currentMethod = method.name;
@@ -334,7 +334,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
     }
 
-    @Test(groups = "smoke", priority = 4, description = "Launch Quad Report")
+    @Test(groups = ["smoke", "functional"], priority = 4, description = "Launch Quad Report")
     public void launchQuadReport(Method method) {
 
         currentMethod = method.name
