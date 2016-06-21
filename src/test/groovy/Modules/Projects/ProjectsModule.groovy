@@ -19,10 +19,11 @@ class ProjectsModule extends Module{
         deleteGenomesButton                 { $(".btn.btn-danger",text:contains("Delete Genome(s)"))}
         genomesDeletedConfirmationText      { $("#nothing-found",text:contains("No Genomes to display"))}
         deleteProjectButton                 { $(".btn.btn-danger.close-button",text:"Delete Project")}
+        closeButtonOnDialogPopup            { $(".btn",text:contains("Close"))}
         getNumberOfGenes                    { $("#genome-list tr").size()}
-        noGenomesToDisplay(required:false)  { $('#nothing-found')}
+        noGenomesToDisplay(required:false)  { $('#nothing-found',text:contains("No Genomes to display."))}
         availableVariantReports             { $("#genome-list tr td.report-table.report-type a", text: contains("Report")).size() }
-        launchApp                           { $(".launch-app") }
+        launchApp                           { $(".launch-app",text:contains("Launch App")) }
         dropDownMenuValue                   { String value -> $("ul.dropdown-menu li a", text: contains(value)) }
         numberOfVariantReports              { $("td.report-table.report-type").size() }
         variantReportType                   { String value -> $("td.report-type a", text: contains(value)) }

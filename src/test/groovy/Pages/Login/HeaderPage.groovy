@@ -71,21 +71,21 @@ class HeaderPage extends BasePage{
     }
 
     def getNamesOfAllWorkSpaces() {
-        waitFor { home.workSpaceDropDown }
-        click(home.workSpaceDropDown, "Workspace Drop Down")
         int numberOfWorkspaces = home.numberOfWorkSpacesRows.size();
         List workspaceNames = new ArrayList()
         for (int i = 0; i < numberOfWorkspaces; i++) {
             workspaceNames.add(home.numberOfWorkSpacesRows[i].text())
         }
-        click(home.workSpaceDropDown, "Workspace Drop Down")
         return workspaceNames
     }
 
+    def clickOnWorkspaceDropDown(){
+        waitFor {home.workSpaceDropDown}
+        click(home.workSpaceDropDown, "Workspace Drop Down")
+    }
+
     def getWorkspaceIdBasedOnName(String workSpaceName) {
-        click(home.workSpaceDropDown, "Workspace Drop Down")
         String workspaceId = home.workspaceIdBasedOnWorkspaceName(workSpaceName)
-        click(home.workSpaceDropDown, "Workspace Drop Down")
         return workspaceId
     }
 

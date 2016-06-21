@@ -99,7 +99,7 @@ class ScoringVariantSpec extends BaseSpec {
 
         at PanelBuilderPage
         createNewPanel(data.PANEL_NAME, data.PANEL_DESCRIPTION)
-        clickOnActionsButtonBasedOnAndClickAction(data.PANEL_NAME, CURATE_PANEL)
+        clickOnActionsButtonBasedOnPanelAndClickAction(data.PANEL_NAME, CURATE_PANEL)
 
         at CuratePanelPage
         chooseFilter(PROTIEN_FILTER);
@@ -265,7 +265,7 @@ class ScoringVariantSpec extends BaseSpec {
 
         at PanelBuilderPage
         createNewPanel(data.PANEL_NAME, data.PANEL_DESCRIPTION)
-        clickOnActionsButtonBasedOnAndClickAction(data.PANEL_NAME, CURATE_PANEL)
+        clickOnActionsButtonBasedOnPanelAndClickAction(data.PANEL_NAME, CURATE_PANEL)
 
         at CuratePanelPage
         clickOnCuratePanelHeaderButton(ADD_GENE);

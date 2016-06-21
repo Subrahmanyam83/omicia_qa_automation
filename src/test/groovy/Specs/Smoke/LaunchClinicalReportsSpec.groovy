@@ -15,7 +15,6 @@ import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.testng.Assert
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
@@ -86,7 +85,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at PanelBuilderPage
         createNewPanel(data.PANEL_NAME, data.PANEL_DESCRIPTION)
-        clickOnActionsButtonBasedOnAndClickAction(data.PANEL_NAME, CURATE_PANEL)
+        clickOnActionsButtonBasedOnPanelAndClickAction(data.PANEL_NAME, CURATE_PANEL)
 
         at CuratePanelPage
         chooseFilter(PROTIEN_FILTER);
@@ -420,7 +419,6 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
     @AfterMethod(alwaysRun = true)
     public void afterMethodExecution(){
-
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }

@@ -37,6 +37,8 @@ class LaunchVAASTReportsSpec extends BaseSpec {
     @Test(groups = "smoke", priority = 1, description = "Launch VAAST Solo Analysis")
     public void launchVAASTSoloAnalysis(Method method) {
 
+        String projectId, reportId;
+
         currentMethod = method.name
         to LoginPage
         signIn();
@@ -110,8 +112,10 @@ class LaunchVAASTReportsSpec extends BaseSpec {
 
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
+        projectId = getProjectID();
+        reportId = getReportId();
         withWindow(getAvailableWindows().getAt(1).toString()){
-            verifyUtil.verify(driver.getCurrentUrl(),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
+            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
@@ -121,7 +125,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_SOLO_REPORT)
-        verifyUtil.verify(reportSize-1.equals(getNumberOfReports()),"The Number of SOLO Reports after deletion is not reducing")
+        verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of SOLO Reports after deletion is not reducing")
     }
 
     @Test(groups = "smoke", priority = 2, description = "Launch VAAST Trio Analysis")
@@ -193,7 +197,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
         withWindow(getAvailableWindows().getAt(1).toString()){
-            verifyUtil.verify(driver.getCurrentUrl(),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
+            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+getProjectID()+"/reports/"+getReportId()+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
@@ -203,7 +207,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_TRIO_REPORT)
-        verifyUtil.verify(reportSize-1.equals(getNumberOfReports()),"The Number of TRIO Reports after deletion is not reducing")
+        verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of TRIO Reports after deletion is not reducing")
     }
 
     @Test(groups = "smoke", priority = 3, description = "Launch VAAST Quad Analysis")
@@ -275,7 +279,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
         withWindow(getAvailableWindows().getAt(1).toString()){
-            verifyUtil.verify(driver.getCurrentUrl(),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
+            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+getProjectID()+"/reports/"+getReportId()+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
@@ -285,7 +289,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_QUAD_REPORT)
-        verifyUtil.verify(reportSize-1.equals(getNumberOfReports()),"The Number of TRIO Reports after deletion is not reducing")
+        verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of TRIO Reports after deletion is not reducing")
     }
 
     @AfterMethod(alwaysRun = true)

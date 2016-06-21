@@ -13,8 +13,11 @@ import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
+import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
+
+import java.lang.reflect.Method
 
 /**
  * Created by E002183 on 5/9/2016.
@@ -24,6 +27,7 @@ class LaunchFlexReportsSpec extends BaseSpec{
     SmokeTestData data = new SmokeTestData();
     public String PROJECT_NAME;
     VerifyUtil verifyUtil;
+    public String currentMethod;
 
     @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
@@ -32,8 +36,9 @@ class LaunchFlexReportsSpec extends BaseSpec{
     }
 
     @Test(groups = "smoke",description = "Launch FLEX Trio Reports")
-    public void launchFlexTrioReports() {
+    public void launchFlexTrioReports(Method method) {
 
+        currentMethod = method.name
         to LoginPage
         signIn();
 
@@ -108,7 +113,9 @@ class LaunchFlexReportsSpec extends BaseSpec{
     }
 
     @Test(groups = "smoke",description = "Launch FLEX Quad Reports")
-    public void launchFlexQuadReports() {
+    public void launchFlexQuadReports(Method method) {
+
+        currentMethod = method.name
 
         to LoginPage
         signIn();
@@ -181,5 +188,10 @@ class LaunchFlexReportsSpec extends BaseSpec{
         int reportSize = getNumberOfReports()
         deleteReport(FLEX_QUAD_REPORT)
         verifyUtil.verify(getNumberOfReports().equals(reportSize -1), "The Number of Reports on Projects Page is not equal to: "+reportSize-1+" after deletion of the Report")
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethodExecution(){
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }
