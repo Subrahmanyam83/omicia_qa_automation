@@ -131,6 +131,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
     @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch VAAST Trio Analysis")
     public void launchVAASTTrioAnalysis(Method method) {
 
+        String projectId, reportId;
         currentMethod = method.name
         to LoginPage
         signIn();
@@ -196,8 +197,10 @@ class LaunchVAASTReportsSpec extends BaseSpec {
 
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
+        projectId = getProjectID();
+        reportId = getReportId();
         withWindow(getAvailableWindows().getAt(1).toString()){
-            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+getProjectID()+"/reports/"+getReportId()+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
+            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
@@ -213,6 +216,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
     @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch VAAST Quad Analysis")
     public void launchVAASTQuadAnalysis(Method method) {
 
+        String projectId, reportId;
         currentMethod = method.name
         to LoginPage
         signIn();
@@ -278,8 +282,10 @@ class LaunchVAASTReportsSpec extends BaseSpec {
 
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
+        projectId = getProjectID();
+        reportId = getReportId();
         withWindow(getAvailableWindows().getAt(1).toString()){
-            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+getProjectID()+"/reports/"+getReportId()+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
+            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
