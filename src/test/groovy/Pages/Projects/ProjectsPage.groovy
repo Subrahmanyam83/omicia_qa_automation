@@ -26,7 +26,9 @@ class ProjectsPage extends BasePage{
             clickActionsMenuAndClickOption("Delete Genomes")
             waitFor {projects.deleteGenomesButton}
             click(projects.deleteGenomesButton,"Delete Genomes Button")
-            waitFor { projects.genomesDeletedConfirmationText.displayed }
+            waitFor { projects.closeButtonOnDialogPopup }
+            click(projects.closeButtonOnDialogPopup,"Close Button on Modal Dialog Popup")
+            waitFor {projects.noGenomesToDisplay}
         }
     }
 
@@ -37,7 +39,9 @@ class ProjectsPage extends BasePage{
     }
 
     def clickActionsMenuAndClickOption(String option){
+        waitFor {projects.actionsButton}
         click(projects.actionsButton,"Projects Page Action Button");
+        waitFor {projects.actionsButtonOptions(option)}
         click(projects.actionsButtonOptions(option),option);
     }
 

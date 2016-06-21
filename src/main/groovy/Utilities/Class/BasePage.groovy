@@ -35,13 +35,11 @@ class BasePage extends Page implements Constants{
     }
 
     public void type(Navigator navigator, String value,String elementName){
-        waitForElement(navigator,elementName)
         navigator << value;
         getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }
 
     public void click(Navigator navigator,String elementName){
-        waitForElement(navigator,elementName)
         navigator.click()
         getEreportTest().log(PASS,"Clicked on: "+elementName);
     }

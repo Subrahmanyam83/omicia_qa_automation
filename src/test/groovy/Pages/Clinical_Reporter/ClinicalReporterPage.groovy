@@ -94,7 +94,7 @@ class ClinicalReporterPage extends BasePage {
             click(clinicalReporter.deleteReportOption, "Delete Report Option")
             click(clinicalReporter.deleteReportButtonOnDialog, "Confirmation Delete Report Button on Dialog")
             waitTillElementIsNotPresent(clinicalReporter.deletingReportProgressBar, "Deleting Report Progress Bar")
-            Thread.sleep(500)
+            Thread.sleep(1000)
         }
     }
 

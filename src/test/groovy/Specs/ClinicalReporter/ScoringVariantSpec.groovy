@@ -71,7 +71,7 @@ class ScoringVariantSpec extends BaseSpec {
         signOut()
     }
 
-    @Test(groups = ["clinical_reporter", "acmg"], description = "Scoring Variants for ACMG Panel Report")
+    @Test(groups = ["clinical_reporter", "acmg", "functional"], description = "Scoring Variants for ACMG Panel Report")
     public void testScoringVariantsInACMGPanelReport(Method method) {
 
         currentMethod = method.name
@@ -99,7 +99,7 @@ class ScoringVariantSpec extends BaseSpec {
 
         at PanelBuilderPage
         createNewPanel(data.PANEL_NAME, data.PANEL_DESCRIPTION)
-        clickOnActionsButtonBasedOnAndClickAction(data.PANEL_NAME, CURATE_PANEL)
+        clickOnActionsButtonBasedOnPanelAndClickAction(data.PANEL_NAME, CURATE_PANEL)
 
         at CuratePanelPage
         chooseFilter(PROTIEN_FILTER);
@@ -235,7 +235,7 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
     }
 
-    @Test(groups = ["clinical_reporter", "acmg"], description = "Scoring Variants for ACMG Quad Report with No Default Condition Genes.")
+    @Test(groups = ["clinical_reporter", "acmg", "functional"], description = "Scoring Variants for ACMG Quad Report with No Default Condition Genes.")
     public void testScoringVariantsInACMGQuadReportWithNoDefaultConditionGene(Method method) {
 
 
@@ -265,7 +265,7 @@ class ScoringVariantSpec extends BaseSpec {
 
         at PanelBuilderPage
         createNewPanel(data.PANEL_NAME, data.PANEL_DESCRIPTION)
-        clickOnActionsButtonBasedOnAndClickAction(data.PANEL_NAME, CURATE_PANEL)
+        clickOnActionsButtonBasedOnPanelAndClickAction(data.PANEL_NAME, CURATE_PANEL)
 
         at CuratePanelPage
         clickOnCuratePanelHeaderButton(ADD_GENE);

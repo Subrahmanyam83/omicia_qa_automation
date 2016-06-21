@@ -19,7 +19,6 @@ class NewFilteringProtocolModule extends Module {
         checkboxBasedOnValue                              { String value -> $(".multiselect-menu.multiselect-corner-all .multiselect-checkboxes label span", text: contains(value)).parent().find("input", type: "checkbox") }
         saveFilteringProtocolButton                       { $(".btn.btn-primary.pull-right.save-button", text: "Save Filtering Protocol") }
         newFilteringProtocolRowBasedOnName                { String value -> $("a", text:contains(value)) }
-
-
+        filteringProtocolWorkSpace                        { $("#filter-workspace-protocols")}
     }
 }

@@ -14,6 +14,6 @@ class ProjectsHomeModule extends Module{
         projectButton                    { String projectName-> $('div.project-link.truncate','data-name':projectName) }
         eachProject                      { $('#workspace .project-link.truncate') }
         numberOfProjects                 { $('#workspace tr').size() }
-
+        projectIconFolder                { int index-> $(".folder-icon.private-folder").getAt(index)}
     }
 }
