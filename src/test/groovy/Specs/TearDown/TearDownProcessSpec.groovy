@@ -19,7 +19,8 @@ import org.testng.annotations.Test
 @Test(groups = "tearDown")
 class TearDownProcessSpec extends BaseSpec {
 
-    public List workSpaceList = new LinkedList();
+    public List workSpaceIdList = new LinkedList();
+    public List workSpaceNamesList = new LinkedList()
 
     @Test(priority = 1)
     public void setupMethod() {
@@ -29,29 +30,33 @@ class TearDownProcessSpec extends BaseSpec {
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
+        clickOnWorkspaceDropDown()
         getNamesOfAllWorkSpaces().each {
             workspace ->
                 if (workspace.contains("ACMG_Automation_Workspace")) {
                     try {
                         id = getWorkspaceIdBasedOnName(workspace)
-                        workSpaceList.add(id)
+                        workSpaceIdList.add(id);
+                        workSpaceNamesList.add(workspace)
                     }
                     catch (Throwable throwable) {
+                        println(throwable.message)
                         Assert.fail("Extraction of Workspace IDs Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
                         Assert.fail("Setup Failed. Skipping rest of the methods")
                         throwable.printStackTrace()
                     }
                 }
         }
+        clickOnWorkspaceDropDown()
 
-        if (!workSpaceList.size().equals(ZERO)) {
+        if (!workSpaceIdList.size().equals(ZERO)) {
             at HeaderPage
             signOut()
 
             to LoginPage
             loginWithUser(ADMIN)
 
-            workSpaceList.each {
+            workSpaceIdList.each {
                 wid ->
                     try {
                         go(System.getProperty("geb.build.baseUrl") + "admin_tools/view_workspace?workspace_id=" + wid)
@@ -70,157 +75,124 @@ class TearDownProcessSpec extends BaseSpec {
 
     @Test(priority = 2, description = "Delete all Automation Clinical Reports created during Automation", dependsOnMethods = "setupMethod")
     public void deleteClinicalReports() {
-        String id;
         to LoginPage
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        getNamesOfAllWorkSpaces().each {
+        workSpaceNamesList.each {
             workspace ->
-                if (workspace.contains("ACMG_Automation_Workspace")) {
-                    try {
-                        id = getWorkspaceIdBasedOnName(workspace)
-                        switchWorkspace(workspace)
-                        clickOnMenuAndSelectOption(CLINICAL_REPORTER)
+                try {
+                    switchWorkspace(workspace)
 
-                        at ClinicalReporterPage
-                        deleteAllClinicalReports()
+                    at ClinicalReporterPage
+                    deleteAllClinicalReports()
 
-                        at HeaderPage
-                        goToHomePage()
-                    }
-                    catch (Throwable throwable) {
-                        Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
-                        throwable.printStackTrace()
-                    }
+                    at HeaderPage
+                }
+                catch (Throwable throwable) {
+                    Assert.fail("Clinical Reporter Deletion Failed for WORKSPACE: "+workspace);
+                    throwable.printStackTrace()
                 }
         }
     }
 
     @Test(priority = 3, description = "Delete all the Test Panels created during Automation", dependsOnMethods = "setupMethod")
     public void deletePanels() {
-        String id;
         to LoginPage
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        getNamesOfAllWorkSpaces().each {
+        workSpaceNamesList.each {
             workspace ->
-                if (workspace.contains("ACMG_Automation_Workspace")) {
-                    try {
-                        if (workspace.contains("Automation")) {
-                            id = getWorkspaceIdBasedOnName(workspace)
-                            switchWorkspace(workspace)
-                            clickOnMenuAndSelectOption(PANEL_BUILDER)
+                try {
+                    switchWorkspace(workspace)
+                    clickOnMenuAndSelectOption(PANEL_BUILDER)
 
-                            at PanelBuilderPage
-                            deleteAllPanels()
+                    at PanelBuilderPage
+                    deleteAllPanels()
 
-                            at HeaderPage
-                            goToHomePage()
-                        }
+                    at HeaderPage
                     }
-                    catch (Throwable throwable) {
-                        Assert.fail("Panel Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
-                        throwable.printStackTrace()
-                    }
-                }
+                catch (Throwable throwable) {
+                    println(throwable.message)
+                    Assert.fail("Panel Deletion Failed for WORKSPACE: "+workspace);
+                    throwable.printStackTrace()
+            }
         }
     }
 
     @Test(priority = 4, description = "Delete all the Test Gene Sets created during Automation", dependsOnMethods = "setupMethod")
     public void deleteAllGeneSets() {
-        String id;
         to LoginPage
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        getNamesOfAllWorkSpaces().each {
+        workSpaceNamesList.each {
             workspace ->
-                if (workspace.contains("ACMG_Automation_Workspace")) {
-                    try {
-                        if (workspace.contains("Automation")) {
-                            id = getWorkspaceIdBasedOnName(workspace)
-                            switchWorkspace(workspace)
-                            clickOnMenuAndSelectOption(GENE_SETS)
+                try {
+                    switchWorkspace(workspace)
+                    clickOnMenuAndSelectOption(GENE_SETS)
 
-                            at GeneSetsPage
-                            deleteSets(MY_SET);
+                    at GeneSetsPage
+                    deleteSets(MY_SET);
 
-                            at HeaderPage
-                            goToHomePage()
-                        }
+                    at HeaderPage
                     }
-                    catch (Throwable throwable) {
-                        Assert.fail("Gene Sets Deletion Failed for WORKSPACE: " + workspace + " ,WORKSPACE_ID: " + id);
-                        throwable.printStackTrace()
-                    }
-                }
+                catch (Throwable throwable) {
+                    Assert.fail("Gene Sets Deletion Failed for WORKSPACE: "+workspace );
+                    throwable.printStackTrace()
+            }
         }
     }
 
     @Test(priority = 5, description = "Delete all the Test Filtering protocols created during Automation", dependsOnMethods = "setupMethod")
     public void deleteFilteringProtocols() {
-        String id;
         to LoginPage
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        getNamesOfAllWorkSpaces().each {
+        workSpaceNamesList.each {
             workspace ->
-                if (workspace.contains("ACMG_Automation_Workspace")) {
-                    try {
-                        id = getWorkspaceIdBasedOnName(workspace)
-                        switchWorkspace(workspace)
-                        clickOnMenuAndSelectOption(FILTERING_PROTOCOL)
+                try {
+                    switchWorkspace(workspace)
+                    clickOnMenuAndSelectOption(FILTERING_PROTOCOL)
 
-                        at FilteringProtocolHomePage
-                        deleteAllFilteringProtocols()
+                    at FilteringProtocolHomePage
+                    deleteAllFilteringProtocols()
 
-                        at HeaderPage
-                        goToHomePage()
-                    }
-                    catch (Throwable throwable) {
-                        Assert.fail("Filtering Protocol Deletion Failed for WORKSPACE: " + workspace + " , WORKSPACE_ID: " + id);
-                        throwable.printStackTrace()
-                    }
+                    at HeaderPage
                 }
+                catch (Throwable throwable) {
+                    Assert.fail("Filtering Protocol Deletion Failed for WORKSPACE: "+workspace);
+                    throwable.printStackTrace()
+            }
         }
     }
 
     @Test(priority = 6, description = "Delete all the Test Projects created during Automation", dependsOnMethods = "setupMethod")
     public void deleteAllProjects() {
-        String id;
         to LoginPage
         loginWithUser(NORMAL_USER);
 
         at HeaderPage
-        getNamesOfAllWorkSpaces().each {
+        workSpaceNamesList.each {
             workspace ->
-                if (workspace.contains("ACMG_Automation_Workspace")) {
-                    try {
-                        id = getWorkspaceIdBasedOnName(workspace)
-                        switchWorkspace(workspace)
-                        clickOnMenuAndSelectOption(PROJECTS)
+                try {
+                    switchWorkspace(workspace)
+                    clickOnMenuAndSelectOption(PROJECTS)
 
+                    at ProjectsHomePage
+                    while(!getNumberOfProjects().equals(0)){
+                        clickOnProjectFolderIcon()
+                        at ProjectsPage
+                        deleteProjects();
                         at ProjectsHomePage
-                        def projectNames = getAllProjectNames();
-
-                        if (!projectNames.size().equals(ZERO)) {
-                            for (String projectName in projectNames) {
-                                clickProjectInProjectsHomePage(projectName);
-                                at ProjectsPage
-                                deleteProjects();
-                                at ProjectsHomePage
-                            }
-                        }
-                        at HeaderPage
-                        goToHomePage()
                     }
-                    catch (Throwable throwable) {
-                        Assert.fail("Project Deletion Failed for WORKSPACE: " + workspace + ", WORKSPACE_ID: " + id);
-                        throwable.printStackTrace()
-                    }
+                    at HeaderPage
+                }
+                catch (Throwable throwable) {
+                    Assert.fail("Project Deletion Failed for WORKSPACE: " + workspace);
+                    throwable.printStackTrace()
                 }
         }
     }
@@ -230,7 +202,7 @@ class TearDownProcessSpec extends BaseSpec {
         to LoginPage
         loginWithUser(ADMIN)
 
-        workSpaceList.each {
+        workSpaceIdList.each {
             wid ->
                 if (wid != "300") {
                     try {

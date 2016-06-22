@@ -12,7 +12,6 @@ import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.testng.Assert
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
@@ -35,8 +34,10 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         verifyUtil = new VerifyUtil()
     }
 
-    @Test(groups = "smoke", priority = 1, description = "Launch VAAST Solo Analysis")
+    @Test(groups = ["smoke", "functional"], priority = 1, description = "Launch VAAST Solo Analysis")
     public void launchVAASTSoloAnalysis(Method method) {
+
+        String projectId, reportId;
 
         currentMethod = method.name
         to LoginPage
@@ -111,23 +112,26 @@ class LaunchVAASTReportsSpec extends BaseSpec {
 
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
+        projectId = getProjectID();
+        reportId = getReportId();
         withWindow(getAvailableWindows().getAt(1).toString()){
-            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
-        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()
 
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_SOLO_REPORT)
-        Assert.equals(getNumberOfReports() == (reportSize-1))
+        verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of SOLO Reports after deletion is not reducing")
     }
 
-    @Test(groups = "smoke", priority = 2, description = "Launch VAAST Trio Analysis")
+    @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch VAAST Trio Analysis")
     public void launchVAASTTrioAnalysis(Method method) {
 
+        String projectId, reportId;
         currentMethod = method.name
         to LoginPage
         signIn();
@@ -193,23 +197,26 @@ class LaunchVAASTReportsSpec extends BaseSpec {
 
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
+        projectId = getProjectID();
+        reportId = getReportId();
         withWindow(getAvailableWindows().getAt(1).toString()){
-            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
-        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()
 
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_TRIO_REPORT)
-        Assert.equals(getNumberOfReports() == (reportSize-1))
+        verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of TRIO Reports after deletion is not reducing")
     }
 
-    @Test(groups = "smoke", priority = 3, description = "Launch VAAST Quad Analysis")
+    @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch VAAST Quad Analysis")
     public void launchVAASTQuadAnalysis(Method method) {
 
+        String projectId, reportId;
         currentMethod = method.name
         to LoginPage
         signIn();
@@ -275,18 +282,20 @@ class LaunchVAASTReportsSpec extends BaseSpec {
 
         page VariantReportPage
         clickOnHeaderButton(VAAST_VIEWER)
+        projectId = getProjectID();
+        reportId = getReportId();
         withWindow(getAvailableWindows().getAt(1).toString()){
-            Assert.equals(driver.getCurrentUrl().contains("/viewer"))
+            verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
             driver.close()
         }
-        Assert.assertEquals(getResponseCodeForExportReportRequest(), 200);
+        verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()
 
         at ProjectsPage
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_QUAD_REPORT)
-        Assert.equals(getNumberOfReports() == (reportSize-1))
+        verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of TRIO Reports after deletion is not reducing")
     }
 
     @AfterMethod(alwaysRun = true)

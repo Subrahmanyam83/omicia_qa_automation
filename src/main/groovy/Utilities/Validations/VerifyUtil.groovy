@@ -1,10 +1,11 @@
 package Utilities.Validations
 
+import org.testng.Assert
+
+
 /**
  * Created by E002149 on 6/10/2016.
  */
-
-import org.testng.Assert
 
 class VerifyUtil {
     private ArrayList<String> results = new ArrayList<String>()
