@@ -22,14 +22,18 @@ class ProjectsHomePage extends BasePage{
     }
 
     def clickProjectInProjectsHomePage(String projectName){
+        waitFor {projectsHome.projectButton(projectName)}
         click(projectsHome.projectButton(projectName),"Project Button in Projects Page")
     }
 
-    /*def deleteProject(String projectName){
-        clickProjectInProjectsHomePage(projectName)
-        at ProjectsPage
-        clickActionsMenuAndClickOption("Delete Genomes")
-    }*/
+    def getNumberOfProjects(){
+        return projectsHome.numberOfProjects
+    }
+
+    def clickOnProjectFolderIcon(int index = 0){
+        waitFor {projectsHome.projectIconFolder(index)}
+        click(projectsHome.projectIconFolder(index),index +1 +" Project Folder Icon on Projects Home Page")
+    }
 
     def refreshTillCountMatches(String NewProjectName,int count){
         int index = 0;

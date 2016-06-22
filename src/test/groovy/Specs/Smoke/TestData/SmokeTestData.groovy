@@ -33,7 +33,7 @@ class SmokeTestData extends BaseSpec {
     public String PATIENT_ID = "Test Patient ID 123" + random
     public String GENOME_NAME_TO_BE_SELECTED = "Genome-Label-1-EX024-1 — External-ID-1"
 
-    public String VARIANT_CHANGE_PANEL = "T → C  c.1027T>C  p.Trp343Arg"
+    public String VARIANT_CHANGE_PANEL = "T → C c.1027T>C p.Trp343Arg"
     public String VARIANT_CHANGE_SOLO = "G → A c.869G>A p.Arg290His"
     public String VARIANT_CHANGE_TRIO = "T → C c.746T>C p.Val249Ala"
     public String VARIANT_CHANGE_QUAD = "T → C c.746T>C p.Val249Ala"

@@ -35,13 +35,11 @@ class BasePage extends Page implements Constants{
     }
 
     public void type(Navigator navigator, String value,String elementName){
-        waitForElement(navigator,elementName)
         navigator << value;
         getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }
 
     public void click(Navigator navigator,String elementName){
-        waitForElement(navigator,elementName)
         navigator.click()
         getEreportTest().log(PASS,"Clicked on: "+elementName);
     }
@@ -51,9 +49,9 @@ class BasePage extends Page implements Constants{
         getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }
 
-    public boolean waitTillElementIsNotPresent(Navigator navigator,String elementName) throws Throwable{
+    public boolean waitTillElementIsNotPresent(Navigator navigator,String elementName, int time = 30) throws Throwable{
         try{
-            for(int i=0;i<30;i++) {
+            for(int i=0;i<time;i++) {
                 if (!(navigator.isDisplayed())) {
                     getEreportTest().log(PASS,"Wait on the Element Not Present successful on the element: "+elementName);
                     Thread.sleep(1000L)

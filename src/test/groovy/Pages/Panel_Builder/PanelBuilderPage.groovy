@@ -22,8 +22,12 @@ class PanelBuilderPage extends BasePage{
 
     def clickItemsPerPageAndChooseValue(String value = HUNDRED) {
         if (panelBuilder.activePaginatorButton.displayed) {
+            waitFor {panelBuilder.activePaginatorButton}
+            scrollToCenter(panelBuilder.activePaginatorButton)
+            Thread.sleep(2000)
             click(panelBuilder.activePaginatorButton, "Paginator Button")
             waitFor { panelBuilder.paginatorDropDownValue(value) }
+            scrollToCenter(panelBuilder.paginatorDropDownValue(value))
             click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
         }
     }
@@ -36,12 +40,16 @@ class PanelBuilderPage extends BasePage{
         type(panelBuilder.panelDescriptionField,panel_description,"Panel Description");
         click(panelBuilder.createPanelButton,"Create Panel Button")
         click(panelBuilder.closeButtonOnDialogWindow,"Close Button on Modal Dialog")
+        waitFor{panelBuilder.newPanelButton}
+        waitFor {panelBuilder.panelTable}
         clickItemsPerPageAndChooseValue()
         waitFor { panelBuilder.panelRowBasedOnPanelName(panel_name) }
     }
 
-    def clickOnActionsButtonBasedOnAndClickAction(String panelName, String action) {
+    def clickOnActionsButtonBasedOnPanelAndClickAction(String panelName, String action) {
+        waitFor { panelBuilder.panelLoadingBarWithDisplayNone}
         waitFor { panelBuilder.actionButtonBasedOnPanelName(panelName) }
+        scrollToCenter(panelBuilder.actionButtonBasedOnPanelName(panelName))
         click(panelBuilder.actionButtonBasedOnPanelName(panelName),"Action Button");
         click(panelBuilder.optionsOfActionButton(action),"Action Button -> "+action)
     }
@@ -49,11 +57,16 @@ class PanelBuilderPage extends BasePage{
     def deleteAllPanels() {
         Thread.sleep(3000L)
         while (!panelBuilder.numberOfPanelsOnWorkSpacePanel.equals(ZERO)) {
+            waitFor {panelBuilder.actionButton}
             click(panelBuilder.actionButton, "Action Button of Panel");
+            waitFor {panelBuilder.deletePanelUnderActionDropDpwn}
             click(panelBuilder.deletePanelUnderActionDropDpwn, "Delete Panel Aoption under Actions Drop Down")
+            waitFor {panelBuilder.deletePanelButtonOnDialog}
             click(panelBuilder.deletePanelButtonOnDialog, "Delete Button on Dialog");
+            waitFor {panelBuilder.closeButtonOnDialogWindow}
             click(panelBuilder.closeButtonOnDialogWindow, "Close button of the Delete Panel Dialog")
-            Thread.sleep(500)
+            waitFor { panelBuilder.panelLoadingBarWithDisplayNone}
+            Thread.sleep(2000)
         }
     }
 }

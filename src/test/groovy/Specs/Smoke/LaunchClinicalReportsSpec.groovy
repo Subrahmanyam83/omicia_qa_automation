@@ -5,7 +5,6 @@ import Pages.Filtering_Protocol.NewFilteringProtocolPage
 import Pages.Gene_Sets.GeneSetsPage
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
-import Pages.Login.OmiciaHomePage
 import Pages.Panel_Builder.AddGenesToPanelPage
 import Pages.Panel_Builder.CuratePanelPage
 import Pages.Panel_Builder.PanelBuilderPage
@@ -15,9 +14,12 @@ import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Smoke.TestData.SmokeTestData
 import Utilities.Class.BaseSpec
-import org.testng.Assert
+import Utilities.Validations.VerifyUtil
+import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
+
+import java.lang.reflect.Method
 
 /**
  * Created by E002183 on 4/21/2016.
@@ -26,23 +28,24 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
     SmokeTestData data = new SmokeTestData();
     public String PROJECT_NAME;
+    VerifyUtil verifyUtil;
+    public String currentMethod;
 
     @BeforeMethod(alwaysRun = true)
     public void setUpMethod() {
         PROJECT_NAME = PROJECT__NAME + data.random
+        verifyUtil = new VerifyUtil()
     }
 
-    @Test(groups = "smoke", priority = 1, description = "Launch End to End Panel Report")
-    public void launchEndToEndPanelReport() {
+    @Test(groups = ["smoke", "functional"], priority = 1, description = "Launch End to End Panel Report")
+    public void launchEndToEndPanelReport(Method method) {
 
+        currentMethod = method.name;
         to LoginPage
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, SHORT_FILE);
@@ -82,7 +85,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at PanelBuilderPage
         createNewPanel(data.PANEL_NAME, data.PANEL_DESCRIPTION)
-        clickOnActionsButtonBasedOnAndClickAction(data.PANEL_NAME, CURATE_PANEL)
+        clickOnActionsButtonBasedOnPanelAndClickAction(data.PANEL_NAME, CURATE_PANEL)
 
         at CuratePanelPage
         chooseFilter(PROTIEN_FILTER);
@@ -95,7 +98,8 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at CuratePanelPage
         waitFor { curatePanel.getNumberOfPanelGenes }
-        Assert.assertEquals(getNumberOfPanelGenes(), THREE)
+        int actualPanelGeneCount = getNumberOfPanelGenes();
+        verifyUtil.verify(actualPanelGeneCount.equals(THREE), "Panel Gene count is not equal to "+ THREE)
 
         at HeaderPage
         clickOnMenuAndSelectOption(FILTERING_PROTOCOL)
@@ -119,16 +123,18 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         clickOnActionsAndValueBasedOnPatientId(data.PATIENT_ID, INTERPRET_VARIANTS)
 
         at VariantInterpretationHomePage
+        List<String> columnNames = getDefaultColumnNamesOnPage();
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(columnNames.equals(PRE_ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(columnNames.equals(PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
-        Assert.assertEquals(getNumberOfItems(), SEVEN)
-        Assert.equals(getEffectBasedOnVariant(SAMD11).equals(MISSENSE))
-        Assert.equals(getChangeBasedOnVariant(SAMD11).equals(data.VARIANT_CHANGE_PANEL))
-        Assert.equals(getClassBasedOnVariant(SAMD11).equals(NONE_TEXT))
-        Assert.equals(getStatusBasedOnVariant(SAMD11).equals(NONE_TEXT))
+        int totalNumberOfItems = getNumberOfItems();
+        verifyUtil.verify(totalNumberOfItems.equals(SEVEN), "Total number of items are not equal to "+ SEVEN)
+        verifyUtil.verify(getEffectBasedOnVariant(SAMD11).equals(MISSENSE), "EFFECT of Variant: "+SAMD11 +" is not equal to "+MISSENSE)
+        verifyUtil.verify(getChangeBasedOnVariant(SAMD11).equals(data.VARIANT_CHANGE_PANEL),"CHANGE of Variant: "+SAMD11 +" is not equal to "+data.VARIANT_CHANGE_PANEL)
+        verifyUtil.verify(getClassBasedOnVariant(SAMD11).equals(NONE_TEXT),"CLASS of Variant: "+SAMD11 +" is not equal to "+NONE_TEXT)
+        verifyUtil.verify(getStatusBasedOnVariant(SAMD11).equals(NONE_TEXT),"STATUS of Variant: "+SAMD11 +" is not equal to "+NONE_TEXT)
 
         clickOnInterpretVariantBasedOnVariant(SAMD11)
 
@@ -139,17 +145,17 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantInterpretationHomePage
         showHideColumns(TO_REPORT)
-        Assert.equals(getClassBasedOnVariant(SAMD11).equals(CLASSIFICATION_PATHOGENIC))
-        Assert.equals(getStatusBasedOnVariant(SAMD11).equals(REVIEWED))
-        Assert.equals(getReportBasedOnVariant(SAMD11).equals(PRIMARY))
+        verifyUtil.verify(getClassBasedOnVariant(SAMD11).equals(CLASSIFICATION_PATHOGENIC),"CLASS of Variant: "+SAMD11 +" is not equal to "+CLASSIFICATION_PATHOGENIC)
+        verifyUtil.verify(getStatusBasedOnVariant(SAMD11).equals(REVIEWED), "STATUS of Variant: "+SAMD11 +" is not equal to "+REVIEWED)
+        verifyUtil.verify(getReportBasedOnVariant(SAMD11).equals(PRIMARY), "REPORT of Variant: "+SAMD11 +" is not equal to "+PRIMARY)
         clickOnInterpretVariantBasedOnVariant(PLEKHN1)
 
         at VariantInterpretEditPage
         editVariant(CLASSIFICATION_PATHOGENIC, SECONDARY_FINDING)
         clickOnTab(VARIANT_EVIDENCE)
         clickOnCopyToVariantInterpretationAndDescription()
-        Assert.equals(getCurrentVariantClassificationDropDownValue().equals(UNCERTAIN_SIGNIFICANCE))
-        Assert.equals(getCurrentConditionTextFieldValue().equals(DUCTAL_BREAST_CARCINOMA))
+        verifyUtil.verify(getCurrentVariantClassificationDropDownValue().equals(UNCERTAIN_SIGNIFICANCE),"Variant classification drop down values are not matching with "+UNCERTAIN_SIGNIFICANCE)
+        verifyUtil.verify(getCurrentConditionTextFieldValue().equals(DUCTAL_BREAST_CARCINOMA),"Variant condition text field value is not equal to "+DUCTAL_BREAST_CARCINOMA)
         saveVariant()
         closeInterpretVariantDialog()
 
@@ -157,22 +163,20 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         clickReviewReport()
 
         at ReviewReportPage
-        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
-        Assert.equals(getNumberOfSecondaryFindingReports().equals(ONE))
-        Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
+        verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
+        verifyUtil.verify(getNumberOfSecondaryFindingReports().equals(ONE),"Secondary Finding Reports size is not equal to "+ONE)
+        verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200");
     }
 
-    @Test(groups = "smoke", priority = 2, description = "Launch Solo Report")
-    public void launchSoloReport() {
+    @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch Solo Report")
+    public void launchSoloReport(Method method) {
 
+        currentMethod = method.name;
         to LoginPage
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -190,7 +194,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         at ClinicalReporterPage
         clickOnNewReportAndSelectDropDownValue(SOLO)
         fillDetailsForNewReport(data.PATIENT_ID, PROJECT_NAME)
-        Assert.equals(getNamesOfMembers().equals(SOLO_LIST))
+        verifyUtil.verify(getNamesOfMembers().equals(SOLO_LIST),"Name of the members are not matching with "+SOLO_LIST)
 
         chooseGeneForEachMember(SOLO)
         selectSaveNewPanelReport()
@@ -199,39 +203,39 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantSelectionPage
         page VariantInterpretationHomePage
-        Assert.assertEquals(getNumberOfItems(), SIXTY_THREE)
+        verifyUtil.verify(getNumberOfItems().equals(SIXTY_THREE),"Total number of Items are not equal to "+ SIXTY_THREE)
         runPhevor(ATAXIA)
         if (baseUrl.contains(GEL)){
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Selection column names are not matching. Expected: "+ PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Selection column names are not matching. Expected: "+ PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
-        Assert.assertEquals(getNumberOfItems(), SIXTY_THREE)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_SOLO)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
-        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), TWO)
-        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
+        verifyUtil.verify(getNumberOfItems().equals(SIXTY_THREE),"Total number of Items are not equal to "+SIXTY_THREE)
+        verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_SOLO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_SOLO)
+        verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(TWO),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+TWO)
+        verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE),"Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
 
         page VariantSelectionPage
         clickCheckBoxBasedOnVariant(TTLL10)
-        Assert.assertEquals(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10), true)
+        verifyUtil.verify(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10).equals(true),"Checkbox is not set to "+ true)
         clickAddSelectedVariants()
         clickVariantInterpretationButton()
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)){
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else{
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE), "Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
-        Assert.assertEquals(getNumberOfItems(), ONE)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_SOLO)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
-        Assert.assertEquals(getClassBasedOnVariant(TTLL10), NONE_TEXT)
-        Assert.assertEquals(getStatusBasedOnVariant(TTLL10), NONE_TEXT)
-        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), TWO)
-        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
-        Assert.assertEquals(getInheritanceMode(TTLL10), RECESSIVE)
+        verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
+        verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_SOLO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_SOLO)
+        verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getClassBasedOnVariant(TTLL10).equals(NONE_TEXT),"CLASS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
+        verifyUtil.verify(getStatusBasedOnVariant(TTLL10).equals(NONE_TEXT),"STATUS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
+        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(TWO),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+TWO)
+        verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE),"Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
+        verifyUtil.verify(getInheritanceMode(TTLL10).equals(RECESSIVE),"Inheritance Mode of Variant: "+TTLL10+" is not equal to "+ RECESSIVE)
         clickOnInterpretVariantBasedOnVariant(TTLL10)
 
         at VariantInterpretEditPage
@@ -243,21 +247,19 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         clickReviewReport()
 
         at ReviewReportPage
-        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
-        Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
+        verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
+        verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
     }
 
-    @Test(groups = "smoke", priority = 3, description = "Launch Trio Report")
-    public void launchTrioReport() {
+    @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch Trio Report")
+    public void launchTrioReport(Method method) {
 
+        currentMethod = method.name;
         to LoginPage
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -275,7 +277,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         at ClinicalReporterPage
         clickOnNewReportAndSelectDropDownValue(TRIO)
         fillDetailsForNewReport(data.PATIENT_ID, PROJECT_NAME)
-        Assert.equals(getNamesOfMembers().equals(TRIO_LIST))
+        verifyUtil.verify(getNamesOfMembers().equals(TRIO_LIST),"Names of members are not equal to "+TRIO_LIST)
 
         chooseGeneForEachMember(TRIO)
         selectSaveNewPanelReport()
@@ -284,39 +286,39 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantSelectionPage
         page VariantInterpretationHomePage
-        Assert.assertEquals(getNumberOfItems(), FOUR)
+        verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of Items are not equal to "+FOUR)
         runPhevor(ATAXIA)
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
-        Assert.assertEquals(getNumberOfItems(), FOUR)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
-        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), ONE)
-        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
+        verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of Items are not equal to "+FOUR)
+        verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_TRIO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_TRIO)
+        verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE)
+        verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE), "Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
 
         page VariantSelectionPage
         clickCheckBoxBasedOnVariant(TTLL10)
-        Assert.assertEquals(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10), true)
+        verifyUtil.verify(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10).equals(true),"Checkbox is not set to "+ true)
         clickAddSelectedVariants()
         clickVariantInterpretationButton()
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
-        Assert.assertEquals(getNumberOfItems(), ONE)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_TRIO)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
-        Assert.assertEquals(getClassBasedOnVariant(TTLL10), NONE_TEXT)
-        Assert.assertEquals(getStatusBasedOnVariant(TTLL10), NONE_TEXT)
-        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), ONE)
-        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
-        Assert.assertEquals(getInheritanceMode(TTLL10), RECESSIVE)
+        verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
+        verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_TRIO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_TRIO)
+        verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getClassBasedOnVariant(TTLL10).equals(NONE_TEXT),"CLASS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
+        verifyUtil.verify(getStatusBasedOnVariant(TTLL10).equals(NONE_TEXT),"STATUS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
+        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE)
+        verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE),"Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
+        verifyUtil.verify(getInheritanceMode(TTLL10).equals(RECESSIVE),"Inheritance Mode of Variant: "+TTLL10+" is not equal to "+ RECESSIVE)
         clickOnInterpretVariantBasedOnVariant(TTLL10)
 
         at VariantInterpretEditPage
@@ -328,21 +330,19 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         clickReviewReport()
 
         at ReviewReportPage
-        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
-        Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
+        verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
+        verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
     }
 
-    @Test(groups = "smoke", priority = 4, description = "Launch Quad Report")
-    public void launchQuadReport() {
+    @Test(groups = ["smoke", "functional"], priority = 4, description = "Launch Quad Report")
+    public void launchQuadReport(Method method) {
 
+        currentMethod = method.name
         to LoginPage
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES);
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(PROJECT_NAME, true, true, FOUR_EXOMES);
@@ -360,7 +360,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         at ClinicalReporterPage
         clickOnNewReportAndSelectDropDownValue(QUAD)
         fillDetailsForNewReport(data.PATIENT_ID, PROJECT_NAME)
-        Assert.equals(getNamesOfMembers().equals(QUAD_LIST))
+        verifyUtil.verify(getNamesOfMembers().equals(QUAD_LIST),"Names of the members are not equal to "+QUAD_LIST)
 
         chooseGeneForEachMember(QUAD)
         selectSaveNewPanelReport()
@@ -369,39 +369,39 @@ class LaunchClinicalReportsSpec extends BaseSpec {
 
         at VariantSelectionPage
         page VariantInterpretationHomePage
-        Assert.assertEquals(getNumberOfItems(), FOUR)
+        verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of items are not equal to "+FOUR)
         runPhevor(ATAXIA)
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
-        Assert.assertEquals(getNumberOfItems(), FOUR)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_QUAD)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
-        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), ONE)
-        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
+        verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of items is not equal to "+FOUR)
+        verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_QUAD),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_QUAD)
+        verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE)
+        verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE),"Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
 
         page VariantSelectionPage
         clickCheckBoxBasedOnVariant(TTLL10)
-        Assert.assertEquals(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10), true)
+        verifyUtil.verify(verifyIfCheckBoxIsCheckedBasedOnVariant(TTLL10).equals(true),"Checkbox is not set to "+true)
         clickAddSelectedVariants()
         clickVariantInterpretationButton()
 
         at VariantInterpretationHomePage
         if (baseUrl.contains(GEL)) {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_GEL_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         } else {
-            Assert.assertEquals(getDefaultColumnNamesOnPage(), PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE)
+            verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
-        Assert.assertEquals(getNumberOfItems(), ONE)
-        Assert.assertEquals(getChangeBasedOnVariant(TTLL10), data.VARIANT_CHANGE_QUAD)
-        Assert.assertEquals(getEffectBasedOnVariant(TTLL10), MISSENSE)
-        Assert.assertEquals(getClassBasedOnVariant(TTLL10), NONE_TEXT)
-        Assert.assertEquals(getStatusBasedOnVariant(TTLL10), NONE_TEXT)
-        Assert.assertEquals(getVAASTGeneRankBasedOnVariant(TTLL10), ONE)
-        Assert.assertEquals(getPhevorRankBasedOnVariant(TTLL10), THREE)
-        Assert.assertEquals(getInheritanceMode(TTLL10), RECESSIVE)
+        verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
+        verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_QUAD),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_QUAD)
+        verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getClassBasedOnVariant(TTLL10).equals(NONE_TEXT),"CLASS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
+        verifyUtil.verify(getStatusBasedOnVariant(TTLL10).equals(NONE_TEXT),"STATUS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
+        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE)
+        verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE),"Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
+        verifyUtil.verify(getInheritanceMode(TTLL10).equals(RECESSIVE),"Inheritance Mode of Variant: "+TTLL10+" is not equal to "+ RECESSIVE)
         clickOnInterpretVariantBasedOnVariant(TTLL10)
 
         at VariantInterpretEditPage
@@ -413,7 +413,12 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         clickReviewReport()
 
         at ReviewReportPage
-        Assert.equals(getNumberOfPrimaryFindingReports().equals(ONE))
-        Assert.assertEquals(getResponseCodeForPreviewPDF(), 200);
+        verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
+        verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethodExecution(){
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }

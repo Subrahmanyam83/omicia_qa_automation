@@ -41,6 +41,6 @@ class VariantInterpretationHomeModule extends Module {
 
         /*Table*/
         scoreVariantsLink                           { $(".expansion-tab.visible") }
-        reportSectionDropDownValue                  { String value-> $(".acmg-report-section .dropdown-menu.open ul li a span",text:contains(value))}
+        reportSectionDropDownValue                  { String value-> $(".acmg-report-section .dropdown-menu.open ul li a span",text:contains(value)) }
     }
 }

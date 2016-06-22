@@ -16,10 +16,10 @@ class VariantSelectionModule extends Module {
         addSelectedVariantsButton                                       { $(".header-buttons .btn.btn-success") }
         variantInterpretationButton                                     { $(".header-buttons .btn.interpret-variants") }
         modalPopup                                                      { $(".modal-overflow") }
-        modalCloseButton                                                { $(".modal-overflow .close")}
-        HPOTermsText                                                    { $(".dl-horizontal dt",text:contains("HPO Terms"))}
-        getHPOTermsValue                                                { HPOTermsText.parent().find("dd a").text()}
-        numberOfCheckBoxesInShowHideColumns                             { $(".modal-overflow label.checkbox").size()}
+        modalCloseButton                                                { $(".modal-overflow .close") }
+        HPOTermsText                                                    { $(".dl-horizontal dt",text:contains("HPO Terms")) }
+        getHPOTermsValue                                                { HPOTermsText.parent().find("dd a").text() }
+        numberOfCheckBoxesInShowHideColumns                             { $(".modal-overflow label.checkbox").size() }
 
         /*Filters*/
         filtersPane                                                     { $("div.span2.filters") }
@@ -47,10 +47,10 @@ class VariantSelectionModule extends Module {
         isCheckboxCheckedBasedOnVariant                                 { String variantName, int index -> variantNameLink(variantName, index).parent().parent().filter(".warning").displayed }
 
         /*MISSENSE Effect Modal Popup*/
-        transcriptsDiv                                                  { $(".variant-consequence-table-div")}
-        consensusTable                                                  { $(".ccds-table-div")}
-        nnSpliceTable                                                   { $(".nn-splice-table-div")}
-        proteinDomainTable                                              { $(".protein-domain-table-div")}
+        transcriptsDiv                                                  { $(".variant-consequence-table-div") }
+        consensusTable                                                  { $(".ccds-table-div") }
+        nnSpliceTable                                                   { $(".nn-splice-table-div") }
+        proteinDomainTable                                              { $(".protein-domain-table-div") }
 
         /*Phevor Tab*/
         phevorTextField                                                 { $(".hpo-terms-view div div input", placeholder: "Start typing here...") }

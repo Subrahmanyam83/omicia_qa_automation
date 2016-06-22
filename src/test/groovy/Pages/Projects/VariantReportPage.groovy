@@ -55,7 +55,34 @@ class VariantReportPage extends BasePage {
     }
 
     def verifyDialogBoxPresentOnClickAndClose(){
-        waitFor("fast") {variantReport.dialogBox.isDisplayed()}
+        waitFor {variantReport.dialogBox.isDisplayed()}
         click(variantReport.closeButtonOfDialogBox,"Close button of the Dialog Box")
+    }
+
+    def verifyContentOnVAASTViewerPage(){
+        waitFor {variantReport.yAxisLabel}
+        waitFor {variantReport.yAxisLabel.text().equals(VAAST_SCORE)}
+
+        waitFor {variantReport.xAxisLabel}
+        waitFor {variantReport.xAxisLabel.text().equals(CHROMOSOME)}
+
+        waitFor {variantReport.vaastPlotOverview}
+    }
+
+    def getProjectName(){
+        return variantReport.projectName
+    }
+
+    def getProjectID(){
+        return variantReport.projectId
+    }
+
+    def getReportId(){
+        return variantReport.reportId
+    }
+
+    def getResponseCodeForExportReportRequest(){
+        String request = System.getProperty("geb.build.baseUrl")+"project/"+getProjectID()+"/reports/"+getReportId()+VAAST_VIEWER_REQUEST_APPENDER
+        return getResponseCode(request);
     }
 }
