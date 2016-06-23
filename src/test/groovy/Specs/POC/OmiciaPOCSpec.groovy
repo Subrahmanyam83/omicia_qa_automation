@@ -5,10 +5,11 @@ import Pages.Login.LoginPage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Upload_Genomes.UploadGenomePage
-import Specs.Smoke.TestData.SmokeTestData
+import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
 import org.testng.annotations.Test
+
 import java.lang.reflect.Method
 
 /**

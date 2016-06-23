@@ -28,6 +28,7 @@ public interface Constants {
     String GET_TEXT = "get_text";
     String NONE = ""
     String NONE_TEXT = "None"
+    String NULL = null;
     String ONE_STRING = "1"
     def ZERO = 0;
     def ONE = 1;
@@ -219,7 +220,8 @@ public interface Constants {
     public List ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
     public List ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene","Position dbSNP",  "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity","Sibling 1 Zygosity","Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence","VAAST gene rank","Phevor gene rank","Latest Classification (Date Classified) Confirmation Status"].sort()
     public List ACMG_QUAD_GEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene","Position dbSNP",  "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity","Sibling 1 Zygosity","Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "VAAST gene rank","Phevor gene rank","Inheritance Mode", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
-
+    String HOMOZYGOUS = "●●"
+    String HETROZYGOUS = "●○"
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"

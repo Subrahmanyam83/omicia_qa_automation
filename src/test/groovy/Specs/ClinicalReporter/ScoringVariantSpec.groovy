@@ -16,7 +16,7 @@ import Pages.Panel_Builder.CuratePanelPage
 import Pages.Panel_Builder.PanelBuilderPage
 import Pages.Projects.ProjectsHomePage
 import Pages.Upload_Genomes.UploadGenomePage
-import Specs.Smoke.TestData.SmokeTestData
+import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
 import org.testng.annotations.AfterMethod
@@ -310,14 +310,12 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getAvailableWindows().size() == ONE, "Windows size is not equal to "+ONE)
 
         clickVariantChromosomePosition(TTLL10)
-        withWindow(getAvailableWindows().getAt(1).toString()){
+        withWindow(getAvailableWindows().getAt(1).toString(),close:true){
             verifyUtil.verify(driver.getCurrentUrl().contains("genome.ucsc.edu/"),"Current URL does not contains 'genome.ucsc.edu/'")
-            driver.close()
         }
         clickVariantChromosomeDBSNP(TTLL10)
-        withWindow(getAvailableWindows().getAt(1).toString()){
+        withWindow(getAvailableWindows().getAt(1).toString(),close:true){
             verifyUtil.verify(driver.getCurrentUrl().contains("ncbi.nlm.nih.gov"),"Current URL does not contains 'ncbi.nlm.nih.gov'")
-            driver.close()
         }
 
         clickOnEffectBasedOnVariant(TTLL10)
@@ -346,14 +344,12 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getAvailableWindows().size() == ONE, "Windows size is not equal to "+ONE)
 
         clickVariantChromosomePosition(TTLL10)
-        withWindow(getAvailableWindows().getAt(1).toString()){
+        withWindow(getAvailableWindows().getAt(1).toString(),close:true){
             verifyUtil.verify(driver.getCurrentUrl().contains("genome.ucsc.edu/"),"Current URL does not contains 'genome.ucsc.edu/'")
-            driver.close()
         }
         clickVariantChromosomeDBSNP(TTLL10)
-        withWindow(getAvailableWindows().getAt(1).toString()){
+        withWindow(getAvailableWindows().getAt(1).toString(),close:true){
             verifyUtil.verify(driver.getCurrentUrl().contains("ncbi.nlm.nih.gov"),"Current URL does not contains 'ncbi.nlm.nih.gov'")
-            driver.close()
         }
 
         clickOnEffectBasedOnVariant(TTLL10)
@@ -391,9 +387,8 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getnumberOfWorkSpaceConditionRows().equals(ONE),"Work space condition rows are not equal to "+ONE)
 
         clickPMIDBasedOnCondition(FEVER)
-        withWindow(getAvailableWindows().getAt(1).toString()){
+        withWindow(getAvailableWindows().getAt(1).toString(),close:true){
             verifyUtil.verify(driver.getCurrentUrl().contains("ncbi.nlm.nih.gov"),"Current URL does not contains 'ncbi.nlm.nih.gov'")
-            driver.close()
         }
         clickOnHeaderTab(SCORE_VARIANT)
         at ScoreVariantPage

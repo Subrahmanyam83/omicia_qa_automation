@@ -28,28 +28,33 @@ class ClinicalReporterPage extends BasePage {
         type(clinicalReporter.patientIdTextField, patientId, "Patient ID Text Field")
 
         if (panel != "") {
+            waitFor {clinicalReporter.choosePanelDropDown}
             click(clinicalReporter.choosePanelDropDown, "Choose Panel Drop Down")
             waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(panel).displayed }
             click(clinicalReporter.chooseDropDownValueBasedOntheValue(panel), "Choose Panel Drop Down Value: " + panel)
         }
 
         if (filter != "") {
+            waitFor {clinicalReporter.chooseFilterDropDown}
             click(clinicalReporter.chooseFilterDropDown, "Choose Filter Drop Down")
             waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(filter) }
             click(clinicalReporter.chooseDropDownValueBasedOntheValue(filter), "Choose Filter Drop Down Value: " + filter)
         }
 
+        waitFor {clinicalReporter.chooseProjectDropDown}
         click(clinicalReporter.chooseProjectDropDown, "Choose Project Drop Down")
         waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(project) }
         click(clinicalReporter.chooseDropDownValueBasedOntheValue(project), "Choose Project Drop Down Value: " + project);
 
         if (assayType != "") {
+            waitFor {clinicalReporter.chooseAssayTypeDropDown}
             click(clinicalReporter.chooseAssayTypeDropDown, "Choose Assay Type Drop Down")
             waitFor { clinicalReporter.chooseDropDownValueBasedOntheValue(assayType) }
             click(clinicalReporter.chooseDropDownValueBasedOntheValue(assayType), "Choose Assay Type Drop Down Value: " + assayType)
         }
 
         if (includeCosmicEvidence.equals(true)) {
+            waitFor {clinicalReporter.includeCosmicCheckBox}
             click(clinicalReporter.includeCosmicCheckBox, "Include Cosmic checkbox");
         }
     }

@@ -35,6 +35,14 @@ class VariantInterpretationHomePage extends BasePage {
         return Integer.parseInt(variantSelection.numberOfItems.text().replace(" Items", ""))
     }
 
+    def getReviewPriority(String variantName, List colors, int index = 0){
+        colors.each {
+            color->
+                waitFor {variantSelection.getVariantClassification(variantName, index, color).displayed }
+        }
+        return true
+    }
+
     def getPositionDBSNPBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getPositionDBSNAP(variantName, index).displayed }
         return variantSelection.getPositionDBSNAP(variantName, index).text().replace("\n", " ")
@@ -49,6 +57,60 @@ class VariantInterpretationHomePage extends BasePage {
         waitFor { interpretVariantsHome.getEffectBasedOnVariant(variantName, index).displayed }
         return interpretVariantsHome.getEffectBasedOnVariant(variantName, index).text().replaceAll("\n", " ")
     }
+
+    def getZygosity(String variantName, int index = 0){
+        waitFor {variantSelection.zygosity(variantName,index)}
+        return variantSelection.zygosity(variantName,index).text().trim()
+    }
+
+    def getMotherZygosity(String variantName, int index = 0){
+        waitFor {variantSelection.motherZygosity(variantName,index)}
+        return variantSelection.motherZygosity(variantName,index).text().trim()
+    }
+
+    def getFatherZygosity(String variantName, int index = 0){
+        waitFor {variantSelection.fatherZygosity(variantName,index)}
+        return variantSelection.fatherZygosity(variantName,index).text().trim()
+    }
+
+    def getSiblingZygosity(String variantName, int index = 0){
+        waitFor {variantSelection.siblingZygosity(variantName,index)}
+        return variantSelection.siblingZygosity(variantName,index).text().trim()
+    }
+
+    def getQualityGQCoverage(String variantName, int index = 0){
+        waitFor {variantSelection.qualityGQCoverage(variantName,index)}
+        int size = variantSelection.qualityGQCoverage(variantName,index).text().split("\n").size()
+        for(int i = 0;i< size;i++){
+            waitFor {!variantSelection.qualityGQCoverage(variantName,index).text().split("\n")[i].equals(NONE)}
+        }
+        return true
+    }
+
+    def getOmiciaScore(String variantName, int index = 0){
+        waitFor {variantSelection.omiciaScore(variantName,index)}
+        int size = variantSelection.omiciaScore(variantName,index).text().split("\n").size()
+        for(int i = 0;i< size;i++){
+            waitFor {!variantSelection.omiciaScore(variantName,index).text().split("\n")[i].equals(NONE)}
+        }
+        return true
+    }
+
+    def getScoreContainer(String variantName, int index = 0){
+        waitFor {variantSelection.mutationTester(variantName,index)}
+        waitFor {variantSelection.polyphen(variantName,index)}
+        waitFor {variantSelection.sift(variantName,index)}
+        waitFor {variantSelection.phylop(variantName,index)}
+        return true
+    }
+
+    def getEvidence(String variantName, int index = 0){
+        waitFor {variantSelection.evidence(variantName,index)}
+            if(variantSelection.evidence(variantName,index).find("img").displayed){
+                return variantSelection.evidence(variantName,index).find("img").getAttribute("src")
+            }
+            else return NONE
+        }
 
     def getClassBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.getClassBasedOnVariant(variantName, index).displayed }

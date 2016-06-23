@@ -1,4 +1,4 @@
-package Specs.Smoke
+package Specs.ClinicalReporter
 
 import Pages.Clinical_Reporter.*
 import Pages.Filtering_Protocol.NewFilteringProtocolPage
@@ -12,7 +12,7 @@ import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
-import Specs.Smoke.TestData.SmokeTestData
+import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
 import org.testng.annotations.AfterMethod
@@ -129,8 +129,13 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         } else {
             verifyUtil.verify(columnNames.equals(PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
-        int totalNumberOfItems = getNumberOfItems();
-        verifyUtil.verify(totalNumberOfItems.equals(SEVEN), "Total number of items are not equal to "+ SEVEN)
+        verifyUtil.verify(getNumberOfItems().equals(SEVEN), "Total number of items are not equal to "+ SEVEN)
+        verifyUtil.verify(getReviewPriority(SAMD11,["orange","gray","green"]).equals(true), "Review Priority Colors are not equal to "+["orange","gray","green"])
+        verifyUtil.verify(getZygosity(SAMD11).equals(HOMOZYGOUS), "Zygosity of the Variant "+SAMD11+" is not HOMOZYGOUS")
+        verifyUtil.verify(getQualityGQCoverage(SAMD11).equals(true), "Quality GQ Coverage of the Variant "+SAMD11+" is not matching")
+        verifyUtil.verify(getOmiciaScore(SAMD11).equals(true), "Omicia Score of the Variant "+SAMD11+" is not matching")
+        verifyUtil.verify(getScoreContainer(SAMD11).equals(true), "Score Container of the Variant "+SAMD11+" is not matching")
+        verifyUtil.verify(getEvidence(SAMD11).equals(NONE), "Evidence of the Variant "+SAMD11+" is not matching")
         verifyUtil.verify(getEffectBasedOnVariant(SAMD11).equals(MISSENSE), "EFFECT of Variant: "+SAMD11 +" is not equal to "+MISSENSE)
         verifyUtil.verify(getChangeBasedOnVariant(SAMD11).equals(data.VARIANT_CHANGE_PANEL),"CHANGE of Variant: "+SAMD11 +" is not equal to "+data.VARIANT_CHANGE_PANEL)
         verifyUtil.verify(getClassBasedOnVariant(SAMD11).equals(NONE_TEXT),"CLASS of Variant: "+SAMD11 +" is not equal to "+NONE_TEXT)
@@ -211,6 +216,12 @@ class LaunchClinicalReportsSpec extends BaseSpec {
             verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE), "Variant Selection column names are not matching. Expected: "+ PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(SIXTY_THREE),"Total number of Items are not equal to "+SIXTY_THREE)
+        verifyUtil.verify(getReviewPriority(TTLL10,["orange","gray","red"]).equals(true), "Review Priority Colors of the Variant: +"+TTLL10+"are not equal to "+["orange","gray","green"])
+        verifyUtil.verify(getZygosity(TTLL10).equals(HETROZYGOUS), "Zygosity of the Variant "+TTLL10+" is not HOMOZYGOUS")
+        verifyUtil.verify(getQualityGQCoverage(TTLL10).equals(true), "Quality GQ Coverage of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getOmiciaScore(TTLL10).equals(true), "Omicia Score of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getScoreContainer(TTLL10).equals(true), "Score Container of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getEvidence(TTLL10).equals(System.getProperty("geb.build.baseUrl")+"static/img/evidence_icons/clinvar.png"), "Evidence of the Variant "+TTLL10+" is not matching")
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_SOLO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_SOLO)
         verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
         verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(TWO),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+TWO)
@@ -229,6 +240,12 @@ class LaunchClinicalReportsSpec extends BaseSpec {
             verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE), "Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
+        verifyUtil.verify(getReviewPriority(TTLL10,["orange","gray","red"]).equals(true), "Review Priority Colors of the Variant: +"+TTLL10+"are not equal to "+["orange","gray","green"])
+        verifyUtil.verify(getZygosity(TTLL10).equals(HETROZYGOUS), "Zygosity of the Variant "+TTLL10+" is not HOMOZYGOUS")
+        verifyUtil.verify(getQualityGQCoverage(TTLL10).equals(true), "Quality GQ Coverage of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getOmiciaScore(TTLL10).equals(true), "Omicia Score of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getScoreContainer(TTLL10).equals(true), "Score Container of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getEvidence(TTLL10).equals(System.getProperty("geb.build.baseUrl")+"static/img/evidence_icons/clinvar.png"), "Evidence of the Variant "+TTLL10+" is not matching")
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_SOLO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_SOLO)
         verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
         verifyUtil.verify(getClassBasedOnVariant(TTLL10).equals(NONE_TEXT),"CLASS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
@@ -294,6 +311,14 @@ class LaunchClinicalReportsSpec extends BaseSpec {
             verifyUtil.verify(getDefaultColumnNamesOnPage().equals(PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE),"Variant Interpretation column names are not matching. Expected: "+ PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE + "Actual: "+ getDefaultColumnNamesOnPage())
         }
         verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of Items are not equal to "+FOUR)
+        verifyUtil.verify(getReviewPriority(TTLL10,["orange","gray","green"]).equals(true), "Review Priority Colors of the Variant: +"+TTLL10+"are not equal to "+["orange","gray","green"])
+        verifyUtil.verify(getZygosity(TTLL10).equals(HETROZYGOUS), "Zygosity of the Variant "+TTLL10+" is not HOMOZYGOUS")
+        verifyUtil.verify(getMotherZygosity(TTLL10).equals(HETROZYGOUS), "Mother Zygosity of the Variant "+TTLL10+" is not "+HETROZYGOUS)
+        verifyUtil.verify(getFatherZygosity(TTLL10).equals(NONE), "Father Zygosity of the Variant "+TTLL10+" is showing")
+        verifyUtil.verify(getQualityGQCoverage(TTLL10).equals(true), "Quality GQ Coverage of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getOmiciaScore(TTLL10).equals(true), "Omicia Score of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getScoreContainer(TTLL10).equals(true), "Score Container of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getEvidence(TTLL10).equals(System.getProperty("geb.build.baseUrl")+"static/img/evidence_icons/clinvar.png"), "Evidence of the Variant "+TTLL10+" is not matching")
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_TRIO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_TRIO)
         verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
         verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE)
@@ -314,6 +339,14 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_TRIO),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_TRIO)
         verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getReviewPriority(TTLL10,["orange","gray","green"]).equals(true), "Review Priority Colors of the Variant: +"+TTLL10+"are not equal to "+["orange","gray","green"])
+        verifyUtil.verify(getZygosity(TTLL10).equals(HETROZYGOUS), "Zygosity of the Variant "+TTLL10+" is not HOMOZYGOUS")
+        verifyUtil.verify(getMotherZygosity(TTLL10).equals(HETROZYGOUS), "Mother Zygosity of the Variant "+TTLL10+" is not "+HETROZYGOUS)
+        verifyUtil.verify(getFatherZygosity(TTLL10).equals(NONE), "Father Zygosity of the Variant "+TTLL10+" is showing")
+        verifyUtil.verify(getQualityGQCoverage(TTLL10).equals(true), "Quality GQ Coverage of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getOmiciaScore(TTLL10).equals(true), "Omicia Score of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getScoreContainer(TTLL10).equals(true), "Score Container of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getEvidence(TTLL10).equals(System.getProperty("geb.build.baseUrl")+"static/img/evidence_icons/clinvar.png"), "Evidence of the Variant "+TTLL10+" is not matching")
         verifyUtil.verify(getClassBasedOnVariant(TTLL10).equals(NONE_TEXT),"CLASS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
         verifyUtil.verify(getStatusBasedOnVariant(TTLL10).equals(NONE_TEXT),"STATUS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
         verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE)
@@ -379,6 +412,15 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfItems().equals(FOUR),"Total number of items is not equal to "+FOUR)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_QUAD),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_QUAD)
         verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getReviewPriority(TTLL10,["orange","gray","green"]).equals(true), "Review Priority Colors of the Variant: +"+TTLL10+"are not equal to "+["orange","gray","green"])
+        verifyUtil.verify(getZygosity(TTLL10).equals(HETROZYGOUS), "Zygosity of the Variant "+TTLL10+" is not HOMOZYGOUS")
+        verifyUtil.verify(getMotherZygosity(TTLL10).equals(HETROZYGOUS), "Mother Zygosity of the Variant "+TTLL10+" is not "+HETROZYGOUS)
+        verifyUtil.verify(getFatherZygosity(TTLL10).equals(NONE), "Father Zygosity of the Variant "+TTLL10+" is showing")
+        verifyUtil.verify(getSiblingZygosity(TTLL10).equals(NONE), "Sibling Zygosity of the Variant "+TTLL10+" is showing")
+        verifyUtil.verify(getQualityGQCoverage(TTLL10).equals(true), "Quality GQ Coverage of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getOmiciaScore(TTLL10).equals(true), "Omicia Score of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getScoreContainer(TTLL10).equals(true), "Score Container of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getEvidence(TTLL10).equals(System.getProperty("geb.build.baseUrl")+"static/img/evidence_icons/clinvar.png"), "Evidence of the Variant "+TTLL10+" is not matching")
         verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE)
         verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE),"Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
 
@@ -397,6 +439,15 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfItems().equals(ONE),"Total number of Items are not equal to "+ONE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_QUAD),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_QUAD)
         verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
+        verifyUtil.verify(getReviewPriority(TTLL10,["orange","gray","green"]).equals(true), "Review Priority Colors of the Variant: +"+TTLL10+"are not equal to "+["orange","gray","green"])
+        verifyUtil.verify(getZygosity(TTLL10).equals(HETROZYGOUS), "Zygosity of the Variant "+TTLL10+" is not HOMOZYGOUS")
+        verifyUtil.verify(getMotherZygosity(TTLL10).equals(HETROZYGOUS), "Mother Zygosity of the Variant "+TTLL10+" is not "+HETROZYGOUS)
+        verifyUtil.verify(getFatherZygosity(TTLL10).equals(NONE), "Father Zygosity of the Variant "+TTLL10+" is showing")
+        verifyUtil.verify(getSiblingZygosity(TTLL10).equals(NONE), "Sibling Zygosity of the Variant "+TTLL10+" is showing")
+        verifyUtil.verify(getQualityGQCoverage(TTLL10).equals(true), "Quality GQ Coverage of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getOmiciaScore(TTLL10).equals(true), "Omicia Score of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getScoreContainer(TTLL10).equals(true), "Score Container of the Variant "+TTLL10+" is not matching")
+        verifyUtil.verify(getEvidence(TTLL10).equals(System.getProperty("geb.build.baseUrl")+"static/img/evidence_icons/clinvar.png"), "Evidence of the Variant "+TTLL10+" is not matching")
         verifyUtil.verify(getClassBasedOnVariant(TTLL10).equals(NONE_TEXT),"CLASS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
         verifyUtil.verify(getStatusBasedOnVariant(TTLL10).equals(NONE_TEXT),"STATUS of Variant: "+TTLL10+" is not equal to "+NONE_TEXT)
         verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE)

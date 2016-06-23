@@ -1,4 +1,4 @@
-package Specs.Smoke
+package Specs.Projects
 
 import Pages.App_Store.AppStoreAnalysisHomePage
 import Pages.Clinical_Reporter.ClinicalReporterPage
@@ -9,7 +9,7 @@ import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
-import Specs.Smoke.TestData.SmokeTestData
+import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
 import org.testng.annotations.AfterMethod
@@ -114,10 +114,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         clickOnHeaderButton(VAAST_VIEWER)
         projectId = getProjectID();
         reportId = getReportId();
-        withWindow(getAvailableWindows().getAt(1).toString()){
+        withWindow(getAvailableWindows().getAt(1).toString(),close:true){
             verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
-            driver.close()
         }
         verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()
@@ -199,10 +198,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         clickOnHeaderButton(VAAST_VIEWER)
         projectId = getProjectID();
         reportId = getReportId();
-        withWindow(getAvailableWindows().getAt(1).toString()){
+        withWindow(getAvailableWindows().getAt(1).toString(),close:true){
             verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
-            driver.close()
         }
         verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()
@@ -284,10 +282,9 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         clickOnHeaderButton(VAAST_VIEWER)
         projectId = getProjectID();
         reportId = getReportId();
-        withWindow(getAvailableWindows().getAt(1).toString()){
+        withWindow(getAvailableWindows().getAt(1).toString(),close:true){
             verifyUtil.verify(driver.getCurrentUrl().contains(System.getProperty("geb.build.baseUrl")+"project/"+projectId+"/reports/"+reportId+"/viewer"),"The new window opened after clicking VAAST VIEWER does not open url containing "+"/viewer")
             verifyContentOnVAASTViewerPage()
-            driver.close()
         }
         verifyUtil.verify(getResponseCodeForExportReportRequest().equals(200),"The response code for export report request is not equal to 200")
         driver.navigate().back()

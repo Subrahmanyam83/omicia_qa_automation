@@ -1,4 +1,4 @@
-package Specs.Smoke
+package Specs.Projects
 
 import Pages.App_Store.AppStoreAnalysisHomePage
 import Pages.Clinical_Reporter.ClinicalReporterPage
@@ -10,7 +10,7 @@ import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
-import Specs.Smoke.TestData.SmokeTestData
+import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
 import org.testng.annotations.AfterMethod
