@@ -98,3 +98,28 @@ task testCasesDetails(type: Test, dependsOn: [classes, testClasses]) {
     }
 }
 
+task reRunTest(type: Test, dependsOn: [classes, testClasses]) {
+    doFirst{
+        copyTask.execute()
+    }
+    /*outputs.upToDateWhen { false }
+    useTestNG {
+        convertPropertiesToSystemProperties()
+        reports.html.destination = System.properties['junit.reports.directory']
+        println(System.properties['geb.build.baseUrl'])
+        systemProperty "geb.env", System.properties['geb.build.baseUrl'];
+        useDefaultListeners = true
+        suites 'src/test/resources/xmls/testng-failed.xml'
+    }*/
+}
+
+task (copyTask, type: Copy) {
+    if(new File('src/test/resources/xmls/testng-failed.xml').exists()){
+        delete 'src/test/resources/xmls/testng-failed.xml'
+    }
+    if(new File('reports/Junit-Reports/testng-failed.xml').exists()){
+        from 'reports/Junit-Reports/testng-failed.xml'
+        into 'src/test/resources/xmls/'
+        delete "reports"
+    }
+}

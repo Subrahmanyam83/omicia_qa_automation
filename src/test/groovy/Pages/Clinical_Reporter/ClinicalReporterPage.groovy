@@ -1,6 +1,8 @@
 package Pages.Clinical_Reporter
 
 import Modules.Clinical_Reporter.ClinicalReporterModule
+import Modules.Filtering_Protocol.NewFilteringProtocolModule
+import Modules.Panel_Builder.PanelBuilderModule
 import Utilities.Class.BasePage
 import org.testng.Assert
 
@@ -17,6 +19,8 @@ class ClinicalReporterPage extends BasePage {
 
     static content = {
         clinicalReporter { module ClinicalReporterModule }
+        filteringprotocol {module NewFilteringProtocolModule}
+        panelBuilder {module PanelBuilderModule}
     }
 
     def clickOnNewReportAndSelectDropDownValue(String option) {
@@ -81,7 +85,9 @@ class ClinicalReporterPage extends BasePage {
     }
 
     def clickOnActionsAndValueBasedOnPatientId(String patientId, String action) {
+        waitFor {clinicalReporter.actionsButtonBasedOnPatientId(patientId)}
         click(clinicalReporter.actionsButtonBasedOnPatientId(patientId), "Action Button of the Clinical Report of Patient ID: " + patientId)
+        waitFor {clinicalReporter.valueOnActionButon(action)}
         click(clinicalReporter.valueOnActionButon(action), "Action button Value: " + action)
     }
 
@@ -101,6 +107,45 @@ class ClinicalReporterPage extends BasePage {
             waitTillElementIsNotPresent(clinicalReporter.deletingReportProgressBar, "Deleting Report Progress Bar")
             Thread.sleep(1000)
         }
+    }
+
+    def deleteAllClinicalReportsBasedOnReports(){
+        boolean deleteReportsFromGAWDTool = false;
+        getAllReportIds().each {
+            report->
+                if(clinicalReporter.statusBasedOnReportId(report).text().trim().equals(WAITING_FOR_APPROVAL) || !clinicalReporter.statusBasedOnReportId(report).text().trim().equals(APPROVED)){
+                     deleteReportsFromGAWDTool = true;
+                }
+                if(!clinicalReporter.statusBasedOnReportId(report).text().trim().equals(WAITING_FOR_APPROVAL) || !clinicalReporter.statusBasedOnReportId(report).text().trim().equals(APPROVED)){
+                    clickOnActionsAndValueBasedOnPatientId(report,DELETE_REPORT)
+                    click(clinicalReporter.deleteReportButtonOnDialog, "Confirmation Delete Report Button on Dialog")
+                    waitTillElementIsNotPresent(clinicalReporter.deletingReportProgressBar, "Deleting Report Progress Bar")
+                    Thread.sleep(1000)
+                }
+        }
+        return deleteReportsFromGAWDTool
+    }
+
+    def clickItemsPerPageAndChooseValue(String value = HUNDRED) {
+        if (filteringprotocol.activePaginatorButton.displayed) {
+            scrollToCenter(filteringprotocol.activePaginatorButton)
+            click(filteringprotocol.activePaginatorButton, "Paginator Button")
+            waitFor { panelBuilder.paginatorDropDownValue(value) }
+            scrollToCenter(panelBuilder.paginatorDropDownValue(value))
+            click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
+            scrollToCenter(filteringprotocol.newFilteringProtocolButton)
+        }
+    }
+
+    def getAllReportIds(){
+        List reports = new LinkedList()
+        clickItemsPerPageAndChooseValue()
+        waitFor {clinicalReporter.allReportIds}
+        int numberOfReports = clinicalReporter.allReportIds.size()
+        for(int i = 0 ;i<numberOfReports;i++){
+            reports.add(clinicalReporter.allReportIds[i].text())
+        }
+        return reports
     }
 
     def chooseGeneForEachMember(String type) {
