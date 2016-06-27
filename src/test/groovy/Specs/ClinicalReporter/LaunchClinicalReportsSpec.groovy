@@ -15,7 +15,6 @@ import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -37,7 +36,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil = new VerifyUtil()
     }
 
-    @Test(groups = ["smoke", "functional"], priority = 1, description = "Launch End to End Panel Report")
+    @Test(groups = ["smoke", "functional"], priority = 1, description = "Launch End to End Pre-ACMG Panel Report")
     public void launchEndToEndPanelReport(Method method) {
 
         currentMethod = method.name;
@@ -171,9 +170,11 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
         verifyUtil.verify(getNumberOfSecondaryFindingReports().equals(ONE),"Secondary Finding Reports size is not equal to "+ONE)
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200");
+
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 
-    @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch Solo Report")
+    @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch End to End Pre-ACMG Solo Report")
     public void launchSoloReport(Method method) {
 
         currentMethod = method.name;
@@ -266,9 +267,11 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         at ReviewReportPage
         verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
+
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 
-    @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch Trio Report")
+    @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch End to End Pre-ACMG Trio Report")
     public void launchTrioReport(Method method) {
 
         currentMethod = method.name;
@@ -365,9 +368,11 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         at ReviewReportPage
         verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
+
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 
-    @Test(groups = ["smoke", "functional"], priority = 4, description = "Launch Quad Report")
+    @Test(groups = ["smoke", "functional"], priority = 4, description = "Launch End to End Pre-ACMG Quad Report")
     public void launchQuadReport(Method method) {
 
         currentMethod = method.name
@@ -466,10 +471,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
         at ReviewReportPage
         verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
-    }
 
-    @AfterMethod(alwaysRun = true)
-    public void afterMethodExecution(){
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }

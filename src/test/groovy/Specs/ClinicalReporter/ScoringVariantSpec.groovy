@@ -19,7 +19,6 @@ import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -190,7 +189,7 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getInferredClassification().equals(UNCERTAIN_SIGNIFICANCE), "Default Classification in Score Variant Page is not '" + UNCERTAIN_SIGNIFICANCE + "'")
         addVariantDescription()
         addInternalNote()
-        verifyUtil.verify(verifyTextOfNote().equals(INTERNAL_NOTES), "Internal Notes Text is not matching in Score Variant Tab")
+        verifyUtil.verify(verifyTextOfNote().contains(INTERNAL_NOTES), "Internal Notes Text is not matching in Score Variant Tab")
         clickOnTab(VARIANT_HISTORY)
         verifyUtil.verify(verifyNumberOfHistoryRows().equals(THREE), "Variant History rows are not equal to "+ THREE)
         clickOnTab(SCORING_SUMMARY)
@@ -233,6 +232,8 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
         verifyUtil.verify(getNumberOfSecondaryFindingReports().equals(ZERO),"Secondary Finding Reports size is not equal to "+ZERO)
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
+
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 
     @Test(groups = ["clinical_reporter", "acmg", "functional"], description = "Scoring Variants for ACMG Quad Report with No Default Condition Genes.")
@@ -446,10 +447,7 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
         verifyUtil.verify(getNumberOfSecondaryFindingReports().equals(ZERO),"Secondary Finding Reports size is not equal to "+ZERO)
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
-    }
 
-    @AfterMethod(alwaysRun = true)
-    public void afterMethodExecution(){
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }

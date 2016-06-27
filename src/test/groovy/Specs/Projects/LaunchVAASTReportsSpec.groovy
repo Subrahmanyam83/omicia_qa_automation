@@ -12,7 +12,6 @@ import Pages.Upload_Genomes.UploadGenomePage
 import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -125,6 +124,8 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_SOLO_REPORT)
         verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of SOLO Reports after deletion is not reducing")
+
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 
     @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch VAAST Trio Analysis")
@@ -209,6 +210,8 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_TRIO_REPORT)
         verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of TRIO Reports after deletion is not reducing")
+
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 
     @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch VAAST Quad Analysis")
@@ -293,10 +296,7 @@ class LaunchVAASTReportsSpec extends BaseSpec {
         int reportSize = getNumberOfReports()
         deleteReport(VAAST_QUAD_REPORT)
         verifyUtil.verify(getNumberOfReports().equals(reportSize-1),"The Number of TRIO Reports after deletion is not reducing")
-    }
 
-    @AfterMethod(alwaysRun = true)
-    public void afterMethodExecution(){
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }

@@ -17,6 +17,8 @@ class ReviewReportModule extends Module {
 
         primaryReportsHeading       { $(".report-label",text:"Primary Findings")}
         secondaryReportsHeading     { $(".report-label",text:"Secondary Findings")}
+        primaryFindingDiv           { $("#primary-findings")}
+        secondaryFindingDiv         { $("#secondary-findings")}
         primaryFindingReports       { $("#primary-findings tr.sortable-row").size() }
         secondaryFindingReports     { $("#secondary-findings tr.sortable-row").size() }
         getClinicalReportId         { $(".clinical-report-id").text().trim() }

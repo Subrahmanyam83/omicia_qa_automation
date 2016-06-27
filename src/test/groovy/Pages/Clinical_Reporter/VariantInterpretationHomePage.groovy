@@ -110,7 +110,7 @@ class VariantInterpretationHomePage extends BasePage {
                 return variantSelection.evidence(variantName,index).find("img").getAttribute("src")
             }
             else return NONE
-        }
+    }
 
     def getClassBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.getClassBasedOnVariant(variantName, index).displayed }
