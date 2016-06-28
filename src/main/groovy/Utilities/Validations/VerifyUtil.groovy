@@ -29,5 +29,6 @@ class VerifyUtil {
      */
     public def assertTestResult(String message){
         Assert.assertTrue(results.size()==0,message+" "+results.toString())
+        return results.size() == 0
     }
 }

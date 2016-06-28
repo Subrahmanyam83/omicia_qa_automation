@@ -297,5 +297,28 @@ public interface Constants {
     /*Group Tab*/
     public String CLINICAL_REPORTER_ACCESS = "Clinical Reporter access"
 
-
+    /*Projects Home Page*/
+    public String PROJECT_DESCRIPTION_1 = "Sample Project Description 1"
+    public String CREATE_ACTION = "Create Project"
+    public String INVALID_SEARCH_STRING = "qwerty"
+    public String VALID_SEARCH_STRING = "4"
+    public String EDIT_PROJECT_OPTION = "Edit Project"
+    public String PROJECT_DETAILS_OPTION = "Project Details"
+    public String SHARE_PROJECT_OPTION = "Share Project"
+    public String EDIT_PROJECT_NAME = "Test Project 1"
+    public String EDIT_PROJECT_DESCRIPTION = "Sample Edit 1"
+    public String PUBLIC_PROJECTS = "Public Projects"
+    public String WORKSPACE_PROJECTS = "Workspace Projects"
+    public List USERNAMES = ["Omicia Admin Owner"]
+    public String STRING_USERNAME = "Omicia Admin Owner"
+    public String USERLOGINEMAIL = "omicia.test.user+owner@gmail.com"
+    public String PROJECTROLE_CONTRIBUTOR = "Contributor"
+    public String PROJECTROLE_VIEWER = "Viewer"
+    public String REMOVEME_OPTION = "Remove Me"
+    public String REMOVEPROJECT_BUTTON = "Remove Project"
+    public String SAVE_CHANGES = "Save Changes"
+    public String PRE_ACMG_WORKSPACE = "Pre_ACMG_Automation_Workspace_Omicia"
+    public List ACTIONSLIST_VIEWER = ["Project Details", "Remove Me"]
+    public List ACTIONSLIST_CONTRIBUTOR = ["Project Details", "Edit Project", "Share Project", "Upload Genomes"]
+    public int WID = 300
 }
