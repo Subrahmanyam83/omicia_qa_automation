@@ -119,7 +119,7 @@ class VariantInterpretationHomePage extends BasePage {
 
     def getClassConditionBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.getClassCondition(variantName, index).displayed }
-        return interpretVariantsHome.getClassCondition(variantName, index).text().trim()
+        return interpretVariantsHome.getClassCondition(variantName, index).text().replace("\n"," ").trim()
     }
 
     def getScoringStatusBasedOnVariant(String variantName, int index = 0) {

@@ -222,7 +222,7 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getAssignedClassification().equals(BENIGN), "Assigned classification is not equal to "+BENIGN)
 
         at VariantInterpretationHomePage
-        verifyUtil.verify(getClassConditionBasedOnVariant(AGRN).contains(BENIGN.replace("\n"," ")+CLINVAR_OMIM_CONDITION_NAME),"CLASS of Variant: "+AGRN+ " does not contain "+ BENIGN.replace("\n"," ")+CLINVAR_OMIM_CONDITION_NAME)
+        verifyUtil.verify(getClassConditionBasedOnVariant(AGRN).contains(BENIGN +" ("+CLINVAR_OMIM_CONDITION_NAME+")"),"CLASS of Variant: "+AGRN+ " does not contain "+ BENIGN +" ("+CLINVAR_OMIM_CONDITION_NAME+")")
         verifyUtil.verify(getScoringStatusBasedOnVariant(AGRN).equals(CLASSIFIED),"Scoring status of Variant: "+AGRN+" is not equal to "+CLASSIFIED)
         verifyUtil.verify(getReportSectionBasedOnVariant(AGRN).equals(NOT_REPORTED),"Report of Variant: "+AGRN+" is not equal to "+ NOT_REPORTED)
         changeReportSectionFromDropDown(AGRN)
@@ -302,7 +302,7 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10).equals(data.positiondbSNP_QUAD),"DBSNP Position of Variant: "+TTLL10+" is not equal to "+data.positiondbSNP_QUAD)
         verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_QUAD_ACMG),"CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_QUAD_ACMG)
-        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE_STRING), "VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE_STRING)
+        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE), "VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE_STRING)
         verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(NONE),"Phevor Rank of Variant: "+TTLL10+" is not equal to "+NONE)
         verifyUtil.verify(getLatestClassificationBasedOnVariant(TTLL10).equals("-"),"Classification of Variant: "+TTLL10+" is not equal to -")
 
@@ -337,8 +337,8 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getPositionDBSNPBasedOnVariant(TTLL10).equals(data.positiondbSNP_QUAD), "DBSNP Position of Variant: "+TTLL10+" is not equal to "+data.positiondbSNP_QUAD)
         verifyUtil.verify(getEffectBasedOnVariant(TTLL10).equals(MISSENSE),"EFFECT of Variant: "+TTLL10+" is not equal to "+MISSENSE)
         verifyUtil.verify(getChangeBasedOnVariant(TTLL10).equals(data.VARIANT_CHANGE_QUAD_ACMG), "CHANGE of Variant: "+TTLL10+" is not equal to "+data.VARIANT_CHANGE_QUAD_ACMG)
-        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE_STRING),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE_STRING)
-        verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE.toString()), "Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
+        verifyUtil.verify(getVAASTGeneRankBasedOnVariant(TTLL10).equals(ONE),"VAAST Gene Rank of Variant: "+TTLL10+" is not equal to "+ONE_STRING)
+        verifyUtil.verify(getPhevorRankBasedOnVariant(TTLL10).equals(THREE), "Phevor Rank of Variant: "+TTLL10+" is not equal to "+THREE)
         verifyUtil.verify(getInheritanceMode(TTLL10).equals(RECESSIVE),"Inheritance mode for Condition: "+TTLL10+" is not equal to "+RECESSIVE)
         verifyUtil.verify(getLatestClassificationBasedOnVariant(TTLL10).equals("-"), "Classification of Variant: "+TTLL10+" is not equal to -")
 
@@ -421,7 +421,7 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(verifyNumberOfHistoryRows().equals(FOUR), "Variant History rows are not equal to "+FOUR)
 
         at VariantInterpretationHomePage
-        verifyUtil.verify(getClassConditionBasedOnVariant(TTLL10).contains(CLINVAR_OMIM_CONDITION_NAME),"CLASS of Variant: "+TTLL10+ " does not contain "+ CLINVAR_OMIM_CONDITION_NAME)
+        verifyUtil.verify(getClassConditionBasedOnVariant(TTLL10).contains(FEVER),"CLASS of Variant: "+TTLL10+ " does not contain "+ FEVER)
         verifyUtil.verify(getScoringStatusBasedOnVariant(TTLL10).equals(SCORING),"Scoring status of Variant: "+TTLL10+" is not equal to "+SCORING)
         verifyUtil.verify(getLatestClassificationBasedOnVariant(TTLL10).contains(SCORING_IN_PROGRESS), "Classification of Variant: "+TTLL10+" is not equal to "+SCORING_IN_PROGRESS)
 
@@ -437,7 +437,7 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getAssignedClassification().equals(BENIGN),"Assigned classification is not equal to "+BENIGN)
 
         at VariantInterpretationHomePage
-        verifyUtil.verify(getClassConditionBasedOnVariant(TTLL10).contains(BENIGN.replace("\n"," ")+CLINVAR_OMIM_CONDITION_NAME),"CLASS of Variant: "+TTLL10+ " does not contain "+ BENIGN.replace("\n"," ")+CLINVAR_OMIM_CONDITION_NAME)
+        verifyUtil.verify(getClassConditionBasedOnVariant(TTLL10).contains(BENIGN +" ("+FEVER+")"),"CLASS of Variant after assigning Classification : "+TTLL10+ " does not contain "+ BENIGN +" ("+FEVER+")")
         verifyUtil.verify(getScoringStatusBasedOnVariant(TTLL10).equals(CLASSIFIED),"Scoring status of Variant: "+TTLL10+" is not equal to "+CLASSIFIED)
         verifyUtil.verify(getReportSectionBasedOnVariant(TTLL10).equals(NOT_REPORTED),"Report of Variant: "+TTLL10+" is not equal to "+ NOT_REPORTED)
         changeReportSectionFromDropDown(TTLL10)

@@ -92,8 +92,10 @@ class HeaderPage extends BasePage{
     def changePaginatorLevel(String value = HUNDRED) {
         Thread.sleep(2000L)
         if (home.paginatorDropDown.displayed) {
+            scrollToCenter(home.paginatorDropDown)
             click(home.paginatorDropDown, "Paginator Drop Down value")
             waitFor { home.paginatorDropDownValue(value) }
+            scrollToCenter(home.paginatorDropDownValue(value))
             click(home.paginatorDropDownValue(value), "Paginator Drop Down value: " + value)
         }
     }

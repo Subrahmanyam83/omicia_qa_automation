@@ -72,6 +72,7 @@ class ScoreVariantPage extends BasePage {
             click(scoringVariant.setClassificationButton,"Set Classification Button")
             waitFor {scoringVariant.setClassificationButtonOnPopup}
             click(scoringVariant.setClassificationButtonOnPopup,"Set Classification Button on Modal Popup")
+            waitFor {scoringVariant.alertTextClassificationSaved}
             waitFor {scoringVariant.closeButton}
             click(scoringVariant.closeButton,"Close Button on Modal Popup")
         }
