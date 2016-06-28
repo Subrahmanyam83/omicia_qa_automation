@@ -70,7 +70,7 @@ class ScoringVariantSpec extends BaseSpec {
         signOut()
     }
 
-    @Test(groups = ["clinical_reporter", "acmg", "functional"], description = "Scoring Variants for ACMG Panel Report")
+    @Test(groups = ["clinical_reporter", "acmg", "functional","smoke"], description = "Scoring Variants for ACMG Panel Report")
     public void testScoringVariantsInACMGPanelReport(Method method) {
 
         currentMethod = method.name
@@ -236,7 +236,7 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 
-    @Test(groups = ["clinical_reporter", "acmg", "functional"], description = "Scoring Variants for ACMG Quad Report with No Default Condition Genes.")
+    @Test(groups = ["clinical_reporter", "acmg", "functional","smoke"], description = "Scoring Variants for ACMG Quad Report with No Default Condition Genes.")
     public void testScoringVariantsInACMGQuadReportWithNoDefaultConditionGene(Method method) {
 
 

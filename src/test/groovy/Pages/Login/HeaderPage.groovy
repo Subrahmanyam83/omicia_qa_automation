@@ -25,6 +25,7 @@ class HeaderPage extends BasePage{
     }
 
     def signOut(){
+        waitFor {header.signOut}
         click(header.signOut,"Header Sign Out Button");
         waitFor {login.signInLink}
     }
