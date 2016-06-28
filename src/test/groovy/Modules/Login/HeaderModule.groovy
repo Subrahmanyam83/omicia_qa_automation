@@ -16,7 +16,8 @@ class HeaderModule extends Module{
         omiciaOpalHomePage                        { $(".brand", text: contains("Omicia Opal")) }
 
         /*OPAL ADMIN*/
-        opalAdminButton                           { $("span", text: "Opal Admin") }
-        opalAdminTabs                             { String tabName -> $("div.container-fluid .row-fluid .admin-task-name", text: contains(tabName)) }
+        opalAdminButton                           {$("span", text: "Opal Admin") }
+        opalAdminTabs                             {String tabName -> $("div.container-fluid .row-fluid .admin-task-name", text: contains(tabName)) }
+        userEmailOnHeaderPage                     {$("ul.pull-right").find(".login")[1]}
     }
 }

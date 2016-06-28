@@ -97,4 +97,8 @@ class HeaderPage extends BasePage{
             click(home.paginatorDropDownValue(value), "Paginator Drop Down value: " + value)
         }
     }
+
+    def clickEmailOnHeaderPage(){
+        click(header.userEmailOnHeaderPage,"Email on Header page")
+    }
 }
