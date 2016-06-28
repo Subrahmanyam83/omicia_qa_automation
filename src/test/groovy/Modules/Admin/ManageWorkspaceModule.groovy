@@ -40,7 +40,14 @@ class ManageWorkspaceModule extends Module {
         /*Members*/
         membersTableSize                { $("#members-table tbody tr").size() }
         deleteButton                    { $(".remove-member") }
-
-
+        addMemberButton                 { $("#add-member") }
+        searchFieldInAddUserModal       { $(".form-search .search-query")}
+        searchButtonInAddUserModal      { $(".form-search .btn")}
+        resultsTableInAddUserModal      { $("#user-table")}
+        addUserButtoninAddUserModal     { $(".add-this-member")}
+        addedButtoninAddUserModal       { $(".add-this-member",text: contains("Added"))}
+        workspaceMemberExistence        { String userloginemail-> $("#members-table tbody td",text:contains(userloginemail))}
+        deleteIconBasedOnMember         { String useremail-> workspaceMemberExistence(useremail).parent().find("button.remove-member")}
+        eachMemberNameInMembersTab      { int index-> $("#members-table tbody tr")[index].find("td")[2] }
     }
 }

@@ -8,10 +8,6 @@ import Utilities.Class.BaseSpec
 class SmokeTestData extends BaseSpec {
 
     public String random = "_" + generateRandom();
-    public String random_1 = "_" + generateRandom();
-    public String random_2 = "_" + generateRandom();
-    public String random_3 = "_" + generateRandom();
-    public String random_4 = "_" + generateRandom();
 
     public String GENE_LABEL = "Genome-Label-1 — External-ID-1"
     public String EXOME_GENE_LABEL = "Genome-Label-1-EX024-1 — External-ID-1"
@@ -20,7 +16,6 @@ class SmokeTestData extends BaseSpec {
     public String DESCRIPTION = "Test Gene Set Description" + random
     public String GENE_SYMBOLS = "CDK11A ABCA4"
     public int GENE_COUNT = 5
-    public int PROJECTS_GENE_COUNT = 4
     public int VARIANT_GENE = 3
 
     /*Panel Builder*/

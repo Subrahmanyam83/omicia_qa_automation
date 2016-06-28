@@ -38,8 +38,6 @@ class VerifyUtil {
      */
     public def assertTestResult(String message){
         Assert.assertTrue(results.size()==0,message+" "+results.toString())
-        if(results.size()==0)
-            println("Test Case Passed")
         return results.size() == 0
     }
 }

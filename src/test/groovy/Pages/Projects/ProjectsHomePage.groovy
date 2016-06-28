@@ -3,6 +3,8 @@ package Pages.Projects
 import Modules.Login.HeaderModule
 import Modules.Projects.ProjectsHomeModule
 import Utilities.Class.BasePage
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.Keys
 import org.testng.Assert
 
 /**
@@ -85,10 +87,6 @@ class ProjectsHomePage extends BasePage{
         waitFor {projectsHome.activeProjectTab(tabName)}
     }
 
-    def clickOnWorkSpaceProjectsTab(){
-        waitFor {projectsHome.workspaceProjectsTab}
-        click(projectsHome.workspaceProjectsTab,"Workspace projects tab")
-    }
     def projectSearch(String SearchString){
         projectsHome.projectSearchTextField.firstElement().clear()
         type(projectsHome.projectSearchTextField,SearchString, "Project Search text field")
@@ -96,23 +94,25 @@ class ProjectsHomePage extends BasePage{
     }
 
     def verifyProjectSearchResults(String searchString){
+        boolean isSearchResultPresent = false
         waitFor {projectsHome.modalPopUp}
-        String noResults
         List searchResults = new ArrayList()
-        if(projectsHome.noSearchResults.text().contains("Projects")){
+        if(projectsHome.noSearchResults.text().contains("Projects")) {
+            isSearchResultPresent = true
             int projectSize = projectsHome.projectSearchResultsCount.size()
-                for(int i =0;i<projectSize;i++) {
-                    searchResults.add(projectsHome.projectSearchResults(i))
-                }
-            if(projectsHome.noSearchResults.text().contains("Genomes")){
-                int genomeSize = projectsHome.genomeSearchResultsCount.size()
-                for(int i =0;i<genomeSize;i++) {
-                    searchResults.add(projectsHome.genomeSearchResults(i))
-                }
+            for (int i = 0; i < projectSize; i++) {
+                searchResults.add(projectsHome.projectSearchResults(i))
             }
-        }else{
-            noResults = projectsHome.noSearchResults.text().trim()
-            searchResults.add(noResults)
+        }
+        if(projectsHome.noSearchResults.text().contains("Genomes")){
+            isSearchResultPresent = true
+            int genomeSize = projectsHome.genomeSearchResultsCount.size()
+            for(int i =0;i<genomeSize;i++) {
+                    searchResults.add(projectsHome.genomeSearchResults(i))
+            }
+        }
+        if(isSearchResultPresent.equals(false)){
+            searchResults.add(projectsHome.noSearchResults.text().trim())
             click(projectsHome.modalCloseButton,"Modal close button")
             return searchResults
         }
@@ -149,16 +149,15 @@ class ProjectsHomePage extends BasePage{
             }
         }
         if(action.equals("Create Project")||action.equals("Save")) {
-            waitFor {projectsHome.optionBasedOnCreateOrEditProject(action)}
-            click(projectsHome.optionBasedOnCreateOrEditProject(action), "Action button -> " + action)
+            waitFor {projectsHome.optionBasedOnCreateOrEditOrShareProject(action)}
+            click(projectsHome.optionBasedOnCreateOrEditOrShareProject(action), "Action button -> " + action)
             waitFor { projectsHome.modalCloseButton }
             click(projectsHome.modalCloseButton,"Close button")
         }
         if(action.equals("Cancel")){
-            waitFor {projectsHome.optionBasedOnCreateOrEditProject(action)}
-            click(projectsHome.optionBasedOnCreateOrEditProject(action), "Action button -> "+action)
+            waitFor {projectsHome.optionBasedOnCreateOrEditOrShareProject(action)}
+            click(projectsHome.optionBasedOnCreateOrEditOrShareProject(action), "Action button -> "+action)
         }
-
     }
 
     def clickActionsAndOptionBasedOnProject(String ProjectName, String option){
@@ -181,4 +180,67 @@ class ProjectsHomePage extends BasePage{
         return projectsHome.projectContributors.trim()
     }
 
+    def shareProjectWithUser(List userNames, String roleoption, String option) {
+        waitFor {projectsHome.selectUserDropDown}
+        click(projectsHome.selectUserDropDown,"Select user dropdown")
+        userNames.each{
+            userName-> click(projectsHome.userDropDownOption(userName),"Select the user")
+            click(projectsHome.shareButton,"Share button")
+            waitFor {projectsHome.projectRoleButton(userName,roleoption)}
+            if(roleoption.equals("Viewer")){
+                click(projectsHome.optionBasedOnCreateOrEditOrShareProject(option),"Select Viewer Option")
+            }else{
+                click(projectsHome.projectRoleButton(userName,roleoption),"Select Contributor role")
+                click(projectsHome.optionBasedOnCreateOrEditOrShareProject(option),"Select Save Changes option")
+            }
+        }
+        waitFor {projectsHome.shareChangesSavedAlert}
+        click(projectsHome.modalCloseButton,"Close button")
+    }
+
+    def getActionsListBasedOnProject(String projectName){
+        waitFor {projectsHome.actionsBasedOnProjectName(projectName)}
+        click(projectsHome.actionsBasedOnProjectName(projectName),"Actions Button")
+        List actionsList = new ArrayList()
+        for(int i=0;i<projectsHome.actionsCountBasedOnProjectRole.size();i++){
+                actionsList.add(projectsHome.actionsListBasedOnProjectRole(i))
+        }
+        click(projectsHome.actionsBasedOnProjectName(projectName),"Actions Button")
+        return actionsList
+    }
+
+    def removeAccessFlow(String option){
+        waitFor {projectsHome.optionBasedOnCreateOrEditOrShareProject(option)}
+        click(projectsHome.optionBasedOnCreateOrEditOrShareProject(option),"Remove Project button")
+        waitFor {projectsHome.projectAccessRemovedAlert}
+        waitFor {projectsHome.newProjectButton}
+    }
+
+    def checkIfUserIsNotDisplayedOnShareProjectModal(String userName){
+        waitFor {projectsHome.shareButton}
+        for(int i=0;i<projectsHome.numberOfUsersInShareProjectModal.size();i++){
+            if(projectsHome.eachUserNameInShareProjectModal(i).text().trim().equals(userName)){
+                return false
+            }
+        }
+        return true
+    }
+
+    def verifyProjectIsNotDisplayed(String ProjectName){
+        waitFor {projectsHome.projectsTab(WORKSPACE_PROJECTS)}
+        for(int i=0;i<projectsHome.numberOfProjects;i++){
+            if(projectsHome.eachProjectNameText(i).text().trim().equals(ProjectName)){
+                return false
+            }
+        }
+        return true
+    }
+
+    def openNewPrivateWindow(){
+        if(System.getProperty("browser").equals("chrome")){
+            $("html body") << Keys.chord(Keys.CONTROL,Keys.SHIFT,"n")
+        }else{
+            $("html body") << Keys.chord(Keys.CONTROL,Keys.SHIFT,"p")
+        }
+    }
 }

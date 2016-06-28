@@ -8,13 +8,14 @@ import geb.Module
 class ProjectsHomeModule extends Module{
 
     static content = {
-        projectNameColumn                { $(".project-name-column",text:contains("Project Name")) }
+        projectNameColumn                                   { $(".project-name-column",text:contains("Project Name")) }
 
         genomeCountBasedOnProjectName                       {String projectName-> $("div",'data-name':projectName).parent().parent().find("td div.genome_count").text()}
         projectButton                                       {String projectName-> $('div.project-link.truncate','data-name':projectName)}
         eachProject                                         {$('#workspace .project-link.truncate')}
         numberOfProjects                                    {$('#workspace tr').size()}
         projectIconFolder                                   { int index-> $(".folder-icon.private-folder").getAt(index)}
+        eachProjectNameText                                 { int index-> $('#workspace tr')[index].find(".project-link.truncate")}
 
         projectNameInProjectTable                           {String projectName-> $("#workspace div", 'data-name':projectName)}
         createdByBasedOnProjectName                         {String projectName-> $("div",'data-name':projectName).parent().parent().find("td span.truncate").text()}
@@ -44,19 +45,32 @@ class ProjectsHomeModule extends Module{
         shareProjectCheckbox                                {$("#share-project-checkbox")}
         contributorsRole                                    {$("#contributor-radio")}
         editProjectCancelButton                             {$(".cancel-button")}
-        optionBasedOnCreateOrEditProject                    {String option-> $("#modal .btn",text: option)}
+        optionBasedOnCreateOrEditOrShareProject             {String option-> $("#modal .btn",text: option)}
         projectSucessfullyCreatedAlert                      {$(".alert-text",text: "Project successfully created!")}
         actionsBasedOnProjectName                           {String projectName-> $("div",'data-name':projectName).parent().parent().find("td a.dropdown-toggle.action-button")}
-        optionActionsButton                                 {String option-> $(".btn-group.pull-right.open .dropdown-menu a",text:option)}
+        optionActionsButton                                 {String option-> $(".btn-group.pull-right.open .dropdown-menu a",text:contains(option))}
         projectFieldRequiredError                           {$("#project_name-error")}
 
-        //Edit Project
+        //Edit Project Modal
         projectDescriptionTextField                         {$("#description")}
         projectSavedAlert                                   {$(".alert-text",text: "Project saved!")}
 
-        //Project Details Page
+        //Project Details Modal
         projectHeaderName                                   {$("h3.modal-title").text()}
         projectContributors                                 {$("div.userbox a").text()}
         projectDescription                                  {$(".modal-body table td")[1].text()}
+
+        //Share Project Modal
+        selectUserDropDown                                  { $(".add-member-select")}
+        userDropDownOption                                  { String option-> selectUserDropDown.find("option",text: contains(option))}
+        shareButton                                         { $(".add-member")}
+        numberOfUsersInShareProjectModal                    { $(".user-table-tbody tr")}
+        eachUserNameInShareProjectModal                     { int index-> numberOfUsersInShareProjectModal[index].find(".user-login")}
+        userNameOnShareProjectModal                         { String userName-> $(".user-login",text: userName)}
+        projectRoleButton                                   { String userName,option-> $(".user-login",text: userName).parent().parent().find("button",text: contains(option))}
+        shareChangesSavedAlert                              { $(".alert-text",text: "Changes successfully saved!")}
+        actionsCountBasedOnProjectRole                      { $(".btn-group.pull-right.open .dropdown-menu li")}
+        actionsListBasedOnProjectRole                       { int index-> actionsCountBasedOnProjectRole[index].find("a").text()}
+        projectAccessRemovedAlert                           { $(".alert-text",text: "Successfully removed")}
     }
 }

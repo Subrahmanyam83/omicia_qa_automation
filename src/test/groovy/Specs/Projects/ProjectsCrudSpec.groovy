@@ -29,13 +29,13 @@ class ProjectsCrudSpec extends BaseSpec {
         verifyUtil = new VerifyUtil()
     }
 
-    @Test(groups = "Projects", priority = 1, description = "Project Crud End to End Flow")
-    public void launchProjectCrudFlow(Method method){
+    @Test(groups = "Projects", priority = 1, description = "Project Crud End to End Operations - Project Details, Edit Project, Upload Genomes")
+    public void endToEndProjectCrudOperations(Method method){
 
-        PROJECT_NAME_1 = PROJECT__NAME + data.random_1
-        PROJECT_NAME_2 = PROJECT__NAME + data.random_2
-        PROJECT_NAME_3 = PROJECT__NAME + data.random_3
-        PROJECT_NAME_4 = PROJECT__NAME + data.random_4
+        PROJECT_NAME_1 = PROJECT__NAME + generateRandom()
+        PROJECT_NAME_2 = PROJECT__NAME + generateRandom()
+        PROJECT_NAME_3 = PROJECT__NAME + generateRandom()
+        PROJECT_NAME_4 = PROJECT__NAME + generateRandom()
 
         currentMethod = method.name
         to LoginPage
@@ -63,7 +63,7 @@ class ProjectsCrudSpec extends BaseSpec {
         clickOnMenuAndSelectOption(PROJECTS)
 
         at ProjectsHomePage
-        refreshTillCountMatches(PROJECT_NAME_1, data.PROJECTS_GENE_COUNT)
+        refreshTillCountMatches(PROJECT_NAME_1, FOUR)
         clickOnTab(PUBLIC_PROJECTS)
         clickOnTab(WORKSPACE_PROJECTS)
         verifyUtil.verify(verifyProjectIsDisplayed(PROJECT_NAME_1),PROJECT_NAME_1+" is not displayed on Projects Home page")
@@ -103,9 +103,9 @@ class ProjectsCrudSpec extends BaseSpec {
         clickOnMenuAndSelectOption(PROJECTS)
 
         at ProjectsHomePage
-        refreshTillCountMatches(PROJECT_NAME_2, data.PROJECTS_GENE_COUNT)
-        refreshTillCountMatches(PROJECT_NAME_3, data.PROJECTS_GENE_COUNT)
-        refreshTillCountMatches(PROJECT_NAME_4, data.PROJECTS_GENE_COUNT)
+        refreshTillCountMatches(PROJECT_NAME_2, FOUR)
+        refreshTillCountMatches(PROJECT_NAME_3, FOUR)
+        refreshTillCountMatches(PROJECT_NAME_4, FOUR)
         projectSearch(INVALID_SEARCH_STRING)
         List resultsList = verifyProjectSearchResults(INVALID_SEARCH_STRING)
         resultsList.each {
@@ -116,12 +116,7 @@ class ProjectsCrudSpec extends BaseSpec {
         searchResultsList.each {
             it-> verifyUtil.verify(it.contains(VALID_SEARCH_STRING), "Incorrect search results for valid search string"+ VALID_SEARCH_STRING)
         }
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void afterMethodExecution(){
 
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
-
 }
