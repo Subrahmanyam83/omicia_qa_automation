@@ -3,7 +3,6 @@ package Pages.Projects
 import Modules.Login.HeaderModule
 import Modules.Projects.ProjectsHomeModule
 import Utilities.Class.BasePage
-import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.Keys
 import org.testng.Assert
 
