@@ -1,4 +1,4 @@
-package Specs.Smoke.TestData
+package Specs.Utilities.Data
 
 import Utilities.Class.BaseSpec
 

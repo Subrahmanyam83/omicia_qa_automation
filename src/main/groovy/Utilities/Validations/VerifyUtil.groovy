@@ -22,15 +22,6 @@ class VerifyUtil {
     }
 
     /**
-     * Use this to verify the test results.
-     * This method will assert the results and fails the test in case any of the test are failed.
-     */
-    public def assertTestResult(){
-        Assert.assertTrue(results.size()==0,results.toString())
-        return results.size() == 0
-    }
-
-    /**
      * Use this to Assert all the test results
      * This method will assert the results and fails the test in case any of the test are failed.
      * @param message - Failure message in case verification fails

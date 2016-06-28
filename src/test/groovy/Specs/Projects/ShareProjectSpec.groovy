@@ -5,10 +5,9 @@ import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
 import Pages.Projects.ProjectsHomePage
 import Pages.Upload_Genomes.UploadGenomePage
-import Specs.Smoke.TestData.SmokeTestData
+import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.openqa.selenium.Keys
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
@@ -46,7 +45,7 @@ class ShareProjectSpec extends BaseSpec {
         signOut()
     }
 
-    @Test(groups = "Projects", priority = 1, description = "Share Project flow as Viewer ")
+    @Test(groups = ["projects","functional"], priority = 1, description = "Share Project as Viewer ")
     public void shareProjectAsViewer(Method method) {
 
         currentMethod = method.name
@@ -104,8 +103,7 @@ class ShareProjectSpec extends BaseSpec {
         verifyUtil.assertTestResult("Test Case '" + currentMethod + "' Assertions Failed :")
     }
 
-
-    @Test(groups = "Projects", priority = 2, description = "Share Project flow as Contributor")
+    @Test(groups = ["projects","functional"], priority = 2, description = "Share Project as Contributor")
     public void shareProjectAsContributor(Method method) {
 
         currentMethod = method.name
@@ -164,7 +162,7 @@ class ShareProjectSpec extends BaseSpec {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void afterMethodExecution() {
+    public void tearDownMethod() {
 
         to LoginPage
         loginWithUser(ADMIN);
