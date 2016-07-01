@@ -31,9 +31,21 @@ class VariantSelectionModule extends Module {
         itemText                                                        { $(".total", text: "Items") }
 
         variantNameLink                                                 { String variantName, int index -> $(".paginator-row .gene-symbol .gene", text: variantName).getAt(index) }
+        getVariantClassification                                        { String variantName, int index , String color -> variantNameLink(variantName, index).parent().parent().find("td.variant-classification span.class_dot.dot_"+color) }
         getPositionDBSNAP                                               { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.chromosome-int") }
         getChangeBasedOnVariant                                         { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.variant-change div") }
         getEffectBasedOnVariant                                         { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.consequence a") }
+        zygosity                                                        { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.zygosity span") }
+        motherZygosity                                                  { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.family-1-zygosity span") }
+        fatherZygosity                                                  { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.family-2-zygosity span") }
+        siblingZygosity                                                 { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.family-3-zygosity span") }
+        qualityGQCoverage                                               { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.quality") }
+        omiciaScore                                                     { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.frequencies") }
+        mutationTester                                                  { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.omicia-variant-score .score-container .mutation_taster") }
+        polyphen                                                        { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.omicia-variant-score .score-container .polyphen_2") }
+        sift                                                            { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.omicia-variant-score .score-container .sift") }
+        phylop                                                          { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.omicia-variant-score .score-container .phylop") }
+        evidence                                                        { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.evidence") }
         getVAASTGeneRank                                                { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.vaast-gene-rank") }
         getVAASTRank                                                    { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.rank") }
         getPhevorGeneRank                                               { String variantName, int index -> variantNameLink(variantName, index).parent().parent().find("td.phevor-gene-rank") }

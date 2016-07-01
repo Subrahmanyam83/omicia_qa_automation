@@ -32,6 +32,8 @@ class ClinicalReporterModule extends Module {
         getStatusBasedonPatientId            { String value -> $(".paginator-row td", text: value).parent().find("td")[8].text() }
         actionsButtonBasedOnPatientId        { String patientId -> $(".paginator-row td", text: patientId).parent().find("td .action-button") }
         valueOnActionButon                   { String value -> $('.btn-group.pull-right.open .dropdown-menu li a', text: contains(value)) }
+        allReportIds                         { $("tbody#clinical-reporter-reports .paginator-row .report-id")}
+        statusBasedOnReportId                { String reportId -> $("tbody#clinical-reporter-reports .paginator-row .report-id",text:contains(reportId)).parent().find("td.status")}
 
         /*Actions Button*/
         actionsButton                        { $('.btn.btn-mini.dropdown-toggle.action-button') }

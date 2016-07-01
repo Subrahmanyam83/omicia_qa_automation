@@ -28,6 +28,7 @@ public interface Constants {
     String GET_TEXT = "get_text";
     String NONE = ""
     String NONE_TEXT = "None"
+    String NULL = null;
     String ONE_STRING = "1"
     def ZERO = 0;
     def ONE = 1;
@@ -174,6 +175,9 @@ public interface Constants {
     public String TTLL10 = "TTLL10"
     public String AGRN = "AGRN"
 
+    public String WAITING_FOR_APPROVAL = "Waiting for Approval"
+    public String APPROVED = "Approved"
+
     /*Variant Interpret Home Page*/
     public List PRE_ACMG_SOLO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene","Position dbSNP", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
     public List PRE_ACMG_TRIO_COLUMN_NAMES_IN_VARIANT_INTERPRETATION_PAGE = ["Review Priority", "Gene","Position dbSNP", "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity", "Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class", "VAAST gene rank", "Phevor gene rank", "Inheritance Mode", "Status", "Previously Seen"].sort()
@@ -219,7 +223,8 @@ public interface Constants {
     public List ACMG_GEL_PANEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Position dbSNP", "Gene", "Change", "Effect", "Zygosity", "Quality GQ Coverage", "1KG AF GeL AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
     public List ACMG_QUAD_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene","Position dbSNP",  "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity","Sibling 1 Zygosity","Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence","VAAST gene rank","Phevor gene rank","Latest Classification (Date Classified) Confirmation Status"].sort()
     public List ACMG_QUAD_GEL_COLUMN_NAMES_IN_VARIANT_SELECTION_PAGE = ["Review Priority", "Gene","Position dbSNP",  "Change", "Effect", "Zygosity", "Mother Zygosity", "Father Zygosity","Sibling 1 Zygosity","Quality GQ Coverage", "1KG AF EVS AF ExAC AF", "Omicia Score", "Evidence", "Class (Condition)", "VAAST gene rank","Phevor gene rank","Inheritance Mode", "Scoring Status", "Report Section", "Latest Classification (Date Classified) Confirmation Status"].sort()
-
+    String HOMOZYGOUS = "●●"
+    String HETROZYGOUS = "●○"
 
     /*Show Hide Columns*/
     public String TO_REPORT = "To Report"
@@ -292,5 +297,28 @@ public interface Constants {
     /*Group Tab*/
     public String CLINICAL_REPORTER_ACCESS = "Clinical Reporter access"
 
-
+    /*Projects Home Page*/
+    public String PROJECT_DESCRIPTION_1 = "Sample Project Description 1"
+    public String CREATE_ACTION = "Create Project"
+    public String INVALID_SEARCH_STRING = "qwerty"
+    public String VALID_SEARCH_STRING = "4"
+    public String EDIT_PROJECT_OPTION = "Edit Project"
+    public String PROJECT_DETAILS_OPTION = "Project Details"
+    public String SHARE_PROJECT_OPTION = "Share Project"
+    public String EDIT_PROJECT_NAME = "Test Project 1"
+    public String EDIT_PROJECT_DESCRIPTION = "Sample Edit 1"
+    public String PUBLIC_PROJECTS = "Public Projects"
+    public String WORKSPACE_PROJECTS = "Workspace Projects"
+    public List USERNAMES = ["Omicia Admin Owner"]
+    public String STRING_USERNAME = "Omicia Admin Owner"
+    public String USERLOGINEMAIL = "omicia.test.user+owner@gmail.com"
+    public String PROJECTROLE_CONTRIBUTOR = "Contributor"
+    public String PROJECTROLE_VIEWER = "Viewer"
+    public String REMOVEME_OPTION = "Remove Me"
+    public String REMOVEPROJECT_BUTTON = "Remove Project"
+    public String SAVE_CHANGES = "Save Changes"
+    public String PRE_ACMG_WORKSPACE = "Pre_ACMG_Automation_Workspace_Omicia"
+    public List ACTIONSLIST_VIEWER = ["Project Details", "Remove Me"]
+    public List ACTIONSLIST_CONTRIBUTOR = ["Project Details", "Edit Project", "Share Project", "Upload Genomes"]
+    public int WID = 300
 }

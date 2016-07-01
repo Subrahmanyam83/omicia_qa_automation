@@ -15,11 +15,14 @@
     <orderEntry type="library" name="Gradle: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" name="Gradle: org.gebish:geb-core:0.12.2" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-support:2.53.0" level="project" />
+<<<<<<< HEAD
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-all:2.3.11" level="project" />
 <<<<<<< HEAD
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: org.testng:testng:6.9.11" level="project" />
 =======
 >>>>>>> 8912346c5712092b816cfdd79b49a12c29d1e269
+=======
+>>>>>>> 99568310331769cd1de74e41bfd1e8a231707250
   </component>
 </module>

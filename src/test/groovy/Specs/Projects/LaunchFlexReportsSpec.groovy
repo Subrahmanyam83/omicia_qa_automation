@@ -1,4 +1,4 @@
-package Specs.Smoke
+package Specs.Projects
 
 import Pages.App_Store.AppStoreAnalysisHomePage
 import Pages.Clinical_Reporter.ClinicalReporterPage
@@ -10,10 +10,9 @@ import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Projects.VariantReportPage
 import Pages.Upload_Genomes.UploadGenomePage
-import Specs.Smoke.TestData.SmokeTestData
+import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
 import Utilities.Validations.VerifyUtil
-import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -110,6 +109,8 @@ class LaunchFlexReportsSpec extends BaseSpec{
         int reportSize = getNumberOfReports()
         deleteReport(FLEX_TRIO_REPORT)
         verifyUtil.verify(getNumberOfReports().equals(reportSize -1), "The Number of Reports on Projects Page is not equal to: "+reportSize-1+" after deletion of the Report")
+
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 
     @Test(groups = ["smoke", "functional"],description = "Launch FLEX Quad Reports")
@@ -188,10 +189,7 @@ class LaunchFlexReportsSpec extends BaseSpec{
         int reportSize = getNumberOfReports()
         deleteReport(FLEX_QUAD_REPORT)
         verifyUtil.verify(getNumberOfReports().equals(reportSize -1), "The Number of Reports on Projects Page is not equal to: "+reportSize-1+" after deletion of the Report")
-    }
 
-    @AfterMethod(alwaysRun = true)
-    public void afterMethodExecution(){
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }
 }

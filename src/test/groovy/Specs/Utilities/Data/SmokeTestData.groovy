@@ -1,4 +1,4 @@
-package Specs.Smoke.TestData
+package Specs.Utilities.Data
 
 import Utilities.Class.BaseSpec
 
@@ -41,10 +41,10 @@ class SmokeTestData extends BaseSpec {
 
     public String VARIANT_CHANGE_PANEL_ACMG = "G → T c.45G>T p.Pro15Pro";
     public String VARIANT_CHANGE_QUAD_ACMG = "T → C c.746T>C p.Val249Ala";
-    public String positiondbSNP_QUAD = "chr1 1116231 rs13374146";
+    public String positiondbSNP_QUAD = "chr1:1116231 rs13374146";
 
     /*Report Page*/
-    public String POSITION_DBSNP_VALUE = "chr1 1117779 rs553315851"
+    public String POSITION_DBSNP_VALUE = "chr1:1117779 rs553315851"
     public String CHANGE_VALUE = "G → A c.869G>A p.Arg290His"
     public String VVP_CADD_VALUE = "56 14"
     public String VAAST_G_SCORE_VALUE_RECESSIVE = "14.32 5.90e-1"

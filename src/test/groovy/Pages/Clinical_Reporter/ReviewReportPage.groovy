@@ -18,12 +18,19 @@ class ReviewReportPage extends BasePage {
     }
 
     def getNumberOfPrimaryFindingReports() {
-        waitFor {reviewReport.primaryReportsHeading}
+        Thread.sleep(2000L)
+        waitFor {reviewReport.primaryFindingDiv}
+            if(reviewReport.primaryFindingDiv.find(text:contains("Primary Findings")).displayed){
+                return reviewReport.primaryFindingReports
+            }
         return reviewReport.primaryFindingReports
     }
 
     def getNumberOfSecondaryFindingReports() {
-        waitFor {reviewReport.secondaryReportsHeading}
+        waitFor {reviewReport.secondaryFindingDiv }
+            if(reviewReport.secondaryFindingDiv.find(text:contains("Secondary Findings")).displayed){
+                return reviewReport.secondaryFindingReports
+            }
         return reviewReport.secondaryFindingReports
     }
 

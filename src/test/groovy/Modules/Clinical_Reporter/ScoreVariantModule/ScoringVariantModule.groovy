@@ -41,6 +41,7 @@ class ScoringVariantModule extends Module {
 
         /*Set Classification Popup*/
         setClassificationButtonOnPopup  { $(".close-button",text:"Set Classification") }
+        alertTextClassificationSaved    { $(".alert-text",text: contains("Classification saved"))}
         closeButton                     { $(".close-button",text:"Close") }
 
 
