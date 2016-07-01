@@ -51,6 +51,9 @@ drivers.each { driver ->
             useDefaultListeners = true
             suites 'src/test/resources/testng.xml'
         }
+        doLast{
+            copyTask.execute()
+        }
     }
 }
 
