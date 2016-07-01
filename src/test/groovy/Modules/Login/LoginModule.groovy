@@ -9,12 +9,11 @@ class LoginModule extends Module{
 
     static content = {
 
-        formPanel { $(".form_panel") }
-        usernameField  {$("#login")}
-        passwordField  {$("#password")}
-        signInButton   {$("input.btn.btn-large.btn-success.wide")}
-
-        signInLink     {$("div a",text:contains("Sign In"))}
+        formPanel      { $(".form_panel") }
+        usernameField  { $("#login") }
+        passwordField  { $("#password") }
+        signInButton   { $("input.btn.btn-large.btn-success.wide") }
+        signInLink     { $("div a",text:contains("Sign In")) }
 
     }
 }

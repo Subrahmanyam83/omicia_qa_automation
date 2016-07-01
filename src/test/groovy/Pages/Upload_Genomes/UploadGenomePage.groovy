@@ -25,10 +25,15 @@ class UploadGenomePage extends BasePage{
         String ExternalID = "External-ID-1";
 
         if(createNewProject){
+            waitFor {uploadGenome.newProjectButton}
             click(uploadGenome.newProjectButton, "New Project Button");
+            waitFor {uploadGenome.projectNameField}
             type(uploadGenome.projectNameField,projectName, "Project Name Field");
+            waitFor {uploadGenome.createProjectButton}
             click(uploadGenome.createProjectButton, "Create Project Button");
+            waitFor {uploadGenome.closeButton}
             click(uploadGenome.closeButton, "Close Button on the Modal Popup")
+            Thread.sleep(2000L)
         }
         if(uploadGene){
             waitFor { uploadGenome.browseVcfFileButton }
@@ -39,6 +44,7 @@ class UploadGenomePage extends BasePage{
         click(uploadGenome.genderDropDown,"Gender Drop Down");
         click(uploadGenome.genderValue("Unspecified"), "Select Gender as Unspecified");
         click(uploadGenome.confirmCheckBox,"Confirm Check Box");
+        Thread.sleep(1000L)
         click(uploadGenome.uploadButton, "Upload Button");
     }
 

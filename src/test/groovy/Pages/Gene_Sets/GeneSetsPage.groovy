@@ -1,6 +1,7 @@
 package Pages.Gene_Sets
 
 import Modules.Gene_Sets.GeneSetsModule
+import Modules.Panel_Builder.PanelBuilderModule
 import Utilities.Class.BasePage
 
 /**
@@ -15,6 +16,7 @@ class GeneSetsPage extends BasePage{
 
     static content = {
         geneSets {module GeneSetsModule}
+        panelBuilder {module PanelBuilderModule}
     }
 
     def clickOnSetType(String setType){
@@ -49,11 +51,16 @@ class GeneSetsPage extends BasePage{
     def deleteSets(String setType) {
         clickOnSetType(setType)
         while (!geneSets.numberOfGeneSets.equals(ZERO)) {
+            waitFor {geneSets.actionButton}
             click(geneSets.actionButton, "Actions Menu in Gene Sets Page")
+            waitFor {geneSets.deleteSetsUnderActionDropDpwn}
             click(geneSets.deleteSetsUnderActionDropDpwn, "Delete Button Under Actions Menu")
+            waitFor {geneSets.deleteGeneSetButtonOnDialog}
             click(geneSets.deleteGeneSetButtonOnDialog, "Delete Button on Dialog Window")
+            waitFor {geneSets.closeButtonOnDialogWindow}
             click(geneSets.closeButtonOnDialogWindow, "Close Button of the Dialog Window")
-            Thread.sleep(500)
+            waitFor {panelBuilder.panelLoadingBarWithDisplayNone}
+            Thread.sleep(1000)
         }
     }
 }

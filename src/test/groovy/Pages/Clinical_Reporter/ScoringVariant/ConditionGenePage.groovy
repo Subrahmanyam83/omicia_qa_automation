@@ -31,6 +31,7 @@ class ConditionGenePage extends BasePage {
     /*Condition-Gene Methods*/
 
     def getActiveTabUnderConditionGeneTab(String tabName) {
+        waitFor("shortwait") {conditionGene.activeConditionGeneTab(tabName)}
         return conditionGene.activeConditionGeneTab(tabName).isDisplayed()
     }
 
@@ -69,10 +70,16 @@ class ConditionGenePage extends BasePage {
 
 /*WORKSPACE CONDITION GENE METHODS*/
 
+    def addNewConditionGene(){
+        waitFor {conditionGene.addConditionGeneLink}
+        click(conditionGene.addConditionGeneLink,"Add New Condition Gene Link")
+    }
+
     def clickOnActionsButtonAndPerformActionInWorkspaceConditionGenes(String conditionName, String action, int index = 0) {
         switch (action) {
 
             case DELETE:
+                int conditionGenes = getnumberOfWorkSpaceConditionRows()
                 waitFor { conditionGene.actionsButtonBasedOnCondition(conditionName, index) }
                 click(conditionGene.actionsButtonBasedOnCondition(conditionName, index), "Actions Button")
                 waitFor { conditionGene.actionButtonValue(action, conditionName, index) }
@@ -81,6 +88,7 @@ class ConditionGenePage extends BasePage {
                 click(conditionGene.deleteButtonOnModalPopup, "Delete Button on Modal Popup")
                 waitFor { conditionGene.closeButton }
                 click(conditionGene.closeButton, "Close Button")
+                waitFor {getnumberOfWorkSpaceConditionRows() == (conditionGenes - 1)}
                 break;
 
             case EDIT:
@@ -120,18 +128,22 @@ class ConditionGenePage extends BasePage {
         } else if (notesPresent.equals(false)) {
             return conditionGene.notesTextBasedOnCondition(index, conditionName).text().trim()
         }
-
     }
 
     def getPMIDBasedOnCondition(String conditionName, int index = 0) {
         return conditionGene.PMIDTextBasedOnCondition(index, conditionName).text().trim()
     }
 
+    def clickPMIDBasedOnCondition(String conditionName, int index = 0){
+        waitFor {conditionGene.PMIDLinkBasedOnCondition(index, conditionName)}
+        click(conditionGene.PMIDLinkBasedOnCondition(index, conditionName),"PMID link for the condition: "+conditionName)
+    }
+
     def getnumberOfWorkSpaceConditionRows() {
         return conditionGene.numberOfWorkSpaceConditionRows
     }
 
-    def editCondition(List list) {
+    def editConditionGene(List list) {
         if (!list.get(0).equals(NONE)) {
             editCondition(list.get(0))
         }
@@ -160,6 +172,8 @@ class ConditionGenePage extends BasePage {
     def editCondition(String conditionValue) {
         conditionGene.conditionTextBox.firstElement().clear();
         type(conditionGene.conditionTextBox, conditionValue, "Condition Value Text Box")
+        waitFor {conditionGene.conditionSuggestionMenuValue(conditionValue)}
+        click(conditionGene.conditionSuggestionMenuValue(conditionValue),"Condition Value from the Condition Drop Down: "+conditionValue)
     }
 
     def editNote(String note) {
@@ -174,6 +188,12 @@ class ConditionGenePage extends BasePage {
             case "1":
                 waitFor {
                     conditionGene.pmidTextSuccessAlert("Formate assay in body fluids: application in methanol poisoning.")
+                }
+                break;
+
+            case "2":
+                waitFor {
+                    conditionGene.pmidTextSuccessAlert("Delineation of the intimate details of the backbone conformation of pyridine nucleotide")
                 }
                 break;
         }
@@ -220,5 +240,11 @@ class ConditionGenePage extends BasePage {
     def clickOnCheckBoxBasedOnCondition(String conditionName, int index = 0) {
         waitFor { conditionGene.checkboxBasedCondition(index, conditionName) }
         click(conditionGene.checkboxBasedCondition(index, conditionName), "Checkbox based on the Condition")
+    }
+
+    def clickOnNewConditionGeneButton(){
+        waitFor {conditionGene.newConditionGeneButton}
+        click(conditionGene.newConditionGeneButton,"New Condition Gene Button")
+        waitFor {conditionGene.modalPopUp}
     }
 }

@@ -85,4 +85,41 @@ class ManageWorkspacePage extends BasePage {
             Thread.sleep(1000L)
         }
     }
+
+    def addMemberToWorkspace(String userEmail){
+        waitFor {manageworkspace.addMemberButton}
+        click(manageworkspace.addMemberButton,"Add Member button")
+        waitFor {manageworkspace.searchFieldInAddUserModal}
+        type(manageworkspace.searchFieldInAddUserModal,userEmail,"Search Text field in Add user modal")
+        click(manageworkspace.searchButtonInAddUserModal,"Search button")
+        waitFor {manageworkspace.addUserButtoninAddUserModal}
+        click(manageworkspace.addUserButtoninAddUserModal,"Add User Button")
+        waitFor {manageworkspace.addedButtoninAddUserModal}
+        click(manageworkspace.closeButton,"Close Button")
+    }
+
+    def deleteMembersFromWorkspace(String userEmail){
+        waitFor {manageworkspace.deleteIconBasedOnMember(userEmail)}
+        click(manageworkspace.deleteIconBasedOnMember(userEmail),"Delete icon")
+        Thread.sleep(2000)
+    }
+
+    def checkIfMemberIsDisplayed(String memberEmail){
+        for(int i=0;i<manageworkspace.membersTableSize;i++){
+            if(manageworkspace.eachMemberNameInMembersTab(i).text().trim().equals(memberEmail)){
+                return true
+            }
+        }
+        return false
+    }
+
+    def checkIfMemberIsNotDisplayed(String memberEmail){
+        for(int i=0;i<manageworkspace.membersTableSize;i++){
+            if(manageworkspace.eachMemberNameInMembersTab(i).text().trim().equals(memberEmail)){
+                return false
+            }
+        }
+        return true
+    }
+
 }

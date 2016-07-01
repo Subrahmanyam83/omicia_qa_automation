@@ -57,18 +57,22 @@ class ScoreVariantPage extends BasePage {
     def addInternalNote() {
         clickOnTab(INTERNAL_NOTES)
         int old_notes = scoringVariant.numberOfInternalNotesList
-        type(scoringVariant.labNotesTextField, INTERNAL_NOTES, "Internal Notes Text Field")
+        String testNote = INTERNAL_NOTES+generateRandom()
+        type(scoringVariant.labNotesTextField, testNote, "Internal Notes Text Field")
         click(scoringVariant.addNoteButton, "Add Note Button")
         waitFor { scoringVariant.notesList }
+        waitFor { scoringVariant.internalNoteBasedOnNote(testNote)}
         Assert.assertEquals(scoringVariant.numberOfInternalNotesList, old_notes + 1, "Internal Note is not added to the list in Score Variant Tab.")
     }
 
     def setClassification(String classification = "", boolean changeClassification = false){
         if(changeClassification == false){
             waitFor {scoringVariant.setClassificationButton}
+            scrollToCenter(scoringVariant.setClassificationButton)
             click(scoringVariant.setClassificationButton,"Set Classification Button")
             waitFor {scoringVariant.setClassificationButtonOnPopup}
             click(scoringVariant.setClassificationButtonOnPopup,"Set Classification Button on Modal Popup")
+            waitFor {scoringVariant.alertTextClassificationSaved}
             waitFor {scoringVariant.closeButton}
             click(scoringVariant.closeButton,"Close Button on Modal Popup")
         }
@@ -116,6 +120,7 @@ class ScoreVariantPage extends BasePage {
                 }
             }
         }
+        waitFor {scoringVariant.completedScroingProgressText}
     }
 
     def getCurrentCriterion(){
@@ -125,6 +130,4 @@ class ScoreVariantPage extends BasePage {
     def getScoringProgressText(){
         return scoringVariant.scoringProgressText.text().trim()
     }
-
-
 }

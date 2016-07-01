@@ -1,4 +1,4 @@
-package Specs.Smoke.TestData
+package Specs.Utilities.Data
 
 import Utilities.Class.BaseSpec
 
@@ -33,13 +33,15 @@ class SmokeTestData extends BaseSpec {
     public String PATIENT_ID = "Test Patient ID 123" + random
     public String GENOME_NAME_TO_BE_SELECTED = "Genome-Label-1-EX024-1 — External-ID-1"
 
-    public String VARIANT_CHANGE_PANEL = "T → C  c.1027T>C  p.Trp343Arg"
+    public String VARIANT_CHANGE_PANEL = "T → C c.1027T>C p.Trp343Arg"
     public String VARIANT_CHANGE_SOLO = "G → A c.869G>A p.Arg290His"
     public String VARIANT_CHANGE_TRIO = "T → C c.746T>C p.Val249Ala"
     public String VARIANT_CHANGE_QUAD = "T → C c.746T>C p.Val249Ala"
     public String VARIANT_EFFECT = "missense"
 
     public String VARIANT_CHANGE_PANEL_ACMG = "G → T c.45G>T p.Pro15Pro";
+    public String VARIANT_CHANGE_QUAD_ACMG = "T → C c.746T>C p.Val249Ala";
+    public String positiondbSNP_QUAD = "chr1 1116231 rs13374146";
 
     /*Report Page*/
     public String POSITION_DBSNP_VALUE = "chr1 1117779 rs553315851"
@@ -50,6 +52,7 @@ class SmokeTestData extends BaseSpec {
 
     /*Scoring Variants Page*/
     public List EDIT_CONDITION_GENE_LIST = [NONE, "Edit Condition Gene Note", "1", "X-linked", "950 /226 5906", "Medium", "Variable"]
+    public List CREATE_CONDITION_GENE_LIST = ["Fever", "Edit Condition Gene Note", "2", "Autosomal unknown", "950 /226 5906", "Low", "Adolescence / Young adulthood"]
     public List CRITERION_SCORING_LIST = [YES,YES,YES,YES,YES,NO,NO,NO,NO,NO,NO,NO,NONE_TEXT,NO,NO,NO,NO,NO,NO,NO,SKIP_CRITERIA,SKIP_CRITERIA,NO,NO]
     public String CRITERION_COMPLETE_TEXT = "28 of 28"
     public String CRITERION_PROGRESS_TEXT = "28 of 28 complete"

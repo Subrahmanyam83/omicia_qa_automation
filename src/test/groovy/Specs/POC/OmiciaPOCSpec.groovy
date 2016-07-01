@@ -2,14 +2,15 @@ package Specs.POC
 
 import Pages.Login.HeaderPage
 import Pages.Login.LoginPage
-import Pages.Login.OmiciaHomePage
 import Pages.Projects.ProjectsHomePage
 import Pages.Projects.ProjectsPage
 import Pages.Upload_Genomes.UploadGenomePage
-import Specs.Smoke.TestData.SmokeTestData
+import Specs.Utilities.Data.SmokeTestData
 import Utilities.Class.BaseSpec
-import org.testng.Assert
+import Utilities.Validations.VerifyUtil
 import org.testng.annotations.Test
+
+import java.lang.reflect.Method
 
 /**
  * Created by in02183 on 4/1/2016.
@@ -20,18 +21,16 @@ class OmiciaPOCSpec extends BaseSpec{
     SmokeTestData smokeData = new SmokeTestData();
 
     @Test(groups = "omicia_poc", description = "Verify Genome Count in Project after VCF Upload")
-    public void testGenomeCount() {
+    public void testGenomeCount(Method method) {
 
         String NewProjectName = "Test-OMICIA-Project-"+Math.random();
+        def verifyUtil = new VerifyUtil()
 
         to LoginPage
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openTab(UPLOAD_GENOMES)
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(NewProjectName, true, true, smokeData.SHORT_FILE);
@@ -46,7 +45,8 @@ class OmiciaPOCSpec extends BaseSpec{
 
         at ProjectsPage
         int expectedGeneCount = getNumberOfGenes();
-        Assert.assertEquals(ONE, expectedGeneCount);
+        verifyUtil.verify(ONE.equals(expectedGeneCount), "Genome Count validation Failed")
+        verifyUtil.assertTestResult("Test Case '"+method.name+"' Assertions Failed :")
     }
 
     @Test(groups = "omicia_poc", description = "Upload Genome without VCF File")
@@ -57,10 +57,7 @@ class OmiciaPOCSpec extends BaseSpec{
         signIn();
 
         at HeaderPage
-        goToHomePage()
-
-        at OmiciaHomePage
-        openUploadGenomes();
+        clickOnMenuAndSelectOption(UPLOAD)
 
         at UploadGenomePage
         fillUploadGenomeForm(NewProjectName, false, false, NONE);

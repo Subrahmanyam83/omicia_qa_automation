@@ -65,6 +65,7 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     @AfterMethod(alwaysRun = true)
     def afterMethod(Method method) {
         ExtentReportFactory.closeTest(method.getName());
+        driver.manage().deleteAllCookies();
     }
 
     /*Runs after every Class or Spec*/
@@ -133,8 +134,9 @@ class BaseSpec extends GebTest implements ITestListener,Constants{
     }
 
     def generateRandom() {
-        Random r = new Random(System.currentTimeMillis());
-        return 1000000000 + r.nextInt(2000000000);
+        Random generator = new Random();
+        int intRandom_number = generator.nextInt(999999) + 1000000;
+        return intRandom_number;
     }
 
     @Override

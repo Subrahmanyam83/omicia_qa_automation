@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="1" name="Suite" parallel="classes">
+
+    <listeners>
+        <listener class-name="Utilities.Class.BaseSpec"/>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+    </listeners>
+    <test name="Omicia OPAL Test">
+        <classes>
+            <class name="Specs.Utilities.TestNGPassSpec"/>
+        </classes>
+    </test> <!-- Omicia OPAL Test -->
+</suite> <!-- Omicia OPAL Suite -->
