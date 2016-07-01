@@ -37,7 +37,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
     }
 
     @Test(groups = ["smoke", "functional"], priority = 1, description = "Launch End to End Pre-ACMG Panel Report")
-    public void launchEndToEndPanelReport(Method method) {
+    public void launchEndToEndClinicalPanelReport(Method method) {
 
         currentMethod = method.name;
         to LoginPage
@@ -175,7 +175,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
     }
 
     @Test(groups = ["smoke", "functional"], priority = 2, description = "Launch End to End Pre-ACMG Solo Report")
-    public void launchSoloReport(Method method) {
+    public void launchClinicalSoloReport(Method method) {
 
         currentMethod = method.name;
         to LoginPage
@@ -272,7 +272,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
     }
 
     @Test(groups = ["smoke", "functional"], priority = 3, description = "Launch End to End Pre-ACMG Trio Report")
-    public void launchTrioReport(Method method) {
+    public void launchClinicalTrioReport(Method method) {
 
         currentMethod = method.name;
         to LoginPage
@@ -373,7 +373,7 @@ class LaunchClinicalReportsSpec extends BaseSpec {
     }
 
     @Test(groups = ["smoke", "functional"], priority = 4, description = "Launch End to End Pre-ACMG Quad Report")
-    public void launchQuadReport(Method method) {
+    public void launchClinicalQuadReport(Method method) {
 
         currentMethod = method.name
         to LoginPage
