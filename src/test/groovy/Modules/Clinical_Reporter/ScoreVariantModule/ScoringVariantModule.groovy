@@ -41,6 +41,8 @@ class ScoringVariantModule extends Module {
 
         /*Set Classification Popup*/
         setClassificationButtonOnPopup  { $(".close-button",text:"Set Classification") }
+        classificationDropDown          { $(".modal.modal-overflow.in span.filter-option")}
+        classificationDropDownValue     { String value-> $(".modal.modal-overflow.in .dropdown-menu.open ul li a span",text:contains(value))}
         alertTextClassificationSaved    { $(".alert-text",text: contains("Classification saved"))}
         closeButton                     { $(".close-button",text:"Close") }
 

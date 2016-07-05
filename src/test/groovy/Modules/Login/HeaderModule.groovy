@@ -8,6 +8,7 @@ import geb.Module
 class HeaderModule extends Module{
 
     static content = {
+        navBarFixed                               { $(".navbar-fixed-top")}
         homePageHeaderOmiciaText                  { $(".brand",text:"Omicia Opal") }
         menuDropDown                              { $("a.dropdown-toggle",text:contains("Menu")) }
         menuDropDownValue                         { String value -> $("#profile-menu li a",text:value) }
@@ -16,7 +17,7 @@ class HeaderModule extends Module{
         omiciaOpalHomePage                        { $(".brand", text: contains("Omicia Opal")) }
 
         /*OPAL ADMIN*/
-        opalAdminButton                           {$("span", text: "Opal Admin") }
+        opalAdminButton                           {$("ul.nav li a span", text: "Opal Admin") }
         opalAdminTabs                             {String tabName -> $("div.container-fluid .row-fluid .admin-task-name", text: contains(tabName)) }
         userEmailOnHeaderPage                     {$("ul.pull-right").find(".login")[1]}
     }

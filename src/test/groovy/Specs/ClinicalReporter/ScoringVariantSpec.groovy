@@ -71,7 +71,7 @@ class ScoringVariantSpec extends BaseSpec {
     }
 
     @Test(groups = ["clinical_reporter", "acmg", "functional","smoke"], description = "Scoring Variants for ACMG Panel Report")
-    public void testScoringVariantsInACMGPanelReport(Method method) {
+    public void scoreVariantsInACMGPanelReport(Method method) {
 
         currentMethod = method.name
         to LoginPage
@@ -237,7 +237,7 @@ class ScoringVariantSpec extends BaseSpec {
     }
 
     @Test(groups = ["clinical_reporter", "acmg", "functional","smoke"], description = "Scoring Variants for ACMG Quad Report with No Default Condition Genes.")
-    public void testScoringVariantsInACMGQuadReportWithNoDefaultConditionGene(Method method) {
+    public void scoreVariantsInACMGQuadReportWithNoDefaultConditionGene(Method method) {
 
 
         currentMethod = method.name
@@ -447,6 +447,114 @@ class ScoringVariantSpec extends BaseSpec {
         verifyUtil.verify(getNumberOfPrimaryFindingReports().equals(ONE),"Primary Finding Reports size is not equal to "+ONE)
         verifyUtil.verify(getNumberOfSecondaryFindingReports().equals(ZERO),"Secondary Finding Reports size is not equal to "+ZERO)
         verifyUtil.verify(getResponseCodeForPreviewPDF().equals(200),"Response code for the Preview PDF is not equal to 200")
+
+        verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
+    }
+
+    @Test(groups = ["clinical_reporter", "acmg", "functional","smoke"], description = "Scoring Variants for ACMG Panel Report")
+    public void scoreVariantsInACMGPanelReportUsingAssociatedConditionGene(Method method) {
+
+        currentMethod = method.name
+        def geneConditionMap = [AGRN:'Ataxia', NOC2L:'heat', SAMD11:'Fever', TTLL10:'Shivering']
+        to LoginPage
+        signIn();
+
+        at HeaderPage
+        switchWorkspace(WORKSPACE_NAME)
+        goToHomePage()
+
+        at OmiciaHomePage
+        openTab(UPLOAD_GENOMES);
+        at UploadGenomePage
+        fillUploadGenomeForm(PROJECT_NAME, true, true, data.FOUR_EXOMES);
+        waitForTheVCFFileToUpload();
+
+        at HeaderPage
+        clickOnMenuAndSelectOption(PROJECTS)
+
+        at ProjectsHomePage
+        refreshTillCountMatches(PROJECT_NAME, FOUR)
+
+        at HeaderPage
+        clickOnMenuAndSelectOption(PANEL_BUILDER)
+
+        at PanelBuilderPage
+        createNewPanel(data.PANEL_NAME, data.PANEL_DESCRIPTION)
+        clickOnActionsButtonBasedOnPanelAndClickAction(data.PANEL_NAME, CURATE_PANEL)
+
+        at CuratePanelPage
+        clickOnCuratePanelHeaderButton(ADD_GENE);
+
+        at AddGenesToPanelPage
+        addGenesByGivingSymbols(geneConditionMap.keySet().toString().replaceAll("[\\[|,|\\]]",""))
+        clickOnButton(ADD_GENE)
+        clickOnButton(BACK)
+
+        at CuratePanelPage
+        waitFor { curatePanel.getNumberOfPanelGenes }
+        verifyUtil.verify(getNamesOfGenesAdded().equals(geneConditionMap.keySet().toList()), "The Gene "+ geneConditionMap.keySet().toList()+" is not present in the list")
+        verifyUtil.verify(getNumberOfPanelGenes().equals(FOUR), "Total number of genes shown in Panel Builder are not equal to "+FOUR)
+
+        geneConditionMap.each {
+            map->
+                clickOnActionBasedOnGeneAndPerformAction(map.getKey(),ASSOCIATE_WITH_CONDITION)
+                clickOnTab(NEW_CONDITION_GENE)
+                page ConditionGenePage
+                editConditionGene([map.getValue()])
+                clickSaveOrCancel(SAVE)
+                at CuratePanelPage
+        }
+
+        at HeaderPage
+        clickOnMenuAndSelectOption(CLINICAL_REPORTER)
+
+        at ClinicalReporterPage
+        clickOnNewReportAndSelectDropDownValue(PANEL)
+        fillDetailsForNewReport(data.PATIENT_ID, PROJECT_NAME, data.PANEL_NAME)
+        chooseGeneForEachMember(PANEL)
+        selectSaveNewPanelReport()
+        refreshTillStatusChangesToReadyForInterpretation(data.PATIENT_ID)
+        clickOnActionsAndValueBasedOnPatientId(data.PATIENT_ID, INTERPRET_VARIANTS)
+
+        at VariantInterpretationHomePage
+        openScoreVariantsBasedOnVariantName(AGRN)
+        clickOnHeaderTab(CONDITION_GENE)
+
+        at ConditionGenePage
+        clickOnTabUnderConditionGenes(WORKSPACE_CONDITION_GENES)
+        clickOnCheckBoxBasedOnCondition(geneConditionMap.get(AGRN))
+
+        at ScoreVariantPage
+        verifyUtil.verify(getInferredClassification().equals(UNCERTAIN_SIGNIFICANCE), "Inferred Classification in Score Variant Page is not '" + UNCERTAIN_SIGNIFICANCE + "' after selecting a Condition Gene")
+
+        at VariantInterpretationHomePage
+        verifyUtil.verify(getClassConditionBasedOnVariant(AGRN).contains("("+ATAXIA+")"),"CLASS of Variant: "+TTLL10+ " does not contain "+ FEVER)
+        verifyUtil.verify(getScoringStatusBasedOnVariant(AGRN).equals(SCORING),"Scoring status of Variant: "+TTLL10+" is not equal to "+SCORING)
+        verifyUtil.verify(getLatestClassificationBasedOnVariant(AGRN).contains(SCORING_IN_PROGRESS), "Classification of Variant: "+TTLL10+" is not equal to "+SCORING_IN_PROGRESS)
+
+        at ScoreVariantPage
+        startScoring(data.CRITERION_SCORING_LIST)
+        verifyUtil.verify(getCurrentCriterion().equals(data.CRITERION_COMPLETE_TEXT), "Current criteria is not equal to "+data.CRITERION_COMPLETE_TEXT)
+        verifyUtil.verify(getScoringProgressText().equals(data.CRITERION_PROGRESS_TEXT), "Scoring Progress text is not equal to "+data.CRITERION_PROGRESS_TEXT)
+
+        setClassification(CLASSIFICATION_PATHOGENIC)
+        verifyUtil.verify(getInferredClassification().equals(UNCERTAIN_SIGNIFICANCE), "Inferred Classification is not equal to "+ UNCERTAIN_SIGNIFICANCE)
+        verifyUtil.verify(getAssignedClassification().equals(CLASSIFICATION_PATHOGENIC), "Assigned classification is not equal to "+CLASSIFICATION_PATHOGENIC)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         verifyUtil.assertTestResult("Test Case '"+currentMethod+"' Assertions Failed :")
     }

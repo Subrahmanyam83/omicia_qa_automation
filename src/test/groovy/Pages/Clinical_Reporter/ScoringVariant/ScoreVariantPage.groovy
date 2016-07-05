@@ -65,20 +65,20 @@ class ScoreVariantPage extends BasePage {
         Assert.assertEquals(scoringVariant.numberOfInternalNotesList, old_notes + 1, "Internal Note is not added to the list in Score Variant Tab.")
     }
 
-    def setClassification(String classification = "", boolean changeClassification = false){
-        if(changeClassification == false){
+    def setClassification(String classification = "Uncertain Significance"){
             waitFor {scoringVariant.setClassificationButton}
             scrollToCenter(scoringVariant.setClassificationButton)
             click(scoringVariant.setClassificationButton,"Set Classification Button")
+            waitFor {scoringVariant.classificationDropDown}
+            click(scoringVariant.classificationDropDown,"Classification Drop Down on the Modal Popup")
+            waitFor {scoringVariant.classificationDropDownValue(classification)}
+            click(scoringVariant.classificationDropDownValue(classification),"Classification Value from the Drop Down: "+classification)
+
             waitFor {scoringVariant.setClassificationButtonOnPopup}
             click(scoringVariant.setClassificationButtonOnPopup,"Set Classification Button on Modal Popup")
             waitFor {scoringVariant.alertTextClassificationSaved}
             waitFor {scoringVariant.closeButton}
             click(scoringVariant.closeButton,"Close Button on Modal Popup")
-        }
-        else{
-
-        }
     }
 
     def verifyTextOfNote(int index = 0) {

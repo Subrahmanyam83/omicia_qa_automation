@@ -147,28 +147,39 @@ class ConditionGenePage extends BasePage {
         if (!list.get(0).equals(NONE)) {
             editCondition(list.get(0))
         }
-        if (!list.get(1).equals(NONE)) {
-            editNote(list.get(1))
+        if(list.size()>1){
+            if (!list.get(1).equals(NONE)) {
+                editNote(list.get(1))
+            }
         }
-        if (!list.get(2).equals(NONE)) {
-            addPMID(list.get(2))
+        if(list.size()>2){
+            if (!list.get(2).equals(NONE)) {
+                addPMID(list.get(2))
+            }
         }
-        if (!list.get(3).equals(NONE)) {
-            chooseInheritance(list.get(3))
+        if(list.size()>3){
+            if (!list.get(3).equals(NONE)) {
+                chooseInheritance(list.get(3))
+            }
         }
-        if (!list.get(4).equals(NONE)) {
-            editPrevalance(list.get(4))
+        if(list.size()>4){
+            if (!list.get(4).equals(NONE)) {
+                editPrevalance(list.get(4))
+            }
         }
-        if (!list.get(5).equals(NONE)) {
-            choosePenetrance(list.get(5))
+        if(list.size()>5){
+            if (!list.get(5).equals(NONE)) {
+                choosePenetrance(list.get(5))
+            }
         }
-        if (!list.get(6).equals(NONE)) {
-            chooseAgeOfOnset(list.get(6))
+        if(list.size()>6){
+            if (!list.get(6).equals(NONE)) {
+                chooseAgeOfOnset(list.get(6))
+            }
         }
     }
 
     /*Edit Condition Gene*/
-
     def editCondition(String conditionValue) {
         conditionGene.conditionTextBox.firstElement().clear();
         type(conditionGene.conditionTextBox, conditionValue, "Condition Value Text Box")

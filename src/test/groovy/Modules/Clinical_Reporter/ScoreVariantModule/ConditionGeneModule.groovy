@@ -69,7 +69,7 @@ class ConditionGeneModule extends Module {
         penetranceDropDown              { modalPopUp.find(".control-label", text: "Penetrance").parent().find(".filter-option") }
         ageOfOnsetDropDown              { modalPopUp.find(".control-label", text: "Age of Onset").parent().find(".filter-option") }
         cancelButton                    { modalPopUp.find(".cancel-button", text: "Cancel") }
-        saveButton                      { modalPopUp.find(".close-button", text: "Save") }
+        saveButton                      { modalPopUp.find(".close-button", text:contains("Save")) }
         closeButton                     { modalPopUp.find(".close-button", text: "Close") }
     }
 }

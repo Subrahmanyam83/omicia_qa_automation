@@ -43,4 +43,21 @@ class CuratePanelPage extends BasePage{
         }
         return GenesAdded.toString().replaceAll("\\[|\\]", "")
     }
+
+    def clickOnActionBasedOnGeneAndPerformAction(String geneName, String action){
+        waitFor {curatePanel.actionButtonBasedOnGeneName(geneName)}
+        click(curatePanel.actionButtonBasedOnGeneName(geneName),"Action Button based on Gene: '"+geneName+"'")
+        waitFor {curatePanel.valueUnderActionButtonBasedOnGene(action)}
+        click(curatePanel.valueUnderActionButtonBasedOnGene(action),"Action Value: "+action)
+        waitFor {curatePanel.modalPopup}
+
+        if(action.equals(ASSOCIATE_WITH_CONDITION)){
+            waitFor {curatePanel.workspaceConditionGenesTab}
+        }
+    }
+
+    /*Condition Gene*/
+    def clickOnTab(String tabName){
+        waitFor {curatePanel.tabName(tabName)}
+    }
 }

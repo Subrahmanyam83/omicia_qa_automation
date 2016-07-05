@@ -132,6 +132,8 @@ public interface Constants {
     String ADD_GENE = "Add Genes"
     String RUN_PHEVOR = "Run Phevor"
     String BACK = "Back"
+    String ASSOCIATE_WITH_CONDITION = "Associate with Condition"
+    String NEW_CONDITION_GENE = "New Condition-Gene"
 
     /*Filtering Protocol*/
     public List CONSEQUENCE_LIST = ["Stop Gained or Lost", "Missense", "Frameshift Indel", "In-frame Indel", "Splice Site", "Splice Region", "Start Lost or Retained", "Structural Variant"]
