@@ -21,6 +21,7 @@ class PanelBuilderPage extends BasePage{
     }
 
     def clickItemsPerPageAndChooseValue(String value = HUNDRED) {
+        Thread.sleep(3000L);
         if (panelBuilder.activePaginatorButton.displayed) {
             waitFor {panelBuilder.activePaginatorButton}
             scrollToCenter(panelBuilder.activePaginatorButton)
