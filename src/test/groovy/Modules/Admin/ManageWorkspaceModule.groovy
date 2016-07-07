@@ -49,5 +49,12 @@ class ManageWorkspaceModule extends Module {
         workspaceMemberExistence        { String userloginemail-> $("#members-table tbody td",text:contains(userloginemail))}
         deleteIconBasedOnMember         { String useremail-> workspaceMemberExistence(useremail).parent().find("button.remove-member")}
         eachMemberNameInMembersTab      { int index-> $("#members-table tbody tr")[index].find("td")[2] }
+
+        /*CLinical Reports*/
+        numberOfClinicalReports         { $("#clinical_report .paginator-row").size()}
+        deleteClinicalReportsButton     { $("td button.delete-report").getAt(0)}
+        deleteButtonOnModalPopup        { modalPopup.find(".modal-footer .close-button",text:contains("Delete"))}
+        cancelButtonOnModalPopup        { modalPopup.find(".modal-footer .cancel-button",text:contains("Cancel"))}
+        closeButtonOnModalPopup         { modalPopup.find(".modal-footer .close-button",text:contains("Close"))}
     }
 }

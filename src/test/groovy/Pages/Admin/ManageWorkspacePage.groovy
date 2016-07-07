@@ -1,6 +1,7 @@
 package Pages.Admin
 
 import Modules.Admin.ManageWorkspaceModule
+import Modules.Panel_Builder.PanelBuilderModule
 import Utilities.Class.BasePage
 import org.testng.Assert
 
@@ -15,6 +16,7 @@ class ManageWorkspacePage extends BasePage {
 
     static content = {
         manageworkspace { module ManageWorkspaceModule }
+        panelBuilder {module PanelBuilderModule}
     }
 
     def search(String searchValue, boolean clickManage = false) {
@@ -48,6 +50,9 @@ class ManageWorkspacePage extends BasePage {
         waitFor { manageworkspace.activeTabName(tabName) }
     }
 
+
+
+/*GROUPS TAB FUNCTIONS*/
     def clickOnCheckBoxUnderGroupsTab(List groupList) {
         groupList.each { group ->
             if (!manageworkspace.checkBoxBasedOnLabel(group).firstElement().isSelected()) {
@@ -56,6 +61,9 @@ class ManageWorkspacePage extends BasePage {
         }
     }
 
+
+
+/*PAYMENT INFO TAB FUNCTIONS*/
     def addPOAccount() {
         waitFor { manageworkspace.addPOAccountButton }
         int numberOfPOAccounts = getNumberOfPOAccounts()
@@ -74,18 +82,19 @@ class ManageWorkspacePage extends BasePage {
         click(manageworkspace.closeButton, "Close Button on Modal Popup of PO Popup")
         Assert.assertEquals(getNumberOfPOAccounts(), numberOfPOAccounts + 1, "Number of PO Accounts are not equal to: " + getNumberOfPOAccounts())
     }
-
     def getNumberOfPOAccounts() {
         return manageworkspace.numberOfPOAccounts
     }
 
+
+
+/*MEMEBERS TAB FUNCTIONS*/
     def deleteAllMembersFromMembersTab(){
         while(manageworkspace.membersTableSize()>0){
             click(manageworkspace.deleteButton,"Delete Button on Each User")
             Thread.sleep(1000L)
         }
     }
-
     def addMemberToWorkspace(String userEmail){
         waitFor {manageworkspace.addMemberButton}
         click(manageworkspace.addMemberButton,"Add Member button")
@@ -97,13 +106,11 @@ class ManageWorkspacePage extends BasePage {
         waitFor {manageworkspace.addedButtoninAddUserModal}
         click(manageworkspace.closeButton,"Close Button")
     }
-
     def deleteMembersFromWorkspace(String userEmail){
         waitFor {manageworkspace.deleteIconBasedOnMember(userEmail)}
         click(manageworkspace.deleteIconBasedOnMember(userEmail),"Delete icon")
         Thread.sleep(2000)
     }
-
     def checkIfMemberIsDisplayed(String memberEmail){
         for(int i=0;i<manageworkspace.membersTableSize;i++){
             if(manageworkspace.eachMemberNameInMembersTab(i).text().trim().equals(memberEmail)){
@@ -112,7 +119,6 @@ class ManageWorkspacePage extends BasePage {
         }
         return false
     }
-
     def checkIfMemberIsNotDisplayed(String memberEmail){
         for(int i=0;i<manageworkspace.membersTableSize;i++){
             if(manageworkspace.eachMemberNameInMembersTab(i).text().trim().equals(memberEmail)){
@@ -122,4 +128,30 @@ class ManageWorkspacePage extends BasePage {
         return true
     }
 
+
+
+/*CLINICAL REPORTS FUNCTIONS*/
+    def clickItemsPerPageAndChooseValue(String value = HUNDRED) {
+        Thread.sleep(3000L);
+        if (panelBuilder.activePaginatorButton.displayed) {
+            waitFor {panelBuilder.activePaginatorButton}
+            scrollToCenter(panelBuilder.activePaginatorButton)
+            Thread.sleep(2000)
+            click(panelBuilder.activePaginatorButton, "Paginator Button")
+            waitFor { panelBuilder.paginatorDropDownValue(value) }
+            scrollToCenter(panelBuilder.paginatorDropDownValue(value))
+            click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
+        }
+    }
+    def deleteAllClinicalReports(){
+        clickItemsPerPageAndChooseValue()
+        while(!manageworkspace.numberOfClinicalReports.equals(ZERO)){
+            waitFor {manageworkspace.deleteClinicalReportsButton}
+            click(manageworkspace.deleteClinicalReportsButton,"First Clinical Report Delete Button at Manage Workspace Page")
+            waitFor {manageworkspace.deleteButtonOnModalPopup}
+            click(manageworkspace.deleteButtonOnModalPopup,"Delete CR button on Modal Popup at Manage Workspace Page")
+            waitFor {manageworkspace.closeButtonOnModalPopup}
+            click(manageworkspace.closeButtonOnModalPopup,"Close Button on Modal Popup")
+        }
+    }
 }
