@@ -141,6 +141,7 @@ class ManageWorkspacePage extends BasePage {
             waitFor { panelBuilder.paginatorDropDownValue(value) }
             scrollToCenter(panelBuilder.paginatorDropDownValue(value))
             click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
+            scrollToCenter(manageworkspace.legendClinicalReports)
         }
     }
     def deleteAllClinicalReports(){

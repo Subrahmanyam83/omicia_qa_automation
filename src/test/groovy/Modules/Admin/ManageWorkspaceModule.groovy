@@ -51,6 +51,7 @@ class ManageWorkspaceModule extends Module {
         eachMemberNameInMembersTab      { int index-> $("#members-table tbody tr")[index].find("td")[2] }
 
         /*CLinical Reports*/
+        legendClinicalReports           { $("legend",text:contains("Clinical Reports"))}
         numberOfClinicalReports         { $("#clinical_report .paginator-row").size()}
         deleteClinicalReportsButton     { $("td button.delete-report").getAt(0)}
         deleteButtonOnModalPopup        { modalPopup.find(".modal-footer .close-button",text:contains("Delete"))}
