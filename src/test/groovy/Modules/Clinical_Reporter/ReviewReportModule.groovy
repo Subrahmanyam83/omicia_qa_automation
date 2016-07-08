@@ -10,7 +10,8 @@ class ReviewReportModule extends Module {
     static content = {
 
         /*Header Buttons*/
-        interpretVariants           { $(".review-report-buttons div a.btn.interpret-variants", text: contains("Interpret Variants"))}
+        reviewReportLegend          { $("legend",text:contains("Review Report"))}
+        interpretVariants           { $(".review-report-buttons div a.btn.interpret-variants").getAt(0)}
         saveFieldsButton            { $(".pull-right.buttons.review-report-buttons div .btn-success.save") }
         previewPDFButton            { $(".pull-right.buttons.review-report-buttons div .btn-info.preview") }
         setStatusButton             { $(".pull-right.buttons.review-report-buttons div span div.set-to-status-dropdown") }
