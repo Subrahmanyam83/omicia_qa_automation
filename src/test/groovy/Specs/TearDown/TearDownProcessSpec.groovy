@@ -162,7 +162,7 @@ class TearDownProcessSpec extends BaseSpec {
         }
     }
 
-    @Test(priority = 6, description = "Remove test user from the Automation Workspaces", dependsOnMethods = ["deleteClinicalReports","deleteClinicalReports","deletePanels","deleteAllGeneSets","deleteFilteringProtocols","deleteAllProjects"])
+    @Test(priority = 6, description = "Remove test user from the Automation Workspaces", dependsOnMethods = ["deleteClinicalReports","deletePanels","deleteAllGeneSets","deleteFilteringProtocols","deleteAllProjects"])
     public void deleteUsersFromWorkspaces() {
         to LoginPage
         loginWithUser(ADMIN)
