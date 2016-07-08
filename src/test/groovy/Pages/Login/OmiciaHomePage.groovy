@@ -9,7 +9,9 @@ import Utilities.Class.BasePage
  */
 class OmiciaHomePage extends BasePage{
 
-    static at = {header.homePageHeaderOmiciaText.displayed}
+    static at = {
+        header.homePageHeaderOmiciaText.displayed
+    }
 
     static content = {
         home {module HomeModule}
@@ -21,30 +23,11 @@ class OmiciaHomePage extends BasePage{
     }
 
     def openUploadGenomes(){
+        waitFor {home.uploadGenomesButton}
         click(home.uploadGenomesButton,"Upload Genome Button");
     }
 
     def openProjects(){
         click(home.projectsButton,"Projects Button");
-    }
-
-    def switchWorkspace(String workspace) {
-        waitFor { home.workSpaceDropDown }
-        click(home.workSpaceDropDown, "Workspace Drop Down")
-        waitFor { home.workSpaceDropDownValue(workspace) }
-        click(home.workSpaceDropDownValue(workspace), "Workspace Value on Drop Down")
-        waitFor { home.switchWorkspaceAlert("Selected workspace: " + workspace) }
-    }
-
-    def getNamesOfAllWorkSpaces() {
-        waitFor { home.workSpaceDropDown }
-        click(home.workSpaceDropDown, "Workspace Drop Down")
-        int numberOfWorkspaces = home.numberOfWorkSpaces.size();
-        List workspaceNames = new ArrayList()
-        for (int i = 0; i < numberOfWorkspaces; i++) {
-            workspaceNames.add(home.numberOfWorkSpaces[i].text())
-        }
-        click(home.workSpaceDropDown, "Workspace Drop Down")
-        return workspaceNames
     }
 }

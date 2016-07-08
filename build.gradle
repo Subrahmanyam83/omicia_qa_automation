@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-
     def gebVersion = "0.12.2"
     def testngVersion = "6.9.10"
     def seleniumVersion = "2.53.0"
@@ -33,20 +32,23 @@ dependencies {
     compile "org.apache.httpcomponents:fluent-hc:4.5.2"
     compile "javax.xml.parsers:jaxp-api:1.4.5"
     compile "org.uncommons:reportng:1.1.4"
+    compile "org.apache.poi:poi:3.10-FINAL"
+    compile "org.apache.poi:poi-ooxml:3.10-FINAL"
 }
 
 drivers.each { driver ->
     task "${driver}Test"(type: Test, dependsOn: [classes, testClasses]) {
         doFirst {
             delete "reports", "test-output"
+            editTestNGParams()
             testNGXMLCreator.execute()
         }
         outputs.upToDateWhen { false }
         useTestNG {
             convertPropertiesToSystemProperties()
             systemProperty "geb.env", driver;
-            //reports.html.enabled = false;  Enable this when you do not want default JUNIT Reports
             reports.html.destination = System.properties['junit.reports.directory']
+            useDefaultListeners = true
             suites 'src/test/resources/testng.xml'
         }
     }
@@ -57,8 +59,26 @@ task(testNGXMLCreator, dependsOn: ['classes'], type: JavaExec) {
     classpath = sourceSets.test.runtimeClasspath
 }
 
-/* This Function reads the project.properties file and puts each K,V pair into System Properties.*/
+public void editTestNGParams() {
+    FileInputStream file = new FileInputStream("./src/main/resources/project.properties");
+    Properties props = new Properties();
+    props.load(file);
+    file.close();
 
+    FileOutputStream out = new FileOutputStream("./src/main/resources/project.properties");
+    props.setProperty("browser", System.properties['browser']);
+    props.setProperty("geb.build.baseUrl", System.properties['geb.build.baseUrl']);
+    props.setProperty("parallel", System.properties['parallel']);
+    props.setProperty("threadCount", System.properties['threadCount']);
+    props.setProperty("package.name", System.properties['package.name']);
+    props.setProperty("group.name", System.properties['group.name']);
+    props.setProperty("class.name", System.properties['class.name']);
+    props.setProperty("method.name", System.properties['method.name']);
+    props.store(out, null);
+    out.close();
+}
+
+/* This Function reads the project.properties file and puts each K,V pair into System Properties.*/
 public void convertPropertiesToSystemProperties() {
     String rootDir = new File(".").getCanonicalPath() /*Absolute Path*/
     String projectPropertiesPath = rootDir + "/src/main/resources/project.properties".replace('/', File.separator)
@@ -71,3 +91,39 @@ public void convertPropertiesToSystemProperties() {
     }
 }
 
+task testCasesDetails(type: Test, dependsOn: [classes, testClasses]) {
+    outputs.upToDateWhen { false }
+    useTestNG {
+        suites 'src/test/resources/xmls/test-case-details.xml'
+    }
+}
+
+task reRunTest(type: Test, dependsOn: [classes, testClasses]) {
+    doFirst{
+        copyTask.execute()
+    }
+    outputs.upToDateWhen { false }
+    useTestNG {
+        convertPropertiesToSystemProperties()
+        reports.html.destination = System.properties['junit.rerun.reports.directory']
+        systemProperty "extent.reports.directory",System.properties['extent.rerun.reports.directory']
+        systemProperty "geb.env", System.properties['geb.build.baseUrl'];
+        useDefaultListeners = true
+        if(new File('reports/Junit-Reports/testng-failed.xml').exists()){
+            suites 'src/test/resources/xmls/testng-failed.xml'
+        }
+        else{
+            suites 'src/test/resources/xmls/testng-pass.xml'
+        }
+    }
+}
+
+task (copyTask, type: Copy) {
+    if(new File('src/test/resources/xmls/testng-failed.xml').exists()){
+        delete 'src/test/resources/xmls/testng-failed.xml'
+    }
+    if(new File('reports/Junit-Reports/testng-failed.xml').exists()){
+        from 'reports/Junit-Reports/testng-failed.xml'
+        into 'src/test/resources/xmls/'
+    }
+}

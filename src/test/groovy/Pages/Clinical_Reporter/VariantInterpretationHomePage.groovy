@@ -3,6 +3,8 @@ package Pages.Clinical_Reporter
 import Modules.Clinical_Reporter.VariantInterpretationHomeModule
 import Modules.Clinical_Reporter.VariantSelectionModule
 import Utilities.Class.BasePage
+import org.openqa.selenium.interactions.Actions
+import org.testng.Assert
 
 /**
  * Created by E002183 on 4/26/2016.
@@ -33,6 +35,14 @@ class VariantInterpretationHomePage extends BasePage {
         return Integer.parseInt(variantSelection.numberOfItems.text().replace(" Items", ""))
     }
 
+    def getReviewPriority(String variantName, List colors, int index = 0){
+        colors.each {
+            color->
+                waitFor {variantSelection.getVariantClassification(variantName, index, color).displayed }
+        }
+        return true
+    }
+
     def getPositionDBSNPBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getPositionDBSNAP(variantName, index).displayed }
         return variantSelection.getPositionDBSNAP(variantName, index).text().replace("\n", " ")
@@ -48,6 +58,60 @@ class VariantInterpretationHomePage extends BasePage {
         return interpretVariantsHome.getEffectBasedOnVariant(variantName, index).text().replaceAll("\n", " ")
     }
 
+    def getZygosity(String variantName, int index = 0){
+        waitFor {variantSelection.zygosity(variantName,index)}
+        return variantSelection.zygosity(variantName,index).text().trim()
+    }
+
+    def getMotherZygosity(String variantName, int index = 0){
+        waitFor {variantSelection.motherZygosity(variantName,index)}
+        return variantSelection.motherZygosity(variantName,index).text().trim()
+    }
+
+    def getFatherZygosity(String variantName, int index = 0){
+        waitFor {variantSelection.fatherZygosity(variantName,index)}
+        return variantSelection.fatherZygosity(variantName,index).text().trim()
+    }
+
+    def getSiblingZygosity(String variantName, int index = 0){
+        waitFor {variantSelection.siblingZygosity(variantName,index)}
+        return variantSelection.siblingZygosity(variantName,index).text().trim()
+    }
+
+    def getQualityGQCoverage(String variantName, int index = 0){
+        waitFor {variantSelection.qualityGQCoverage(variantName,index)}
+        int size = variantSelection.qualityGQCoverage(variantName,index).text().split("\n").size()
+        for(int i = 0;i< size;i++){
+            waitFor {!variantSelection.qualityGQCoverage(variantName,index).text().split("\n")[i].equals(NONE)}
+        }
+        return true
+    }
+
+    def getOmiciaScore(String variantName, int index = 0){
+        waitFor {variantSelection.omiciaScore(variantName,index)}
+        int size = variantSelection.omiciaScore(variantName,index).text().split("\n").size()
+        for(int i = 0;i< size;i++){
+            waitFor {!variantSelection.omiciaScore(variantName,index).text().split("\n")[i].equals(NONE)}
+        }
+        return true
+    }
+
+    def getScoreContainer(String variantName, int index = 0){
+        waitFor {variantSelection.mutationTester(variantName,index)}
+        waitFor {variantSelection.polyphen(variantName,index)}
+        waitFor {variantSelection.sift(variantName,index)}
+        waitFor {variantSelection.phylop(variantName,index)}
+        return true
+    }
+
+    def getEvidence(String variantName, int index = 0){
+        waitFor {variantSelection.evidence(variantName,index)}
+            if(variantSelection.evidence(variantName,index).find("img").displayed){
+                return variantSelection.evidence(variantName,index).find("img").getAttribute("src")
+            }
+            else return NONE
+    }
+
     def getClassBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.getClassBasedOnVariant(variantName, index).displayed }
         return interpretVariantsHome.getClassBasedOnVariant(variantName, index).text().trim()
@@ -55,7 +119,7 @@ class VariantInterpretationHomePage extends BasePage {
 
     def getClassConditionBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.getClassCondition(variantName, index).displayed }
-        return interpretVariantsHome.getClassCondition(variantName, index).text().trim()
+        return interpretVariantsHome.getClassCondition(variantName, index).text().replace("\n"," ").trim()
     }
 
     def getScoringStatusBasedOnVariant(String variantName, int index = 0) {
@@ -69,7 +133,7 @@ class VariantInterpretationHomePage extends BasePage {
     }
 
     def getLatestClassificationBasedOnVariant(String variantName, int index = 0) {
-        waitFor { interpretVariantsHome.getLatestClassification(variantName, index).displayed }
+        waitFor { interpretVariantsHome.getLatestClassification(variantName, index) }
         return interpretVariantsHome.getLatestClassification(variantName, index).text().trim()
     }
 
@@ -90,7 +154,10 @@ class VariantInterpretationHomePage extends BasePage {
 
     def getPhevorRankBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getPhevorGeneRank(variantName, index).displayed }
-        return Integer.parseInt(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " "))
+        if(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " ").equals("")){
+            return NONE
+        }
+        else return Integer.parseInt(variantSelection.getPhevorGeneRank(variantName, index).text().replace("\n", " "))
     }
 
     def getInheritanceMode(String variantName, int index = 0) {
@@ -105,7 +172,10 @@ class VariantInterpretationHomePage extends BasePage {
 
     def getVAASTGeneRankBasedOnVariant(String variantName, int index = 0) {
         waitFor { variantSelection.getVAASTGeneRank(variantName, index).displayed }
-        return Integer.parseInt(variantSelection.getVAASTGeneRank(variantName, index).text().trim())
+        if(variantSelection.getVAASTGeneRank(variantName, index).text().trim().equals("")){
+            return NONE
+        }
+        else return Integer.parseInt(variantSelection.getVAASTGeneRank(variantName, index).text().trim())
     }
 
     def getVAASTRankBasedOnVariant(String variantName, int index = 0) {
@@ -123,13 +193,60 @@ class VariantInterpretationHomePage extends BasePage {
         return variantSelection.getVAASTGScore(variantName, index).text().replace("\n", " ")
     }
 
+    def getVariantIdBasedOnVariantName(String variantName, int index = 0) {
+        return interpretVariantsHome.getVariantIdWithIndexBasedOnVariantName.toString().trim()
+    }
+
+    def clickVariantChromosomePosition(String variantName, int index = 0){
+        waitFor {variantSelection.chromosomePositionBasedOnVariant(variantName,index)}
+        click(variantSelection.chromosomePositionBasedOnVariant(variantName,index),"Chromosome Position of Variant: "+variantName)
+    }
+
+    def clickVariantChromosomeDBSNP(String variantName, int index = 0){
+        waitFor {variantSelection.chromosomeDBSNPBasedOnVariant(variantName,index)}
+        click(variantSelection.chromosomeDBSNPBasedOnVariant(variantName,index),"Chromosome DBSNP of Variant: "+variantName)
+    }
+
     def clickOnInterpretVariantBasedOnVariant(String variantName, int index = 0) {
         waitFor { interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index).displayed }
+        scrollToCenter(interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index))
         click(interpretVariantsHome.interpretVariantLinkBasedOnVariant(variantName, index), "Interpret Variant of the Variant: '" + variantName + "'")
     }
 
-    def getVariantIdBasedOnVariantName(String variantName, int index = 0) {
-        return interpretVariantsHome.getVariantIdWithIndexBasedOnVariantName.toString().trim()
+    def clickOnEffectBasedOnVariant(String variantName, int index = 0){
+        waitFor {variantSelection.getEffectBasedOnVariant(variantName,index)}
+        click(variantSelection.getEffectBasedOnVariant(variantName,index),"Effect Link of the Variant: "+variantName)
+
+        switch (variantName){
+            case MISSENSE:
+                waitFor {variantSelection.transcriptsDiv}
+                waitFor {variantSelection.consensusTable}
+                waitFor {variantSelection.nnSpliceTable}
+                waitFor {variantSelection.proteinDomainTable}
+                break;
+        }
+    }
+
+    def closeModalPopup(){
+        waitFor {variantSelection.modalCloseButton}
+        click(variantSelection.modalCloseButton,"Modal Popup Close Button")
+    }
+
+    def getNumberOfCheckBoxesInShowHideColumns(){
+        waitFor {variantSelection.showHideColumnsButton}
+        click(variantSelection.showHideColumnsButton,"Show Hide Columns Button")
+        waitFor {variantSelection.modalPopup}
+        int size = variantSelection.numberOfCheckBoxesInShowHideColumns
+        closeModalPopup()
+        return size
+    }
+
+    def changeReportSectionFromDropDown(String variantName,int index = 0, String type = PRIMARY_FINDINGS){
+        waitFor { interpretVariantsHome.reportSectionDropDown(variantName, index)}
+        scrollToCenter(interpretVariantsHome.reportSectionDropDown(variantName, index))
+        click(interpretVariantsHome.reportSectionDropDown(variantName, index),"Report Section of the "+index+1+" Variant:"+variantName)
+        waitFor {interpretVariantsHome.reportSectionDropDownValue(type)}
+        click(interpretVariantsHome.reportSectionDropDownValue(type),"Report Section Drop Down Value: "+type)
     }
 
     def runPhevor(String textFieldValue) {
@@ -143,9 +260,14 @@ class VariantInterpretationHomePage extends BasePage {
         waitFor { variantSelection.runButtonOnPhevor.displayed }
         click(variantSelection.runButtonOnPhevor, "Run Phevor Button on dialog")
 
-        waitTillElementIsNotPresent(variantSelection.runingPhevorProgressBar, "Running Phevor Progress Bar")
-        waitTillElementIsNotPresent(variantSelection.phevorProgressBar, " Phevor Progress Bar")
+        waitTillElementIsNotPresent(variantSelection.runingPhevorProgressBar, "Running Phevor Progress Bar",SIXTY)
         Thread.sleep(2000L)
+        waitFor {variantSelection.HPOTermsText}
+        Assert.equals(getHPOTermsValue().equals(textFieldValue))
+    }
+
+    def getHPOTermsValue(){
+        return variantSelection.getHPOTermsValue
     }
 
     def showHideColumns(String columnName, boolean OnOff = true) {
@@ -165,11 +287,14 @@ class VariantInterpretationHomePage extends BasePage {
 
     def clickReviewReport() {
         waitFor { interpretVariantsHome.reviewReportButton.displayed }
+        scrollToCenter(interpretVariantsHome.reviewReportButton)
         click(interpretVariantsHome.reviewReportButton, "Review Report Button")
     }
 
     def openScoreVariantsBasedOnVariantName(String variantName, int index = 0) {
+        waitFor { interpretVariantsHome.geneNameLink(variantName, index) }
         interact { moveToElement(interpretVariantsHome.geneNameLink(variantName, index)) }
+        new Actions(driver).moveToElement(interpretVariantsHome.rowBasedOnVariant(variantName, index).firstElement(), 0, 0).moveByOffset(1, 1).click().build().perform()
         waitFor { interpretVariantsHome.scoreVariantsLink }
         click(interpretVariantsHome.scoreVariantsLink, "Score Variant Link on the " + index + " " + variantName + " Variant")
     }

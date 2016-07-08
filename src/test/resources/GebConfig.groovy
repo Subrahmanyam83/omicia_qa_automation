@@ -1,3 +1,4 @@
+import org.openqa.selenium.Dimension
 import org.openqa.selenium.Platform
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -125,6 +126,7 @@ environments {
                 browserDriver.setFileDetector(new LocalFileDetector())
             }
             browserDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.MINUTES)
+            browserDriver.manage().window().setSize(new Dimension(1280,1024))
             browserDriver.manage().window().maximize()
             return browserDriver;
         }
@@ -135,6 +137,7 @@ environments {
             capabilities = DesiredCapabilities.chrome();
             ChromeOptions options = new ChromeOptions();
             options.addArguments("test-type");
+
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             String chromeDriverPath = os.equals("UNIX") ? "/usr/local/bin/chromedriver".replace("/", sep) : rootDir + "/src/main/groovy/Drivers/chromedriver.exe".replace('/', sep)
             System.setProperty("webdriver.chrome.driver", chromeDriverPath)

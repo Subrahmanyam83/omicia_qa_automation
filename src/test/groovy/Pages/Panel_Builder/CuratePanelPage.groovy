@@ -18,7 +18,9 @@ class CuratePanelPage extends BasePage{
     }
 
     def chooseFilter(String value){
+        waitFor {curatePanel.defaultFilterDropDown}
         click(curatePanel.defaultFilterDropDown,"Curate Panel Filer Drop Down");
+        waitFor {curatePanel.valueOfDefaultFilterDropDown(value)}
         click(curatePanel.valueOfDefaultFilterDropDown(value),"Curate Panel Drop Down Value: "+value)
     }
 

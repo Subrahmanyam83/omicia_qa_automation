@@ -7,6 +7,9 @@ import geb.content.SimplePageContent
 import geb.navigator.Navigator
 import org.apache.http.client.fluent.Request
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 /**
  * Created by in02183 on 2/3/2016.
  */
@@ -35,27 +38,23 @@ class BasePage extends Page implements Constants{
     }
 
     public void type(Navigator navigator, String value,String elementName){
-        waitForElement(navigator,elementName)
-        click(navigator,"Text Field: "+elementName)
         navigator << value;
         getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }
 
     public void click(Navigator navigator,String elementName){
-        waitForElement(navigator,elementName)
         navigator.click()
         getEreportTest().log(PASS,"Clicked on: "+elementName);
     }
 
     public void sendKeys(Navigator navigator,String value, String elementName){
-        waitForElement(navigator,elementName)
         navigator.firstElement().sendKeys(value);
         getEreportTest().log(PASS,"Entered : '"+value+"' on "+elementName);
     }
 
-    public boolean waitTillElementIsNotPresent(Navigator navigator,String elementName) throws Throwable{
+    public boolean waitTillElementIsNotPresent(Navigator navigator,String elementName, int time = 30) throws Throwable{
         try{
-            for(int i=0;i<30;i++) {
+            for(int i=0;i<time;i++) {
                 if (!(navigator.isDisplayed())) {
                     getEreportTest().log(PASS,"Wait on the Element Not Present successful on the element: "+elementName);
                     Thread.sleep(1000L)
@@ -83,5 +82,16 @@ class BasePage extends Page implements Constants{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    def generateRandom() {
+        Random r = new Random(System.currentTimeMillis());
+        return 1000000000 + r.nextInt(2000000000);
+    }
+
+    def getCurrentDate(){
+        Date currDate = new Date()
+        DateFormat dFormat = new SimpleDateFormat("MMM dd, yyyy")
+        return dFormat.format(currDate).toString()
     }
 }

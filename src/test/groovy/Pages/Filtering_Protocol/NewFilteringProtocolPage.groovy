@@ -1,6 +1,7 @@
 package Pages.Filtering_Protocol
 
 import Modules.Filtering_Protocol.NewFilteringProtocolModule
+import Modules.Panel_Builder.PanelBuilderModule
 import Utilities.Class.BasePage
 
 /**
@@ -14,6 +15,7 @@ class NewFilteringProtocolPage extends BasePage {
 
     static content = {
         filteringprotocol { module NewFilteringProtocolModule }
+        panelBuilder {module PanelBuilderModule}
     }
 
     def createNewFilteringProtocol() {
@@ -64,9 +66,23 @@ class NewFilteringProtocolPage extends BasePage {
 
     def saveFilteringProtocol() {
         click(filteringprotocol.saveFilteringProtocolButton, "Save Filtering Protocol")
+        waitFor {filteringprotocol.newFilteringProtocolButton}
+        waitFor {filteringprotocol.filteringProtocolWorkSpace}
     }
 
     def verifyNewFilteringProtocolIsCreated(String filteringprotocolName) {
+        clickItemsPerPageAndChooseValue()
         waitFor { filteringprotocol.newFilteringProtocolRowBasedOnName(filteringprotocolName) }
+    }
+
+    def clickItemsPerPageAndChooseValue(String value = HUNDRED) {
+        if (filteringprotocol.activePaginatorButton.displayed) {
+            scrollToCenter(filteringprotocol.activePaginatorButton)
+            click(filteringprotocol.activePaginatorButton, "Paginator Button")
+            waitFor { panelBuilder.paginatorDropDownValue(value) }
+            scrollToCenter(panelBuilder.paginatorDropDownValue(value))
+            click(panelBuilder.paginatorDropDownValue(value), "Drop Down Paginator Value: " + value)
+            scrollToCenter(filteringprotocol.newFilteringProtocolButton)
+        }
     }
 }
