@@ -102,7 +102,7 @@ public interface Constants {
     String CURATE_PANEL = "curate-panel";
     String DELETE_PANEL = "delete-panel";
 
-    String PROTIEN_FILTER = "Protein changing in coding regions";
+    String PROTIEN_FILTER = "Protein Changing, in Coding Regions";
     String SAVE_PANEL = "save-panel";
     String RETURN_TO_PANELS = "navigate-back";
 
