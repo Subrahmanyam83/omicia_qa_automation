@@ -11,6 +11,7 @@ class ReviewReportPage extends BasePage {
     static at = {
         reviewReport.interpretVariants.displayed
         reviewReport.previewPDFButton.displayed
+        reviewReport.reviewReportLegend
     }
 
     static content = {
@@ -20,18 +21,32 @@ class ReviewReportPage extends BasePage {
     def getNumberOfPrimaryFindingReports() {
         Thread.sleep(2000L)
         waitFor {reviewReport.primaryFindingDiv}
-            if(reviewReport.primaryFindingDiv.find(text:contains("Primary Findings")).displayed){
-                return reviewReport.primaryFindingReports
+        3.times {
+            try{
+                if(reviewReport.primaryFindingDiv.find(text:contains("Primary Findings")).displayed){
+                    return reviewReport.primaryFindingReports
+                }
             }
+            catch (StaleElementReferenceException){
+                Thread.sleep(500)
+            }
+        }
         return reviewReport.primaryFindingReports
     }
 
     def getNumberOfSecondaryFindingReports() {
         waitFor {reviewReport.secondaryFindingDiv }
-            if(reviewReport.secondaryFindingDiv.find(text:contains("Secondary Findings")).displayed){
-                return reviewReport.secondaryFindingReports
+        3.times {
+            try {
+                if(reviewReport.secondaryFindingDiv.find(text: contains("Secondary Findings")).displayed) {
+                    return reviewReport.secondaryFindingReports
+                }
             }
-        return reviewReport.secondaryFindingReports
+            catch (StaleElementReferenceException) {
+                Thread.sleep(500)
+            }
+        }
+         return reviewReport.secondaryFindingReports
     }
 
     def getClinicalReportId() {
